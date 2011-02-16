@@ -34,3 +34,4 @@
 
 #define kGameScreenCenterPoint		CGPointMake([[CCDirector sharedDirector] winSize].width/2,[[CCDirector sharedDirector] winSize].height/2)
 #define kGameBoxRect				CGRectMake(kGameBoxXOffset, kGameBoxYOffset, kGameBoxWidth, kGameBoxHeight)
+#define kMenuPauseButtonPoint		CGPointMake(36, 290)

@@ -28,23 +28,23 @@
 	{
 		ccp(0,0),
 		ccp(0,260),
-		ccp(14,260),
-		ccp(14,0)
+		ccp(19,260),
+		ccp(19,0)
 	};
 	
 	CGPoint barVertices[4] =
 	{
 		ccp(0,0),
 		ccp(0,self.percentage * 250),
-		ccp(14,self.percentage * 250),
-		ccp(14,0)
+		ccp(19,self.percentage * 250),
+		ccp(19,0)
 	};
 	
 	CGPoint topTriangleVertices[3] = 
 	{
 		ccp(0, self.percentage * 250),
-		ccp(14,self.percentage * 250),
-		ccp(14, (self.percentage * 250) + 14)
+		ccp(19,self.percentage * 250),
+		ccp(19, (self.percentage * 250) + 19)
 	};
 	
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

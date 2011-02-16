@@ -20,10 +20,10 @@
 		<string>Icon-Small@2x.png</string>
 	</array>
 	<key>UIAppFonts</key>
-<array>
-    <string>RedStateBlueStateBB.ttf</string>
-	<string>Comic Book.ttf</string>
-</array>
+	<array>
+		<string>RedStateBlueStateBB.ttf</string>
+		<string>Comic Book.ttf</string>
+	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.yourcompany.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -42,6 +42,13 @@
 	<true/>
 	<key>UIStatusBarHidden</key>
 	<true/>
+	<key>UIInterfaceOrientation</key>
+	<string>UIInterfaceOrientationLandscapeRight</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<dict>
 		<key>accelerometer</key>

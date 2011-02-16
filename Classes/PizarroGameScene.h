@@ -28,6 +28,8 @@
 	CCLabelTTF *scoreLabel;
 	CCLabelTTF *shapeLabel;
 	
+	CCMenuItemSprite	*pauseMenuItem;
+	
 	ManaBar		*manaBar;
 		
 	cpSpace* space;	

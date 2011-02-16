@@ -151,8 +151,21 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 	
 	// MANA BAR
 	manaBar = [[[ManaBar alloc] init] autorelease];
-	manaBar.position = ccp(7,7);
+	manaBar.position = ccp(4,7);
 	[self addChild: manaBar z: 10];
+	
+	// Pause button
+	pauseMenuItem = [CCMenuItemSprite itemFromNormalSprite: [CCSprite spriteWithFile: @"menu_button_black.png"] 
+											selectedSprite: [CCSprite spriteWithFile: @"menu_button_white.png"] 
+													target: self 
+												  selector: @selector(pauseGame)];
+	pauseMenuItem.position = kMenuPauseButtonPoint;
+	//CCMenu *menu = [CCMenu menuWithItems: pauseMenuItem, nil];
+	[self addChild: pauseMenuItem z: 1002];
+}
+
+-(void)pauseGame
+{
 	
 }
 
@@ -296,13 +309,13 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 
 -(void)updateLevel
 {
-	[self removeChild: levelLabel cleanup: YES];
-	
-	NSString *levelStr = [NSString stringWithFormat: @"%d", level];
-	levelLabel = [CCLabelTTF labelWithString: levelStr fontName: kHUDFont fontSize: kHUDFontSize];
-	levelLabel.color = ccc3(255,255,255);
-	levelLabel.position =  ccp(14 , 304 );
-	[self addChild: levelLabel z: 1001];
+//	[self removeChild: levelLabel cleanup: YES];
+//	
+//	NSString *levelStr = [NSString stringWithFormat: @"%d", level];
+//	levelLabel = [CCLabelTTF labelWithString: levelStr fontName: kHUDFont fontSize: kHUDFontSize];
+//	levelLabel.color = ccc3(255,255,255);
+//	levelLabel.position =  ccp(14 , 304 );
+//	[self addChild: levelLabel z: 1001];
 }
 
 -(void)updateScore
@@ -559,7 +572,7 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 		
 	NSLog(@"Touch began");
 
-//	if (CGRectContainsPoint(kGameBoxRect, location))
+	if (CGRectContainsPoint(kGameBoxRect, location))
 	{
 		[self createShapeAtPoint: location];
 	}
