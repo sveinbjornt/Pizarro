@@ -51,7 +51,7 @@ static void collisionExpansion (cpArbiter *arb, cpSpace *space, void *data)
 static void collision (cpArbiter *arb, cpSpace *space, void *data)
 {
 	PizarroGameScene *scene = (PizarroGameScene *)data;
-	int lvl = [scene currentLevel];
+	int lvl = [scene currentLevel]+1;
 	
 	int mod = RandomBetween(-lvl, lvl);
 	

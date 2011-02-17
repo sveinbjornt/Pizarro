@@ -83,12 +83,17 @@
 		
 		
 		// Background music
-		//[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"mainmenu_music.mp3"];
+		[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"mainmenu_music.mp3"];
 		
-		piano = [[Instrument alloc] initWithName: @"piano" numberOfNotes: 7 tempo: 0.125];
+		piano = [[Instrument alloc] initWithName: @"piano" numberOfNotes: 7 tempo: 0.1];
 		piano.delegate = self;
 		piano.selector = @selector(notePressed:);
-		[piano playSequence: @"1,2, ,3,4, ,5,6,7"];
+		//
+		//[piano playSequence: @"1,2, ,3,4, ,5,6,7"];
+		
+		//[piano playSequence: @"7, , ,7, ,6, ,5, ,4, , , , ,3, , ,2, , ,1, , ,2, ,1, ,2, ,1"];
+		
+		//[piano playSequence: @"7, ,6,5, ,4,3, ,2,1, ,2,1, ,2,1, ,3,4"];
 	}
 	return self;
 }
@@ -188,14 +193,24 @@
 {
 	NSLog(@"on play");
 	
-	
-	[[CCDirector sharedDirector] replaceScene: [CCTransitionMoveInR	 transitionWithDuration: 0.3 scene: [PizarroGameScene scene]]];
+	[piano playSequence: @"7, ,1,3,4,3,4,3"];
+	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.63];
+	[self runAction: [CCSequence actions:
+		
+		[CCDelayTime actionWithDuration: 0.65],
+		[CCCallFuncO actionWithTarget: [CCDirector sharedDirector] 
+							 selector: @selector(replaceScene:) 
+							   object: [CCTransitionMoveInR	 transitionWithDuration: 0.35 scene: [PizarroGameScene scene]]],
+										nil]];
 }
 
 - (void)onSettings:(id)sender
 {
 	NSLog(@"on settings");
 	state = kSettingsState;
+	//[piano playSequence: @"7, , ,6, ,7, , ,6, ,7, , ,6, ,7, , ,6, ,5, , ,2, , , ,1"];
+	[piano playSequence: @"1,3,2,4,3,5,7"];
+	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.5];
 	[self shiftOut];
 	[self showSettings];
 	
@@ -207,6 +222,11 @@
 {
 	state = kCreditsState;
 	
+	//[piano playSequence: @"1, , ,2, ,3, , ,4, ,5, , ,6, ,5, , ,4, ,3, , ,4, , , ,1"];
+	
+	piano.tempo = 0.07;
+	[piano playSequence: @"1,2,3,4,5,6,7"];
+	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.5];
 	[self shiftOut];
 	[self showCredits];
 	
@@ -454,6 +474,10 @@
 				state = kMainState;
 				break;
 		}
+		
+		piano.tempo = 0.07;
+		[piano playSequence: @"7,6,5,4,3,2,1"];
+		[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.5];
 	}
 	
 }

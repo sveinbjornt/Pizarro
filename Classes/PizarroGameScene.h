@@ -58,4 +58,5 @@
 -(void)createShapeAtPoint: (CGPoint)p;
 -(void)removeShape: (Shape *)shape;
 
+-(int)currentLevel;
 @end

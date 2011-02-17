@@ -43,4 +43,16 @@
 
 +(id)scene;
 
+-(void)showSettings;
+-(void)hideSettings;
+
+-(void)showCredits;
+-(void)hideCredits;
+
+
+
+-(void)shiftOut;
+-(void)shiftIn;
+
+
 @end
