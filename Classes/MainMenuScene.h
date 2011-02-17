@@ -12,20 +12,29 @@
 
 #define kMainState		0
 #define kCreditsState	1
+#define kSettingsState	2
 
 @interface MainMenuScene : CCLayerColor
 {
-	UITouch *currTouch;
-	NSMutableArray *letters;
-	CCSprite *bg1, * bg2;
-	MMLetterSprite *icon;
-	CCMenu *menu;
+	UITouch			*currTouch;
+	NSMutableArray	*letters;
 	
-	int		state;
+	CCSprite *bg1,	*bg2;
+	
+	MMLetterSprite	*icon;
+	
+	CCMenu			*menu;
+	
+	int				state;
+	
+	// Settings
+	CCLabelTTF		*musicLabel, *soundLabel, *gameCenterLabel;
+	CCMenu			*settingsMenu;
 	
 	
-	CCLabelTTF *creditsLabel;
-	CCSprite *creditsLogo;
+	// Credits
+	CCLabelTTF		*creditsLabel;
+	CCSprite		*creditsLogo;
 	
 }
 

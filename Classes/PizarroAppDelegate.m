@@ -202,5 +202,47 @@
 	CCLOG(@"Texture cache: %@", [[CCTextureCache sharedTextureCache] description]);
 }
 
+#pragma mark -
+#pragma mark Settings
+
+- (void)toggleMusic
+{
+	NSLog(@"Toggling music");
+	BOOL enabled = [[[NSUserDefaults standardUserDefaults] valueForKey: @"MusicEnabled"] boolValue];
+	
+	if (!enabled)
+		[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume: 1.0f];
+	else
+		[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume: 0.0f];
+	
+	[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: !enabled] forKey:@"MusicEnabled"];
+	
+	NSLog(@"Music: %d", [[[NSUserDefaults standardUserDefaults] valueForKey: @"MusicEnabled"] boolValue]);
+}
+
+- (void)toggleSound
+{
+	NSLog(@"Toggling sound effects");
+	BOOL enabled = [[[NSUserDefaults standardUserDefaults] valueForKey: @"SoundEffectsEnabled"] boolValue];
+	
+	[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: !enabled] forKey:@"SoundEffectsEnabled"];
+	
+	NSLog(@"Sound: %d", [[[NSUserDefaults standardUserDefaults] valueForKey: @"SoundEffectsEnabled"] boolValue]);
+	[SimpleAudioEngine sharedEngine].mute = ![[[NSUserDefaults standardUserDefaults] valueForKey: @"SoundEffectsEnabled"] boolValue];
+}
+
+
+- (void)toggleGameCenter
+{
+	NSLog(@"Toggling game center");
+	BOOL enabled = [[[NSUserDefaults standardUserDefaults] valueForKey: @"GameCenterEnabled"] boolValue];
+	
+	[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: !enabled] forKey:@"GameCenterEnabled"];
+	
+	NSLog(@"Game Center: %d", [[[NSUserDefaults standardUserDefaults] valueForKey: @"GameCenterEnabled"] boolValue]);
+	
+}
+
+
 
 @end

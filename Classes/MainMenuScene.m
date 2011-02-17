@@ -168,17 +168,24 @@
 
 }
 
+#pragma mark -
+#pragma mark Main menu button actions
+
 - (void)onPlay:(id)sender
 {
 	NSLog(@"on play");
 	
 	
-	[[CCDirector sharedDirector] replaceScene: [CCTransitionMoveInR	 transitionWithDuration: 0.7 scene: [PizarroGameScene scene]]];
+	[[CCDirector sharedDirector] replaceScene: [CCTransitionMoveInR	 transitionWithDuration: 0.3 scene: [PizarroGameScene scene]]];
 }
 
 - (void)onSettings:(id)sender
 {
 	NSLog(@"on settings");
+	state = kSettingsState;
+	[self shiftOut];
+	[self showSettings];
+	
 	//[[Director sharedDirector] replaceScene:[SettingsScene node]];
 	//	[[CCDirector sharedDirector] pushScene:[SettingsMenu scene]];
 }
@@ -192,6 +199,8 @@
 	
 //	[[CCDirector sharedDirector] pushScene:[CreditsMenu scene]];
 }
+
+#pragma mark -
 
 -(void)shiftOut
 {
@@ -240,13 +249,96 @@
 }
 
 #pragma mark -
+#pragma mark Settings
 
 -(void)showSettings
-{
+{	
+	musicLabel = [CCLabelTTF labelWithString: @"Music" fontName: kHUDFont fontSize: 32];
+	musicLabel.position = ccp(-185, 200);
+	[self addChild: musicLabel z: 1001];
+	[musicLabel runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(170, 200)]];
 	
+	soundLabel = [CCLabelTTF labelWithString: @"Sound" fontName: kHUDFont fontSize: 32];
+	soundLabel.position = ccp(-185, 160);
+	[self addChild: soundLabel z: 1001];
+	[soundLabel runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(165, 150)]];
+	
+	gameCenterLabel = [CCLabelTTF labelWithString: @"Game Center" fontName: kHUDFont fontSize: 32];
+	gameCenterLabel.position = ccp(-185, 120);
+	[self addChild: gameCenterLabel z: 1001];
+	[gameCenterLabel runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(125, 100)]];
+	
+	
+	CCMenuItem *musicOnItem = [CCMenuItemImage itemFromNormalImage:@"checkbox_on.png"
+													 selectedImage:@"checkbox_on.png"
+															target:nil
+														  selector:nil];
+	
+	CCMenuItem *musicOffItem = [CCMenuItemImage itemFromNormalImage:@"checkbox_off.png"
+													  selectedImage:@"checkbox_off.png"
+															 target:nil
+														   selector:nil];
+	
+	CCMenuItem *soundOnItem = [CCMenuItemImage itemFromNormalImage:@"checkbox_on.png"
+													 selectedImage:@"checkbox_on.png"
+															target:nil
+														  selector:nil];
+	
+	CCMenuItem *soundOffItem = [CCMenuItemImage itemFromNormalImage:@"checkbox_off.png"
+													  selectedImage:@"checkbox_off.png"
+															 target:nil
+														   selector:nil];
+	
+	CCMenuItem *gameCenterOnItem = [CCMenuItemImage itemFromNormalImage:@"checkbox_on.png"
+														  selectedImage:@"checkbox_on.png"
+																 target:nil
+															   selector:nil];
+	
+	CCMenuItem *gameCenterOffItem = [CCMenuItemImage itemFromNormalImage:@"checkbox_off.png"
+														   selectedImage:@"checkbox_off.png"
+																  target:nil
+																selector:nil];
+	
+	CCMenuItemToggle *toggleSound = [CCMenuItemToggle itemWithTarget: [[UIApplication sharedApplication] delegate] selector:@selector(toggleSound) items:
+									 soundOffItem,
+									 soundOnItem,
+									 nil];
+	toggleSound.selectedIndex = [[[NSUserDefaults standardUserDefaults] valueForKey: @"SoundEffectsEnabled"] boolValue];
+	
+	CCMenuItemToggle *toggleMusic = [CCMenuItemToggle itemWithTarget: [[UIApplication sharedApplication] delegate] selector:@selector(toggleMusic) items:
+									 musicOffItem,
+									 musicOnItem,
+									 nil];
+	toggleMusic.selectedIndex = [[[NSUserDefaults standardUserDefaults] valueForKey: @"MusicEnabled"] boolValue];
+		
+	CCMenuItemToggle *toggleGameCenter = [CCMenuItemToggle itemWithTarget: [[UIApplication sharedApplication] delegate] selector:@selector(toggleGameCenter) items:
+										  gameCenterOffItem,
+										  gameCenterOnItem,
+										  nil];
+	toggleGameCenter.selectedIndex = [[[NSUserDefaults standardUserDefaults] valueForKey: @"GameCenterEnabled"] boolValue];
+	
+	settingsMenu = [CCMenu menuWithItems: toggleSound, toggleMusic, toggleGameCenter, nil];
+	[settingsMenu alignItemsVerticallyWithPadding: 0.0f];
+	settingsMenu.position = ccp(-185,150);
+	[self addChild: settingsMenu];
+	[settingsMenu runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(240,150)]];
+
+}
+
+-(void)hideSettings
+{
+	[musicLabel runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.3 position: ccp(-185, 200)],
+							 [CCCallFunc actionWithTarget: musicLabel selector: @selector(dispose)], nil]];
+	[soundLabel runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.3 position: ccp(-185, 160)],
+							[CCCallFunc actionWithTarget: soundLabel selector: @selector(dispose)], nil]];
+	[gameCenterLabel runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.3 position: ccp(-185, 120)],
+							[CCCallFunc actionWithTarget: gameCenterLabel selector: @selector(dispose)], nil]];
+	[settingsMenu runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.3 position: ccp(-185, 120)],
+								 [CCCallFunc actionWithTarget: settingsMenu selector: @selector(dispose)], nil]];
 }
 
 #pragma mark -
+#pragma mark Credits
 
 -(void)showCredits
 {
@@ -278,8 +370,22 @@
 {
 	float pitches[] = { 1.0, 0.891, 0.75 };
 	float pitch =  pitches[RandomBetween(0, 2)];
-	[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];
-	
+	[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];	
+}
+
+-(void)playNote: (int)note
+{
+	float scaleNormal, scaleLarge;
+	if (state != kMainState)
+	{
+		scaleNormal = 0.8;
+		scaleLarge = 1.2;
+	}
+	[letter runAction: [CCSequence actions:
+						[CCScaleTo actionWithDuration: 0.1 scale: scaleLarge],
+						[CCScaleTo actionWithDuration: 0.1 scale: scaleNormal],
+						]];
+	[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%d.wav", note+1] pitch:1.0f pan:0.0f gain:0.3f]
 }
 
 #pragma mark -
@@ -339,7 +445,7 @@
 			case kSettingsState:
 				[self shiftIn];
 				[self hideSettings];
-				state = kSettingsState;
+				state = kMainState;
 				break;
 		}
 	}

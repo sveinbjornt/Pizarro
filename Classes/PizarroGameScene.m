@@ -111,6 +111,7 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 		[self setupHUD];
 		[self setupGame];
 		[self updateCurrentShape];
+		
 		[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"bassline.mp3"];
 	}
 	return self;
@@ -160,6 +161,7 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 											selectedSprite: [CCSprite spriteWithFile: @"menu_button_white.png"] 
 													target: self 
 												  selector: @selector(pauseGame)];
+	
 	pauseMenuItem.position = kMenuPauseButtonPoint;
 	//CCMenu *menu = [CCMenu menuWithItems: pauseMenuItem, nil];
 	[self addChild: pauseMenuItem z: 1002];
@@ -167,7 +169,7 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 
 -(void)pauseGame
 {
-	
+	NSLog(@"Paused");
 }
 
 -(void)setupGame

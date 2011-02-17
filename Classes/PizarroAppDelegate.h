@@ -10,11 +10,13 @@
 
 @class RootViewController;
 
-@interface PizarroAppDelegate : NSObject <UIApplicationDelegate> {
+@interface PizarroAppDelegate : NSObject <UIApplicationDelegate> 
+{
 	UIWindow			*window;
 	RootViewController	*viewController;
 }
 
 @property (nonatomic, retain) UIWindow *window;
 
+-(void)loadResources;
 @end
