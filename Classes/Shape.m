@@ -43,6 +43,10 @@
 		color = ccc3(120,0,0);
 }
 
+-(void)addToSpace: (cpSpace *)space
+{
+	// override in subclass
+}
 
 -(float)area
 {

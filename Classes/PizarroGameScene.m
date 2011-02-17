@@ -113,6 +113,8 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 		[self updateCurrentShape];
 		
 		[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"bassline.mp3"];
+		
+		[self startLevel];
 	}
 	return self;
 }
@@ -138,9 +140,9 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 {	
 	// BACKGROUND
 	CCSprite *bg = [CCSprite spriteWithFile: @"bg.png"];
-	bg.blendFunc = (ccBlendFunc) { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
+	//bg.blendFunc = (ccBlendFunc) { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
 	bg.position = kGameScreenCenterPoint;
-	[self addChild: bg z: 1000];
+	[self addChild: bg z: 100];
 	
 	// TIMER
 	[self updateTimer];
@@ -154,7 +156,7 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 	// MANA BAR
 	manaBar = [[[ManaBar alloc] init] autorelease];
 	manaBar.position = ccp(4,7);
-	[self addChild: manaBar z: 10];
+	[self addChild: manaBar z: 99];
 	
 	// Pause button
 	pauseMenuItem = [CCMenuItemSprite itemFromNormalSprite: [CCSprite spriteWithFile: @"menu_button_black.png"] 
@@ -164,7 +166,7 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 	
 	pauseMenuItem.position = kMenuPauseButtonPoint;
 	//CCMenu *menu = [CCMenu menuWithItems: pauseMenuItem, nil];
-	[self addChild: pauseMenuItem z: 1002];
+	[self addChild: pauseMenuItem z: 10002];
 }
 
 -(void)pauseGame
@@ -174,28 +176,36 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 
 -(void)setupGame
 {
-	// null out matrix
+	//surface matrix
 	surface = [[SurfaceMatrix alloc] init];
+	
+	// game backing texture
+	bgRenderTexture = [BGRenderTexture renderTextureWithWidth: kGameBoxWidth height: kGameBoxHeight];
+	[bgRenderTexture setPosition: kGameBoxCenterPoint];
+	[bgRenderTexture clear];
+	//[[bgRenderTexture sprite] setBlendFunc:(ccBlendFunc){GL_ONE, GL_ONE_MINUS_SRC_ALPHA}];
+	[self addChild: bgRenderTexture z: 90];
 	
 	// Array of objects
 	shapes = [[NSMutableArray alloc] initWithCapacity: kMaxShapes];
+	bounceBalls = [[NSMutableArray alloc] initWithCapacity: kMaxBounceBalls];
 	
+	// Timers
 	[self schedule: @selector(tick:) interval: 1.0/60];
 	[self schedule: @selector(timeTicker:) interval: 1.0];
 	[self schedule: @selector(symbolTicker:) interval: 2.0];
+	
+	// Physics engine
 	[self setupChipmunk];
 }
 
 
 -(void)setupChipmunk
 {
-	
 	cpInitChipmunk();
 	
-	space = cpSpaceNew();
-	
-	space->gravity = cpv(0,0);
-	
+	space = cpSpaceNew();	
+	space->gravity = cpv(0,0); // zero gravity
 	space->elasticIterations = 0;
 	
 	
@@ -273,35 +283,12 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 	
 	
 	
-	BadCircle *bounceBall = [[[BadCircle alloc] init] autorelease];
-	bounceBall.size = 20;
-	bounceBall.position = ccp(200,200);
-	[self addChild: bounceBall];
+	 
 	
-	cpBody* ballBody = cpBodyNew(20, INFINITY);
+	// Add collision handlers
 	
-	
-	ballBody->p = cpv(bounceBall.position.x, bounceBall.position.y);
-	
-	cpSpaceAddBody(space, ballBody);
-	
-	cpShape* ballShape = cpCircleShapeNew(ballBody, bounceBall.size/2, cpvzero);
-	
-	ballShape->e = 1.0;
-	
-	ballShape->u = 0.0;
-	
-	ballShape->data = bounceBall;
-	
-	ballShape->collision_type = 1;
-	
-	cpSpaceAddShape(space, ballShape);
-	cpBodyApplyImpulse(ballBody, cpv(10000,10000),cpvzero);
-	
-	
-	cpSpaceAddCollisionHandler(space, 1, 2, NULL, NULL, &collisionExpansion, NULL, NULL);
-	
-	cpSpaceAddCollisionHandler(space, 1, 0, NULL, NULL, &collision, NULL, self);
+	cpSpaceAddCollisionHandler(space, 1, 2, NULL, NULL, &collisionExpansion, NULL, NULL);  // collision between expanding shape and bouncing ball
+	cpSpaceAddCollisionHandler(space, 1, 0, NULL, NULL, &collision, NULL, self); // collision between finished circles or walls and a bouncing ball
 
 	
 }
@@ -530,59 +517,102 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 -(void)createShapeAtPoint: (CGPoint)p
 {
 	// Create shape and add it to scene
-	
 	currentShape = [[[currentShapeClass alloc] init] autorelease];
 	currentShape.position = p;
-	[self addChild: currentShape];
-	
-	// Create Chipmunk physics stuff
-	
-	// Create body
-	currentShape.cpBody = cpBodyNew(INFINITY, INFINITY);
-	currentShape.cpBody->p = currentShape.position;
-	
-	cpSpaceAddBody(space, currentShape.cpBody);
-	
-	// Add shape to body
-	currentShape.cpShape = cpCircleShapeNew(currentShape.cpBody, currentShape.size, cpvzero);
-	
-	currentShape.cpShape->e = 1.0;
-	currentShape.cpShape->u = 0.0;
-	currentShape.cpShape->data = currentShape;
-	currentShape.cpShape->group = 100;
-	currentShape.cpShape->collision_type = 2;
-	
-	cpSpaceAddShape(space, currentShape.cpShape);
-	
+	[currentShape addToSpace: space];
+	[self addChild: currentShape z: 98];
+		
 	//[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch:1.0f pan:0.0f gain:0.3f];
 }
 
 -(void)endExpansionOfShape: (Shape *)shape
 {
-	shape.expanding = NO;
-	shape.fullSize = shape.size;
 	
-	[surface updateWithShape: shape];
+	// Failure, shape too small
+	if (shape.size < kMinimumShapeSize)
+	{
+		shape.destroyed = YES;
+		shape.ended = NOW;
+		[self removeShape: shape];
+		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch:0.891 pan:0.0f gain:0.3f];
+	}
+	else
+	{
+		shape.expanding = NO;
+		shape.fullSize = shape.size;
+
+		[surface updateWithShape: shape];
 	
-	//NSLog([surface description]);
-	[self updateScore];
-	[self percentageBlast: [surface percentageFilled] atPoint: shape.position];
-	
-	shape.cpShape->collision_type = 0;
-	[shapes addObject: shape];	
-	score += ([shape area]/100);
-	
-	[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: 1.0f pan:0.0f gain:0.3f];
+		//NSLog([surface description]);
+		[self updateScore];
+		[self percentageBlast: [surface percentageFilled] atPoint: shape.position];
+		
+		shape.cpShape->collision_type = 0;
+		[shapes addObject: shape];	
+		score += ([shape area]/100);
+		
+		[bgRenderTexture drawCircle: currentShape];
+		
+		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: 1.0f pan:0.0f gain:0.3f];
+		
+		if ([surface percentageFilled] >= 80.0f)
+			[self advanceLevel];
+	}
+
 }
 
 -(void)removeShape: (Shape *)shape
 {
-	cpSpaceRemoveShape(space, shape.cpShape);
-	cpSpaceRemoveBody(space, shape.cpBody);
+	if (shape != nil)
+	{
+		cpSpaceRemoveShape(space, shape.cpShape);
+		cpSpaceRemoveBody(space, shape.cpBody);
 	
-	[self removeChild: shape cleanup: YES];
+		[self removeChild: shape cleanup: YES];
+	}
 }
 
+-(void)startLevel
+{
+	int numBalls = level / 3;
+	if (numBalls < 1)
+		numBalls = 1;
+	if (numBalls > 5)
+		numBalls = 5;
+	
+	for (int i = 0; i < numBalls; i++)
+	{
+		BadCircle *bounceBall = [[[BadCircle alloc] init] autorelease];
+		bounceBall.size = 20;
+		bounceBall.position = ccp(200 + (i * 50),200);
+		[self addChild: bounceBall];
+		[bounceBall addToSpace: space];
+		[bounceBall pushWithVector: cpv( 4000 + (level * 1000), 4000 + (level * 1000))];
+		[bounceBalls addObject: bounceBall];
+	}
+}
+
+-(void)advanceLevel
+{
+	// Clear all shapes from our databank
+	for (Shape *s in shapes)
+	{
+		[self removeShape: s];
+	}
+	[shapes removeAllObjects];
+	
+	// Remove bouncing balls
+	for (BadCircle *b in bounceBalls)
+		[self removeShape: b];
+	[bounceBalls removeAllObjects];
+	
+	
+	[bgRenderTexture clear];
+	[surface clear]; 
+	level += 1;
+	
+	[self startLevel];
+}
 
 -(int)currentLevel
 {

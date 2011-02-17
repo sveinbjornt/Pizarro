@@ -12,13 +12,13 @@
 #import "chipmunk.h"
 #import "ManaBar.h"
 #import "SurfaceMatrix.h"
-
+#import "BGRenderTexture.h"
 
 @interface PizarroGameScene : CCLayerColor
 {	
 	NSArray		   *shapeKinds;
 	NSMutableArray *shapes;
-	NSTimeInterval	circleBegan;
+	NSMutableArray *bounceBalls;
 	
 	Shape	*currentShape;
 	Class	currentShapeClass;
@@ -29,6 +29,8 @@
 	CCLabelTTF *shapeLabel;
 	
 	CCMenuItemSprite	*pauseMenuItem;
+	
+	BGRenderTexture		*bgRenderTexture;
 	
 	ManaBar		*manaBar;
 		
@@ -58,5 +60,6 @@
 -(void)createShapeAtPoint: (CGPoint)p;
 -(void)removeShape: (Shape *)shape;
 
+-(void)advanceLevel;
 -(int)currentLevel;
 @end

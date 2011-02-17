@@ -14,5 +14,5 @@
 {
 
 }
-
+-(void)pushWithVector: (cpVect)v;
 @end

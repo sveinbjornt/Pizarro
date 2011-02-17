@@ -18,8 +18,30 @@
 {
 	if (expanding)
 		[self drawExpandingCircle];
-	else
-		[self drawCircle];
+//	else
+//		[self drawCircle];
+}
+
+-(void)addToSpace: (cpSpace *)space
+{
+	
+	// Create body
+	self.cpBody = cpBodyNew(INFINITY, INFINITY);
+	self.cpBody->p = self.position;
+	
+	cpSpaceAddBody(space, self.cpBody);
+	
+	// Add shape to body
+	self.cpShape = cpCircleShapeNew(self.cpBody, self.size, cpvzero);
+	
+	self.cpShape->e = 1.0;
+	self.cpShape->u = 0.0;
+	self.cpShape->data = self;
+	self.cpShape->group = 100;
+	self.cpShape->collision_type = 2;
+	
+	cpSpaceAddShape(space, self.cpShape);
+	
 }
 
 -(void)drawExpandingCircle

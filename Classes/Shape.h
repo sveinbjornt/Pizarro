@@ -33,7 +33,7 @@
 @property (readwrite, assign) cpBody *cpBody;
 
 
-
+-(void)addToSpace: (cpSpace *)space;
 -(float)area;
 +(NSString *)textSymbol;
 +(float)textSymbolSizeForHUD;

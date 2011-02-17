@@ -11,7 +11,9 @@
 
 #define kFullMana			10.0
 
-#define kMaxShapes			255
+#define kMaxShapes			65535
+#define kMaxBounceBalls		8
+#define kMinimumShapeSize	4
 
 #define kNumNameLetters		7
 
@@ -40,6 +42,7 @@
 #define kGameScreenHeight			320
 #define kGameScreenCenterPoint		CGPointMake([[CCDirector sharedDirector] winSize].width/2,[[CCDirector sharedDirector] winSize].height/2)
 #define kGameBoxRect				CGRectMake(kGameBoxXOffset, kGameBoxYOffset, kGameBoxWidth, kGameBoxHeight)
+#define kGameBoxCenterPoint			CGPointMake(kGameBoxXOffset + (kGameBoxWidth/2), kGameBoxYOffset + (kGameBoxHeight/2)) 
 #define kMainMenuBackgroundPoint	CGPointMake([[CCDirector sharedDirector] winSize].width/2, 65)
 #define kMainMenuMenuPoint			CGPointMake([[CCDirector sharedDirector] winSize].width/2, 42)
 #define kMainMenuIconPoint			CGPointMake(392, 220)
