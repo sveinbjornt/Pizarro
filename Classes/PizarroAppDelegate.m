@@ -13,6 +13,7 @@
 #import "HelloWorldScene.h"
 #import "RootViewController.h"
 #import "PizarroGameScene.h"
+#import "MainMenuScene.h"
 
 @implementation PizarroAppDelegate
 
@@ -112,7 +113,10 @@
 	[self removeStartupFlicker];
 	
 	// Run the intro Scene
-	[[CCDirector sharedDirector] runWithScene: [PizarroGameScene scene]];		
+	//[[CCDirector sharedDirector] runWithScene: [PizarroGameScene scene]];		
+
+	[[CCDirector sharedDirector] runWithScene: [MainMenuScene scene]];	
+	
 }
 
 

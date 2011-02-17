@@ -16,14 +16,9 @@
 #import "CCNode+Cleanup.m"
 #import "chipmunk.h"
 #import "SimpleAudioEngine.h"
+#import "Common.c"
 
 int lastPlayedIndex = 0;
-
-static inline int RandomBetween(int min_n, int max_n)
-{
-	return arc4random() % (max_n - min_n + 1) + min_n;
-}
-
 
 void updateShape(void* ptr, void* unused){
 	

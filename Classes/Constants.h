@@ -13,6 +13,8 @@
 
 #define kMaxShapes			255
 
+#define kNumNameLetters		7
+
 #define kNumShapeKinds		3
 
 #define kHUDFontSize		42
@@ -32,6 +34,12 @@
 #define kGameBoxXOffset		32
 #define kGameBoxYOffset		8
 
+#define kGameScreenWidth			480
+#define kGameScreenHeight			320
 #define kGameScreenCenterPoint		CGPointMake([[CCDirector sharedDirector] winSize].width/2,[[CCDirector sharedDirector] winSize].height/2)
 #define kGameBoxRect				CGRectMake(kGameBoxXOffset, kGameBoxYOffset, kGameBoxWidth, kGameBoxHeight)
+#define kMainMenuBackgroundPoint	CGPointMake([[CCDirector sharedDirector] winSize].width/2, 55)
+#define kMainMenuIconPoint			CGPointMake(392, 210)
 #define kMenuPauseButtonPoint		CGPointMake(36, 290)
+#define kMainMenuFirstLetterPoint	CGPointMake(54, 176)
+#define kMainMenuLetterSpacing		52
