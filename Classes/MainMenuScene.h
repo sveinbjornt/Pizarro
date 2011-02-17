@@ -10,12 +10,23 @@
 #import "cocos2d.h"
 #import "MMLetterSprite.h"
 
+#define kMainState		0
+#define kCreditsState	1
+
 @interface MainMenuScene : CCLayerColor
 {
 	UITouch *currTouch;
 	NSMutableArray *letters;
-	CCSprite *icon, *bg1, * bg2;
+	CCSprite *bg1, * bg2;
+	MMLetterSprite *icon;
 	CCMenu *menu;
+	
+	int		state;
+	
+	
+	CCLabelTTF *creditsLabel;
+	CCSprite *creditsLogo;
+	
 }
 
 +(id)scene;

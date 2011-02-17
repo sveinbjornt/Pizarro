@@ -339,6 +339,12 @@
 		F4DA73F1130C9230000045FB /* n6.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DA73EA130C9230000045FB /* n6.png */; };
 		F4DA73F2130C9230000045FB /* n7.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DA73EB130C9230000045FB /* n7.png */; };
 		F4DA74A2130C9EE5000045FB /* MMLetterSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DA74A1130C9EE5000045FB /* MMLetterSprite.m */; };
+		F4DA75F8130D19AB000045FB /* mainmenu_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F4DA75F7130D19AB000045FB /* mainmenu_music.mp3 */; };
+		F4DA7601130D1D0E000045FB /* trumpet_down.wav in Resources */ = {isa = PBXBuildFile; fileRef = F4DA75FE130D1D0E000045FB /* trumpet_down.wav */; };
+		F4DA7602130D1D0E000045FB /* trumpet_start.wav in Resources */ = {isa = PBXBuildFile; fileRef = F4DA75FF130D1D0E000045FB /* trumpet_start.wav */; };
+		F4DA7603130D1D0E000045FB /* trumpet_up.wav in Resources */ = {isa = PBXBuildFile; fileRef = F4DA7600130D1D0E000045FB /* trumpet_up.wav */; };
+		F4DA76E7130D33CF000045FB /* corrino_logo-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DA76E5130D33CF000045FB /* corrino_logo-hd.png */; };
+		F4DA76E8130D33CF000045FB /* corrino_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F4DA76E6130D33CF000045FB /* corrino_logo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -696,6 +702,12 @@
 		F4DA73EB130C9230000045FB /* n7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = n7.png; sourceTree = "<group>"; };
 		F4DA74A0130C9EE5000045FB /* MMLetterSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLetterSprite.h; sourceTree = "<group>"; };
 		F4DA74A1130C9EE5000045FB /* MMLetterSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLetterSprite.m; sourceTree = "<group>"; };
+		F4DA75F7130D19AB000045FB /* mainmenu_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainmenu_music.mp3; sourceTree = "<group>"; };
+		F4DA75FE130D1D0E000045FB /* trumpet_down.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = trumpet_down.wav; sourceTree = "<group>"; };
+		F4DA75FF130D1D0E000045FB /* trumpet_start.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = trumpet_start.wav; sourceTree = "<group>"; };
+		F4DA7600130D1D0E000045FB /* trumpet_up.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = trumpet_up.wav; sourceTree = "<group>"; };
+		F4DA76E5130D33CF000045FB /* corrino_logo-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "corrino_logo-hd.png"; sourceTree = "<group>"; };
+		F4DA76E6130D33CF000045FB /* corrino_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = corrino_logo.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1306,6 +1318,8 @@
 				F4DA7376130C8B41000045FB /* mainscreen_bg.png */,
 				F4DA7377130C8B41000045FB /* mainscreen_icon-hd.png */,
 				F4DA7378130C8B41000045FB /* mainscreen_icon.png */,
+				F4DA76E5130D33CF000045FB /* corrino_logo-hd.png */,
+				F4DA76E6130D33CF000045FB /* corrino_logo.png */,
 				F4DA72D4130C8336000045FB /* bg-hd.png */,
 				F4DA72D5130C8336000045FB /* bg.png */,
 				F4DA72D6130C8336000045FB /* menu_button_black-hd.png */,
@@ -1327,6 +1341,10 @@
 				F4DA72E6130C8341000045FB /* 6.wav */,
 				F4DA72E7130C8341000045FB /* 7.wav */,
 				F4DA72E8130C8341000045FB /* bassline.mp3 */,
+				F4DA75F7130D19AB000045FB /* mainmenu_music.mp3 */,
+				F4DA75FE130D1D0E000045FB /* trumpet_down.wav */,
+				F4DA75FF130D1D0E000045FB /* trumpet_start.wav */,
+				F4DA7600130D1D0E000045FB /* trumpet_up.wav */,
 			);
 			path = sounds;
 			sourceTree = SOURCE_ROOT;
@@ -1588,6 +1606,12 @@
 				F4DA73F0130C9230000045FB /* n5.png in Resources */,
 				F4DA73F1130C9230000045FB /* n6.png in Resources */,
 				F4DA73F2130C9230000045FB /* n7.png in Resources */,
+				F4DA75F8130D19AB000045FB /* mainmenu_music.mp3 in Resources */,
+				F4DA7601130D1D0E000045FB /* trumpet_down.wav in Resources */,
+				F4DA7602130D1D0E000045FB /* trumpet_start.wav in Resources */,
+				F4DA7603130D1D0E000045FB /* trumpet_up.wav in Resources */,
+				F4DA76E7130D33CF000045FB /* corrino_logo-hd.png in Resources */,
+				F4DA76E8130D33CF000045FB /* corrino_logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

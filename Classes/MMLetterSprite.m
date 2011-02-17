@@ -10,6 +10,7 @@
 
 
 @implementation MMLetterSprite
+@synthesize originalPosition;
 
 //- (CGRect)rect
 //{

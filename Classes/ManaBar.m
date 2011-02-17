@@ -27,8 +27,8 @@
 	CGPoint whiteVertices[4] =
 	{
 		ccp(0,0),
-		ccp(0,260),
-		ccp(19,260),
+		ccp(0,270),
+		ccp(19,270),
 		ccp(19,0)
 	};
 	

@@ -25,6 +25,7 @@
 	{
 		self.isTouchEnabled = YES;
 		
+		// Menu at bottom
 		[CCMenuItemFont setFontName: kHUDFont];
 		[CCMenuItemFont setFontSize: kMainMenuMenuFontSize];
 
@@ -40,20 +41,22 @@
 		[self addChild:menu z: 1000];
 		menu.position = kMainMenuMenuPoint;
 		
+		
+		// Moving background
 		bg1 = [CCSprite spriteWithFile: @"mainscreen_bg.png"];
 		bg1.position = kMainMenuBackgroundPoint;
 		[self addChild: bg1];
+//		[bg1 runAction: [CCRepeatForever actionWithAction: [CCMoveBy actionWithDuration: 0.05 position: ccp(-1,0)]]];
 		
 		bg2 = [CCSprite spriteWithFile: @"mainscreen_bg.png"];
 		CGPoint p = kMainMenuBackgroundPoint;
 		p.x += kGameScreenWidth;
 		bg2.position = p;
 		[self addChild: bg2];
+//		[bg2 runAction: [CCRepeatForever actionWithAction: [CCMoveBy actionWithDuration: 0.05 position: ccp(-1,0)]]];
 		
-		icon = [CCSprite spriteWithFile: @"mainscreen_icon.png"];
-		icon.position = kMainMenuIconPoint;
-		[self addChild: icon];
 		
+		// Shifting letters and icon
 		letters = [[NSMutableArray alloc] initWithCapacity: kNumNameLetters];
 		for (int i = 0; i < kNumNameLetters; i++)
 		{
@@ -61,13 +64,25 @@
 			CGPoint pos = kMainMenuFirstLetterPoint;
 			pos.x += kMainMenuLetterSpacing * i;
 			n.position = pos;
+			n.originalPosition = pos;
 			[letters addObject: n];
 			[self addChild: n];
 		}
 		
+		icon = [MMLetterSprite spriteWithFile: @"mainscreen_icon.png"];
+		icon.position = kMainMenuIconPoint;
+		icon.originalPosition = kMainMenuIconPoint;
+		[self addChild: icon];
+		[letters addObject: icon];
 		
+		
+		// Tickers
 		[self schedule: @selector(tick:) interval: kAnimationInterval];
 		[self schedule: @selector(bgMovetick:) interval: kBackgroundMovementInterval];
+		
+		
+		// Background music
+		//[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"mainmenu_music.mp3"];
 	}
 	return self;
 }
@@ -91,28 +106,41 @@
 
 -(void)tick: (ccTime)dt
 {
-	for (CCNode *child in self.children)
-	{
-		if (child == bg1 || child == bg2 || child == menu)
-			continue; 
+	for (MMLetterSprite *letter in letters)
+	{	
+		if ([letter numberOfRunningActions] != 0)
+			continue;
 		
 		CGPoint moveVector = CGPointMake(RandomBetween(-1, 1), RandomBetween(-1, 1));
 		float angle = RandomBetween(-1, 1);
 		
-		[child runAction: [CCMoveBy actionWithDuration: kAnimationInterval position: moveVector]];
-		[child runAction: [CCRotateBy actionWithDuration: kAnimationInterval angle: angle]];
+		// Make sure we don't rotate too far
+		if (letter.rotation > 15)
+			angle = -1;
+		if (letter.rotation < -15)
+			angle = 1;
+		
+		if (ccpDistance(letter.originalPosition, letter.position) > 7)
+		{
+			CGPoint mVec = ccpSub(letter.originalPosition, letter.position);			
+			mVec.x /= 4;
+			mVec.y /= 4;
+			moveVector = mVec;
+		}
+		
+		[letter runAction: [CCMoveBy actionWithDuration: kAnimationInterval position: moveVector]];
+		[letter runAction: [CCRotateBy actionWithDuration: kAnimationInterval angle: angle]];
 	}
 }
 
 -(void)bgMovetick: (ccTime)dt
 {
-	
-	
-	
+	float y = bg1.position.y;
 	
 	CGPoint bgCenterPt = kMainMenuBackgroundPoint;
 	if (bg1.position.x == bgCenterPt.x - kGameScreenWidth)
 	{
+		bgCenterPt.y = y;
 		bgCenterPt.x += kGameScreenWidth;
 		bg1.position = bgCenterPt;
 	}
@@ -127,6 +155,7 @@
 	bgCenterPt = kMainMenuBackgroundPoint;
 	if (bg2.position.x == bgCenterPt.x - kGameScreenWidth)
 	{
+		bgCenterPt.y = y;
 		bgCenterPt.x += kGameScreenWidth;
 		bg2.position = bgCenterPt;
 	}
@@ -156,8 +185,101 @@
 
 - (void)onCredits:(id)sender
 {
-	NSLog(@"on about");
+	state = kCreditsState;
+	
+	[self shiftOut];
+	[self showCredits];
+	
 //	[[CCDirector sharedDirector] pushScene:[CreditsMenu scene]];
+}
+
+-(void)shiftOut
+{
+	for (int i = 0; i < kNumNameLetters; i++)
+	{
+		MMLetterSprite *letter = [letters objectAtIndex: i];
+		
+		CGPoint p = kMainMenuLetterShiftVector;
+		p.x -= i * 13;
+		CGPoint dest = ccpAdd(letter.originalPosition, p);
+		
+		[letter stopAllActions];
+		[letter runAction: [CCMoveBy actionWithDuration: 0.3 position: p]];
+		[letter runAction: [CCScaleTo actionWithDuration: 0.3 scale: 0.8]];
+		letter.originalPosition = dest;
+		//[letter runAction: [CCRepeatForever actionWithAction: [CCDelayTime actionWithDuration: 1.0]]];
+	}
+		
+	[bg1 runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,-130)]];
+	[bg2 runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,-130)]];
+	[menu runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,-130)]];
+}
+
+-(void)shiftIn
+{
+	for (int i = 0; i < kNumNameLetters; i++)
+	{
+		MMLetterSprite *letter = [letters objectAtIndex: i];
+		
+		CGPoint p = kMainMenuLetterShiftVector;
+		p.x = (-1) * p.x;
+		p.y = (-1) * p.y;
+		p.x += i * 13;
+		CGPoint dest = ccpAdd(letter.originalPosition, p);
+		
+		[letter stopAllActions];
+		[letter runAction: [CCMoveBy actionWithDuration: 0.3 position: p]];
+		[letter runAction: [CCScaleTo actionWithDuration: 0.3 scale: 1.0]];
+		letter.originalPosition = dest;
+		//[letter runAction: [CCRepeatForever actionWithAction: [CCDelayTime actionWithDuration: 1.0]]];
+	}
+		
+	[bg1 runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,130)]];
+	[bg2 runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,130)]];
+	[menu runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,130)]];
+}
+
+#pragma mark -
+
+-(void)showSettings
+{
+	
+}
+
+#pragma mark -
+
+-(void)showCredits
+{
+	creditsLogo = [CCSprite spriteWithFile: @"corrino_logo.png"];
+	creditsLogo.position = ccp(-185, 205);
+	[self addChild: creditsLogo];
+	[creditsLogo runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(40, 205)]];
+	
+	NSString *credits = @"A\nCORRINO SOFTWARE\nGAME\n\nCREATED BY\nSVEINBJORN THORDARSON & MAGNUS DAVID MAGNUSSON";
+	
+	creditsLabel = [CCLabelTTF labelWithString: credits dimensions:CGSizeMake(390,225) alignment: UITextAlignmentCenter fontName: kHUDFont fontSize: 32];
+	creditsLabel.position = ccp(-185, 140);
+	[self addChild: creditsLabel];
+	[creditsLabel runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(205, 140)]];
+}
+
+-(void)hideCredits
+{
+	[creditsLogo runAction: [CCSequence actions: [CCMoveBy actionWithDuration: 0.3 position: ccp(-185, 0)],
+							 [CCCallFunc actionWithTarget: creditsLogo selector: @selector(dispose)], nil]];
+	[creditsLabel runAction: [CCSequence actions: [CCMoveBy actionWithDuration: 0.3 position: ccp(-185, 0)],
+							 [CCCallFunc actionWithTarget: creditsLabel selector: @selector(dispose)], nil]];
+	
+}
+
+#pragma mark -
+
+-(void)playTrumpet
+{
+	float pitches[] = { 1.0, 0.891, 0.75 };
+	float pitch =  pitches[RandomBetween(0, 2)];
+	[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];
+	
 }
 
 #pragma mark -
@@ -168,26 +290,58 @@
 	if (currTouch != nil)
 		return;
 	
+	float scaleNormal = 1.0, scaleLarge = 1.5; 
+	if (state != kMainState)
+	{
+		scaleNormal = 0.8;
+		scaleLarge = 1.2;
+	}
+	
     currTouch = [touches anyObject];
 	CGPoint location = [currTouch locationInView: [currTouch view]];
 	location = [[CCDirector sharedDirector] convertToGL: location];
 	
-	NSLog(@"Touch began");
-	
+	BOOL playedNote = NO;
 	for (int i = 0; i < kNumNameLetters; i++)
 	{
 		MMLetterSprite *letter = [letters objectAtIndex: i];
 		if (CGRectContainsPoint([letter rect], location))
 		{
 			NSLog(@"Hit letter");
-			[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: 1.5]];
+			[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: scaleLarge]];
 			[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%d.wav", i+1] pitch:1.0f pan:0.0f gain:0.3f];
+			playedNote = YES;
 		}
 		else
 		{
-			[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: 1.0]];
+			[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: scaleNormal]];
 		}
 
+	}
+	
+	if (!playedNote && CGRectContainsPoint([icon rect], location))
+	{
+		[icon runAction: [CCScaleTo actionWithDuration: 0.1 scale: 1.2]];
+		[self playTrumpet];
+		playedNote = YES;
+	}
+	
+	if (!playedNote)
+	{
+		switch (state)
+		{
+			case kCreditsState:
+				[self shiftIn];
+				[self hideCredits];
+				state = kMainState;
+				break;
+			
+			case kSettingsState:
+				[self shiftIn];
+				[self hideSettings];
+				state = kSettingsState;
+				break;
+		}
 	}
 	
 }
@@ -197,35 +351,62 @@
 	if (currTouch == nil)
 		return;
 	
+	float scaleNormal = 1.0, scaleLarge = 1.5; 
+	if (state != kMainState)
+	{
+		scaleNormal = 0.8;
+		scaleLarge = 1.2;
+	}
+	
+	
 	CGPoint location = [currTouch locationInView: [currTouch view]];
 	location = [[CCDirector sharedDirector] convertToGL: location];
 	
+	BOOL playedNote = NO;
 	for (int i = 0; i < kNumNameLetters; i++)
 	{
 		MMLetterSprite *letter = [letters objectAtIndex: i];
 		if (CGRectContainsPoint([letter rect], location))
 		{
 			NSLog(@"Hit letter");
-			[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: 1.5]];
+			[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: scaleLarge]];
 			[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%d.wav", i+1] pitch:1.0f pan:0.0f gain:0.3f];
+			playedNote = YES;
 		}
 		else
 		{
-			[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: 1.0]];
+			[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: scaleNormal]];
 		}
 		
 	}
+	
+	if (!playedNote && CGRectContainsPoint([icon rect], location))
+	{
+		[icon runAction: [CCScaleTo actionWithDuration: 0.1 scale: 1.2]];
+		[self playTrumpet];
+		playedNote = YES;
+	}
+		
 }
 
 -(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
 {
 	NSLog(@"Touch ended");
 	currTouch = nil;
+	
+	float scaleNormal = 1.0, scaleLarge = 1.5; 
+	if (state != kMainState)
+	{
+		scaleNormal = 0.8;
+		scaleLarge = 1.2;
+	}
+	
 	for (int i = 0; i < kNumNameLetters; i++)
 	{
 		MMLetterSprite *letter = [letters objectAtIndex: i];
-		[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: 1.0]];
+		[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: scaleNormal]];
 	}
+	[icon runAction: [CCScaleTo actionWithDuration: 0.1 scale: 1.0]];
 	
 }
 

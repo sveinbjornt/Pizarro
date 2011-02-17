@@ -42,13 +42,18 @@ static void collisionExpansion (cpArbiter *arb, cpSpace *space, void *data)
 	
 	Shape *shape = b->data;
 	shape.destroyed = YES;
+		
+	[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch:0.891 pan:0.0f gain:0.3f];
 	
 	NSLog(@"Collision");
 }
 
 static void collision (cpArbiter *arb, cpSpace *space, void *data)
 {
-	int mod = RandomBetween(-2, 2);
+	PizarroGameScene *scene = (PizarroGameScene *)data;
+	int lvl = [scene currentLevel];
+	
+	int mod = RandomBetween(-lvl, lvl);
 	
 	lastPlayedIndex += mod;
 	if (lastPlayedIndex < 1)
@@ -57,7 +62,7 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 		lastPlayedIndex = 1 + (lastPlayedIndex - 8);
 	
 	//[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%d.wav", lastPlayedIndex]];
-	[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%d.wav", lastPlayedIndex] pitch:1.0f pan:0.0f gain:0.3f];
+	[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%d.wav", lastPlayedIndex] pitch:1.0f pan:0.0f gain:0.1f];
 }
 
 
@@ -294,7 +299,7 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 	
 	cpSpaceAddCollisionHandler(space, 1, 2, NULL, NULL, &collisionExpansion, NULL, NULL);
 	
-	cpSpaceAddCollisionHandler(space, 1, 0, NULL, NULL, &collision, NULL, NULL);
+	cpSpaceAddCollisionHandler(space, 1, 0, NULL, NULL, &collision, NULL, self);
 
 	
 }
@@ -546,6 +551,8 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 	currentShape.cpShape->collision_type = 2;
 	
 	cpSpaceAddShape(space, currentShape.cpShape);
+	
+	//[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch:1.0f pan:0.0f gain:0.3f];
 }
 
 -(void)endExpansionOfShape: (Shape *)shape
@@ -562,6 +569,8 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 	shape.cpShape->collision_type = 0;
 	[shapes addObject: shape];	
 	score += ([shape area]/100);
+	
+	[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: 1.0f pan:0.0f gain:0.3f];
 }
 
 -(void)removeShape: (Shape *)shape
@@ -572,6 +581,11 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 	[self removeChild: shape cleanup: YES];
 }
 
+
+-(int)currentLevel
+{
+	return level;
+}
 
 #pragma mark -
 #pragma mark  Touch handling

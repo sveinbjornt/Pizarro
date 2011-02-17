@@ -11,7 +11,8 @@
 
 @interface MMLetterSprite : CCSprite
 {
-
+	CGPoint originalPosition;
 }
+@property (readwrite, assign) CGPoint originalPosition;
 - (CGRect)rect;
 @end
