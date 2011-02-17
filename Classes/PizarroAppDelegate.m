@@ -14,6 +14,7 @@
 #import "RootViewController.h"
 #import "PizarroGameScene.h"
 #import "MainMenuScene.h"
+#import "SimpleAudioEngine.h"
 
 @implementation PizarroAppDelegate
 
@@ -43,6 +44,8 @@
 
 - (void) applicationDidFinishLaunching:(UIApplication*)application
 {
+	
+	
 	// Init the window
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	
@@ -112,6 +115,8 @@
 	// Removes the startup flicker
 	[self removeStartupFlicker];
 	
+	[self loadResources];
+	
 	// Run the intro Scene
 	//[[CCDirector sharedDirector] runWithScene: [PizarroGameScene scene]];		
 
@@ -161,5 +166,41 @@
 	[window release];
 	[super dealloc];
 }
+
+#pragma mark -
+#pragma mark Resource loading
+
+-(void)loadResources
+{
+	CCLOG(@"Loading Resources");
+	
+	//	BOOL	 useHD = CC_CONTENT_SCALE_FACTOR() == 2.0 ? YES : NO;
+	NSString	*hdSuffix = @"-hd.png";
+	NSString	*pngSuffix = @".png";
+	NSString	*wavSuffix = @".wav";
+	
+	NSString *rsrcPath = [[NSBundle mainBundle] resourcePath];
+	
+	NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: rsrcPath  error: NULL];
+	for (NSString *file in files)
+	{			
+		// If texture, add to texture cache
+		if (![file hasSuffix: hdSuffix] && [file hasSuffix: pngSuffix] && ![file hasPrefix: @"Icon"] && ![file hasPrefix: @"Default"])
+		{
+			CCLOG(@"Loading into Texture Cache: \"%@\"", file);
+			[[CCTextureCache sharedTextureCache] addImage: file];
+		}
+		
+		// If audio, preload it
+		if ([file hasSuffix: wavSuffix])
+		{
+			CCLOG(@"Loading sound \"%@\"", file);
+			[[SimpleAudioEngine sharedEngine] preloadEffect: file];
+		}
+	}	
+	
+	CCLOG(@"Texture cache: %@", [[CCTextureCache sharedTextureCache] description]);
+}
+
 
 @end

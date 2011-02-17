@@ -132,6 +132,7 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 {	
 	// BACKGROUND
 	CCSprite *bg = [CCSprite spriteWithFile: @"bg.png"];
+	bg.blendFunc = (ccBlendFunc) { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
 	bg.position = kGameScreenCenterPoint;
 	[self addChild: bg z: 1000];
 	
@@ -547,6 +548,22 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 	cpSpaceAddShape(space, currentShape.cpShape);
 }
 
+-(void)endExpansionOfShape: (Shape *)shape
+{
+	shape.expanding = NO;
+	shape.fullSize = shape.size;
+	
+	[surface updateWithShape: shape];
+	
+	//NSLog([surface description]);
+	[self updateScore];
+	[self percentageBlast: [surface percentageFilled] atPoint: shape.position];
+	
+	shape.cpShape->collision_type = 0;
+	[shapes addObject: shape];	
+	score += ([shape area]/100);
+}
+
 -(void)removeShape: (Shape *)shape
 {
 	cpSpaceRemoveShape(space, shape.cpShape);
@@ -586,18 +603,7 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 	
 	if (currentShape != nil && !currentShape.destroyed)
 	{
-		currentShape.expanding = NO;
-		currentShape.fullSize = currentShape.size;
-		
-		[surface updateWithShape: currentShape];
-		
-		//NSLog([surface description]);
-		[self updateScore];
-		[self percentageBlast: [surface percentageFilled] atPoint: currentShape.position];
-
-		currentShape.cpShape->collision_type = 0;
-		[shapes addObject: currentShape];	
-		score += [currentShape area];
+		[self endExpansionOfShape: currentShape];
 
 		currentShape = nil;
 	

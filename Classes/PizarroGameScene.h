@@ -55,4 +55,7 @@
 -(void)updateTimer;
 -(void)updateCurrentShape;
 
+-(void)createShapeAtPoint: (CGPoint)p;
+-(void)removeShape: (Shape *)shape;
+
 @end

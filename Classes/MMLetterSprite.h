@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface MMLetterSprite : CCSprite <CCTargetedTouchDelegate>
+@interface MMLetterSprite : CCSprite
 {
 
 }
-
+- (CGRect)rect;
 @end

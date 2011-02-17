@@ -8,11 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "MMLetterSprite.h"
 
 @interface MainMenuScene : CCLayerColor
 {
+	UITouch *currTouch;
 	NSMutableArray *letters;
 	CCSprite *icon, *bg1, * bg2;
+	CCMenu *menu;
 }
+
++(id)scene;
 
 @end

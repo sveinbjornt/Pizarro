@@ -8,10 +8,11 @@
 
 #import "MainMenuScene.h"
 #import "Constants.h"
+#import "PizarroGameScene.h"
 //#import "SettingsMenu.h"
 //#import "CreditsMenu.h"
 #import "Common.c"
-
+#import "SimpleAudioEngine.h"
 
 #define kAnimationInterval				1.0f / 2.0f
 #define kBackgroundMovementInterval		1.0f / 20.0f
@@ -22,15 +23,22 @@
 {
 	if ((self = [super init])) 
 	{
-		//		CCMenuItem *menuItem1 = [CCMenuItemFont itemFromString:@"New Game" target:self selector:@selector(onPlay:)];
-		//		CCMenuItem *menuItem2 = [CCMenuItemFont itemFromString:@"How To Play" target:self selector:@selector(onTutorial:)];
-		//		CCMenuItem *menuItem3 = [CCMenuItemFont itemFromString:@"Settings" target:self selector:@selector(onSettings:)];
-		//		CCMenuItem *menuItem4 = [CCMenuItemFont itemFromString:@"High Scores" target:self selector:@selector(onHighScores:)];
-		//		CCMenuItem *menuItem5 = [CCMenuItemFont itemFromString:@"Credits" target:self selector:@selector(onCredits:)];
-		//		
-		//		CCMenu *menu = [CCMenu menuWithItems:menuItem1, menuItem2, menuItem3, menuItem4, menuItem5, nil];
-		//		[menu alignItemsVertically];
-		//		[self addChild:menu];
+		self.isTouchEnabled = YES;
+		
+		[CCMenuItemFont setFontName: kHUDFont];
+		[CCMenuItemFont setFontSize: kMainMenuMenuFontSize];
+
+		CCMenuItemFont *menuItem1 = [CCMenuItemFont itemFromString:@"Play" target:self selector:@selector(onPlay:)];
+		CCMenuItemFont *menuItem2 = [CCMenuItemFont itemFromString:@"Settings" target:self selector:@selector(onSettings:)];
+		CCMenuItemFont *menuItem3 = [CCMenuItemFont itemFromString:@"Credits" target:self selector:@selector(onCredits:)];
+		menuItem1.color = ccc3(0,0,0);
+		menuItem2.color = ccc3(0,0,0);
+		menuItem3.color = ccc3(0,0,0);
+		
+		menu = [CCMenu menuWithItems:menuItem1, menuItem2, menuItem3, nil];
+		[menu alignItemsHorizontallyWithPadding: 35.0f];
+		[self addChild:menu z: 1000];
+		menu.position = kMainMenuMenuPoint;
 		
 		bg1 = [CCSprite spriteWithFile: @"mainscreen_bg.png"];
 		bg1.position = kMainMenuBackgroundPoint;
@@ -49,13 +57,11 @@
 		letters = [[NSMutableArray alloc] initWithCapacity: kNumNameLetters];
 		for (int i = 0; i < kNumNameLetters; i++)
 		{
-			NSString *imgName = [NSString stringWithFormat: @"n%d.png", i+1];
-			NSLog(imgName);
-			CCSprite *n = [CCSprite spriteWithFile: imgName];
+			MMLetterSprite *n = [MMLetterSprite spriteWithFile: [NSString stringWithFormat: @"n%d.png", i+1]];
 			CGPoint pos = kMainMenuFirstLetterPoint;
 			pos.x += kMainMenuLetterSpacing * i;
 			n.position = pos;
-			
+			[letters addObject: n];
 			[self addChild: n];
 		}
 		
@@ -87,7 +93,7 @@
 {
 	for (CCNode *child in self.children)
 	{
-		if (child == bg1 || child == bg2)
+		if (child == bg1 || child == bg2 || child == menu)
 			continue; 
 		
 		CGPoint moveVector = CGPointMake(RandomBetween(-1, 1), RandomBetween(-1, 1));
@@ -136,7 +142,9 @@
 - (void)onPlay:(id)sender
 {
 	NSLog(@"on play");
-	//	[[CCDirector sharedDirector] replaceScene: [CCTransitionFlipX transitionWithDuration: kSceneTransitionDuration scene: [AcheronGameScene scene]]];
+	
+	
+	[[CCDirector sharedDirector] replaceScene: [CCTransitionMoveInR	 transitionWithDuration: 0.7 scene: [PizarroGameScene scene]]];
 }
 
 - (void)onSettings:(id)sender
@@ -146,21 +154,81 @@
 	//	[[CCDirector sharedDirector] pushScene:[SettingsMenu scene]];
 }
 
-- (void)onTutorial:(id)sender
-{
-	
-}
-
-- (void)onHighScores:(id)sender
-{
-//	[[GameCenterManager sharedManager] authenticateLocalUserForLeaderboard];
-}
-
 - (void)onCredits:(id)sender
 {
 	NSLog(@"on about");
 //	[[CCDirector sharedDirector] pushScene:[CreditsMenu scene]];
 }
+
+#pragma mark -
+#pragma mark  Touch handling
+
+-(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event 
+{
+	if (currTouch != nil)
+		return;
+	
+    currTouch = [touches anyObject];
+	CGPoint location = [currTouch locationInView: [currTouch view]];
+	location = [[CCDirector sharedDirector] convertToGL: location];
+	
+	NSLog(@"Touch began");
+	
+	for (int i = 0; i < kNumNameLetters; i++)
+	{
+		MMLetterSprite *letter = [letters objectAtIndex: i];
+		if (CGRectContainsPoint([letter rect], location))
+		{
+			NSLog(@"Hit letter");
+			[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: 1.5]];
+			[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%d.wav", i+1] pitch:1.0f pan:0.0f gain:0.3f];
+		}
+		else
+		{
+			[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: 1.0]];
+		}
+
+	}
+	
+}
+
+-(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event 
+{
+	if (currTouch == nil)
+		return;
+	
+	CGPoint location = [currTouch locationInView: [currTouch view]];
+	location = [[CCDirector sharedDirector] convertToGL: location];
+	
+	for (int i = 0; i < kNumNameLetters; i++)
+	{
+		MMLetterSprite *letter = [letters objectAtIndex: i];
+		if (CGRectContainsPoint([letter rect], location))
+		{
+			NSLog(@"Hit letter");
+			[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: 1.5]];
+			[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%d.wav", i+1] pitch:1.0f pan:0.0f gain:0.3f];
+		}
+		else
+		{
+			[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: 1.0]];
+		}
+		
+	}
+}
+
+-(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
+{
+	NSLog(@"Touch ended");
+	currTouch = nil;
+	for (int i = 0; i < kNumNameLetters; i++)
+	{
+		MMLetterSprite *letter = [letters objectAtIndex: i];
+		[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: 1.0]];
+	}
+	
+}
+
 
 
 @end

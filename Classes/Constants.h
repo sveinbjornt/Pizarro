@@ -20,6 +20,8 @@
 #define kHUDFontSize		42
 #define kHUDFont			@"RedStateBlueState BB"
 
+#define kMainMenuMenuFontSize		36
+
 #define NOW [NSDate timeIntervalSinceReferenceDate]
 #define RETINA_DISPLAY (CC_CONTENT_SCALE_FACTOR() == 2.0)
 
@@ -39,6 +41,7 @@
 #define kGameScreenCenterPoint		CGPointMake([[CCDirector sharedDirector] winSize].width/2,[[CCDirector sharedDirector] winSize].height/2)
 #define kGameBoxRect				CGRectMake(kGameBoxXOffset, kGameBoxYOffset, kGameBoxWidth, kGameBoxHeight)
 #define kMainMenuBackgroundPoint	CGPointMake([[CCDirector sharedDirector] winSize].width/2, 55)
+#define kMainMenuMenuPoint			CGPointMake([[CCDirector sharedDirector] winSize].width/2, 32)
 #define kMainMenuIconPoint			CGPointMake(392, 210)
 #define kMenuPauseButtonPoint		CGPointMake(36, 290)
 #define kMainMenuFirstLetterPoint	CGPointMake(54, 176)

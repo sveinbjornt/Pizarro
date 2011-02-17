@@ -11,59 +11,65 @@
 
 @implementation MMLetterSprite
 
-- (CGRect)rect
-{
-	CGSize s = [self.texture contentSize];
-	return CGRectMake(-s.width / 2, -s.height / 2, s.width, s.height);
-}
+//- (CGRect)rect
+//{
+//	CGSize s = [self.texture contentSize];
+//	return CGRectMake(-s.width / 2, -s.height / 2, s.width, s.height);
+//}
 
-- (void)onEnter
+- (CGRect) rect 
 {
-	[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
-	[super onEnter];
-}
-
-- (void)onExit
-{
-	[[CCTouchDispatcher sharedDispatcher] removeDelegate:self];
-	[super onExit];
-}	
-
-- (BOOL)containsTouchLocation:(UITouch *)touch
-{
-	return CGRectContainsPoint(self.rect, [self convertTouchToNodeSpaceAR:touch]);
-}
-
-- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
-{
-	if (![self containsTouchLocation: touch])
-		return NO;
+	float h = [self contentSize].height;
+	float w = [self contentSize].width;
+	float x = [self position].x - w/2;
+	float y = [self position].y - h/2;
 	
-	if (offTexture)
-		self.texture = offTexture;
-	
-	return YES;
+	CGRect aRect = CGRectMake(x,y,w,h);
+	return aRect;
 }
 
-- (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
-{
-	if (![self containsTouchLocation: touch])
-		self.texture = onTexture;
-}
-
-- (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
-{
-	self.texture = onTexture;
-	
-	if (!delegate)
-		return;
-	
-	if (object != nil)
-		[delegate performSelector: selector withObject: object];
-	else
-		[delegate performSelector: selector];
-}
-
+//- (void)onEnter
+//{
+//	[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+//	[super onEnter];
+//}
+//
+//- (void)onExit
+//{
+////	[[CCTouchDispatcher sharedDispatcher] removeDelegate:self];
+//	[super onExit];
+//}	
+//
+//- (BOOL)containsTouchLocation:(UITouch *)touch
+//{
+//	return CGRectContainsPoint(self.rect, [self convertTouchToNodeSpaceAR:touch]);
+//}
+//
+//- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
+//{
+//	if ([self containsTouchLocation: touch])
+//	{
+//		[self runAction: [CCScaleTo actionWithDuration: 0.2 scale: 1.5]];
+//	
+//	
+//	return YES;
+//	}
+//	return NO;
+//}
+//
+//- (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event
+//{
+//	if (![self containsTouchLocation: touch])
+//		[self runAction: [CCScaleTo actionWithDuration: 0.2 scale: 1.0]];
+//	else
+//		[self runAction: [CCScaleTo actionWithDuration: 0.2 scale: 1.5]];
+//}
+//
+//- (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
+//{
+//	[self runAction: [CCScaleTo actionWithDuration: 0.2 scale: 1.0]];
+//}
+//
 
 
 @end
