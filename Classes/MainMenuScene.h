@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "MMLetterSprite.h"
+#import "Instrument.h"
 
 #define kMainState		0
 #define kCreditsState	1
@@ -35,6 +36,8 @@
 	// Credits
 	CCLabelTTF		*creditsLabel;
 	CCSprite		*creditsLogo;
+	
+	Instrument		*piano;
 	
 }
 

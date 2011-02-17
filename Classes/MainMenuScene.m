@@ -13,6 +13,7 @@
 //#import "CreditsMenu.h"
 #import "Common.c"
 #import "SimpleAudioEngine.h"
+#import "Instrument.h"
 
 #define kAnimationInterval				1.0f / 2.0f
 #define kBackgroundMovementInterval		1.0f / 20.0f
@@ -83,8 +84,20 @@
 		
 		// Background music
 		//[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"mainmenu_music.mp3"];
+		
+		piano = [[Instrument alloc] initWithName: @"piano" numberOfNotes: 7 tempo: 0.125];
+		piano.delegate = self;
+		piano.selector = @selector(notePressed:);
+		[piano playSequence: @"1,2, ,3,4, ,5,6,7"];
 	}
 	return self;
+}
+
+-(void)dealloc
+{
+	[letters release];
+	[piano release];
+	[super dealloc];
 }
 
 +(id)scene
@@ -366,26 +379,34 @@
 
 #pragma mark -
 
--(void)playTrumpet
+-(void)trumpetPressed
 {
 	float pitches[] = { 1.0, 0.891, 0.75 };
 	float pitch =  pitches[RandomBetween(0, 2)];
+	
 	[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];	
+		
+	[icon runAction: [CCSequence actions:
+											   [CCScaleTo actionWithDuration: 0.1 scale: 1.2],
+											   [CCScaleTo actionWithDuration: 0.2 scale: 1.0],
+											   nil]];
 }
 
--(void)playNote: (int)note
+-(void)notePressed: (NSNumber *)num
 {
-	float scaleNormal, scaleLarge;
+	int note = [num intValue]-1;
+	
+	float scaleNormal = 1.0, scaleLarge = 1.5;
 	if (state != kMainState)
 	{
 		scaleNormal = 0.8;
 		scaleLarge = 1.2;
 	}
-	[letter runAction: [CCSequence actions:
+	
+	[[letters objectAtIndex: note] runAction: [CCSequence actions:
 						[CCScaleTo actionWithDuration: 0.1 scale: scaleLarge],
 						[CCScaleTo actionWithDuration: 0.1 scale: scaleNormal],
-						]];
-	[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%d.wav", note+1] pitch:1.0f pan:0.0f gain:0.3f]
+											   nil]];
 }
 
 #pragma mark -
@@ -395,14 +416,7 @@
 {
 	if (currTouch != nil)
 		return;
-	
-	float scaleNormal = 1.0, scaleLarge = 1.5; 
-	if (state != kMainState)
-	{
-		scaleNormal = 0.8;
-		scaleLarge = 1.2;
-	}
-	
+		
     currTouch = [touches anyObject];
 	CGPoint location = [currTouch locationInView: [currTouch view]];
 	location = [[CCDirector sharedDirector] convertToGL: location];
@@ -413,22 +427,14 @@
 		MMLetterSprite *letter = [letters objectAtIndex: i];
 		if (CGRectContainsPoint([letter rect], location))
 		{
-			NSLog(@"Hit letter");
-			[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: scaleLarge]];
-			[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%d.wav", i+1] pitch:1.0f pan:0.0f gain:0.3f];
+			[piano playNote: i+1];
 			playedNote = YES;
 		}
-		else
-		{
-			[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: scaleNormal]];
-		}
-
 	}
 	
 	if (!playedNote && CGRectContainsPoint([icon rect], location))
 	{
-		[icon runAction: [CCScaleTo actionWithDuration: 0.1 scale: 1.2]];
-		[self playTrumpet];
+		[self trumpetPressed];
 		playedNote = YES;
 	}
 	
@@ -456,14 +462,7 @@
 {
 	if (currTouch == nil)
 		return;
-	
-	float scaleNormal = 1.0, scaleLarge = 1.5; 
-	if (state != kMainState)
-	{
-		scaleNormal = 0.8;
-		scaleLarge = 1.2;
-	}
-	
+
 	
 	CGPoint location = [currTouch locationInView: [currTouch view]];
 	location = [[CCDirector sharedDirector] convertToGL: location];
@@ -474,22 +473,15 @@
 		MMLetterSprite *letter = [letters objectAtIndex: i];
 		if (CGRectContainsPoint([letter rect], location))
 		{
-			NSLog(@"Hit letter");
-			[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: scaleLarge]];
-			[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%d.wav", i+1] pitch:1.0f pan:0.0f gain:0.3f];
+			[piano playNote: i+1];
 			playedNote = YES;
-		}
-		else
-		{
-			[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: scaleNormal]];
 		}
 		
 	}
 	
 	if (!playedNote && CGRectContainsPoint([icon rect], location))
 	{
-		[icon runAction: [CCScaleTo actionWithDuration: 0.1 scale: 1.2]];
-		[self playTrumpet];
+		[self trumpetPressed];
 		playedNote = YES;
 	}
 		
@@ -497,23 +489,7 @@
 
 -(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
 {
-	NSLog(@"Touch ended");
 	currTouch = nil;
-	
-	float scaleNormal = 1.0, scaleLarge = 1.5; 
-	if (state != kMainState)
-	{
-		scaleNormal = 0.8;
-		scaleLarge = 1.2;
-	}
-	
-	for (int i = 0; i < kNumNameLetters; i++)
-	{
-		MMLetterSprite *letter = [letters objectAtIndex: i];
-		[letter runAction: [CCScaleTo actionWithDuration: 0.1 scale: scaleNormal]];
-	}
-	[icon runAction: [CCScaleTo actionWithDuration: 0.1 scale: 1.0]];
-	
 }
 
 
