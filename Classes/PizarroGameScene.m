@@ -102,9 +102,9 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	[super dealloc];
 }
 
-- (id) initWithColor:(ccColor4B)color width:(GLfloat)w  height:(GLfloat) h
+- (id)initWithColor:(ccColor4B)color width:(GLfloat)w  height:(GLfloat) h
 {
-	if( (self=[super initWithColor: color width: w height: h]) ) 
+	if((self = [super initWithColor: color width: w height: h])) 
 	{		
 		// White, touch-sensitive layer
 		self.isTouchEnabled = YES;
@@ -129,7 +129,6 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	}
 	return self;
 }
-
 
 #pragma mark -
 #pragma mark Setup
@@ -585,12 +584,17 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	
 }
 
-
 #pragma mark -
 #pragma mark Shapes and Physics
 
 -(void)createShapeAtPoint: (CGPoint)p
 {
+	if ([shapes count] == kMaxShapes)
+	{
+		NSLog(@"Max shape count reached");
+		return;
+	}
+	
 	// Create shape and add it to scene
 	currentShape = [[[currentShapeClass alloc] init] autorelease];
 	currentShape.position = p;

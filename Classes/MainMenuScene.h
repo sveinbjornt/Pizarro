@@ -37,7 +37,7 @@
 	
 	
 	// Credits
-	CCLabelTTF		*creditsLabel;
+	CCLabelTTF		*creditsLabel, *createdByLabel;
 	CCSprite		*creditsLogo;
 	
 	Instrument		*piano;

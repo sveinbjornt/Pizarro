@@ -401,14 +401,20 @@
 	creditsLogo.position = ccp(-185, 205);
 	[self addChild: creditsLogo];
 	[creditsLogo runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(40, 205)]];
+	[creditsLogo runAction: [CCRepeatForever actionWithAction: [CCRotateBy actionWithDuration: 0.1 angle: -10]]]; 
 	
-	NSString *credits = [NSString stringWithFormat: @"A\n%@\nGAME\n\nCREATED BY\n%@ & %@",
-														kGameDeveloper, kGameProgramming, kGameGraphics];
+	NSString *creditsStr = [NSString stringWithFormat: @"A\n%@\nGAME", kGameDeveloper];
+	NSString *createdByStr = [NSString stringWithFormat: @"CREATED BY\n%@ & %@", kGameProgramming, kGameGraphics];
 	
-	creditsLabel = [CCLabelTTF labelWithString: credits dimensions:CGSizeMake(390,225) alignment: UITextAlignmentCenter fontName: kMainMenuFont fontSize: 32];
+	creditsLabel = [CCLabelTTF labelWithString: creditsStr dimensions:CGSizeMake(390,200) alignment: UITextAlignmentCenter fontName: kMainMenuFont fontSize: 32];
 	creditsLabel.position = ccp(-185, 140);
 	[self addChild: creditsLabel];
 	[creditsLabel runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(205, 140)]];
+	
+	createdByLabel = [CCLabelTTF labelWithString: createdByStr dimensions:CGSizeMake(390,150) alignment: UITextAlignmentCenter fontName: kMainMenuFont fontSize: 32];
+	createdByLabel.position = ccp(-185, 50);
+	[self addChild: createdByLabel];
+	[createdByLabel runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(205, 50)]];
 }
 
 -(void)hideCredits
@@ -417,6 +423,8 @@
 							 [CCCallFunc actionWithTarget: creditsLogo selector: @selector(dispose)], nil]];
 	[creditsLabel runAction: [CCSequence actions: [CCMoveBy actionWithDuration: 0.3 position: ccp(-185, 0)],
 							 [CCCallFunc actionWithTarget: creditsLabel selector: @selector(dispose)], nil]];
+	[createdByLabel runAction: [CCSequence actions: [CCMoveBy actionWithDuration: 0.3 position: ccp(-185, 0)],
+							  [CCCallFunc actionWithTarget: createdByLabel selector: @selector(dispose)], nil]];
 	
 }
 
