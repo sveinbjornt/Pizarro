@@ -12,11 +12,14 @@
 #import "Square.h"
 #import "Triangle.h"
 #import "FontManager.h"
-#import "BadCircle.h"
+#import "BouncingBall.h"
 #import "CCNode+Cleanup.m"
 #import "chipmunk.h"
 #import "SimpleAudioEngine.h"
 #import "Common.c"
+#import "MainMenuScene.h"
+
+#pragma mark Chipmunk Callbacks
 
 int lastPlayedIndex = 0;
 
@@ -25,7 +28,7 @@ void UpdateShape(void* ptr, void* unused)
 	cpShape* shape = (cpShape*)ptr;	
 	CCNode *sprite = shape->data;
 	
-	if(sprite)// && [sprite isKindOfClass: [BadCircle class]]){
+	if(sprite)
 	{	
 		cpBody* body = shape->body;
 		
@@ -41,7 +44,7 @@ static void CollisionBallExpansionCircle (cpArbiter *arb, cpSpace *space, void *
 	
 	Shape *shape = b->data;
 	shape.destroyed = YES;
-		
+	
 	[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch:0.891 pan:0.0f gain:0.3f];
 	
 	NSLog(@"Collision");
@@ -64,7 +67,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"piano%d.wav", lastPlayedIndex] pitch:1.0f pan:0.0f gain:0.1f];
 }
 
-
+#pragma mark -
 
 // HelloWorld implementation
 @implementation PizarroGameScene
@@ -91,9 +94,11 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 
 - (void) dealloc
 {
+	[bounceBalls release];
 	[shapeKinds release];
 	[surface release];
 	[shapes release];
+	[piano release];
 	[super dealloc];
 }
 
@@ -106,16 +111,19 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		self.color = ccc3(255,255,255);
 		self.opacity = 255;
 		
+		// Setup
 		[self setupGameVariables];
 		[self setupHUD];
 		[self setupGame];
 		[self updateCurrentShape];
 		
+		// Music and sound
 		[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"bassline.mp3"];
 		piano = [[Instrument alloc] initWithName: @"piano" numberOfNotes: 7 tempo: 0.1];
 		
-		[self levelBlast: level atPoint: kGameBoxCenterPoint afterDelay: 0.5];
-		
+		// Go!
+		inTransition = YES;
+		[self levelBlast: level atPoint: kGameBoxCenterPoint afterDelay: 1.0];
 		[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(startLevel)] withDelay: 2.5]];;
 
 	}
@@ -128,12 +136,12 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 
 -(void)setupGameVariables
 {
-	// Game variables
-
+	// Prep vars for new game
 	score = 0;
 	level = 1;
-	timeRemaining = 50;
-
+	mana = kStartingMana;
+	timeRemaining = kStartingTime;
+	gameOver = NO;
 	currShapeIndex = 0;
 	currentShapeClass = [Circle class];//[Circle class];
 	shapeKinds = [[NSArray arrayWithObjects: [Circle class], [Square class], [Triangle class], nil] retain];
@@ -143,7 +151,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 {	
 	// BACKGROUND
 	CCSprite *bg = [CCSprite spriteWithFile: @"bg.png"];
-	//bg.blendFunc = (ccBlendFunc) { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
+	bg.blendFunc = (ccBlendFunc) { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
 	bg.position = kGameScreenCenterPoint;
 	[self addChild: bg z: 100];
 	
@@ -159,6 +167,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	// MANA BAR
 	manaBar = [[[ManaBar alloc] init] autorelease];
 	manaBar.position = ccp(4,7);
+	manaBar.percentage = (float)mana/kFullMana;
 	[self addChild: manaBar z: 99];
 	
 	// Pause button
@@ -204,98 +213,110 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 
 
 -(void)setupChipmunk
-{
+{	
 	cpInitChipmunk();
 	
 	space = cpSpaceNew();	
 	space->gravity = cpv(0,0); // zero gravity
 	space->elasticIterations = 0;
 	
+	// Add collision handlers	
+	cpSpaceAddCollisionHandler(space, 1, 2, NULL, NULL, &CollisionBallExpansionCircle, NULL, NULL);  // collision between expanding shape and bouncing ball
+	cpSpaceAddCollisionHandler(space, 1, 0, NULL, NULL, &CollisionBallAndCircleOrWall, NULL, self); // collision between finished circles or walls and a bouncing ball
 	
-	// Create the square shape by making 4 lines
+	[self createPhysicalBox];
+}
+
+-(void)createPhysicalBox
+{
+	CGPoint lp1,lp2;
+	
+	// Create the square shape by making 4 lines: floor, ceiling, left, right
 	
 	// Floor
-	cpBody* floorBody1 = cpBodyNew(INFINITY, INFINITY);
+	cpBody* floorBody = cpBodyNew(kWallMass, kWallInertia);
 	
-	floorBody1->p = cpv(0, 0);
+	floorBody->p = cpv(0, 0);
 	
-	cpShape* floorShape1 = cpSegmentShapeNew(floorBody1, cpv(26,4), cpv(476,4), 4);
+	lp1 = cpv(kGameBoxXOffset - kWallThickness, 
+			  kGameBoxYOffset - kWallThickness);
+	lp2 = cpv(kGameBoxXOffset + kGameBoxWidth + kWallThickness, 
+			  kGameBoxYOffset- kWallThickness);
 	
-	floorShape1->e = 1.0;
+	cpShape* floorShape = cpSegmentShapeNew(floorBody, lp1, lp2, kWallThickness);
 	
-	floorShape1->u = 0.0;
+	floorShape->e = kWallElasticity;
+	floorShape->u = kWallFriction;
+	floorShape->collision_type = kWallCollisionType;
+	floorShape->group = kWallShapeGroup;
 	
-	floorShape1->collision_type = 0;
+	cpSpaceAddStaticShape(space, floorShape);
 	
-	floorShape1->group = 100;
 	
-	cpSpaceAddStaticShape(space, floorShape1);
 	
 	// Ceiling
-	cpBody* floorBody2 = cpBodyNew(INFINITY, INFINITY);
+	cpBody* ceilingBody = cpBodyNew(kWallMass, kWallInertia);
 	
-	floorBody2->p = cpv(0, 0);
+	ceilingBody->p = cpv(0, 0);
 	
-	cpShape* floorShape2 = cpSegmentShapeNew(floorBody2, cpv(26,282), cpv(476,282), 4);
+	lp1 = cpv(kGameBoxXOffset - kWallThickness, 
+			  kGameBoxYOffset + kGameBoxHeight + kWallThickness );
+	lp2 = cpv(kGameBoxXOffset + kGameBoxWidth + kWallThickness, 
+			  kGameBoxYOffset + kGameBoxHeight + kWallThickness);
 	
-	floorShape2->e = 1.0;
+	cpShape* ceilingShape = cpSegmentShapeNew(ceilingBody, lp1, lp2, kWallThickness);
 	
-	floorShape2->u = 0.0;
+	ceilingShape->e = kWallElasticity;
+	ceilingShape->u = kWallFriction;
+	ceilingShape->collision_type = kWallCollisionType;
+	ceilingShape->group = kWallShapeGroup;
 	
-	floorShape2->collision_type = 0;
+	cpSpaceAddStaticShape(space, ceilingShape);
 	
-	floorShape2->group = 100;
 	
-	cpSpaceAddStaticShape(space, floorShape2);
 	
 	// Left side
 	
-	cpBody* floorBody3 = cpBodyNew(INFINITY, INFINITY);
+	cpBody* leftBody = cpBodyNew(kWallMass, kWallInertia);
 	
-	floorBody3->p = cpv(0, 0);
+	leftBody->p = cpv(0, 0);
 	
-	cpShape* floorShape3 = cpSegmentShapeNew(floorBody3, cpv(26,4), cpv(26,282), 2);
+	lp1 = cpv(kGameBoxXOffset - kWallThickness, 
+			  kGameBoxYOffset - kWallThickness );
+	lp2 = cpv(kGameBoxXOffset - kWallThickness, 
+			  kGameBoxYOffset + kGameBoxHeight + kWallThickness);
 	
-	floorShape3->e = 1.0;
+	cpShape* leftShape = cpSegmentShapeNew(leftBody, lp1, lp2, kWallThickness);
 	
-	floorShape3->u = 0.0;
+	leftShape->e = kWallElasticity;
+	leftShape->u = kWallFriction;
+	leftShape->collision_type = kWallCollisionType;
+	leftShape->group = kWallShapeGroup;
 	
-	floorShape3->collision_type = 0;
+	cpSpaceAddStaticShape(space, leftShape);
 	
-	floorShape3->group = 100;
 	
-	cpSpaceAddStaticShape(space, floorShape3);
 	
 	// Right side
 	
-	cpBody* floorBody4 = cpBodyNew(INFINITY, INFINITY);
+	cpBody* rightBody = cpBodyNew(kWallMass, kWallInertia);
 	
-	floorBody4->p = cpv(0, 0);
+	rightBody->p = cpv(0, 0);
 	
-	cpShape* floorShape4 = cpSegmentShapeNew(floorBody4, cpv(476,4), cpv(476,282), 2);
+	lp1 = cpv(kGameBoxXOffset + kGameBoxWidth + kWallThickness, 
+			  kGameBoxYOffset - kWallThickness );
+	lp2 = cpv(kGameBoxXOffset + kGameBoxWidth + kWallThickness, 
+			  kGameBoxYOffset + kGameBoxHeight + kWallThickness);
 	
-	floorShape4->e = 1.0;
+	cpShape* rightShape = cpSegmentShapeNew(rightBody, lp1, lp2, kWallThickness);
 	
-	floorShape4->u = 0.0;
+	rightShape->e = kWallElasticity;
+	rightShape->u = kWallFriction;
+	rightShape->collision_type = kWallCollisionType;
+	rightShape->group = kWallShapeGroup;
 	
-	floorShape4->collision_type = 0;
-	
-	floorShape4->group = 100;
-	
-	cpSpaceAddStaticShape(space, floorShape4);
-	
-	
-	
-	 
-	
-	// Add collision handlers
-	
-	cpSpaceAddCollisionHandler(space, 1, 2, NULL, NULL, &CollisionBallExpansionCircle, NULL, NULL);  // collision between expanding shape and bouncing ball
-	cpSpaceAddCollisionHandler(space, 1, 0, NULL, NULL, &CollisionBallAndCircleOrWall, NULL, self); // collision between finished circles or walls and a bouncing ball
-
-	
+	cpSpaceAddStaticShape(space, rightShape);
 }
-
 
 #pragma mark -
 #pragma mark HUD
@@ -353,8 +374,8 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 }
 
 
-#pragma mark -
-#pragma mark Drawing
+//#pragma mark -
+//#pragma mark Drawing
 //
 //-(void)draw
 //{
@@ -402,12 +423,18 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 
 -(void)timeTicker: (ccTime)dt
 {
+	if (inTransition)
+		return;
+	
 	timeRemaining--;
 	[self updateTimer];
 }
 
 -(void)symbolTicker: (ccTime)dt
 {
+	if (inTransition)
+		return;
+	
 	currShapeIndex++;
 	if (currShapeIndex >= kNumShapeKinds)
 		currShapeIndex = 0;
@@ -418,15 +445,24 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 
 -(void)tick: (ccTime)dt
 {
+	if (inTransition)
+		return;
+	
+	if (mana <= 0 || timeRemaining <= 0)
+	{
+		[self gameOver];
+		return;
+	}
+	
 	if (currentShape != nil)
 	{
 		if (currentShape.destroyed)
 		{
 			NSTimeInterval timeSinceDestroyed = NOW - currentShape.ended;
 			NSTimeInterval ttl = 0.3;
+			
 			float fraction = (float) 1.0 - (timeSinceDestroyed / ttl);
 			currentShape.size =  (float)fraction * currentShape.fullSize;
-			//NSLog(@"Fraction = %f, size = %f", fraction, currentShape.size);
 			
 			if (currentShape.size <= 1)
 			{
@@ -438,16 +474,15 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 				cpCircleShape *sh = (cpCircleShape *)currentShape.cpShape;
 				sh->r = currentShape.size/2;
 			}
-
-				//currentShape.size--;
-			//[self removeShape: currentShape];
-			//currentShape = nil;
 		}
 		else
 		{
 			
 			NSTimeInterval timeSinceTouch = NOW - currentShape.created;
 			currentShape.size = timeSinceTouch * 170;
+			
+			mana -= 1.0f/60.0f;
+			manaBar.percentage = (float)mana/kFullMana;
 			
 			//[currentShape runAction: [CCRotateBy actionWithDuration: 1.0/60.0f angle: 5.0]];
 			
@@ -474,6 +509,8 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	levelBlast.opacity = 255.0;
 	levelBlast.color = ccc3(0,0,0);
 	[self addChild: levelBlast z: 1000];
+	
+	[piano playWithInterval: 0.3 afterDelay: delay + 0.66 chords: @"1,2,3",  @"1,2,4", @"1,2,5", nil];
 	
 	[levelBlast runAction: [CCSequence actions: 
 							[CCDelayTime actionWithDuration: delay],
@@ -528,7 +565,25 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 }
 
 
-
+-(void)gameOverBlastAfterDelay: (NSTimeInterval)delay
+{
+	NSString *gameOverStr = [NSString stringWithFormat: @"GAME OVER"];
+	CCLabelTTF *gameOverBlast = [CCLabelTTF labelWithString: gameOverStr fontName: @"RedStateBlueState BB" fontSize: 84];
+	gameOverBlast.position = kGameBoxCenterPoint;
+	gameOverBlast.scale = 0.0;
+	gameOverBlast.opacity = 255.0;
+	gameOverBlast.color = ccc3(255,255,255);
+	[self addChild: gameOverBlast z: 1000];
+		
+	[gameOverBlast runAction: [CCSequence actions: 
+							[CCDelayTime actionWithDuration: delay],
+							[CCScaleTo actionWithDuration: 0.33 scale: 1.0],
+							[CCDelayTime actionWithDuration: 1.66],
+							//[CCScaleTo actionWithDuration: 0.33 scale: 0.0],
+							//[CCCallFunc actionWithTarget: gameOverBlast selector: @selector(dispose)], 
+							nil]];
+	
+}
 
 
 #pragma mark -
@@ -601,7 +656,23 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	}
 }
 
+-(void)addBouncingBallAtPoint: (CGPoint)p withVelocity: (CGPoint)movementVector
+{
+	BouncingBall *bounceBall = [[[BouncingBall alloc] init] autorelease];
+	bounceBall.size = 20;
+	bounceBall.position = p;
+	
+	[bounceBall addToSpace: space];
+	[bounceBall pushWithVector: movementVector];
+	
+	[bounceBalls addObject: bounceBall];
+	
+	[self addChild: bounceBall];
+}
+
+
 #pragma mark -
+#pragma mark Level transitions
 
 -(void)startLevel
 {	
@@ -609,31 +680,37 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	
 	if (level < 4)
 		numBalls = 1;
-	else if (level > 4 && level < 6)
+	else if (level >= 5 && level < 7)
 		numBalls = 2;
 	else
-		numBalls = 2 + (level / 6);	
+		numBalls = 2 + (level / 7);	
+	
+	if (numBalls > kMaxBounceBalls)
+		numBalls = kMaxBounceBalls;
 	
 	// Create the balls and set them going
 	for (int i = 0; i < numBalls; i++)
 	{
+		// Define starting point
 		CGPoint startingPoint = kGameScreenCenterPoint;
 		int mod = RandomBetween(0, 1) ? -1 : 1;
 		startingPoint.x += (mod * 25 + RandomBetween(5, 10)) * i;
 		startingPoint.y += (mod * 15 + RandomBetween(5, 10)) * i;
 		
-		BadCircle *bounceBall = [[[BadCircle alloc] init] autorelease];
-		bounceBall.size = 20;
-		bounceBall.position = startingPoint;
-		[self addChild: bounceBall];
-		[bounceBall addToSpace: space];
-		[bounceBall pushWithVector: cpv( 5000 + (level * 700 ), 5000 + (level * 700))];
-		[bounceBalls addObject: bounceBall];
+		// Define movement vector
+		CGPoint movementVector = cpv( 5000 + (level * 700 ), 5000 + (level * 700));
+		
+		// Add ball
+		[self addBouncingBallAtPoint: startingPoint withVelocity: movementVector];
 	}
+	
+	[self runAction: [CCCallFunc actionWithTarget: self selector: @selector(endTransition)]];
 }
 
 -(void)advanceLevel
 {
+	inTransition = YES;
+	
 	// Clear all shapes from our databank
 	for (Shape *s in shapes)
 	{
@@ -642,26 +719,70 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	[shapes removeAllObjects];
 	
 	// Remove bouncing balls
-	for (BadCircle *b in bounceBalls)
+	for (BouncingBall *b in bounceBalls)
 		[self removeShape: b];
 	[bounceBalls removeAllObjects];
 	
-	
+	// Clear surface
 	[bgRenderTexture clear];
 	[surface clear]; 
+	
 	level += 1;
 	
-	[piano playChord: @"1,2,5"];
-	[piano performSelector: @selector(playChord:) withObject: @"1,2,4" afterDelay: 0.22];
-	[piano performSelector: @selector(playChord:) withObject: @"1,2,3" afterDelay: 0.44];
+	// Add to time
+	timeRemaining += kTimePerLevel;
 	
-	[self levelBlast: level atPoint: kGameBoxCenterPoint afterDelay: 0.5];
-	[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(startLevel)] withDelay: 2.5]];;
+	// Add to mana
+	mana += kManaPerLevel;
+	if (mana > kFullMana)
+		mana = kFullMana;
+	manaBar.percentage = (float)mana/kFullMana;
+	
+	
+	[piano playWithInterval: 0.22 afterDelay: 0 chords: @"1,2,5", @"1,2,5", @"1,2,4", @"1,2,3", nil];
+		
+	[self levelBlast: level atPoint: kGameBoxCenterPoint afterDelay: 1.0];
+	[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(startLevel)] withDelay: 2.6]];;
 }
 
 -(int)currentLevel
 {
 	return level;
+}
+
+-(void)gameOver
+{
+	inTransition = YES;
+	
+	// Remove all shapes
+	if (currentShape != nil)
+	{
+		[self removeShape: currentShape];
+		currentShape = nil;
+	}
+	
+	for (BouncingBall *b in bounceBalls)
+		[b removeFromParentAndCleanup: YES];	
+
+	[bgRenderTexture goBlack];
+	[piano playWithInterval: 0.4 afterDelay: 0 chords: @"1,2,5", @"1,2,5", @"1,2,5", @"1,2,4", @"1,2,4", @"1,2,3", @"1,2,3", nil];
+
+	[self gameOverBlastAfterDelay: 0.2];
+	
+	[self runAction: [CCSequence actions:
+					  
+					  [CCDelayTime actionWithDuration: 2.5],
+					  [CCCallFuncO actionWithTarget: [CCDirector sharedDirector] 
+										   selector: @selector(replaceScene:) 
+											 object: [CCTransitionMoveInR transitionWithDuration: 0.35 scene: [MainMenuScene scene]]],
+					  nil]];
+	 
+	
+}
+
+-(void)endTransition
+{
+	inTransition = NO;
 }
 
 #pragma mark -
@@ -675,7 +796,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		
 	NSLog(@"Touch began");
 
-	if (CGRectContainsPoint(kGameBoxRect, location))
+	if (!inTransition && CGRectContainsPoint(kGameBoxRect, location))
 	{
 		[self createShapeAtPoint: location];
 	}
@@ -695,12 +816,9 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	if (currentShape != nil && !currentShape.destroyed)
 	{
 		[self endExpansionOfShape: currentShape];
-
 		currentShape = nil;
-	
 	}
 	
 }
-
 
 @end

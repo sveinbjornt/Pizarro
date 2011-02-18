@@ -16,14 +16,13 @@
 {
 	if ((self = [super init]))
 	{
-		percentage = 0.7;
+		percentage = 1.0;
 	}
 	return self;
 }
 
 -(void)draw
-{
-	
+{	
 	CGPoint whiteVertices[4] =
 	{
 		ccp(0,0),
@@ -52,10 +51,12 @@
 	glColor4ub(255,255,255,255);
 	ccFillPoly(whiteVertices, 4, YES);
 	
-	glColor4ub(0,160,0,255);
+	if (percentage > kManaPercentageLow)
+		glColor4ub(0,160,0,255); // green
+	else
+		glColor4ub(160,0,0,255); // red
+
 	ccFillPoly(barVertices, 4, YES);
-	
-	glColor4ub(0,160,0,255);
 	ccFillPoly(topTriangleVertices, 3, YES);
 }
 

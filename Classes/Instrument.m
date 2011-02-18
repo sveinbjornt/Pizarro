@@ -51,28 +51,11 @@
 		if (![str isEqualToString: @" "])
 		{
 			int note = [str intValue];
-			NSLog(@"NOTE IS %d", note);
+			CCLOG(@"NOTE IS %d", note);
 			[self performSelector: @selector(playNoteNumber:) withObject: [NSNumber numberWithInteger: note] afterDelay: iterator * tempo];
 		}
 		iterator++;
 	}
-	
-//	for (NSString *str in [seq componentsSeparatedByString: @","])
-//	{
-//		if ([str isEqualToString: @" "])
-//			[actions addObject: [CCDelayTime actionWithDuration: tempo]];
-//		else
-//		{
-//			int note = [str intValue];
-//			NSLog(@"Adding note %d", note);
-//			[actions addObject: [CCCallFuncND actionWithTarget: self selector: @selector(playNote:) data: note]];
-//			[actions addObject: [CCDelayTime actionWithDuration: tempo]];
-//		}
-//	}
-//	
-//	id action = [Instrument actionMutableArray: actions];
-//	NSLog([action description]);
-//	[self runAction: action];
 }
 
 -(void)playNote:(int)note
@@ -89,7 +72,7 @@
 		if ([delegate respondsToSelector: selector])
 			[delegate performSelector: selector withObject: [NSNumber numberWithInt: note]];
 		else
-			NSLog(@"Delegate %@ does not respond to selector", [delegate description]);
+			CCLOG(@"Delegate %@ does not respond to selector", [delegate description]);
 	}
 }
 
@@ -98,9 +81,35 @@
 	for (NSString *str in [chordStr componentsSeparatedByString:@","])
 	{
 		int note = [str intValue];
-		[self playNote: note];
+		if (note > numberOfNotes || note < 0)
+			CCLOG(@"Warning: Instrument note out of bounds");
+		else
+			[self playNote: note];
 	}
 }
+
+-(void)playWithInterval: (NSTimeInterval)interval afterDelay: (NSTimeInterval)delay chords: (NSString*) chord1, ... 
+{
+	NSString *currChord;
+	int iterator = 0;
+	
+	va_list params;
+	va_start(params,chord1);
+	
+	while (chord1)
+	{
+		currChord = va_arg(params,NSString *);
+		if (currChord)
+		{
+			[self performSelector: @selector(playChord:) withObject: currChord afterDelay: delay + (interval * iterator)];
+			iterator++;
+		}
+		else
+			break;
+	}
+	va_end(params);
+}
+
 		 
 -(void)playNoteNumber: (NSNumber *)num
 {

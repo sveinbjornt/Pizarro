@@ -43,8 +43,11 @@
 	int				currShapeIndex;
 	int				score;
 	int				level;
+	NSTimeInterval	mana;
 	NSTimeInterval	timeRemaining;
 	
+	BOOL			inTransition;
+	BOOL			gameOver;
 	
 	Instrument		*piano;
 }
@@ -55,6 +58,7 @@
 -(void)setupHUD;
 -(void)setupGame;
 -(void)setupChipmunk;
+-(void)createPhysicalBox;
 
 -(void)updateLevel;
 -(void)updateScore;
@@ -64,10 +68,13 @@
 -(void)levelBlast: (NSUInteger)lvl atPoint: (CGPoint)p afterDelay: (NSTimeInterval)delay;
 -(void)percentageBlast: (NSUInteger)s atPoint: (CGPoint)p;
 
+-(void)addBouncingBallAtPoint: (CGPoint)p withVelocity: (CGPoint)movementVector;
 
 -(void)createShapeAtPoint: (CGPoint)p;
 -(void)removeShape: (Shape *)shape;
 
 -(void)advanceLevel;
 -(int)currentLevel;
+
+-(void)gameOver;
 @end

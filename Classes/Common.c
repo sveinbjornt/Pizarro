@@ -9,7 +9,6 @@
 
 #import <stdlib.h>
 
-
 static inline int RandomBetween(int min_n, int max_n)
 {
 	return arc4random() % (max_n - min_n + 1) + min_n;

@@ -1,6 +1,6 @@
 //
 //  CCNode+Cleanup.m
-//  Acheron
+//  Pizarro
 //
 //  Created by Sveinbjorn Thordarson on 11/21/10.
 //  Copyright 2010 Corrino Software. All rights reserved.

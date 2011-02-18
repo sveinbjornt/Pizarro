@@ -31,5 +31,6 @@
 -(void)playNote:(int)note;
 -(void)playNoteNumber: (NSNumber *)num;
 -(void)playChord:(NSString *)chordStr;
+-(void)playWithInterval: (NSTimeInterval)interval afterDelay: (NSTimeInterval)delay chords: (NSString*) chord1, ...;
 +(float)bluesPitchForIndex: (int)index;
 @end

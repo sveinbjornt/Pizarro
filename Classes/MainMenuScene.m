@@ -80,7 +80,7 @@
 -(void)createMainMenu
 {
 	// Menu at bottom
-	[CCMenuItemFont setFontName: kHUDFont];
+	[CCMenuItemFont setFontName: kMainMenuFont];
 	[CCMenuItemFont setFontSize: kMainMenuMenuFontSize];
 	
 	CCMenuItemFont *menuItem1 = [CCMenuItemFont itemFromString:@"Play" target:self selector:@selector(onPlay:)];
@@ -115,11 +115,11 @@
 -(void)createLetterAndLogo
 {
 	// Shifting letters and icon
-	letters = [[NSMutableArray alloc] initWithCapacity: kNumNameLetters];
-	for (int i = 0; i < kNumNameLetters; i++)
+	letters = [[NSMutableArray alloc] initWithCapacity: [kGameName length]];
+	for (int i = 0; i < [kGameName length]; i++)
 	{
 		NSString *letter = [NSString stringWithFormat: @"%c", [kGameName characterAtIndex: i]];
-		MMLetterLabel *n = [MMLetterLabel labelWithString: letter fontName: kHUDFont fontSize: kMainMenuTitleFontSize];
+		MMLetterLabel *n = [MMLetterLabel labelWithString: letter fontName: kMainMenuFont fontSize: kMainMenuTitleFontSize];
 		
 		
 //		MMLetterSprite *n = [MMLetterSprite spriteWithFile: [NSString stringWithFormat: @"n%d.png", i+1]];
@@ -209,14 +209,12 @@
 #pragma mark Main menu button actions
 
 - (void)onPlay:(id)sender
-{
-	NSLog(@"on play");
-	
-	[piano playSequence: @"7, ,1,3,4,3,4,3"];
+{	
+	//[piano playSequence: @"7, ,1,3,4,3,4,3"];
 	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.63];
 	[self runAction: [CCSequence actions:
 		
-		[CCDelayTime actionWithDuration: 0.65],
+		[CCDelayTime actionWithDuration: 0.15],
 		[CCCallFuncO actionWithTarget: [CCDirector sharedDirector] 
 							 selector: @selector(replaceScene:) 
 							   object: [CCTransitionMoveInR	 transitionWithDuration: 0.35 scene: [PizarroGameScene scene]]],
@@ -225,10 +223,10 @@
 
 - (void)onSettings:(id)sender
 {
-	NSLog(@"on settings");
 	state = kSettingsState;
-	//[piano playSequence: @"7, , ,6, ,7, , ,6, ,7, , ,6, ,7, , ,6, ,5, , ,2, , , ,1"];
+
 	[piano playSequence: @"1,3,2,4,3,5,7"];
+	
 	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.5];
 	[self shiftOut];
 	[self showSettings];
@@ -256,7 +254,7 @@
 
 -(void)shiftOut
 {
-	for (int i = 0; i < kNumNameLetters; i++)
+	for (int i = 0; i < [kGameName length]; i++)
 	{
 		MMLetterSprite *letter = [letters objectAtIndex: i];
 		
@@ -278,7 +276,7 @@
 
 -(void)shiftIn
 {
-	for (int i = 0; i < kNumNameLetters; i++)
+	for (int i = 0; i < [kGameName length]; i++)
 	{
 		MMLetterSprite *letter = [letters objectAtIndex: i];
 		
@@ -310,17 +308,17 @@
 
 -(void)showSettings
 {	
-	musicLabel = [CCLabelTTF labelWithString: @"Music" fontName: kHUDFont fontSize: 32];
+	musicLabel = [CCLabelTTF labelWithString: @"Music" fontName: kMainMenuFont fontSize: 32];
 	musicLabel.position = ccp(-185, 200);
 	[self addChild: musicLabel z: 1001];
 	[musicLabel runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(170, 200)]];
 	
-	soundLabel = [CCLabelTTF labelWithString: @"Sound" fontName: kHUDFont fontSize: 32];
+	soundLabel = [CCLabelTTF labelWithString: @"Sound" fontName: kMainMenuFont fontSize: 32];
 	soundLabel.position = ccp(-185, 160);
 	[self addChild: soundLabel z: 1001];
 	[soundLabel runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(165, 150)]];
 	
-	gameCenterLabel = [CCLabelTTF labelWithString: @"Game Center" fontName: kHUDFont fontSize: 32];
+	gameCenterLabel = [CCLabelTTF labelWithString: @"Game Center" fontName: kMainMenuFont fontSize: 32];
 	gameCenterLabel.position = ccp(-185, 120);
 	[self addChild: gameCenterLabel z: 1001];
 	[gameCenterLabel runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(125, 100)]];
@@ -404,9 +402,10 @@
 	[self addChild: creditsLogo];
 	[creditsLogo runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(40, 205)]];
 	
-	NSString *credits = @"A\nCORRINO SOFTWARE\nGAME\n\nCREATED BY\nSVEINBJORN THORDARSON & MAGNUS DAVID MAGNUSSON";
+	NSString *credits = [NSString stringWithFormat: @"A\n%@\nGAME\n\nCREATED BY\n%@ & %@",
+														kGameDeveloper, kGameProgramming, kGameGraphics];
 	
-	creditsLabel = [CCLabelTTF labelWithString: credits dimensions:CGSizeMake(390,225) alignment: UITextAlignmentCenter fontName: kHUDFont fontSize: 32];
+	creditsLabel = [CCLabelTTF labelWithString: credits dimensions:CGSizeMake(390,225) alignment: UITextAlignmentCenter fontName: kMainMenuFont fontSize: 32];
 	creditsLabel.position = ccp(-185, 140);
 	[self addChild: creditsLabel];
 	[creditsLabel runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(205, 140)]];
@@ -465,7 +464,7 @@
 	location = [[CCDirector sharedDirector] convertToGL: location];
 	
 	BOOL playedNote = NO;
-	for (int i = 0; i < kNumNameLetters; i++)
+	for (int i = 0; i < [kGameName length]; i++)
 	{
 		MMLetterSprite *letter = [letters objectAtIndex: i];
 		if (CGRectContainsPoint([letter rect], location))
@@ -512,7 +511,7 @@
 	location = [[CCDirector sharedDirector] convertToGL: location];
 	
 	BOOL playedNote = NO;
-	for (int i = 0; i < kNumNameLetters; i++)
+	for (int i = 0; i < [kGameName length]; i++)
 	{
 		MMLetterSprite *letter = [letters objectAtIndex: i];
 		if (CGRectContainsPoint([letter rect], location))

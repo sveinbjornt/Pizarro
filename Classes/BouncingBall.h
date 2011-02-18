@@ -1,5 +1,5 @@
 //
-//  ManaBar.h
+//  BouncingBall.h
 //  Pizarro
 //
 //  Created by Sveinbjorn Thordarson on 2/16/11.
@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-#import "Constants.h"
+#import "Circle.h"
 
-@interface ManaBar : CCNode 
+@interface BouncingBall : Circle 
 {
-	float percentage;
+
 }
-@property (readwrite, assign) float percentage;
+-(void)pushWithVector: (cpVect)v;
 @end

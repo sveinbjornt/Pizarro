@@ -15,5 +15,6 @@
 
 }
 -(void)clear;
+-(void)goBlack;
 -(void)drawShape: (Shape *)circle;
 @end

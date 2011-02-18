@@ -10,7 +10,6 @@
 
 #import "PizarroAppDelegate.h"
 #import "GameConfig.h"
-#import "HelloWorldScene.h"
 #import "RootViewController.h"
 #import "PizarroGameScene.h"
 #import "MainMenuScene.h"

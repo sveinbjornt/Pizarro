@@ -16,6 +16,11 @@
 	[self clear: 0 g: 0 b: 0 a: 0];
 }
 
+-(void)goBlack
+{
+	[self clear: 0 g: 0 b: 0 a: 255];
+}
+
 -(void)drawShape: (Shape *)circle
 {	
 	[self begin];

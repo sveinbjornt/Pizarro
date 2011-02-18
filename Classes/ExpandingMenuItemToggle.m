@@ -15,7 +15,6 @@
 
 -(void)setSelectedIndex:(NSUInteger)index
 {
-	NSLog(@"Setting index");
 	[super setSelectedIndex: index];
 
 	int dir = RandomBetween(0, 1) ? -1 : 1;
