@@ -460,8 +460,6 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	
 	cpSpaceStep(space, 1.0f/60.0f);
 	cpSpaceHashEach(space->activeShapes, &UpdateShape, nil);
-	
-	
 }
 
 #pragma mark -

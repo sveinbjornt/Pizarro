@@ -41,6 +41,11 @@
 
 @synthesize tag = tag_, target = target_, originalTarget = originalTarget_;
 
++(id) action: (CCAction *)action withDelay: (NSTimeInterval)delay
+{
+	return [CCSequence actions: [CCDelayTime actionWithDuration: delay], action, nil];
+}
+
 +(id) action
 {
 	return [[[self alloc] init] autorelease];
