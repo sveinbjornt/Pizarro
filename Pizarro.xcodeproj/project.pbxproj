@@ -290,7 +290,7 @@
 		E0D2C48A12AEDE5C008D5DBB /* cpVect.c in Sources */ = {isa = PBXBuildFile; fileRef = E0D2C45312AEDE5C008D5DBB /* cpVect.c */; };
 		E0D2C48B12AEDE5C008D5DBB /* prime.h in Headers */ = {isa = PBXBuildFile; fileRef = E0D2C45412AEDE5C008D5DBB /* prime.h */; };
 		E0F81038120A173C005866B8 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0F81037120A173C005866B8 /* RootViewController.m */; };
-		F4361312130BE361004A41CA /* BadCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = F4361311130BE361004A41CA /* BadCircle.m */; };
+		F4361312130BE361004A41CA /* BouncingBall.m in Sources */ = {isa = PBXBuildFile; fileRef = F4361311130BE361004A41CA /* BouncingBall.m */; };
 		F4A00253130BAD18000FCEDE /* Circle.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0024F130BAD18000FCEDE /* Circle.m */; };
 		F4A00254130BAD18000FCEDE /* PizarroGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A00252130BAD18000FCEDE /* PizarroGameScene.m */; };
 		F4A462A0130BFE6600A20694 /* CCNode+Cleanup.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A4629F130BFE6600A20694 /* CCNode+Cleanup.m */; };
@@ -383,10 +383,8 @@
 		50674873107A3B5E0090963A /* ZAttributedStringPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZAttributedStringPrivate.h; sourceTree = "<group>"; };
 		506EDB87102F4C4000A389B3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		506EDBA4102F4C9F00A389B3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		506EDC2F102F528A00A389B3 /* HelloWorldScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloWorldScene.h; sourceTree = "<group>"; };
 		506EE05E10304ED200A389B3 /* libcocos2d libraries.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libcocos2d libraries.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		507022A2107672FA00393637 /* PizarroAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PizarroAppDelegate.m; sourceTree = "<group>"; };
-		507022A3107672FA00393637 /* HelloWorldScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelloWorldScene.m; sourceTree = "<group>"; };
 		507ED67511C63903002ED3FC /* CDAudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDAudioManager.h; sourceTree = "<group>"; };
 		507ED67611C63903002ED3FC /* CDAudioManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDAudioManager.m; sourceTree = "<group>"; };
 		507ED67711C63903002ED3FC /* CDConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDConfig.h; sourceTree = "<group>"; };
@@ -651,8 +649,8 @@
 		E0F81035120A173C005866B8 /* GameConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
 		E0F81036120A173C005866B8 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		E0F81037120A173C005866B8 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		F4361310130BE361004A41CA /* BadCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadCircle.h; sourceTree = "<group>"; };
-		F4361311130BE361004A41CA /* BadCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BadCircle.m; sourceTree = "<group>"; };
+		F4361310130BE361004A41CA /* BouncingBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BouncingBall.h; sourceTree = "<group>"; };
+		F4361311130BE361004A41CA /* BouncingBall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BouncingBall.m; sourceTree = "<group>"; };
 		F4A0024E130BAD18000FCEDE /* Circle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Circle.h; sourceTree = "<group>"; };
 		F4A0024F130BAD18000FCEDE /* Circle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Circle.m; sourceTree = "<group>"; };
 		F4A00250130BAD18000FCEDE /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -821,21 +819,14 @@
 		2D500B1D0D5A766B00DBA0E3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				F4CE1B05130D6D47006C0F2C /* Instrument.h */,
-				F4CE1B06130D6D47006C0F2C /* Instrument.m */,
 				E0F81035120A173C005866B8 /* GameConfig.h */,
 				F4A00250130BAD18000FCEDE /* Constants.h */,
 				F4DA73BB130C8EF8000045FB /* Common.c */,
 				F4A4640B130C1C6C00A20694 /* iOS */,
-				F4A00251130BAD18000FCEDE /* PizarroGameScene.h */,
-				F4A00252130BAD18000FCEDE /* PizarroGameScene.m */,
-				F4CE1D63130DA230006C0F2C /* Game Box */,
-				F4A46409130C1C5100A20694 /* HUD */,
-				F4A4640A130C1C5A00A20694 /* Game Objects */,
-				507022A3107672FA00393637 /* HelloWorldScene.m */,
-				506EDC2F102F528A00A389B3 /* HelloWorldScene.h */,
-				F4A4640C130C1C8F00A20694 /* Util */,
+				F4CE215F130EBADB006C0F2C /* Game Scene */,
 				F4CE1D62130DA21D006C0F2C /* Menu */,
+				F4CE2160130EBB0D006C0F2C /* Music */,
+				F4A4640C130C1C8F00A20694 /* Util */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1264,8 +1255,8 @@
 		F4A4640A130C1C5A00A20694 /* Game Objects */ = {
 			isa = PBXGroup;
 			children = (
-				F4361310130BE361004A41CA /* BadCircle.h */,
-				F4361311130BE361004A41CA /* BadCircle.m */,
+				F4361310130BE361004A41CA /* BouncingBall.h */,
+				F4361311130BE361004A41CA /* BouncingBall.m */,
 				F4A4631D130C0E1700A20694 /* Shape.h */,
 				F4A4631E130C0E1700A20694 /* Shape.m */,
 				F4A0024E130BAD18000FCEDE /* Circle.h */,
@@ -1312,7 +1303,7 @@
 			name = Menu;
 			sourceTree = "<group>";
 		};
-		F4CE1D63130DA230006C0F2C /* Game Box */ = {
+		F4CE1D63130DA230006C0F2C /* Box Surface */ = {
 			isa = PBXGroup;
 			children = (
 				F4A4630F130C0D7800A20694 /* SurfaceMatrix.h */,
@@ -1320,7 +1311,7 @@
 				F4CE1CCC130D88B3006C0F2C /* BGRenderTexture.h */,
 				F4CE1CCD130D88B3006C0F2C /* BGRenderTexture.m */,
 			);
-			name = "Game Box";
+			name = "Box Surface";
 			sourceTree = "<group>";
 		};
 		F4CE1F38130E96B7006C0F2C /* Resources */ = {
@@ -1417,6 +1408,27 @@
 				F4CE1F6E130E96B7006C0F2C /* trumpet_up.wav */,
 			);
 			path = sounds;
+			sourceTree = "<group>";
+		};
+		F4CE215F130EBADB006C0F2C /* Game Scene */ = {
+			isa = PBXGroup;
+			children = (
+				F4A00251130BAD18000FCEDE /* PizarroGameScene.h */,
+				F4A00252130BAD18000FCEDE /* PizarroGameScene.m */,
+				F4CE1D63130DA230006C0F2C /* Box Surface */,
+				F4A46409130C1C5100A20694 /* HUD */,
+				F4A4640A130C1C5A00A20694 /* Game Objects */,
+			);
+			name = "Game Scene";
+			sourceTree = "<group>";
+		};
+		F4CE2160130EBB0D006C0F2C /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				F4CE1B05130D6D47006C0F2C /* Instrument.h */,
+				F4CE1B06130D6D47006C0F2C /* Instrument.m */,
+			);
+			name = Music;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1703,7 +1715,7 @@
 				E0F81038120A173C005866B8 /* RootViewController.m in Sources */,
 				F4A00253130BAD18000FCEDE /* Circle.m in Sources */,
 				F4A00254130BAD18000FCEDE /* PizarroGameScene.m in Sources */,
-				F4361312130BE361004A41CA /* BadCircle.m in Sources */,
+				F4361312130BE361004A41CA /* BouncingBall.m in Sources */,
 				F4A462A0130BFE6600A20694 /* CCNode+Cleanup.m in Sources */,
 				F4A462C2130C021200A20694 /* ManaBar.m in Sources */,
 				F4A46311130C0D7800A20694 /* SurfaceMatrix.m in Sources */,
