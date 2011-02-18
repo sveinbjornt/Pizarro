@@ -9,14 +9,14 @@
 #import "MainMenuScene.h"
 #import "Constants.h"
 #import "PizarroGameScene.h"
-//#import "SettingsMenu.h"
-//#import "CreditsMenu.h"
 #import "Common.c"
 #import "SimpleAudioEngine.h"
 #import "Instrument.h"
 
-#define kAnimationInterval				1.0f / 2.0f
+#define kAnimationInterval					1.0f / 2.0f
 #define kBackgroundMovementInterval		1.0f / 20.0f
+
+#pragma mark -
 
 @implementation MainMenuScene
 
@@ -59,10 +59,10 @@
 		[self schedule: @selector(bgMovetick:) interval: kBackgroundMovementInterval];
 		
 		// Background music
-		[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"mainmenu_music.mp3"];
+		//[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"mainmenu_music.mp3"];
 		
 		// Create instrument
-		piano = [[Instrument alloc] initWithName: @"piano" numberOfNotes: 7 tempo: 0.1];
+		piano = [[Instrument alloc] initWithName: @"piano" numberOfNotes: 7 tempo: 0.07];
 		piano.delegate = self;
 		piano.selector = @selector(notePressed:);
 		//
@@ -208,7 +208,7 @@
 #pragma mark -
 #pragma mark Main menu button actions
 
-- (void)onPlay:(id)sender
+-(void)onPlay:(id)sender
 {	
 	//[piano playSequence: @"7, ,1,3,4,3,4,3"];
 	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.63];
@@ -221,7 +221,7 @@
 										nil]];
 }
 
-- (void)onSettings:(id)sender
+-(void)onSettings:(id)sender
 {
 	state = kSettingsState;
 
@@ -229,25 +229,18 @@
 	
 	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.5];
 	[self shiftOut];
-	[self showSettings];
-	
-	//[[Director sharedDirector] replaceScene:[SettingsScene node]];
-	//	[[CCDirector sharedDirector] pushScene:[SettingsMenu scene]];
+	[self showSettings];	
 }
 
-- (void)onCredits:(id)sender
+-(void)onCredits:(id)sender
 {
 	state = kCreditsState;
-	
-	//[piano playSequence: @"1, , ,2, ,3, , ,4, ,5, , ,6, ,5, , ,4, ,3, , ,4, , , ,1"];
-	
-	piano.tempo = 0.07;
+		
 	[piano playSequence: @"1,2,3,4,5,6,7"];
+
 	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.5];
 	[self shiftOut];
-	[self showCredits];
-	
-//	[[CCDirector sharedDirector] pushScene:[CreditsMenu scene]];
+	[self showCredits];	
 }
 
 #pragma mark -
@@ -398,32 +391,32 @@
 -(void)showCredits
 {
 	creditsLogo = [CCSprite spriteWithFile: @"corrino_logo.png"];
-	creditsLogo.position = ccp(-185, 205);
+	creditsLogo.position = ccp(-278, 205);
 	[self addChild: creditsLogo];
-	[creditsLogo runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(40, 205)]];
-	[creditsLogo runAction: [CCRepeatForever actionWithAction: [CCRotateBy actionWithDuration: 0.1 angle: -10]]]; 
+	[creditsLogo runAction: [CCMoveTo actionWithDuration: 0.45 position: ccp(40, 205)]];
+	//[creditsLogo runAction: [CCRepeatForever actionWithAction: [CCRotateBy actionWithDuration: 0.1 angle: -10]]]; 
 	
 	NSString *creditsStr = [NSString stringWithFormat: @"A\n%@\nGAME", kGameDeveloper];
 	NSString *createdByStr = [NSString stringWithFormat: @"CREATED BY\n%@ & %@", kGameProgramming, kGameGraphics];
 	
 	creditsLabel = [CCLabelTTF labelWithString: creditsStr dimensions:CGSizeMake(390,200) alignment: UITextAlignmentCenter fontName: kMainMenuFont fontSize: 32];
-	creditsLabel.position = ccp(-185, 140);
+	creditsLabel.position = ccp(-278, 140);
 	[self addChild: creditsLabel];
-	[creditsLabel runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(205, 140)]];
+	[creditsLabel runAction: [CCEaseIn actionWithAction: [CCMoveTo actionWithDuration: 0.45 position: ccp(205, 140)] rate:4.0f]];
 	
 	createdByLabel = [CCLabelTTF labelWithString: createdByStr dimensions:CGSizeMake(390,150) alignment: UITextAlignmentCenter fontName: kMainMenuFont fontSize: 32];
 	createdByLabel.position = ccp(-185, 50);
 	[self addChild: createdByLabel];
-	[createdByLabel runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(205, 50)]];
+	 [createdByLabel runAction: [CCEaseIn actionWithAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(205, 50)] rate:4.0f]];
 }
 
 -(void)hideCredits
 {
-	[creditsLogo runAction: [CCSequence actions: [CCMoveBy actionWithDuration: 0.3 position: ccp(-185, 0)],
+	[creditsLogo runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.45 position: ccp(-278, 205)],
 							 [CCCallFunc actionWithTarget: creditsLogo selector: @selector(dispose)], nil]];
-	[creditsLabel runAction: [CCSequence actions: [CCMoveBy actionWithDuration: 0.3 position: ccp(-185, 0)],
+	[creditsLabel runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.45 position: ccp(-278, 140)],
 							 [CCCallFunc actionWithTarget: creditsLabel selector: @selector(dispose)], nil]];
-	[createdByLabel runAction: [CCSequence actions: [CCMoveBy actionWithDuration: 0.3 position: ccp(-185, 0)],
+	[createdByLabel runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.3 position: ccp(-185, 50)],
 							  [CCCallFunc actionWithTarget: createdByLabel selector: @selector(dispose)], nil]];
 	
 }

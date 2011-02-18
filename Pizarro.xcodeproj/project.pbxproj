@@ -8,12 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
-		504DFC4810AF1557006D82FE /* CLScoreServerPost.h in Headers */ = {isa = PBXBuildFile; fileRef = 504DFC4210AF1557006D82FE /* CLScoreServerPost.h */; };
-		504DFC4910AF1557006D82FE /* CLScoreServerPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 504DFC4310AF1557006D82FE /* CLScoreServerPost.m */; };
-		504DFC4A10AF1557006D82FE /* CLScoreServerRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 504DFC4410AF1557006D82FE /* CLScoreServerRequest.h */; };
-		504DFC4B10AF1557006D82FE /* CLScoreServerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 504DFC4510AF1557006D82FE /* CLScoreServerRequest.m */; };
-		504DFC4C10AF1557006D82FE /* cocoslive.h in Headers */ = {isa = PBXBuildFile; fileRef = 504DFC4610AF1557006D82FE /* cocoslive.h */; };
-		504DFC4D10AF1557006D82FE /* cocoslive.m in Sources */ = {isa = PBXBuildFile; fileRef = 504DFC4710AF1557006D82FE /* cocoslive.m */; };
 		505574581045D68500A31725 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506EDBA4102F4C9F00A389B3 /* AVFoundation.framework */; };
 		505574591045D68500A31725 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */; };
 		5055745A1045D68500A31725 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
@@ -352,6 +346,9 @@
 		F4CE1F9D130E96B7006C0F2C /* trumpet_down.wav in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F6C130E96B7006C0F2C /* trumpet_down.wav */; };
 		F4CE1F9E130E96B7006C0F2C /* trumpet_start.wav in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F6D130E96B7006C0F2C /* trumpet_start.wav */; };
 		F4CE1F9F130E96B7006C0F2C /* trumpet_up.wav in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F6E130E96B7006C0F2C /* trumpet_up.wav */; };
+		F4CE228E130F0870006C0F2C /* ScoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CE228B130F0870006C0F2C /* ScoreManager.m */; };
+		F4CE228F130F0870006C0F2C /* GameCenterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CE228C130F0870006C0F2C /* GameCenterManager.m */; };
+		F4CE2292130F08BA006C0F2C /* NSFileManager+DocumentFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CE2291130F08BA006C0F2C /* NSFileManager+DocumentFolder.m */; };
 		F4DA7384130C8C2D000045FB /* MainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DA7383130C8C2D000045FB /* MainMenuScene.m */; };
 		F4DA73BC130C8EF8000045FB /* Common.c in Sources */ = {isa = PBXBuildFile; fileRef = F4DA73BB130C8EF8000045FB /* Common.c */; };
 		F4DA74A2130C9EE5000045FB /* MMLetterSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DA74A1130C9EE5000045FB /* MMLetterSprite.m */; };
@@ -372,12 +369,6 @@
 		1F3B9A2C0EF2145700286867 /* PizarroAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PizarroAppDelegate.h; sourceTree = "<group>"; };
 		1F3B9A820EF2151B00286867 /* Pizarro_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pizarro_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		504DFC4210AF1557006D82FE /* CLScoreServerPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLScoreServerPost.h; sourceTree = "<group>"; };
-		504DFC4310AF1557006D82FE /* CLScoreServerPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLScoreServerPost.m; sourceTree = "<group>"; };
-		504DFC4410AF1557006D82FE /* CLScoreServerRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLScoreServerRequest.h; sourceTree = "<group>"; };
-		504DFC4510AF1557006D82FE /* CLScoreServerRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLScoreServerRequest.m; sourceTree = "<group>"; };
-		504DFC4610AF1557006D82FE /* cocoslive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocoslive.h; sourceTree = "<group>"; };
-		504DFC4710AF1557006D82FE /* cocoslive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cocoslive.m; sourceTree = "<group>"; };
 		50674871107A3B5E0090963A /* ZAttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZAttributedString.h; sourceTree = "<group>"; };
 		50674872107A3B5E0090963A /* ZAttributedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZAttributedString.m; sourceTree = "<group>"; };
 		50674873107A3B5E0090963A /* ZAttributedStringPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZAttributedStringPrivate.h; sourceTree = "<group>"; };
@@ -725,6 +716,11 @@
 		F4CE1F6C130E96B7006C0F2C /* trumpet_down.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = trumpet_down.wav; sourceTree = "<group>"; };
 		F4CE1F6D130E96B7006C0F2C /* trumpet_start.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = trumpet_start.wav; sourceTree = "<group>"; };
 		F4CE1F6E130E96B7006C0F2C /* trumpet_up.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = trumpet_up.wav; sourceTree = "<group>"; };
+		F4CE228A130F0870006C0F2C /* ScoreManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreManager.h; sourceTree = "<group>"; };
+		F4CE228B130F0870006C0F2C /* ScoreManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreManager.m; sourceTree = "<group>"; };
+		F4CE228C130F0870006C0F2C /* GameCenterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterManager.m; sourceTree = "<group>"; };
+		F4CE228D130F0870006C0F2C /* GameCenterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterManager.h; sourceTree = "<group>"; };
+		F4CE2291130F08BA006C0F2C /* NSFileManager+DocumentFolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DocumentFolder.m"; sourceTree = "<group>"; };
 		F4DA7382130C8C2D000045FB /* MainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuScene.h; sourceTree = "<group>"; };
 		F4DA7383130C8C2D000045FB /* MainMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuScene.m; sourceTree = "<group>"; };
 		F4DA73BB130C8EF8000045FB /* Common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Common.c; sourceTree = "<group>"; };
@@ -826,23 +822,10 @@
 				F4CE215F130EBADB006C0F2C /* Game Scene */,
 				F4CE1D62130DA21D006C0F2C /* Menu */,
 				F4CE2160130EBB0D006C0F2C /* Music */,
+				F4CE2290130F0873006C0F2C /* Game Center */,
 				F4A4640C130C1C8F00A20694 /* Util */,
 			);
 			path = Classes;
-			sourceTree = "<group>";
-		};
-		504DFC4110AF1557006D82FE /* cocoslive */ = {
-			isa = PBXGroup;
-			children = (
-				504DFC4210AF1557006D82FE /* CLScoreServerPost.h */,
-				504DFC4310AF1557006D82FE /* CLScoreServerPost.m */,
-				504DFC4410AF1557006D82FE /* CLScoreServerRequest.h */,
-				504DFC4510AF1557006D82FE /* CLScoreServerRequest.m */,
-				504DFC4610AF1557006D82FE /* cocoslive.h */,
-				504DFC4710AF1557006D82FE /* cocoslive.m */,
-			);
-			name = cocoslive;
-			path = libs/cocoslive;
 			sourceTree = "<group>";
 		};
 		506EDAA3102F461B00A389B3 /* cocos2d Sources */ = {
@@ -851,7 +834,6 @@
 				E02BBB19126CC2F5006E46A2 /* cocos2d */,
 				507ED67411C63903002ED3FC /* CocosDenshion */,
 				50E5F6CF11072EF700E3FCF5 /* Chipmunk */,
-				504DFC4110AF1557006D82FE /* cocoslive */,
 				50F41306106926B2002A0D5E /* FontLabel */,
 				50F41311106926B2002A0D5E /* TouchJSON */,
 			);
@@ -1283,6 +1265,7 @@
 		F4A4640C130C1C8F00A20694 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				F4CE2291130F08BA006C0F2C /* NSFileManager+DocumentFolder.m */,
 				F4A4629F130BFE6600A20694 /* CCNode+Cleanup.m */,
 			);
 			name = Util;
@@ -1431,6 +1414,17 @@
 			name = Music;
 			sourceTree = "<group>";
 		};
+		F4CE2290130F0873006C0F2C /* Game Center */ = {
+			isa = PBXGroup;
+			children = (
+				F4CE228A130F0870006C0F2C /* ScoreManager.h */,
+				F4CE228B130F0870006C0F2C /* ScoreManager.m */,
+				F4CE228C130F0870006C0F2C /* GameCenterManager.m */,
+				F4CE228D130F0870006C0F2C /* GameCenterManager.h */,
+			);
+			name = "Game Center";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1452,9 +1446,6 @@
 				50F41342106926B2002A0D5E /* CJSONSerializer.h in Headers */,
 				50674874107A3B5E0090963A /* ZAttributedString.h in Headers */,
 				50674876107A3B5E0090963A /* ZAttributedStringPrivate.h in Headers */,
-				504DFC4810AF1557006D82FE /* CLScoreServerPost.h in Headers */,
-				504DFC4A10AF1557006D82FE /* CLScoreServerRequest.h in Headers */,
-				504DFC4C10AF1557006D82FE /* cocoslive.h in Headers */,
 				507ED67E11C63903002ED3FC /* CDAudioManager.h in Headers */,
 				507ED68011C63903002ED3FC /* CDConfig.h in Headers */,
 				507ED68111C63903002ED3FC /* CDOpenALSupport.h in Headers */,
@@ -1729,6 +1720,9 @@
 				F4CE1CCE130D88B3006C0F2C /* BGRenderTexture.m in Sources */,
 				F4CE1DA7130DB740006C0F2C /* ExpandingMenuItemToggle.m in Sources */,
 				F4CE1EB9130E7A25006C0F2C /* MMLetterLabel.m in Sources */,
+				F4CE228E130F0870006C0F2C /* ScoreManager.m in Sources */,
+				F4CE228F130F0870006C0F2C /* GameCenterManager.m in Sources */,
+				F4CE2292130F08BA006C0F2C /* NSFileManager+DocumentFolder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1749,9 +1743,6 @@
 				50F41341106926B2002A0D5E /* CJSONScanner.m in Sources */,
 				50F41343106926B2002A0D5E /* CJSONSerializer.m in Sources */,
 				50674875107A3B5E0090963A /* ZAttributedString.m in Sources */,
-				504DFC4910AF1557006D82FE /* CLScoreServerPost.m in Sources */,
-				504DFC4B10AF1557006D82FE /* CLScoreServerRequest.m in Sources */,
-				504DFC4D10AF1557006D82FE /* cocoslive.m in Sources */,
 				507ED67F11C63903002ED3FC /* CDAudioManager.m in Sources */,
 				507ED68211C63903002ED3FC /* CDOpenALSupport.m in Sources */,
 				507ED68411C63903002ED3FC /* CocosDenshion.m in Sources */,

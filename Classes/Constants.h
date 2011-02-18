@@ -8,12 +8,21 @@
  */
 
 
+// Game Info
+
 #define kGameName				@"Pizarro"
 #define	kGameVersion			1.0
 #define kGameReleaseYear		2011
 #define kGameDeveloper			@"Corrino Software"
 #define kGameProgramming		@"Sveinbjorn Thordarson"
 #define kGameGraphics			@"Magnus David Magnusson"
+
+
+// High scores
+#define kSavedHighscoreFilename		@"PizzaroLocalHighscore"
+#define kSavedHighscorePlistKey		@"LocalHighscore"
+#define kGameCenterScoreCategory	@"Pizarro_Phone_Score"
+#define kSavedGKScoreSuffix			@".pizarroScore"
 
 
 ///// GAMEPLAY ///////
