@@ -503,7 +503,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 -(void)levelBlast: (NSUInteger)lvl atPoint: (CGPoint)p afterDelay: (NSTimeInterval)delay
 {
 	NSString *levelStr = [NSString stringWithFormat: @"Level %d", lvl];
-	CCLabelTTF *levelBlast = [CCLabelTTF labelWithString: levelStr fontName: @"RedStateBlueState BB" fontSize: 78];
+	CCLabelTTF *levelBlast = [CCLabelTTF labelWithString: levelStr fontName: kLevelBlastFont fontSize: kLevelBlastFontSize];
 	levelBlast.position = p;
 	levelBlast.scale = 0.0;
 	levelBlast.opacity = 255.0;
@@ -524,7 +524,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 -(void)percentageBlast: (NSUInteger)s atPoint: (CGPoint)p
 {
 	NSString *scoreStr = [NSString stringWithFormat: @"%d%%", s];
-	CCLabelTTF *scoreBlast = [CCLabelTTF labelWithString: scoreStr fontName: @"RedStateBlueState BB" fontSize: 54];
+	CCLabelTTF *scoreBlast = [CCLabelTTF labelWithString: scoreStr fontName: kPercentageBlastFont fontSize: kPercentageBlastFontSize];
 	scoreBlast.position = p;
 	scoreBlast.scale = 0.4;
 	scoreBlast.opacity = 255.0;
@@ -543,7 +543,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	//							[CCFadeTo actionWithDuration: 0.2 opacity: 0.0], 
 	//							nil]];
 	
-	CCLabelTTF *scoreBlast2 = [CCLabelTTF labelWithString: scoreStr fontName: @"RedStateBlueState BB" fontSize: 56];
+	CCLabelTTF *scoreBlast2 = [CCLabelTTF labelWithString: scoreStr fontName: kPercentageBlastFont fontSize: kPercentageBlastFontSize];
 	scoreBlast2.position = p;
 	scoreBlast2.scale = 0.4;
 	scoreBlast2.opacity = 255.0;
@@ -568,7 +568,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 -(void)gameOverBlastAfterDelay: (NSTimeInterval)delay
 {
 	NSString *gameOverStr = [NSString stringWithFormat: @"GAME OVER"];
-	CCLabelTTF *gameOverBlast = [CCLabelTTF labelWithString: gameOverStr fontName: @"RedStateBlueState BB" fontSize: 84];
+	CCLabelTTF *gameOverBlast = [CCLabelTTF labelWithString: gameOverStr fontName: kGameOverBlastFont fontSize: kGameOverBlastFontSize];
 	gameOverBlast.position = kGameBoxCenterPoint;
 	gameOverBlast.scale = 0.0;
 	gameOverBlast.opacity = 255.0;

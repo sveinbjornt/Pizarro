@@ -15,7 +15,6 @@
 #define kGameProgramming		@"Sveinbjorn Thordarson"
 #define kGameGraphics			@"Magnus David Magnusson"
 
-#define kMainMenuFont			@"RedStateBlueState BB"
 
 ///// GAMEPLAY ///////
 
@@ -26,8 +25,8 @@
 #define kManaPerLevel		kFullMana/2.2f
 
 // Time
-#define kStartingTime		50.0f
-#define kTimePerLevel		20.0f
+#define kStartingTime		60.0f
+#define kTimePerLevel		15.0f
 
 
 // Shapes
@@ -37,8 +36,6 @@
 
 // HUD
 
-#define kHUDFontSize			42
-#define kHUDFont				@"RedStateBlueState BB"
 
 
 // Limits
@@ -82,10 +79,24 @@
 #define kGameBoxRect				CGRectMake(kGameBoxXOffset, kGameBoxYOffset, kGameBoxWidth, kGameBoxHeight)
 
 
-// Main Menu settings
+// Font
 
+#define kHUDFont				@"RedStateBlueState BB"
+#define kMainMenuFont			@"RedStateBlueState BB"
+#define kPercentageBlastFont	@"RedStateBlueState BB"
+#define kGameOverBlastFont		@"RedStateBlueState BB"
+#define kLevelBlastFont			@"RedStateBlueState BB"
+
+#define kHUDFontSize				42
+#define kLevelBlastFontSize			78
+#define kPercentageBlastFontSize	64
+#define kGameOverBlastFontSize		84
 #define kMainMenuTitleFontSize		84
 #define kMainMenuMenuFontSize		42
+
+
+// Main Menu settings
+
 
 #define kMainMenuBackgroundPoint	CGPointMake([[CCDirector sharedDirector] winSize].width/2, 65)
 #define kMainMenuMenuPoint			CGPointMake([[CCDirector sharedDirector] winSize].width/2, 42)
