@@ -241,8 +241,109 @@
 	[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: !enabled] forKey:@"GameCenterEnabled"];
 	
 	NSLog(@"Game Center: %d", [[[NSUserDefaults standardUserDefaults] valueForKey: @"GameCenterEnabled"] boolValue]);
-	
 }
+
+
+#pragma mark -
+#pragma mark Game Center
+
+-(void)initGameCenter
+{
+	NSLog(@"Initing Game Center");
+	if([GameCenterManager isGameCenterAvailable])
+	{
+		//[self setGameCenterDelegate: gameCenterManager];
+		[[GameCenterManager sharedManager] setDelegate: self];
+		
+		//		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationChanged) name:GKPlayerAuthenticationDidChangeNotificationName object:nil];
+	}
+	//	else
+	//		[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: NO] forKey: @"GameCenterEnabled"];		
+}
+
+-(void)processGameCenterAuth: (NSError*) error
+{
+	if(error == NULL)
+	{
+		//		NSLog(@"Authenticated");
+		//[self.gameCenterManager reloadHighScoresForCategory: self.currentLeaderBoard];
+		//[FlurryAPI logEvent:@"Using GameCenter"];
+	}
+	else
+	{
+		//		NSLog(@"Error w. Game Center: %@", [error localizedDescription]);
+	}	
+}
+
+
+#pragma mark -
+#pragma mark Leaderboard
+
+- (void)loadLeaderboard
+{
+	
+	//	UIAlertView* alert= [[[UIAlertView alloc] initWithTitle: @"Game Center not enabled" 
+	//													message: @"Game Center functionality is disabled in this beta build"
+	//												   delegate: nil
+	//										  cancelButtonTitle: @"OK" 
+	//										  otherButtonTitles: NULL] autorelease];
+	//	[alert show];
+	
+	//	if (![GameCenterManager isGameCenterAvailable])
+	//	{
+	////		[GMenuGenerator createGameCenterRequiredMenu: engine.menuManager delegate: engine];
+	////		[engine showMenu:@"gamecenterrequired"];
+	//	}
+	////	else if ([[[NSUserDefaults standardUserDefaults] valueForKey: @"GameCenterEnabled"] boolValue] == NO)
+	//	{
+	//		[GMenuGenerator createEnableGameCenterMenu: engine.menuManager delegate: engine];
+	//		[engine showMenu:@"enablegamecenter"];
+	//	}
+	//	else
+	//	{
+	[[GameCenterManager sharedManager] authenticateLocalUserForLeaderboard];
+	//	}	
+}
+
+
+-(void)alert: (NSString *)str
+{
+	UIAlertView* alert= [[[UIAlertView alloc] initWithTitle: str
+													message: str
+												   delegate: nil
+										  cancelButtonTitle: @"OK" 
+										  otherButtonTitles: NULL] autorelease];
+	[alert show];
+}
+
+- (void)endLeaderboard
+{	
+	if(leaderboardController)
+		[leaderboardController release];
+}
+
+- (void)showLeaderboard
+{		
+	NSLog(@"Showing leaderboard");
+	leaderboardController = [[GKLeaderboardViewController alloc] init];
+	if (leaderboardController != NULL) 
+	{
+		// These defaults can be set in iTunes Connect as oppsoed to code
+		leaderboardController.category = kGameCenterScoreCategory;
+		leaderboardController.timeScope = GKLeaderboardTimeScopeAllTime;
+		leaderboardController.leaderboardDelegate = self; 
+		[leaderboardController setModalTransitionStyle: UIModalTransitionStyleFlipHorizontal];
+		[viewController presentModalViewController: leaderboardController animated: YES];
+	}	
+}
+
+- (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)gkLeaderboardViewController
+{
+	[gkLeaderboardViewController setModalTransitionStyle: UIModalTransitionStyleFlipHorizontal];
+	[gkLeaderboardViewController dismissModalViewControllerAnimated:YES];
+	[self endLeaderboard];
+}
+
 
 
 
