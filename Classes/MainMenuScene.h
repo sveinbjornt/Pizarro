@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "MMLetterSprite.h"
+#import "MMLetterLabel.h"
+#import "ExpandingMenuItemToggle.h"
 #import "Instrument.h"
+
 
 #define kMainState		0
 #define kCreditsState	1
@@ -42,6 +45,11 @@
 }
 
 +(id)scene;
+
+-(void)createMainMenu;
+-(void)createBackground;
+-(void)createLetterAndLogo;
+
 
 -(void)showSettings;
 -(void)hideSettings;

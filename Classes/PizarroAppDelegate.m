@@ -228,7 +228,9 @@
 	[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: !enabled] forKey:@"SoundEffectsEnabled"];
 	
 	NSLog(@"Sound: %d", [[[NSUserDefaults standardUserDefaults] valueForKey: @"SoundEffectsEnabled"] boolValue]);
-	[SimpleAudioEngine sharedEngine].mute = ![[[NSUserDefaults standardUserDefaults] valueForKey: @"SoundEffectsEnabled"] boolValue];
+	[[SimpleAudioEngine sharedEngine] setEffectsVolume: [[[NSUserDefaults standardUserDefaults] valueForKey: @"SoundEffectsEnabled"] boolValue]];	
+//	NSLog(@"Effects volume %f", [[SimpleAudioEngine sharedEngine] effectsVolume]); 
+	//[[SimpleAudioEngine sharedEngine] setEnabled:  [[[NSUserDefaults standardUserDefaults] valueForKey: @"SoundEffectsEnabled"] boolValue] ];
 }
 
 

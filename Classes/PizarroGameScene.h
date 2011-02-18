@@ -13,6 +13,7 @@
 #import "ManaBar.h"
 #import "SurfaceMatrix.h"
 #import "BGRenderTexture.h"
+#import "Instrument.h"
 
 @interface PizarroGameScene : CCLayerColor
 {	
@@ -43,6 +44,9 @@
 	int				score;
 	int				level;
 	NSTimeInterval	timeRemaining;
+	
+	
+	Instrument		*piano;
 }
 
 +(id)scene;
@@ -56,6 +60,10 @@
 -(void)updateScore;
 -(void)updateTimer;
 -(void)updateCurrentShape;
+
+-(void)levelBlast: (NSUInteger)lvl atPoint: (CGPoint)p afterDelay: (NSTimeInterval)delay;
+-(void)percentageBlast: (NSUInteger)s atPoint: (CGPoint)p;
+
 
 -(void)createShapeAtPoint: (CGPoint)p;
 -(void)removeShape: (Shape *)shape;

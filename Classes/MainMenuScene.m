@@ -20,84 +20,6 @@
 
 @implementation MainMenuScene
 
-- (id)init
-{
-	if ((self = [super init])) 
-	{
-		self.isTouchEnabled = YES;
-		
-		// Menu at bottom
-		[CCMenuItemFont setFontName: kHUDFont];
-		[CCMenuItemFont setFontSize: kMainMenuMenuFontSize];
-
-		CCMenuItemFont *menuItem1 = [CCMenuItemFont itemFromString:@"Play" target:self selector:@selector(onPlay:)];
-		CCMenuItemFont *menuItem2 = [CCMenuItemFont itemFromString:@"Settings" target:self selector:@selector(onSettings:)];
-		CCMenuItemFont *menuItem3 = [CCMenuItemFont itemFromString:@"Credits" target:self selector:@selector(onCredits:)];
-		menuItem1.color = ccc3(0,0,0);
-		menuItem2.color = ccc3(0,0,0);
-		menuItem3.color = ccc3(0,0,0);
-		
-		menu = [CCMenu menuWithItems:menuItem1, menuItem2, menuItem3, nil];
-		[menu alignItemsHorizontallyWithPadding: 35.0f];
-		[self addChild:menu z: 1000];
-		menu.position = kMainMenuMenuPoint;
-		
-		
-		// Moving background
-		bg1 = [CCSprite spriteWithFile: @"mainscreen_bg.png"];
-		bg1.position = kMainMenuBackgroundPoint;
-		[self addChild: bg1];
-//		[bg1 runAction: [CCRepeatForever actionWithAction: [CCMoveBy actionWithDuration: 0.05 position: ccp(-1,0)]]];
-		
-		bg2 = [CCSprite spriteWithFile: @"mainscreen_bg.png"];
-		CGPoint p = kMainMenuBackgroundPoint;
-		p.x += kGameScreenWidth;
-		bg2.position = p;
-		[self addChild: bg2];
-//		[bg2 runAction: [CCRepeatForever actionWithAction: [CCMoveBy actionWithDuration: 0.05 position: ccp(-1,0)]]];
-		
-		
-		// Shifting letters and icon
-		letters = [[NSMutableArray alloc] initWithCapacity: kNumNameLetters];
-		for (int i = 0; i < kNumNameLetters; i++)
-		{
-			MMLetterSprite *n = [MMLetterSprite spriteWithFile: [NSString stringWithFormat: @"n%d.png", i+1]];
-			CGPoint pos = kMainMenuFirstLetterPoint;
-			pos.x += kMainMenuLetterSpacing * i;
-			n.position = pos;
-			n.originalPosition = pos;
-			[letters addObject: n];
-			[self addChild: n];
-		}
-		
-		icon = [MMLetterSprite spriteWithFile: @"mainscreen_icon.png"];
-		icon.position = kMainMenuIconPoint;
-		icon.originalPosition = kMainMenuIconPoint;
-		[self addChild: icon];
-		[letters addObject: icon];
-		
-		
-		// Tickers
-		[self schedule: @selector(tick:) interval: kAnimationInterval];
-		[self schedule: @selector(bgMovetick:) interval: kBackgroundMovementInterval];
-		
-		
-		// Background music
-		[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"mainmenu_music.mp3"];
-		
-		piano = [[Instrument alloc] initWithName: @"piano" numberOfNotes: 7 tempo: 0.1];
-		piano.delegate = self;
-		piano.selector = @selector(notePressed:);
-		//
-		//[piano playSequence: @"1,2, ,3,4, ,5,6,7"];
-		
-		//[piano playSequence: @"7, , ,7, ,6, ,5, ,4, , , , ,3, , ,2, , ,1, , ,2, ,1, ,2, ,1"];
-		
-		//[piano playSequence: @"7, ,6,5, ,4,3, ,2,1, ,2,1, ,2,1, ,3,4"];
-	}
-	return self;
-}
-
 -(void)dealloc
 {
 	[letters release];
@@ -120,11 +42,108 @@
 	return scene;
 }
 
+
+- (id)init
+{
+	if ((self = [super init])) 
+	{
+		self.isTouchEnabled = YES;
+		
+		// Create and set up all sprite objects and menus
+		[self createMainMenu];
+		[self createBackground];
+		[self createLetterAndLogo];
+		
+		// Tickers
+		[self schedule: @selector(tick:) interval: kAnimationInterval];
+		[self schedule: @selector(bgMovetick:) interval: kBackgroundMovementInterval];
+		
+		// Background music
+		[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"mainmenu_music.mp3"];
+		
+		// Create instrument
+		piano = [[Instrument alloc] initWithName: @"piano" numberOfNotes: 7 tempo: 0.1];
+		piano.delegate = self;
+		piano.selector = @selector(notePressed:);
+		//
+		//[piano playSequence: @"1,2, ,3,4, ,5,6,7"];
+		
+		//[piano playSequence: @"7, , ,7, ,6, ,5, ,4, , , , ,3, , ,2, , ,1, , ,2, ,1, ,2, ,1"];
+		
+		//[piano playSequence: @"7, ,6,5, ,4,3, ,2,1, ,2,1, ,2,1, ,3,4"];
+	}
+	return self;
+}
+
+#pragma mark -
+
+-(void)createMainMenu
+{
+	// Menu at bottom
+	[CCMenuItemFont setFontName: kHUDFont];
+	[CCMenuItemFont setFontSize: kMainMenuMenuFontSize];
+	
+	CCMenuItemFont *menuItem1 = [CCMenuItemFont itemFromString:@"Play" target:self selector:@selector(onPlay:)];
+	CCMenuItemFont *menuItem2 = [CCMenuItemFont itemFromString:@"Settings" target:self selector:@selector(onSettings:)];
+	CCMenuItemFont *menuItem3 = [CCMenuItemFont itemFromString:@"Credits" target:self selector:@selector(onCredits:)];
+	menuItem1.color = ccc3(0,0,0);
+	menuItem2.color = ccc3(0,0,0);
+	menuItem3.color = ccc3(0,0,0);
+	
+	menu = [CCMenu menuWithItems:menuItem1, menuItem2, menuItem3, nil];
+	[menu alignItemsHorizontallyWithPadding: 35.0f];
+	[self addChild:menu z: 1000];
+	menu.position = kMainMenuMenuPoint;
+}
+
+-(void)createBackground
+{
+	// Moving background
+	bg1 = [CCSprite spriteWithFile: @"mainscreen_bg.png"];
+	bg1.position = kMainMenuBackgroundPoint;
+	[self addChild: bg1];
+//		[bg1 runAction: [CCRepeatForever actionWithAction: [CCMoveBy actionWithDuration: 0.05 position: ccp(-1,0)]]];
+
+	bg2 = [CCSprite spriteWithFile: @"mainscreen_bg.png"];
+	CGPoint p = kMainMenuBackgroundPoint;
+	p.x += kGameScreenWidth;
+	bg2.position = p;
+	[self addChild: bg2];
+//		[bg2 runAction: [CCRepeatForever actionWithAction: [CCMoveBy actionWithDuration: 0.05 position: ccp(-1,0)]]];
+}
+
+-(void)createLetterAndLogo
+{
+	// Shifting letters and icon
+	letters = [[NSMutableArray alloc] initWithCapacity: kNumNameLetters];
+	for (int i = 0; i < kNumNameLetters; i++)
+	{
+		NSString *letter = [NSString stringWithFormat: @"%c", [kGameName characterAtIndex: i]];
+		MMLetterLabel *n = [MMLetterLabel labelWithString: letter fontName: kHUDFont fontSize: kMainMenuTitleFontSize];
+		
+		
+//		MMLetterSprite *n = [MMLetterSprite spriteWithFile: [NSString stringWithFormat: @"n%d.png", i+1]];
+		CGPoint pos = kMainMenuFirstLetterPoint;
+		pos.x += kMainMenuLetterSpacing * i;
+		n.position = pos;
+		n.originalPosition = pos;
+		[letters addObject: n];
+		[self addChild: n];
+	}
+	
+	icon = [MMLetterSprite spriteWithFile: @"mainscreen_icon.png"];
+	icon.position = kMainMenuIconPoint;
+	icon.originalPosition = kMainMenuIconPoint;
+	[self addChild: icon];
+	[letters addObject: icon];
+	
+}
+
 #pragma mark -
 
 -(void)tick: (ccTime)dt
 {
-	for (MMLetterSprite *letter in letters)
+	for (MMLetterLabel *letter in letters)
 	{	
 		if ([letter numberOfRunningActions] != 0)
 			continue;
@@ -279,6 +298,11 @@
 	[bg1 runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,130)]];
 	[bg2 runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,130)]];
 	[menu runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,130)]];
+	
+	piano.tempo = 0.07;
+	[piano playSequence: @"7,6,5,4,3,2,1"];
+	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.5];
+	
 }
 
 #pragma mark -
@@ -332,25 +356,25 @@
 																  target:nil
 																selector:nil];
 	
-	CCMenuItemToggle *toggleSound = [CCMenuItemToggle itemWithTarget: [[UIApplication sharedApplication] delegate] selector:@selector(toggleSound) items:
+	ExpandingMenuItemToggle *toggleSound = [ExpandingMenuItemToggle itemWithTarget: [[UIApplication sharedApplication] delegate] selector:@selector(toggleSound) items:
 									 soundOffItem,
 									 soundOnItem,
 									 nil];
 	toggleSound.selectedIndex = [[[NSUserDefaults standardUserDefaults] valueForKey: @"SoundEffectsEnabled"] boolValue];
 	
-	CCMenuItemToggle *toggleMusic = [CCMenuItemToggle itemWithTarget: [[UIApplication sharedApplication] delegate] selector:@selector(toggleMusic) items:
+	ExpandingMenuItemToggle *toggleMusic = [ExpandingMenuItemToggle itemWithTarget: [[UIApplication sharedApplication] delegate] selector:@selector(toggleMusic) items:
 									 musicOffItem,
 									 musicOnItem,
 									 nil];
 	toggleMusic.selectedIndex = [[[NSUserDefaults standardUserDefaults] valueForKey: @"MusicEnabled"] boolValue];
 		
-	CCMenuItemToggle *toggleGameCenter = [CCMenuItemToggle itemWithTarget: [[UIApplication sharedApplication] delegate] selector:@selector(toggleGameCenter) items:
+	ExpandingMenuItemToggle *toggleGameCenter = [ExpandingMenuItemToggle itemWithTarget: [[UIApplication sharedApplication] delegate] selector:@selector(toggleGameCenter) items:
 										  gameCenterOffItem,
 										  gameCenterOnItem,
 										  nil];
 	toggleGameCenter.selectedIndex = [[[NSUserDefaults standardUserDefaults] valueForKey: @"GameCenterEnabled"] boolValue];
 	
-	settingsMenu = [CCMenu menuWithItems: toggleSound, toggleMusic, toggleGameCenter, nil];
+	settingsMenu = [CCMenu menuWithItems: toggleMusic, toggleSound, toggleGameCenter, nil];
 	[settingsMenu alignItemsVerticallyWithPadding: 0.0f];
 	settingsMenu.position = ccp(-185,150);
 	[self addChild: settingsMenu];
@@ -401,8 +425,7 @@
 
 -(void)trumpetPressed
 {
-	float pitches[] = { 1.0, 0.891, 0.75 };
-	float pitch =  pitches[RandomBetween(0, 2)];
+	float pitch =  [Instrument bluesPitchForIndex: RandomBetween(0, 6)];
 	
 	[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];	
 		
@@ -475,9 +498,6 @@
 				break;
 		}
 		
-		piano.tempo = 0.07;
-		[piano playSequence: @"7,6,5,4,3,2,1"];
-		[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.5];
 	}
 	
 }

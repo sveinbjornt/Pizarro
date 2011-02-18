@@ -30,4 +30,6 @@
 -(void)playSequence: (NSString *)seq;
 -(void)playNote:(int)note;
 -(void)playNoteNumber: (NSNumber *)num;
+-(void)playChord:(NSString *)chordStr;
++(float)bluesPitchForIndex: (int)index;
 @end

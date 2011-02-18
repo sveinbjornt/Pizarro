@@ -113,8 +113,12 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 		[self updateCurrentShape];
 		
 		[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"bassline.mp3"];
+		piano = [[Instrument alloc] initWithName: @"piano" numberOfNotes: 7 tempo: 0.1];
 		
-		[self startLevel];
+		[self levelBlast: level atPoint: kGameBoxCenterPoint afterDelay: 0.5];
+		
+		[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(startLevel)] withDelay: 2.5]];;
+
 	}
 	return self;
 }
@@ -352,10 +356,10 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 
 #pragma mark -
 #pragma mark Drawing
-
--(void)draw
-{
-	[super draw];
+//
+//-(void)draw
+//{
+//	[super draw];
 	
 //	if (currentCircle != nil)
 //		ccDrawPoint(currentCircle.position);
@@ -392,7 +396,7 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 //	glEnableClientState(GL_COLOR_ARRAY);
 //	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 //	glEnable(GL_TEXTURE_2D);
-}
+//}
 
 #pragma mark -
 #pragma mark Tickers
@@ -463,6 +467,25 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 
 #pragma mark -
 #pragma mark Blast
+
+-(void)levelBlast: (NSUInteger)lvl atPoint: (CGPoint)p afterDelay: (NSTimeInterval)delay
+{
+	NSString *levelStr = [NSString stringWithFormat: @"Level %d", lvl];
+	CCLabelTTF *levelBlast = [CCLabelTTF labelWithString: levelStr fontName: @"RedStateBlueState BB" fontSize: 78];
+	levelBlast.position = p;
+	levelBlast.scale = 0.0;
+	levelBlast.opacity = 255.0;
+	levelBlast.color = ccc3(0,0,0);
+	[self addChild: levelBlast z: 1000];
+	
+	[levelBlast runAction: [CCSequence actions: 
+							[CCDelayTime actionWithDuration: delay],
+							[CCScaleTo actionWithDuration: 0.33 scale: 1.0],
+							[CCDelayTime actionWithDuration: 1.33],
+							[CCScaleTo actionWithDuration: 0.33 scale: 0.0],
+							[CCCallFunc actionWithTarget: levelBlast selector: @selector(dispose)], 
+							nil]];
+}
 
 -(void)percentageBlast: (NSUInteger)s atPoint: (CGPoint)p
 {
@@ -551,7 +574,11 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 		[shapes addObject: shape];	
 		score += ([shape area]/100);
 		
-		[bgRenderTexture drawCircle: currentShape];
+		[bgRenderTexture drawShape: currentShape];
+		
+//		[bgRenderTexture begin];
+//		[currentShape drawFilledShape];
+//		[bgRenderTexture end];
 		
 		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: 1.0f pan:0.0f gain:0.3f];
 		
@@ -572,22 +599,33 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 	}
 }
 
+#pragma mark -
+
 -(void)startLevel
-{
-	int numBalls = level / 3;
-	if (numBalls < 1)
-		numBalls = 1;
-	if (numBalls > 5)
-		numBalls = 5;
+{	
+	int numBalls = 0;
 	
+	if (level < 4)
+		numBalls = 1;
+	else if (level > 4 && level < 6)
+		numBalls = 2;
+	else
+		numBalls = 2 + (level / 6);	
+	
+	// Create the balls and set them going
 	for (int i = 0; i < numBalls; i++)
 	{
+		CGPoint startingPoint = kGameScreenCenterPoint;
+		int mod = RandomBetween(0, 1) ? -1 : 1;
+		startingPoint.x += (mod * 25 + RandomBetween(5, 10)) * i;
+		startingPoint.y += (mod * 15 + RandomBetween(5, 10)) * i;
+		
 		BadCircle *bounceBall = [[[BadCircle alloc] init] autorelease];
 		bounceBall.size = 20;
-		bounceBall.position = ccp(200 + (i * 50),200);
+		bounceBall.position = startingPoint;
 		[self addChild: bounceBall];
 		[bounceBall addToSpace: space];
-		[bounceBall pushWithVector: cpv( 4000 + (level * 1000), 4000 + (level * 1000))];
+		[bounceBall pushWithVector: cpv( 5000 + (level * 700 ), 5000 + (level * 700))];
 		[bounceBalls addObject: bounceBall];
 	}
 }
@@ -611,7 +649,12 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 	[surface clear]; 
 	level += 1;
 	
-	[self startLevel];
+	[piano playChord: @"1,2,5"];
+	[piano performSelector: @selector(playChord:) withObject: @"1,2,4" afterDelay: 0.22];
+	[piano performSelector: @selector(playChord:) withObject: @"1,2,3" afterDelay: 0.44];
+	
+	[self levelBlast: level atPoint: kGameBoxCenterPoint afterDelay: 0.5];
+	[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(startLevel)] withDelay: 2.5]];;
 }
 
 -(int)currentLevel

@@ -1,5 +1,5 @@
 //
-//  BGRenderTexture.h
+//  ExpandingMenuItemToggle.h
 //  Pizarro
 //
 //  Created by Sveinbjorn Thordarson on 2/17/11.
@@ -8,12 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-#import "Shape.h"
 
-@interface BGRenderTexture : CCRenderTexture 
+@interface ExpandingMenuItemToggle : CCMenuItemToggle 
 {
 
 }
--(void)clear;
--(void)drawShape: (Shape *)circle;
+
 @end

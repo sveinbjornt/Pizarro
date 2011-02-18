@@ -77,7 +77,7 @@
 	
 }
 
--(void)drawCircle
+-(void)drawFilledShape
 {
 	CGPoint p = CGPointZero;
 

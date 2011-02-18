@@ -16,7 +16,7 @@
 	[self clear: 0 g: 0 b: 0 a: 0];
 }
 
--(void)drawCircle: (Circle *)circle
+-(void)drawShape: (Shape *)circle
 {	
 	[self begin];
 	CGPoint p = ccpSub(circle.position, CGPointMake(kGameBoxXOffset, kGameBoxYOffset));

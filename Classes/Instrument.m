@@ -82,7 +82,7 @@
 	if (note > numberOfNotes)
 		CCLOG(@"Warning, note index %d out of bounds", note);
 	
-	[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%d.wav", note] pitch: pitch pan:0.0f gain: gain];
+	[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%@%d.wav", name, note] pitch: pitch pan:0.0f gain: gain];
 	
 	if (delegate)
 	{
@@ -90,6 +90,15 @@
 			[delegate performSelector: selector withObject: [NSNumber numberWithInt: note]];
 		else
 			NSLog(@"Delegate %@ does not respond to selector", [delegate description]);
+	}
+}
+
+-(void)playChord:(NSString *)chordStr
+{
+	for (NSString *str in [chordStr componentsSeparatedByString:@","])
+	{
+		int note = [str intValue];
+		[self playNote: note];
 	}
 }
 		 
@@ -126,6 +135,12 @@
 	}
 	
 	return prev;
+}
+
++(float)bluesPitchForIndex: (int)index
+{
+	float pitches[] = { 1.0, 0.891, 0.75, 0.707, 0.665, 0.595, 0.5 };
+	return pitches[index];
 }
 
 

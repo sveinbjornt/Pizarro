@@ -15,5 +15,5 @@
 }
 
 -(void)drawExpandingCircle;
--(void)drawCircle;
+-(void)drawFilledShape;
 @end

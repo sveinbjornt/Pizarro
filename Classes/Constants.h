@@ -8,6 +8,7 @@
  */
 
 
+#define kGameName			@"Pizarro"
 
 #define kFullMana			10.0
 
@@ -20,7 +21,9 @@
 #define kNumShapeKinds		3
 
 #define kHUDFontSize		42
-#define kHUDFont			@"RedStateBlueState BB"
+
+#define kMainMenuTitleFontSize		84
+#define kHUDFont					@"RedStateBlueState BB"
 
 #define kMainMenuMenuFontSize		42
 
@@ -48,6 +51,6 @@
 #define kMainMenuIconPoint			CGPointMake(392, 220)
 #define kMenuPauseButtonPoint		CGPointMake(36, 290)
 #define kMainMenuFirstLetterPoint	CGPointMake(54, 190)
-#define kMainMenuLetterSpacing		53
+#define kMainMenuLetterSpacing		50
 
 #define kMainMenuLetterShiftVector	CGPointMake(-20, 100)
