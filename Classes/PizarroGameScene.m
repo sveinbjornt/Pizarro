@@ -20,10 +20,9 @@
 
 int lastPlayedIndex = 0;
 
-void updateShape(void* ptr, void* unused){
-	
-	cpShape* shape = (cpShape*)ptr;
-	
+void UpdateShape(void* ptr, void* unused)
+{	
+	cpShape* shape = (cpShape*)ptr;	
 	CCNode *sprite = shape->data;
 	
 	if(sprite)// && [sprite isKindOfClass: [BadCircle class]]){
@@ -31,11 +30,11 @@ void updateShape(void* ptr, void* unused){
 		cpBody* body = shape->body;
 		
 		[sprite setPosition:cpv(body->p.x, body->p.y)];
-		
+		//[sprite setRotation: (float) CC_RADIANS_TO_DEGREES( -body->a )];
 	}
 }
 
-static void collisionExpansion (cpArbiter *arb, cpSpace *space, void *data)
+static void CollisionBallExpansionCircle (cpArbiter *arb, cpSpace *space, void *data)
 {
 	cpShape *a, *b; 
 	cpArbiterGetShapes(arb, &a, &b);
@@ -48,7 +47,7 @@ static void collisionExpansion (cpArbiter *arb, cpSpace *space, void *data)
 	NSLog(@"Collision");
 }
 
-static void collision (cpArbiter *arb, cpSpace *space, void *data)
+static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *data)
 {
 	PizarroGameScene *scene = (PizarroGameScene *)data;
 	int lvl = [scene currentLevel]+1;
@@ -62,7 +61,7 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 		lastPlayedIndex = 1 + (lastPlayedIndex - 8);
 	
 	//[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%d.wav", lastPlayedIndex]];
-	[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%d.wav", lastPlayedIndex] pitch:1.0f pan:0.0f gain:0.1f];
+	[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"piano%d.wav", lastPlayedIndex] pitch:1.0f pan:0.0f gain:0.1f];
 }
 
 
@@ -291,8 +290,8 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 	
 	// Add collision handlers
 	
-	cpSpaceAddCollisionHandler(space, 1, 2, NULL, NULL, &collisionExpansion, NULL, NULL);  // collision between expanding shape and bouncing ball
-	cpSpaceAddCollisionHandler(space, 1, 0, NULL, NULL, &collision, NULL, self); // collision between finished circles or walls and a bouncing ball
+	cpSpaceAddCollisionHandler(space, 1, 2, NULL, NULL, &CollisionBallExpansionCircle, NULL, NULL);  // collision between expanding shape and bouncing ball
+	cpSpaceAddCollisionHandler(space, 1, 0, NULL, NULL, &CollisionBallAndCircleOrWall, NULL, self); // collision between finished circles or walls and a bouncing ball
 
 	
 }
@@ -460,7 +459,7 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 	}
 	
 	cpSpaceStep(space, 1.0f/60.0f);
-	cpSpaceHashEach(space->activeShapes, &updateShape, nil);
+	cpSpaceHashEach(space->activeShapes, &UpdateShape, nil);
 	
 	
 }
@@ -557,6 +556,8 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 		shape.destroyed = YES;
 		shape.ended = NOW;
 		[self removeShape: shape];
+	
+		
 		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch:0.891 pan:0.0f gain:0.3f];
 	}
 	else
@@ -580,7 +581,10 @@ static void collision (cpArbiter *arb, cpSpace *space, void *data)
 //		[currentShape drawFilledShape];
 //		[bgRenderTexture end];
 		
-		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: 1.0f pan:0.0f gain:0.3f];
+		int size = shape.size;
+		int index = size % 7;
+		float pitch = [Instrument bluesPitchForIndex: index];
+		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];
 		
 		if ([surface percentageFilled] >= 80.0f)
 			[self advanceLevel];
