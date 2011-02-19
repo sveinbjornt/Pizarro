@@ -69,6 +69,7 @@
 -(void)percentageBlast: (NSUInteger)s atPoint: (CGPoint)p;
 
 -(void)addBouncingBallAtPoint: (CGPoint)p withVelocity: (CGPoint)movementVector;
+-(void)endExpansionOfShape: (Shape *)shape;
 
 -(void)createShapeAtPoint: (CGPoint)p;
 -(void)removeShape: (Shape *)shape;

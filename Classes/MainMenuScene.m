@@ -247,6 +247,8 @@
 
 -(void)shiftOut
 {
+	inTransition = YES;
+	
 	for (int i = 0; i < [kGameName length]; i++)
 	{
 		MMLetterSprite *letter = [letters objectAtIndex: i];
@@ -265,10 +267,14 @@
 	[bg1 runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,-130)]];
 	[bg2 runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,-130)]];
 	[menu runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,-130)]];
+	
+	[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(endTransition)] withDelay: 0.5]];
 }
 
 -(void)shiftIn
 {
+	inTransition = YES;
+	
 	for (int i = 0; i < [kGameName length]; i++)
 	{
 		MMLetterSprite *letter = [letters objectAtIndex: i];
@@ -294,6 +300,14 @@
 	[piano playSequence: @"7,6,5,4,3,2,1"];
 	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.5];
 	
+	[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(endTransition)] withDelay: 0.5]];
+	
+	
+}
+
+-(void)endTransition
+{
+	inTransition = NO;
 }
 
 #pragma mark -
@@ -304,12 +318,12 @@
 	musicLabel = [CCLabelTTF labelWithString: @"Music" fontName: kMainMenuFont fontSize: 32];
 	musicLabel.position = ccp(-185, 200);
 	[self addChild: musicLabel z: 1001];
-	[musicLabel runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(170, 200)]];
+	[musicLabel runAction: [CCMoveTo actionWithDuration: 0.5 position: ccp(170, 200)]];
 	
 	soundLabel = [CCLabelTTF labelWithString: @"Sound" fontName: kMainMenuFont fontSize: 32];
 	soundLabel.position = ccp(-185, 160);
 	[self addChild: soundLabel z: 1001];
-	[soundLabel runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(165, 150)]];
+	[soundLabel runAction: [CCMoveTo actionWithDuration: 0.4 position: ccp(165, 150)]];
 	
 	gameCenterLabel = [CCLabelTTF labelWithString: @"Game Center" fontName: kMainMenuFont fontSize: 32];
 	gameCenterLabel.position = ccp(-185, 120);
@@ -375,13 +389,13 @@
 
 -(void)hideSettings
 {
-	[musicLabel runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.3 position: ccp(-185, 200)],
+	[musicLabel runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.25 position: ccp(-185, 200)],
 							 [CCCallFunc actionWithTarget: musicLabel selector: @selector(dispose)], nil]];
-	[soundLabel runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.3 position: ccp(-185, 160)],
+	[soundLabel runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.35 position: ccp(-185, 150)],
 							[CCCallFunc actionWithTarget: soundLabel selector: @selector(dispose)], nil]];
-	[gameCenterLabel runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.3 position: ccp(-185, 120)],
+	[gameCenterLabel runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.45 position: ccp(-185, 100)],
 							[CCCallFunc actionWithTarget: gameCenterLabel selector: @selector(dispose)], nil]];
-	[settingsMenu runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.3 position: ccp(-185, 120)],
+	[settingsMenu runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.5 position: ccp(-185, 120)],
 								 [CCCallFunc actionWithTarget: settingsMenu selector: @selector(dispose)], nil]];
 }
 
@@ -457,7 +471,7 @@
 
 -(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event 
 {
-	if (currTouch != nil)
+	if (inTransition || currTouch != nil)
 		return;
 		
     currTouch = [touches anyObject];
@@ -504,7 +518,7 @@
 
 -(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event 
 {
-	if (currTouch == nil)
+	if (inTransition || currTouch == nil)
 		return;
 
 	

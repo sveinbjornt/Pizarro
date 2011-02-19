@@ -449,7 +449,23 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	
 	if (mana <= 0 || timeRemaining <= 0)
 	{
+		// OK, he's out of time or mana, but if he's currenlty covering enough area,
+		// then we let it slide
+		if (currentShape != nil)
+		{
+			[surface updateWithShape: currentShape];
+			NSLog(@"Surface filled w. final shape: %f",  [surface percentageFilled]);
+			
+			if ([surface percentageFilled] >= kSurfaceReqPerLevel)
+			{
+				[self endExpansionOfShape: currentShape];
+				currentShape = nil;
+				return;
+			}
+		}
+		
 		[self gameOver];
+		
 		return;
 	}
 	
@@ -614,7 +630,6 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		shape.ended = NOW;
 		[self removeShape: shape];
 	
-		
 		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch:0.891 pan:0.0f gain:0.3f];
 	}
 	else
@@ -643,7 +658,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		float pitch = [Instrument bluesPitchForIndex: index];
 		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];
 		
-		if ([surface percentageFilled] >= 80.0f)
+		if ([surface percentageFilled] >= kSurfaceReqPerLevel)
 			[self advanceLevel];
 	}
 
@@ -702,7 +717,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		startingPoint.y += (mod * 15 + RandomBetween(5, 10)) * i;
 		
 		// Define movement vector
-		CGPoint movementVector = cpv( 5000 + (level * 700 ), 5000 + (level * 700));
+		CGPoint movementVector = cpv( (5000 + (level * 550 )) * mod, (5000 + (level * 550)) * mod);
 		
 		// Add ball
 		[self addBouncingBallAtPoint: startingPoint withVelocity: movementVector];
@@ -803,13 +818,12 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	if (!inTransition && CGRectContainsPoint(kGameBoxRect, location))
 	{
 		[self createShapeAtPoint: location];
-	}
-	
+	}	
 }
 
 -(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event 
 {
-
+	
 }
 
 -(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 

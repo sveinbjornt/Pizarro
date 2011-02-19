@@ -21,36 +21,34 @@
 
 - (void) removeStartupFlicker
 {
-	//
-	// THIS CODE REMOVES THE STARTUP FLICKER
-	//
-	// Uncomment the following code if you Application only supports landscape mode
-	//
-#if GAME_AUTOROTATION == kGameAutorotationUIViewController
-	
-	//	CC_ENABLE_DEFAULT_GL_STATES();
-	//	CCDirector *director = [CCDirector sharedDirector];
-	//	CGSize size = [director winSize];
-	//	CCSprite *sprite = [CCSprite spriteWithFile:@"Default.png"];
-	//	sprite.position = ccp(size.width/2, size.height/2);
-	//	sprite.rotation = -90;
-	//	[sprite visit];
-	//	[[director openGLView] swapBuffers];
-	//	CC_ENABLE_DEFAULT_GL_STATES();
-	
-#endif // GAME_AUTOROTATION == kGameAutorotationUIViewController	
+//
+// THIS CODE REMOVES THE STARTUP FLICKER
+//
+// Uncomment the following code if you Application only supports landscape mode
+//
+//#if GAME_AUTOROTATION == kGameAutorotationUIViewController
+//	
+//	CC_ENABLE_DEFAULT_GL_STATES();
+//	CCDirector *director = [CCDirector sharedDirector];
+//	CGSize size = [director winSize];
+//	CCSprite *sprite = [CCSprite spriteWithFile:@"Default.png"];
+//	sprite.position = ccp(size.width/2, size.height/2);
+//	sprite.rotation = -90;
+//	[sprite visit];
+//	[[director openGLView] swapBuffers];
+//	CC_ENABLE_DEFAULT_GL_STATES();
+//	
+//#endif // GAME_AUTOROTATION == kGameAutorotationUIViewController	
 }
 
 - (void) applicationDidFinishLaunching:(UIApplication*)application
 {
-	
-	
 	// Init the window
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	
 	// Try to use CADisplayLink director
 	// if it fails (SDK < 3.1) use the default director
-	if( ! [CCDirector setDirectorType:kCCDirectorTypeDisplayLink] )
+	if(![CCDirector setDirectorType:kCCDirectorTypeDisplayLink])
 		[CCDirector setDirectorType:kCCDirectorTypeDefault];
 	
 	
@@ -96,7 +94,6 @@
 	[director setAnimationInterval:1.0/60];
 	[director setDisplayFPS:YES];
 	
-	
 	// make the OpenGLView a child of the view controller
 	[viewController setView:glView];
 	
@@ -109,7 +106,6 @@
 	// It can be RGBA8888, RGBA4444, RGB5_A1, RGB565
 	// You can change anytime.
 	[CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA8888];
-
 	
 	// Removes the startup flicker
 	[self removeStartupFlicker];

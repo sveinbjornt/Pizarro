@@ -31,15 +31,16 @@
 #define kFullMana				10.0
 #define kStartingMana			10.0
 #define kManaPercentageLow		0.25
-#define kManaPerLevel			kFullMana/2.2f
+#define kManaPerLevel			(kFullMana/2.5f) + (level * (kFullMana/33))
 
 // Time
 #define kStartingTime			60.0f
 #define kTimePerLevel			15.0f
 
+#define kSurfaceReqPerLevel		80.0f
 
 // Shapes
-#define kMaxBounceBalls		8
+#define kMaxBounceBalls			8
 #define kMinimumShapeSize		4
 #define kNumShapeKinds			3
 
@@ -53,18 +54,18 @@
 
 #define kWallThickness				20
 #define kWallCollisionType			0
-#define kWallElasticity			1.0f
+#define kWallElasticity				1.0f
 #define kWallFriction				0.0f
 #define kWallMass					INFINITY
 #define kWallInertia				INFINITY
-#define kWallShapeGroup			100
+#define kWallShapeGroup				100
 
 
 // Surface matrix
 
 #define kMatrixWidth				44
 #define kMatrixHeight				27
-#define kMatrixUnitSize			10
+#define kMatrixUnitSize				10
 
 
 // Game box
@@ -72,8 +73,8 @@
 #define kGameBoxWidth				440
 #define kGameBoxHeight				270
 
-#define kGameBoxXOffset			32
-#define kGameBoxYOffset			8
+#define kGameBoxXOffset				32
+#define kGameBoxYOffset				8
 
 #define kGameScreenWidth			480
 #define kGameScreenHeight			320
@@ -93,7 +94,7 @@
 #define kLevelBlastFont			@"RedStateBlueState BB"
 
 #define kHUDFontSize				42
-#define kLevelBlastFontSize		78
+#define kLevelBlastFontSize			78
 #define kPercentageBlastFontSize	64
 #define kGameOverBlastFontSize		84
 #define kMainMenuTitleFontSize		84

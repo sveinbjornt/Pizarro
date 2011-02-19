@@ -42,6 +42,8 @@
 	
 	Instrument		*piano;
 	
+	BOOL			inTransition;
+	
 }
 
 +(id)scene;
