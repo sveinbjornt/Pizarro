@@ -43,6 +43,12 @@
 
 - (void) applicationDidFinishLaunching:(UIApplication*)application
 {
+	[[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjects:
+															 
+															 [NSArray arrayWithObjects:  [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool: [GameCenterManager isGameCenterAvailable]], nil]
+																			   forKeys:  [NSArray arrayWithObjects: @"MusicEnabled", @"SoundEffectsEnabled", @"GameCenterEnabled", nil]]];	
+	
+	
 	// Init the window
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	
@@ -117,6 +123,11 @@
 
 	[[CCDirector sharedDirector] runWithScene: [MainMenuScene scene]];	
 	
+	// Init and log in to game center
+	[self initGameCenter];
+	
+	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"GameCenterEnabled"])
+		[[GameCenterManager sharedManager] authenticateLocalUser];
 }
 
 
@@ -246,7 +257,7 @@
 -(void)initGameCenter
 {
 	NSLog(@"Initing Game Center");
-	if([GameCenterManager isGameCenterAvailable])
+	if ([GameCenterManager isGameCenterAvailable])
 	{
 		//[self setGameCenterDelegate: gameCenterManager];
 		[[GameCenterManager sharedManager] setDelegate: self];

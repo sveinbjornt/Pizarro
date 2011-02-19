@@ -80,7 +80,7 @@
 #define kGameScreenHeight			320
 
 #define kGameScreenCenterPoint		CGPointMake([[CCDirector sharedDirector] winSize].width/2,[[CCDirector sharedDirector] winSize].height/2)
-#define kGameBoxCenterPoint		CGPointMake(kGameBoxXOffset + (kGameBoxWidth/2), kGameBoxYOffset + (kGameBoxHeight/2)) 
+#define kGameBoxCenterPoint			CGPointMake(kGameBoxXOffset + (kGameBoxWidth/2), kGameBoxYOffset + (kGameBoxHeight/2)) 
 
 #define kGameBoxRect				CGRectMake(kGameBoxXOffset, kGameBoxYOffset, kGameBoxWidth, kGameBoxHeight)
 
@@ -91,7 +91,7 @@
 #define kMainMenuFont				@"RedStateBlueState BB"
 #define kPercentageBlastFont		@"RedStateBlueState BB"
 #define kGameOverBlastFont			@"RedStateBlueState BB"
-#define kLevelBlastFont			@"RedStateBlueState BB"
+#define kLevelBlastFont				@"RedStateBlueState BB"
 
 #define kHUDFontSize				42
 #define kLevelBlastFontSize			78

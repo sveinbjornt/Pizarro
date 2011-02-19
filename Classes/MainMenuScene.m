@@ -59,7 +59,7 @@
 		[self schedule: @selector(bgMovetick:) interval: kBackgroundMovementInterval];
 		
 		// Background music
-		//[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"mainmenu_music.mp3"];
+		[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"mainmenu_music.mp3"];
 		
 		// Create instrument
 		piano = [[Instrument alloc] initWithName: @"piano" numberOfNotes: 7 tempo: 0.07];
@@ -426,11 +426,11 @@
 
 -(void)hideCredits
 {
-	[creditsLogo runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.45 position: ccp(-278, 205)],
+	[creditsLogo runAction: [CCSequence actions: [CCEaseIn actionWithAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(-278, 205)] rate:4.0f],
 							 [CCCallFunc actionWithTarget: creditsLogo selector: @selector(dispose)], nil]];
-	[creditsLabel runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.45 position: ccp(-278, 140)],
+	[creditsLabel runAction: [CCSequence actions: [CCEaseIn actionWithAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(-278, 140)] rate:4.0f],
 							 [CCCallFunc actionWithTarget: creditsLabel selector: @selector(dispose)], nil]];
-	[createdByLabel runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.3 position: ccp(-185, 50)],
+	[createdByLabel runAction: [CCSequence actions: [CCEaseIn actionWithAction: [CCMoveTo actionWithDuration: 0.45 position: ccp(-185, 50)] rate:4.0f],
 							  [CCCallFunc actionWithTarget: createdByLabel selector: @selector(dispose)], nil]];
 	
 }
