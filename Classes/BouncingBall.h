@@ -8,11 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-#import "Circle.h"
+#import "chipmunk.h"
 
-@interface BouncingBall : Circle 
+
+@interface BouncingBall : CCSprite 
 {
-
+	float size;
+	
+	cpShape			*cpShape;
+	cpBody			*cpBody;
 }
+@property (readwrite, assign) float size;
+@property (readwrite, assign) cpShape *cpShape;
+@property (readwrite, assign) cpBody *cpBody;
+
 -(void)pushWithVector: (cpVect)v;
+-(void)addToSpace:(cpSpace *)space;
+
 @end

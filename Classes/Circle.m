@@ -45,15 +45,18 @@
 }
 
 -(void)drawExpandingCircle
-{
+{	
 	CGPoint p = CGPointZero;
 	
-	glDisable(GL_TEXTURE_2D);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
+//	glDisable(GL_TEXTURE_2D);
+//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//	glDisableClientState(GL_COLOR_ARRAY);
+	
+//	glColor4ub(0,0,0,255);
+//	ccFillCircle(p, size/2, CC_DEGREES_TO_RADIANS(360), 60, NO);
 	
 	BOOL white = NO;
-	for (int i = size; i > 0; i-= 8)
+	for (int i = size; i > 0; i-= (15 * CC_CONTENT_SCALE_FACTOR()))
 	{
 		if (white)
 			glColor4ub(255,255,255,opacity);
@@ -61,18 +64,21 @@
 			glColor4ub(color.r,color.g,color.b,opacity);
 		
 		white = !white;
-		
-		glPointSize(i * CC_CONTENT_SCALE_FACTOR());
-		glEnable(GL_POINT_SMOOTH);
-		
-		glVertexPointer(2, GL_FLOAT, 0, &p);	
-		glDrawArrays(GL_POINTS, 0, 1);
+				
+		ccFillCircle(p, i/2, CC_DEGREES_TO_RADIANS(360), 60, NO);
+//		glPointSize(i * CC_CONTENT_SCALE_FACTOR());
+//		glEnable(GL_POINT_SMOOTH);
+//		
+//		glVertexPointer(2, GL_FLOAT, 0, &p);	
+//		glDrawArrays(GL_POINTS, 0, 1);
+			
+			
 	}
 	
 	// restore default state
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnable(GL_TEXTURE_2D);
+//	glEnableClientState(GL_COLOR_ARRAY);
+//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//	glEnable(GL_TEXTURE_2D);
 	
 	
 }

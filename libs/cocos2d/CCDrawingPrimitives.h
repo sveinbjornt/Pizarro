@@ -76,6 +76,8 @@ void ccFillPoly( const CGPoint *poli, NSUInteger numberOfPoints, BOOL closePolyg
 /** draws a circle given the center, radius and number of segments measured in points */
 void ccDrawCircle( CGPoint center, float radius, float angle, NSUInteger segments, BOOL drawLineToCenter);
 
+void ccFillCircle( CGPoint center, float r, float a, NSUInteger segs, BOOL drawLineToCenter);
+
 /** draws a quad bezier path measured in points.
  @since v0.8
  */

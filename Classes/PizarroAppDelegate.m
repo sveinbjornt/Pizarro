@@ -124,10 +124,10 @@
 	[[CCDirector sharedDirector] runWithScene: [MainMenuScene scene]];	
 	
 	// Init and log in to game center
-	[self initGameCenter];
-	
-	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"GameCenterEnabled"])
-		[[GameCenterManager sharedManager] authenticateLocalUser];
+//	[self initGameCenter];
+//	
+//	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"GameCenterEnabled"])
+//		[[GameCenterManager sharedManager] authenticateLocalUser];
 }
 
 

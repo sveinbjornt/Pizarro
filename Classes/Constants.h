@@ -36,12 +36,13 @@
 // Time
 #define kStartingTime			60.0f
 #define kTimePerLevel			15.0f
+#define kTimeLow				20.0f
 
 #define kSurfaceReqPerLevel		80.0f
 
 // Shapes
 #define kMaxBounceBalls			8
-#define kMinimumShapeSize		4
+#define kMinimumShapeSize		6
 #define kNumShapeKinds			3
 
 
@@ -63,18 +64,18 @@
 
 // Surface matrix
 
-#define kMatrixWidth				44
-#define kMatrixHeight				27
+#define kMatrixWidth				45
+#define kMatrixHeight				28
 #define kMatrixUnitSize				10
 
 
 // Game box
 
-#define kGameBoxWidth				440
-#define kGameBoxHeight				270
+#define kGameBoxWidth				450
+#define kGameBoxHeight				280
 
-#define kGameBoxXOffset				32
-#define kGameBoxYOffset				8
+#define kGameBoxXOffset				26
+#define kGameBoxYOffset				3
 
 #define kGameScreenWidth			480
 #define kGameScreenHeight			320

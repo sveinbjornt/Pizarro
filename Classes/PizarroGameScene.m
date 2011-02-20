@@ -94,6 +94,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 
 - (void) dealloc
 {
+
 	[bounceBalls release];
 	[shapeKinds release];
 	[surface release];
@@ -152,7 +153,15 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	CCSprite *bg = [CCSprite spriteWithFile: @"bg.png"];
 	bg.blendFunc = (ccBlendFunc) { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
 	bg.position = kGameScreenCenterPoint;
-	[self addChild: bg z: 100];
+	[self addChild: bg z: 100];	
+	
+	// game backing texture
+	bgRenderTexture = [BGRenderTexture renderTextureWithWidth: kGameBoxWidth height: kGameBoxHeight];
+	[bgRenderTexture setPosition: kGameBoxCenterPoint];
+	[bgRenderTexture clear];
+	bgRenderTexture.sprite.blendFunc = (ccBlendFunc) { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
+	//[[bgRenderTexture sprite] setBlendFunc:(ccBlendFunc){GL_ONE, GL_ONE_MINUS_SRC_ALPHA}];
+	[self addChild: bgRenderTexture z: 90];
 	
 	// TIMER
 	[self updateTimer];
@@ -189,13 +198,6 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 {
 	//surface matrix
 	surface = [[SurfaceMatrix alloc] init];
-	
-	// game backing texture
-	bgRenderTexture = [BGRenderTexture renderTextureWithWidth: kGameBoxWidth height: kGameBoxHeight];
-	[bgRenderTexture setPosition: kGameBoxCenterPoint];
-	[bgRenderTexture clear];
-	//[[bgRenderTexture sprite] setBlendFunc:(ccBlendFunc){GL_ONE, GL_ONE_MINUS_SRC_ALPHA}];
-	[self addChild: bgRenderTexture z: 90];
 	
 	// Array of objects
 	shapes = [[NSMutableArray alloc] initWithCapacity: kMaxShapes];
@@ -353,10 +355,10 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	NSString *timeStr = [NSString stringWithFormat: @"%.2d:%.2d", min, sec];
 	timeLabel = [CCLabelTTF labelWithString: timeStr fontName: kHUDFont fontSize: kHUDFontSize];
 	
-	if (timeRemaining > 30)
-		timeLabel.color = ccc3(0,0,0);
+	if (timeRemaining > kTimeLow)
+		timeLabel.color = ccc3(0,0,0); // black
 	else
-		timeLabel.color = ccc3(180,0,0);
+		timeLabel.color = ccc3(180,0,0); // red
 	
 	timeLabel.position =  ccp(405 , 300 );
 	[self addChild: timeLabel z: 1001];	
@@ -659,7 +661,12 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];
 		
 		if ([surface percentageFilled] >= kSurfaceReqPerLevel)
-			[self advanceLevel];
+		{
+			inTransition = YES;
+			[self runAction: [CCSequence actions:
+								[CCDelayTime actionWithDuration: 0.15],
+							  [CCCallFunc actionWithTarget: self selector: @selector(advanceLevel)], nil]];
+		}
 	}
 
 }
@@ -677,7 +684,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 
 -(void)addBouncingBallAtPoint: (CGPoint)p withVelocity: (CGPoint)movementVector
 {
-	BouncingBall *bounceBall = [[[BouncingBall alloc] init] autorelease];
+	BouncingBall *bounceBall = [BouncingBall spriteWithFile: @"bouncingball.png"];
 	bounceBall.size = 20;
 	bounceBall.position = p;
 	
@@ -688,7 +695,6 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	
 	[self addChild: bounceBall];
 }
-
 
 #pragma mark -
 #pragma mark Level transitions
@@ -739,7 +745,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	
 	// Remove bouncing balls
 	for (BouncingBall *b in bounceBalls)
-		[self removeShape: b];
+		[self removeShape: (Shape *)b]; // this is dirty
 	[bounceBalls removeAllObjects];
 	
 	// Clear surface
