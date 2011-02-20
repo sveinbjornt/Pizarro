@@ -37,7 +37,7 @@
 	CGPoint p = CGPointZero;
 	
 	glColor4ub(0,0,0,255);
-	glPointSize(size);
+	glPointSize(size * CC_CONTENT_SCALE_FACTOR());
 	glEnable(GL_POINT_SMOOTH);
 	
 	glDisable(GL_TEXTURE_2D);
@@ -48,7 +48,7 @@
 	glDrawArrays(GL_POINTS, 0, 1);
 	
 	glColor4ub(255,255,255,255);
-	glPointSize(size-4);
+	glPointSize((size * CC_CONTENT_SCALE_FACTOR()) - (4 * CC_CONTENT_SCALE_FACTOR()));
 	
 	glVertexPointer(2, GL_FLOAT, 0, &p);	
 	glDrawArrays(GL_POINTS, 0, 1);

@@ -25,9 +25,11 @@
 {	
 	[self begin];
 	CGPoint p = ccpSub(circle.position, CGPointMake(kGameBoxXOffset, kGameBoxYOffset));
+	p.x *= CC_CONTENT_SCALE_FACTOR();
+	p.y *= CC_CONTENT_SCALE_FACTOR();
 	//glColor4ub(circle.color.r,circle.color.g,circle.color.b,circle.opacity);
 	glColor4ub(0,0,0,255);
-	glPointSize(circle.size);
+	glPointSize(circle.size * CC_CONTENT_SCALE_FACTOR());
 	glEnable(GL_POINT_SMOOTH);
 	
 	glDisable(GL_TEXTURE_2D);

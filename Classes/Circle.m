@@ -62,7 +62,7 @@
 		
 		white = !white;
 		
-		glPointSize(i);
+		glPointSize(i * CC_CONTENT_SCALE_FACTOR());
 		glEnable(GL_POINT_SMOOTH);
 		
 		glVertexPointer(2, GL_FLOAT, 0, &p);	
@@ -82,7 +82,7 @@
 	CGPoint p = CGPointZero;
 
 	glColor4ub(color.r,color.g,color.b,opacity);
-	glPointSize(size);
+	glPointSize(size * CC_CONTENT_SCALE_FACTOR());
 	glEnable(GL_POINT_SMOOTH);
 
 	glDisable(GL_TEXTURE_2D);

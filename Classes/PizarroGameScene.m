@@ -338,7 +338,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	NSString *scoreStr = [NSString stringWithFormat: @"Score %.05d", score];
 	scoreLabel = [CCLabelTTF labelWithString: scoreStr fontName: kHUDFont fontSize: kHUDFontSize];
 	scoreLabel.color = ccc3(0,0,0);
-	scoreLabel.position =  ccp(175 , 300 );
+	scoreLabel.position =  ccp(180, 300 );
 	[self addChild: scoreLabel z: 1001];
 }
 
