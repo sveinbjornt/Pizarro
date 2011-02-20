@@ -19,6 +19,7 @@
 #pragma mark -
 
 @implementation MainMenuScene
+@synthesize pausedScene, paused;
 
 -(void)dealloc
 {
@@ -29,25 +30,36 @@
 
 +(id)scene
 {
-	// 'scene' is an autorelease object.
-	CCScene *scene = [CCScene node];
+	CCScene *scene = [CCScene node];	
 	
-	// 'layer' is an autorelease object.
-	MainMenuScene *layer = [MainMenuScene node];
+	MainMenuScene *layer = [[MainMenuScene alloc] initWithPause: NO];
 	layer.color = ccc3(0,0,0);
-	// add layer as a child to scene
+
 	[scene addChild: layer];
 	
 	// return the scene
 	return scene;
 }
 
++(id)scenePausedForScene: (CCScene *)gameScene;
+{
+	CCScene *scene = [CCScene node];	
 
-- (id)init
+	MainMenuScene *layer = [[MainMenuScene alloc] initWithPause: YES];
+	layer.color = ccc3(0,0,0);
+	layer.pausedScene = gameScene;
+	
+	[scene addChild: layer];
+	
+	return scene;
+}
+
+- (id)initWithPause: (BOOL)p
 {
 	if ((self = [super init])) 
 	{
 		self.isTouchEnabled = YES;
+		self.paused = p;
 		
 		// Create and set up all sprite objects and menus
 		[self createMainMenu];
@@ -65,6 +77,12 @@
 		piano = [[Instrument alloc] initWithName: @"piano" numberOfNotes: 7 tempo: 0.07];
 		piano.delegate = self;
 		piano.selector = @selector(notePressed:);
+		
+		if (!paused)
+			[self shiftInWithDuration: 0.3f];
+		else
+			[self showPausedMenu];
+
 		//
 		//[piano playSequence: @"1,2, ,3,4, ,5,6,7"];
 		
@@ -76,6 +94,7 @@
 }
 
 #pragma mark -
+#pragma mark Set up menu scene
 
 -(void)createMainMenu
 {
@@ -83,9 +102,11 @@
 	[CCMenuItemFont setFontName: kMainMenuFont];
 	[CCMenuItemFont setFontSize: kMainMenuMenuFontSize];
 	
-	CCMenuItemFont *menuItem1 = [CCMenuItemFont itemFromString:@"Play" target:self selector:@selector(onPlay:)];
-	CCMenuItemFont *menuItem2 = [CCMenuItemFont itemFromString:@"Settings" target:self selector:@selector(onSettings:)];
-	CCMenuItemFont *menuItem3 = [CCMenuItemFont itemFromString:@"Credits" target:self selector:@selector(onCredits:)];
+	NSString *playStr = paused ? @"New Game" : @"Play";
+	
+	CCMenuItemFont *menuItem1 = [CCMenuItemFont itemFromString: playStr target:self selector:@selector(onPlay:)];
+	CCMenuItemFont *menuItem2 = [CCMenuItemFont itemFromString: @"Settings" target:self selector:@selector(onSettings:)];
+	CCMenuItemFont *menuItem3 = [CCMenuItemFont itemFromString: @"Credits" target:self selector:@selector(onCredits:)];
 	menuItem1.color = ccc3(0,0,0);
 	menuItem2.color = ccc3(0,0,0);
 	menuItem3.color = ccc3(0,0,0);
@@ -93,21 +114,29 @@
 	menu = [CCMenu menuWithItems:menuItem1, menuItem2, menuItem3, nil];
 	[menu alignItemsHorizontallyWithPadding: 35.0f];
 	[self addChild:menu z: 1000];
-	menu.position = kMainMenuMenuPoint;
+	menu.position = ccpAdd(kMainMenuMenuPoint, ccp(0,-130));
+	
+	CCMenuItemSprite *scoresMenuItem = [CCMenuItemSprite itemFromNormalSprite: [CCSprite spriteWithFile: @"scores_button.png"] 
+															   selectedSprite: [CCSprite spriteWithFile: @"scores_button.png"]
+																	   target: [[UIApplication sharedApplication] delegate] 
+																	 selector: @selector(loadLeaderboard)];
+	scoresMenu = [CCMenu menuWithItems: scoresMenuItem, nil];
+	scoresMenu.position = ccp(-45,320+35);
+	[self addChild: scoresMenu];
 }
 
 -(void)createBackground
 {
 	// Moving background
 	bg1 = [CCSprite spriteWithFile: @"mainscreen_bg.png"];
-	bg1.position = kMainMenuBackgroundPoint;
+	bg1.position = ccpAdd(kMainMenuBackgroundPoint, ccp(0,-130));
 	[self addChild: bg1];
 //		[bg1 runAction: [CCRepeatForever actionWithAction: [CCMoveBy actionWithDuration: 0.05 position: ccp(-1,0)]]];
 
 	bg2 = [CCSprite spriteWithFile: @"mainscreen_bg.png"];
 	CGPoint p = kMainMenuBackgroundPoint;
 	p.x += kGameScreenWidth;
-	bg2.position = p;
+	bg2.position = ccpAdd(p, ccp(0,-130));
 	[self addChild: bg2];
 //		[bg2 runAction: [CCRepeatForever actionWithAction: [CCMoveBy actionWithDuration: 0.05 position: ccp(-1,0)]]];
 }
@@ -122,11 +151,19 @@
 		MMLetterLabel *n = [MMLetterLabel labelWithString: letter fontName: kMainMenuFont fontSize: kMainMenuTitleFontSize];
 		
 		
+		
+		
 //		MMLetterSprite *n = [MMLetterSprite spriteWithFile: [NSString stringWithFormat: @"n%d.png", i+1]];
 		CGPoint pos = kMainMenuFirstLetterPoint;
 		pos.x += kMainMenuLetterSpacing * i;
-		n.position = pos;
-		n.originalPosition = pos;
+		
+		CGPoint p = kMainMenuLetterShiftVector;
+		p.x -= i * 13;
+		CGPoint dest = ccpAdd(pos, p);
+		
+		n.position = dest;
+		n.originalPosition = dest;
+		
 		[letters addObject: n];
 		[self addChild: n];
 	}
@@ -140,6 +177,7 @@
 }
 
 #pragma mark -
+#pragma mark Timers
 
 -(void)tick: (ccTime)dt
 {
@@ -214,10 +252,11 @@
 	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.63];
 	[self runAction: [CCSequence actions:
 		
-		[CCDelayTime actionWithDuration: 0.15],
+		[CCCallFunc actionWithTarget: self selector: @selector(shiftOut)],
+		//[CCDelayTime actionWithDuration: 0.15],
 		[CCCallFuncO actionWithTarget: [CCDirector sharedDirector] 
 							 selector: @selector(replaceScene:) 
-							   object: [CCTransitionMoveInR	 transitionWithDuration: 0.35 scene: [PizarroGameScene scene]]],
+							   object: [CCTransitionMoveInL transitionWithDuration: 0.35 scene: [PizarroGameScene scene]]],
 										nil]];
 }
 
@@ -244,8 +283,9 @@
 }
 
 #pragma mark -
+#pragma mark Shift In/Out transitions
 
--(void)shiftOut
+-(void)shiftOutWithDuration: (NSTimeInterval)duration
 {
 	inTransition = YES;
 	
@@ -258,20 +298,25 @@
 		CGPoint dest = ccpAdd(letter.originalPosition, p);
 		
 		[letter stopAllActions];
-		[letter runAction: [CCMoveBy actionWithDuration: 0.3 position: p]];
-		[letter runAction: [CCScaleTo actionWithDuration: 0.3 scale: 0.8]];
+		[letter runAction: [CCMoveBy actionWithDuration: duration position: p]];
+		[letter runAction: [CCScaleTo actionWithDuration: duration scale: 0.8]];
 		letter.originalPosition = dest;
 		//[letter runAction: [CCRepeatForever actionWithAction: [CCDelayTime actionWithDuration: 1.0]]];
 	}
-		
-	[bg1 runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,-130)]];
-	[bg2 runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,-130)]];
-	[menu runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,-130)]];
 	
-	[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(endTransition)] withDelay: 0.5]];
+	[bg1 runAction: [CCMoveBy actionWithDuration: duration position: ccp(0,-130)]];
+	[bg2 runAction: [CCMoveBy actionWithDuration: duration position: ccp(0,-130)]];
+	[menu runAction: [CCMoveBy actionWithDuration: duration position: ccp(0,-130)]];
+	[scoresMenu runAction: [CCMoveTo actionWithDuration: duration position: ccp(-45,480+35)]];
+	[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(endTransition)] withDelay: duration + 0.2]];
 }
 
--(void)shiftIn
+-(void)shiftOut
+{
+	[self shiftOutWithDuration: 0.3];
+}
+
+-(void)shiftInWithDuration: (NSTimeInterval)duration
 {
 	inTransition = YES;
 	
@@ -286,28 +331,40 @@
 		CGPoint dest = ccpAdd(letter.originalPosition, p);
 		
 		[letter stopAllActions];
-		[letter runAction: [CCMoveBy actionWithDuration: 0.3 position: p]];
-		[letter runAction: [CCScaleTo actionWithDuration: 0.3 scale: 1.0]];
+		[letter runAction: [CCMoveBy actionWithDuration: duration position: p]];
+		[letter runAction: [CCScaleTo actionWithDuration: duration scale: 1.0]];
 		letter.originalPosition = dest;
 		//[letter runAction: [CCRepeatForever actionWithAction: [CCDelayTime actionWithDuration: 1.0]]];
 	}
-		
-	[bg1 runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,130)]];
-	[bg2 runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,130)]];
-	[menu runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,130)]];
+	
+	[bg1 runAction: [CCMoveBy actionWithDuration: duration position: ccp(0,130)]];
+	[bg2 runAction: [CCMoveBy actionWithDuration: duration position: ccp(0,130)]];
+	[menu runAction: [CCMoveBy actionWithDuration: duration position: ccp(0,130)]];
+	[scoresMenu runAction: [CCMoveTo actionWithDuration: duration position: ccp(45,320-35)]];
 	
 	piano.tempo = 0.07;
 	[piano playSequence: @"7,6,5,4,3,2,1"];
-	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.5];
+	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: duration + 0.2];
 	
 	[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(endTransition)] withDelay: 0.5]];
-	
-	
+}
+
+-(void)shiftIn
+{
+	[self shiftInWithDuration: 0.3];
 }
 
 -(void)endTransition
 {
 	inTransition = NO;
+}
+
+#pragma mark -
+#pragma mark Paused menu
+
+-(void)showPausedMenu
+{
+	
 }
 
 #pragma mark -
@@ -436,6 +493,7 @@
 }
 
 #pragma mark -
+#pragma mark Instruments 
 
 -(void)trumpetPressed
 {

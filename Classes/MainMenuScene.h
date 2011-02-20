@@ -22,12 +22,13 @@
 {
 	UITouch			*currTouch;
 	NSMutableArray	*letters;
+	NSMutableArray	*scoreLetters;
 	
 	CCSprite *bg1,	*bg2;
 	
 	MMLetterSprite	*icon;
 	
-	CCMenu			*menu;
+	CCMenu			*menu, *scoresMenu;
 	
 	int				state;
 	
@@ -42,11 +43,17 @@
 	
 	Instrument		*piano;
 	
-	BOOL			inTransition;
+	BOOL			inTransition, paused;
+	
+	CCScene			*pausedScene;
 	
 }
+@property (readwrite,assign) BOOL paused;
+@property (readwrite,assign) CCScene *pausedScene;
 
 +(id)scene;
++(id)scenePausedForScene: (CCScene *)gameScene;
+-(id)initWithPause: (BOOL)p;
 
 -(void)createMainMenu;
 -(void)createBackground;
@@ -60,9 +67,11 @@
 -(void)hideCredits;
 
 
-
+-(void)shiftOutWithDuration: (NSTimeInterval)duration;
 -(void)shiftOut;
+-(void)shiftInWithDuration: (NSTimeInterval)duration;
 -(void)shiftIn;
+
 
 
 @end

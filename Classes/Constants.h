@@ -112,6 +112,7 @@
 #define kMainMenuLetterSpacing		50
 #define kMainMenuLetterShiftVector	CGPointMake(-20, 90)
 
+#define kMainMenuScoresButtonPoint	CGPointMake(45, 320-35)
 
 // Convenience 
 

@@ -179,19 +179,22 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	[self addChild: manaBar z: 99];
 	
 	// Pause button
-	pauseMenuItem = [CCMenuItemSprite itemFromNormalSprite: [CCSprite spriteWithFile: @"menu_button_black.png"] 
-											selectedSprite: [CCSprite spriteWithFile: @"menu_button_white.png"] 
-													target: self 
-												  selector: @selector(pauseGame)];
+	CCMenuItemSprite *pauseMenuItem = [CCMenuItemSprite itemFromNormalSprite: [CCSprite spriteWithFile: @"menu_button_black.png"] 
+															  selectedSprite: [CCSprite spriteWithFile: @"menu_button_white.png"] 
+																	  target: self 
+																	selector: @selector(pauseGame)];
 	
-	pauseMenuItem.position = kMenuPauseButtonPoint;
+	pauseMenu = [CCMenu menuWithItems: pauseMenuItem, nil];
+	pauseMenu.position = kMenuPauseButtonPoint;
 	//CCMenu *menu = [CCMenu menuWithItems: pauseMenuItem, nil];
-	[self addChild: pauseMenuItem z: 10002];
+	[self addChild: pauseMenu z: 10002];
 }
 
 -(void)pauseGame
 {
 	NSLog(@"Paused");
+	
+	[[CCDirector sharedDirector] pushScene: [CCTransitionMoveInR transitionWithDuration: 0.35 scene: [MainMenuScene scenePausedForScene: (CCScene *)self.parent]]];	
 }
 
 -(void)setupGame

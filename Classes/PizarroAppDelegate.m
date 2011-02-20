@@ -124,10 +124,10 @@
 	[[CCDirector sharedDirector] runWithScene: [MainMenuScene scene]];	
 	
 	// Init and log in to game center
-//	[self initGameCenter];
-//	
-//	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"GameCenterEnabled"])
-//		[[GameCenterManager sharedManager] authenticateLocalUser];
+	[self initGameCenter];
+	
+	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"GameCenterEnabled"])
+		[[GameCenterManager sharedManager] authenticateLocalUser];
 }
 
 
@@ -288,6 +288,7 @@
 
 - (void)loadLeaderboard
 {
+	NSLog(@"Loading leaderboard");
 	
 	//	UIAlertView* alert= [[[UIAlertView alloc] initWithTitle: @"Game Center not enabled" 
 	//													message: @"Game Center functionality is disabled in this beta build"
@@ -339,14 +340,14 @@
 		leaderboardController.category = kGameCenterScoreCategory;
 		leaderboardController.timeScope = GKLeaderboardTimeScopeAllTime;
 		leaderboardController.leaderboardDelegate = self; 
-		[leaderboardController setModalTransitionStyle: UIModalTransitionStyleFlipHorizontal];
+		//[leaderboardController setModalTransitionStyle: UIModalTransitionStyleFlipHorizontal];
 		[viewController presentModalViewController: leaderboardController animated: YES];
 	}	
 }
 
 - (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)gkLeaderboardViewController
 {
-	[gkLeaderboardViewController setModalTransitionStyle: UIModalTransitionStyleFlipHorizontal];
+	//[gkLeaderboardViewController setModalTransitionStyle: UIModalTransitionStyleFlipHorizontal];
 	[gkLeaderboardViewController dismissModalViewControllerAnimated:YES];
 	[self endLeaderboard];
 }
