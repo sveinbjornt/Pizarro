@@ -691,18 +691,27 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 //		[currentShape drawFilledShape];
 //		[bgRenderTexture end];
 		
-		[self updateScore];
-		[self percentageBlast: [surface percentageFilled] atPoint: shape.position];
+		float percentFilled = [surface percentageFilled];
 		
+		[self updateScore];
+		[self percentageBlast: percentFilled atPoint: shape.position];
 		
 		int size = shape.size;
 		int index = size % 7;
 		float pitch = [Instrument bluesPitchForIndex: index];
 		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];
 		
-		if ([surface percentageFilled] >= kSurfaceReqPerLevel)
+		// OK, we're advancing up level
+		if (percentFilled >= kSurfaceReqPerLevel)
 		{
 			inTransition = YES;
+			
+			// Give bonus points for each additional percentage point covered
+			
+			float extraPerc = percentFilled - kSurfaceReqPerLevel;
+			int bonus = extraPerc * 100 + (level * 25);
+			score += bonus;
+			
 			[self runAction: [CCSequence actions:
 								[CCDelayTime actionWithDuration: 0.15],
 							  [CCCallFunc actionWithTarget: self selector: @selector(advanceLevel)], nil]];
@@ -732,6 +741,8 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	BouncingBall *bounceBall = [BouncingBall spriteWithFile: @"bouncingball.png"];
 	bounceBall.size = 20;
 	bounceBall.position = p;
+	bounceBall.opacity = 0.0f;
+	[bounceBall runAction: [CCFadeIn actionWithDuration: 0.15]];
 	
 	[bounceBall addToSpace: space];
 	[bounceBall pushWithVector: movementVector];
