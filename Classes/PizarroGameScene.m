@@ -536,7 +536,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	levelBlast.color = ccc3(0,0,0);
 	[self addChild: levelBlast z: 1000];
 	
-	[piano playWithInterval: 0.3 afterDelay: delay + 0.66 chords: @"1,2,3",  @"1,2,4", @"1,2,5", nil];
+	[piano playWithInterval: 0.3 afterDelay: delay + 0.4 chords: @"1,2,3",  @"1,2,4", @"1,2,5", nil];
 	
 	[levelBlast runAction: [CCSequence actions: 
 							[CCDelayTime actionWithDuration: delay],
@@ -684,7 +684,6 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 {
 	if (shape != nil)
 	{
-		
 		cpSpaceRemoveBody(space, shape.cpBody);
 		cpBodyDestroy(shape.cpBody);
 		cpBodyFree(shape.cpBody);
