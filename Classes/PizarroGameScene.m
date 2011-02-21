@@ -116,7 +116,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		[self setupGameVariables];
 		[self setupHUD];
 		[self setupGame];
-		[self updateCurrentShape];
+		//[self updateCurrentShape];
 		
 		// hack f. mana images
 		[[CCTextureCache sharedTextureCache] addImage: @"manabar_green.png"];
@@ -127,6 +127,10 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		// Music and sound
 		[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"bassline.mp3"];
 		piano = [[Instrument alloc] initWithName: @"piano" numberOfNotes: 7 tempo: 0.1];
+		
+		// Increase mana bar
+		manaIncreaseTime = NOW;
+		[self schedule: @selector(manaIncreaseTicker:) interval: 1.0/60];
 		
 		// Go!
 		inTransition = YES;
@@ -145,7 +149,11 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	// Prep vars for new game
 	score = 0;
 	level = 1;
-	mana = kStartingMana;
+	
+	mana = 0;
+	newMana = kStartingMana;
+	oldMana = 0;
+	
 	timeRemaining = kStartingTime;
 	gameOver = NO;
 	currShapeIndex = 0;
@@ -176,12 +184,17 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	[self updateLevel];
 	
 	// SCORE
+	CCLabelTTF *scoreL = [CCLabelTTF labelWithString: @"SCORE" dimensions:CGSizeMake(140,40) alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: kHUDFontSize];
+	scoreL.color = ccc3(0,0,0);
+	scoreL.position =  ccp(133, 300);
+	[self addChild: scoreL z: 1001];
+	
 	[self updateScore];
 	
 	// MANA BAR
 	manaBar = [[[ManaBar alloc] init] autorelease];
 	manaBar.position = ccp(4,7);
-	manaBar.percentage = (float)mana/kFullMana;
+	manaBar.percentage = 0.0f;
 	[self addChild: manaBar z: 99];
 	
 	// Pause button
@@ -215,7 +228,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	// Timers
 	[self schedule: @selector(tick:) interval: 1.0/60];
 	[self schedule: @selector(timeTicker:) interval: 1.0];
-	[self schedule: @selector(symbolTicker:) interval: 2.0];
+	//[self schedule: @selector(symbolTicker:) interval: 2.0];
 	
 	// Physics engine
 	[self setupChipmunk];
@@ -346,10 +359,10 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 {
 	[self removeChild: scoreLabel cleanup: YES];
 	
-	NSString *scoreStr = [NSString stringWithFormat: @"Score %.05d", score];
-	scoreLabel = [CCLabelTTF labelWithString: scoreStr fontName: kHUDFont fontSize: kHUDFontSize];
+	NSString *scoreStr = [NSString stringWithFormat: @"%.06d", score];
+	scoreLabel = [CCLabelTTF labelWithString: scoreStr dimensions:CGSizeMake(160,40) alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: kHUDFontSize];
 	scoreLabel.color = ccc3(0,0,0);
-	scoreLabel.position =  ccp(180, 300 );
+	scoreLabel.position =  ccp(262, 300 );
 	[self addChild: scoreLabel z: 1001];
 }
 
@@ -362,14 +375,14 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	sec = timeRemaining - (min*60);
 		
 	NSString *timeStr = [NSString stringWithFormat: @"%.2d:%.2d", min, sec];
-	timeLabel = [CCLabelTTF labelWithString: timeStr fontName: kHUDFont fontSize: kHUDFontSize];
+	timeLabel = [CCLabelTTF labelWithString: timeStr dimensions:CGSizeMake(110,40) alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: kHUDFontSize];
 	
 	if (timeRemaining > kTimeLow)
 		timeLabel.color = ccc3(0,0,0); // black
 	else
 		timeLabel.color = ccc3(180,0,0); // red
 	
-	timeLabel.position =  ccp(405 , 300 );
+	timeLabel.position =  ccp(415, 300);
 	[self addChild: timeLabel z: 1001];	
 }
 
@@ -451,6 +464,17 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	
 	currentShapeClass = [Circle class];//[shapeKinds objectAtIndex: currShapeIndex];
 	[self updateCurrentShape];
+}
+
+-(void)manaIncreaseTicker: (ccTime)dt
+{
+	float fractionOfTimeElapsed = ((NOW - manaIncreaseTime) *2);
+	if (fractionOfTimeElapsed > 1.0f)
+		fractionOfTimeElapsed = 1.0f;
+	
+	float diff = newMana - oldMana;
+		
+	[manaBar setManaLevel: oldMana + (diff * fractionOfTimeElapsed)];
 }
 
 -(void)tick: (ccTime)dt
@@ -648,21 +672,28 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		shape.expanding = NO;
 		shape.fullSize = shape.size;
 
-		[surface updateWithShape: shape];
+		int filledSq = [surface updateWithShape: shape];
 	
 		//NSLog([surface description]);
-		[self updateScore];
-		[self percentageBlast: [surface percentageFilled] atPoint: shape.position];
 		
 		shape.cpShape->collision_type = 0;
-		[shapes addObject: shape];	
-		score += ([shape area]/100);
+		[shapes addObject: shape];
+		
+		//
+		int value = (filledSq + (level * 20)) * (float)shape.fullSize/100;
+//		NSLog(@"Score filledSq: %d + shapesize: %f, level: %d", filledSq, (float)shape.fullSize/100, level);
+//		NSLog(@"Value: %d", value);
+		score += value;
 		
 		[bgRenderTexture drawShape: currentShape];
 		
 //		[bgRenderTexture begin];
 //		[currentShape drawFilledShape];
 //		[bgRenderTexture end];
+		
+		[self updateScore];
+		[self percentageBlast: [surface percentageFilled] atPoint: shape.position];
+		
 		
 		int size = shape.size;
 		int index = size % 7;
@@ -727,6 +758,9 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	if (numBalls > kMaxBounceBalls)
 		numBalls = kMaxBounceBalls;
 	
+	mana = newMana;
+	[self unschedule: @selector(manaIncreaseTicker:)];
+	
 	// Create the balls and set them going
 	for (int i = 0; i < numBalls; i++)
 	{
@@ -774,11 +808,13 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	// Add to time
 	timeRemaining += kTimePerLevel;
 	
-	// Add to mana
-	mana += kManaPerLevel;
-	if (mana > kFullMana)
-		mana = kFullMana;
-	manaBar.percentage = (float)mana/kFullMana;
+	oldMana = mana;
+	newMana = mana + kManaPerLevel;
+	if (newMana > kFullMana)
+		newMana = kFullMana;
+	
+	manaIncreaseTime = NOW;
+	[self schedule: @selector(manaIncreaseTicker:) interval: 1.0/60];
 	
 	[piano playWithInterval: 0.22 afterDelay: 0 chords: @"1,2,5", @"1,2,5", @"1,2,4", @"1,2,3", nil];
 		

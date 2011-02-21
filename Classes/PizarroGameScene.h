@@ -46,6 +46,9 @@
 	NSTimeInterval	mana;
 	NSTimeInterval	timeRemaining;
 	
+	NSTimeInterval	manaIncreaseTime;
+	NSTimeInterval	oldMana, newMana;
+	
 	BOOL			inTransition;
 	BOOL			gameOver;
 	

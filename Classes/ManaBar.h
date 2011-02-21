@@ -18,4 +18,7 @@
 	CCSprite *manaBarRed, *manaBarGreen, *manaBarRedTop, *manaBarGreenTop;
 }
 @property (readwrite, assign) float percentage;
+
+-(void)setManaLevel:(float)level;
+
 @end

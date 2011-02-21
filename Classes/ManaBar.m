@@ -41,16 +41,24 @@
 //	[super dealloc];
 //}
 
+-(void)setManaLevel:(float)level
+{
+	float perc = (float)(level/kFullMana);
+	[self setPercentage: perc];
+}
+
 -(void)setPercentage:(float)p
 {
+	if (p == self.percentage)
+		return;
+	
 	percentage = p;
-	float height = roundf((self.percentage * 254));
+	float height = roundf((self.percentage * 268));
 	
 	CCSprite *barSprite, *barTopSprite;
 	
 	if (percentage > kManaPercentageLow)
 	{
-		CCLOG(@"High mana");
 		barSprite = manaBarGreen;
 		barTopSprite = manaBarGreenTop;
 		manaBarRed.visible = NO;
@@ -60,7 +68,6 @@
 	}
 	else
 	{
-		CCLOG(@"Low mana");
 		barSprite = manaBarRed;
 		barTopSprite = manaBarRedTop;
 		manaBarGreen.visible = NO;
@@ -70,9 +77,9 @@
 	}
 
 	barSprite.scaleY = height;
-	barSprite.position = ccp(10, 0 + (height/2));
+	barSprite.position = ccp(10, -14 + (height/2));
 	
-	barTopSprite.position = ccp(barTopSprite.contentSize.width/2, (height + barTopSprite.contentSize.height/2)-1);
+	barTopSprite.position = ccp(barTopSprite.contentSize.width/2, (height + barTopSprite.contentSize.height/2)-15);
 	
 	
 }
