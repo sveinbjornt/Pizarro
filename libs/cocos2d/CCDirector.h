@@ -234,6 +234,8 @@ and when to execute the Scenes.
  */
 - (void) pushScene:(CCScene*) scene;
 
+-(void) removeSceneFromStack: (CCScene*) scene;
+
 /**Pops out a scene from the queue.
  * This scene will replace the running one.
  * The running scene will be deleted. If there are no more scenes in the stack the execution is terminated.

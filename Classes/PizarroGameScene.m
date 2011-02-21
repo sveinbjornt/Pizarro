@@ -94,7 +94,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 
 - (void) dealloc
 {
-
+	cpSpaceFree(space);
 	[bounceBalls release];
 	[shapeKinds release];
 	[surface release];
@@ -105,7 +105,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 
 - (id)initWithColor:(ccColor4B)color width:(GLfloat)w  height:(GLfloat) h
 {
-	if((self = [super initWithColor: color width: w height: h])) 
+	if ((self = [super initWithColor: color width: w height: h])) 
 	{		
 		// White, touch-sensitive layer
 		self.isTouchEnabled = YES;
@@ -684,9 +684,15 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 {
 	if (shape != nil)
 	{
-		cpSpaceRemoveShape(space, shape.cpShape);
+		
 		cpSpaceRemoveBody(space, shape.cpBody);
-	
+		cpBodyDestroy(shape.cpBody);
+		cpBodyFree(shape.cpBody);
+		
+		cpShapeDestroy(shape.cpShape);
+		cpShapeFree(shape.cpShape);
+		cpSpaceRemoveShape(space, shape.cpShape);
+		
 		[self removeChild: shape cleanup: YES];
 	}
 }
@@ -797,9 +803,20 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		currentShape = nil;
 	}
 	
+	// Remove old shapes
+	for (Shape *s in shapes)
+	{
+		[self removeShape: s];
+	}
+	[shapes removeAllObjects];
+	
+	// Remove bouncing balls
 	for (BouncingBall *b in bounceBalls)
-		[b removeFromParentAndCleanup: YES];	
+		[self removeShape: (Shape *)b]; // this is dirty
+	[bounceBalls removeAllObjects];
+	
 
+	
 	[bgRenderTexture goBlack];
 	[piano playWithInterval: 0.4 afterDelay: 0 chords: @"1,2,5", @"1,2,5", @"1,2,5", @"1,2,4", @"1,2,4", @"1,2,3", @"1,2,3", nil];
 

@@ -259,16 +259,25 @@
 
 -(void)onPlay:(id)sender
 {	
-	[piano playSequence: @"7, ,1,3,4,3,4,3"];
+	//[piano playSequence: @"7, ,1,3,4,3,4,3"];
 	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.63];
-	[self runAction: [CCSequence actions:
+	
+	if (paused)
+	{
+		[pausedScene cleanup];
 		
-		[CCCallFunc actionWithTarget: self selector: @selector(shiftOut)],
-		//[CCDelayTime actionWithDuration: 0.15],
-		[CCCallFuncO actionWithTarget: [CCDirector sharedDirector] 
-							 selector: @selector(replaceScene:) 
-							   object: [CCTransitionSlideInR transitionWithDuration: 0.35 scene: [PizarroGameScene scene]]],
-										nil]];
+		// tell CCDirector to remove GameScene from the stack
+		[[CCDirector sharedDirector] removeSceneFromStack: pausedScene];		
+	}
+	
+	[self runAction: [CCSequence actions:
+					  
+					  [CCCallFunc actionWithTarget: self selector: @selector(shiftOut)],
+					  //[CCDelayTime actionWithDuration: 0.15],
+					  [CCCallFuncO actionWithTarget: [CCDirector sharedDirector] 
+										   selector: @selector(replaceScene:) 
+											 object: [CCTransitionSlideInR transitionWithDuration: 0.35 scene: [PizarroGameScene scene]]],
+					  nil]];
 }
 
 -(void)onSettings:(id)sender

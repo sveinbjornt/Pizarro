@@ -346,6 +346,13 @@ static CCDirector *_sharedDirector = nil;
 	nextScene_ = scene;	// nextScene_ is a weak ref
 }
 
+-(void) removeSceneFromStack: (CCScene*) scene
+{
+	NSAssert( scene != nil, @"Argument must be non-nil");
+	[scenesStack_ removeObject:scene];
+}
+
+
 - (void) pushScene: (CCScene*) scene
 {
 	NSAssert( scene != nil, @"Argument must be non-nil");

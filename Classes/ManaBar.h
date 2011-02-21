@@ -13,6 +13,9 @@
 @interface ManaBar : CCNode 
 {
 	float percentage;
+	//CCTexture2D *manaBarRed, *manaBarGreen, *manaBarRedTop, *manaBarGreenTop;
+	
+	CCSprite *manaBarRed, *manaBarGreen, *manaBarRedTop, *manaBarGreenTop;
 }
 @property (readwrite, assign) float percentage;
 @end
