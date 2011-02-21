@@ -42,7 +42,7 @@
 
 // Shapes
 #define kMaxBounceBalls			8
-#define kMinimumShapeSize		6
+#define kMinimumShapeSize		8
 #define kNumShapeKinds			3
 
 

@@ -295,6 +295,7 @@
 
 -(void)onResume:(id)sender
 {
+	[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
 	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.3];
 	[self shiftOut];
 	[[CCDirector sharedDirector] popSceneWithTransition: [CCTransitionSlideInR class] duration: 0.35f];
