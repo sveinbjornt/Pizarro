@@ -14,6 +14,7 @@
 #import "SurfaceMatrix.h"
 #import "BGRenderTexture.h"
 #import "Instrument.h"
+#import "GameOverCircle.h"
 
 @interface PizarroGameScene : CCLayerColor
 {	
@@ -21,7 +22,6 @@
 	NSMutableArray *shapes;
 	NSMutableArray *bounceBalls;
 	
-	Shape	*currentShape;
 	Class	currentShapeClass;
 	
 	CCLabelTTF *timeLabel;
@@ -35,6 +35,8 @@
 	
 	ManaBar		*manaBar;
 		
+	GameOverCircle	*gameOverCircle;
+	
 	cpSpace* space;	
 	
 	SurfaceMatrix	*surface;
@@ -43,6 +45,8 @@
 	int				currShapeIndex;
 	int				score;
 	int				level;
+	float			percentageFilled;
+	
 	NSTimeInterval	mana;
 	NSTimeInterval	timeRemaining;
 	
@@ -74,7 +78,7 @@
 -(void)addBouncingBallAtPoint: (CGPoint)p withVelocity: (CGPoint)movementVector;
 -(void)endExpansionOfShape: (Shape *)shape;
 
--(void)createShapeAtPoint: (CGPoint)p;
+-(void)createShapeAtPoint: (CGPoint)p forTouch: (UITouch *)touch;
 -(void)removeShape: (Shape *)shape;
 
 -(void)advanceLevel;

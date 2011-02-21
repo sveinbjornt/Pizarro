@@ -22,6 +22,7 @@
 	
 	cpShape			*cpShape;
 	cpBody			*cpBody;
+	UITouch			*touch;
 	
 }
 @property (readwrite, assign) ccColor3B color;
@@ -31,6 +32,7 @@
 @property (readwrite, assign) NSTimeInterval created, ended;
 @property (readwrite, assign) cpShape *cpShape;
 @property (readwrite, assign) cpBody *cpBody;
+@property (readwrite, assign) UITouch *touch;
 
 
 -(void)addToSpace: (cpSpace *)space;

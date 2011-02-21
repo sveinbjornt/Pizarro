@@ -141,7 +141,7 @@ static GameCenterManager *sharedManager = nil;
 		[delegate showLeaderboard];
 }
 
-//  Third, when he has finishes a game
+//  Third, when he has finished a game
 
 -(void)authenticateLocalUserAndReportScore: (NSUInteger)score level: (NSUInteger)level
 {
@@ -156,7 +156,7 @@ static GameCenterManager *sharedManager = nil;
 					 [self callDelegateOnMainThread: @selector(alert:) withArg: @"Unable to connect to Game Center" error: nil];
 				 // if player isn't authenticated, we can't post the score since we don't know
 				 // whose score it is.  Creating a GKScore requires a player ID.
-//				  NSLog((NSString *)[error localizedDescription]);
+				  //NSLog((NSString *)[error localizedDescription]);
 			 }
 			 else
 				 [ScoreManager reportGameScore: score level: level];

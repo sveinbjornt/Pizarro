@@ -77,6 +77,7 @@
 	
 	// attach the openglView to the director
 	[director setOpenGLView:glView];
+	[glView setMultipleTouchEnabled: YES];
 	
 //	// Enables High Res mode (Retina Display) on iPhone 4 and maintains low res on all other devices
 	if( ! [director enableRetinaDisplay:YES] )
@@ -126,8 +127,8 @@
 	// Init and log in to game center
 	[self initGameCenter];
 	
-	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"GameCenterEnabled"])
-		[[GameCenterManager sharedManager] authenticateLocalUser];
+//	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"GameCenterEnabled"])
+//		[[GameCenterManager sharedManager] authenticateLocalUser];
 }
 
 
@@ -262,10 +263,10 @@
 		//[self setGameCenterDelegate: gameCenterManager];
 		[[GameCenterManager sharedManager] setDelegate: self];
 		
-		//		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationChanged) name:GKPlayerAuthenticationDidChangeNotificationName object:nil];
+		//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationChanged) name:GKPlayerAuthenticationDidChangeNotificationName object:nil];
 	}
-	//	else
-	//		[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: NO] forKey: @"GameCenterEnabled"];		
+	else
+		[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: NO] forKey: @"GameCenterEnabled"];		
 }
 
 -(void)processGameCenterAuth: (NSError*) error

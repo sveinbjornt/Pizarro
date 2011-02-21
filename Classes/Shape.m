@@ -9,7 +9,7 @@
 #import "Shape.h"
 
 @implementation Shape
-@synthesize color, opacity, expanding, destroyed, size, fullSize, created, ended, cpShape, cpBody;
+@synthesize color, opacity, expanding, destroyed, size, fullSize, created, ended, cpShape, cpBody, touch;
 
 -(id)init
 {

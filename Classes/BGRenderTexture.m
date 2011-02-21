@@ -37,12 +37,10 @@
 	// If larger than smooth point size, we draw as circle
 	if (circle.size * CC_CONTENT_SCALE_FACTOR() > maxSmoothPointSize[1])
 	{
-		NSLog(@"Drawing w. fillcircle");
 		ccFillCircle(p, circle.size/2, CC_DEGREES_TO_RADIANS(360), 60, NO);
 	}
 	else // Draw as antialiased point
 	{
-		NSLog(@"Drawing w. point");
 		p.x *= CC_CONTENT_SCALE_FACTOR();
 		p.y *= CC_CONTENT_SCALE_FACTOR();
 	

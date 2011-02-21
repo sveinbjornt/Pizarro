@@ -9,14 +9,12 @@
 
 
 // Game Info
-
 #define kGameName				@"Pizarro"
 #define	kGameVersion			1.0
 #define kGameReleaseYear		2011
 #define kGameDeveloper			@"Corrino Software"
 #define kGameProgramming		@"Sveinbjorn Thordarson"
 #define kGameGraphics			@"Magnus David Magnusson"
-
 
 // High scores
 #define kSavedHighscoreFilename		@"PizzaroLocalHighscore"
@@ -31,7 +29,7 @@
 #define kFullMana				10.0
 #define kStartingMana			10.0
 #define kManaPercentageLow		0.25
-#define kManaPerLevel			(kFullMana/2.5f) + (level * (kFullMana/33))
+#define kManaPerLevel			(kFullMana/3.0f) + (level * (kFullMana/20))
 
 // Time
 #define kStartingTime			60.0f
@@ -41,15 +39,14 @@
 #define kSurfaceReqPerLevel		80.0f
 
 // Shapes
-#define kMaxBounceBalls			8
 #define kMinimumShapeSize		8
 #define kNumShapeKinds			3
 
 
 // Limits
-
 #define kMaxShapes				65535
-
+#define kMaxTouches				4
+#define kMaxBounceBalls			8
 
 // PHYSICS ENGINE CONSTANTS
 
@@ -82,6 +79,7 @@
 
 #define kGameScreenCenterPoint		CGPointMake([[CCDirector sharedDirector] winSize].width/2,[[CCDirector sharedDirector] winSize].height/2)
 #define kGameBoxCenterPoint			CGPointMake(kGameBoxXOffset + (kGameBoxWidth/2), kGameBoxYOffset + (kGameBoxHeight/2)) 
+#define kGameOverPoint				CGPointMake([[CCDirector sharedDirector] winSize].width/2, [[CCDirector sharedDirector] winSize].height * (float)5/9)
 
 #define kGameBoxRect				CGRectMake(kGameBoxXOffset, kGameBoxYOffset, kGameBoxWidth, kGameBoxHeight)
 

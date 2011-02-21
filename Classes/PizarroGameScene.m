@@ -18,18 +18,19 @@
 #import "SimpleAudioEngine.h"
 #import "Common.c"
 #import "MainMenuScene.h"
+#import "GameCenterManager.h"
 
 #pragma mark Chipmunk Callbacks
 
 int lastPlayedIndex = 0;
 
-void UpdateShape(void* ptr, void* unused)
+static void UpdateShape(void* ptr, void* unused)
 {	
 	cpShape* shape = (cpShape*)ptr;	
 	CCNode *sprite = shape->data;
 	
 	if(sprite)
-	{	
+	{
 		cpBody* body = shape->body;
 		
 		[sprite setPosition:cpv(body->p.x, body->p.y)];
@@ -45,9 +46,7 @@ static void CollisionBallExpansionCircle (cpArbiter *arb, cpSpace *space, void *
 	Shape *shape = b->data;
 	shape.destroyed = YES;
 	
-	[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch:0.891 pan:0.0f gain:0.3f];
-	
-	NSLog(@"Collision");
+	[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch:0.891 pan:0.0f gain:0.3f];	
 }
 
 static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *data)
@@ -58,12 +57,11 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	int mod = RandomBetween(-lvl, lvl);
 	
 	lastPlayedIndex += mod;
-	if (lastPlayedIndex < 1)
+	while (lastPlayedIndex < 1)
 		lastPlayedIndex = 7 + lastPlayedIndex;
-	if (lastPlayedIndex > 7)
+	while (lastPlayedIndex > 7)
 		lastPlayedIndex = 1 + (lastPlayedIndex - 8);
 	
-	//[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%d.wav", lastPlayedIndex]];
 	[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"piano%d.wav", lastPlayedIndex] pitch:1.0f pan:0.0f gain:0.1f];
 }
 
@@ -100,6 +98,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	[surface release];
 	[shapes release];
 	[piano release];
+	[self removeAllChildrenWithCleanup: YES];
 	[super dealloc];
 }
 
@@ -149,6 +148,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	// Prep vars for new game
 	score = 0;
 	level = 1;
+	percentageFilled = 0.0f;
 	
 	mana = 0;
 	newMana = kStartingMana;
@@ -202,17 +202,13 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 															  selectedSprite: [CCSprite spriteWithFile: @"menu_button_white.png"] 
 																	  target: self 
 																	selector: @selector(pauseGame)];
-	
 	pauseMenu = [CCMenu menuWithItems: pauseMenuItem, nil];
 	pauseMenu.position = kMenuPauseButtonPoint;
-	//CCMenu *menu = [CCMenu menuWithItems: pauseMenuItem, nil];
 	[self addChild: pauseMenu z: 10002];
 }
 
 -(void)pauseGame
-{
-	NSLog(@"Paused");
-	
+{	
 	[[CCDirector sharedDirector] pushScene: [CCTransitionSlideInL transitionWithDuration: 0.35 scene: [MainMenuScene scenePausedForScene: (CCScene *)self.parent]]];	
 }
 
@@ -482,30 +478,62 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	if (inTransition)
 		return;
 	
-	if (mana <= 0 || timeRemaining <= 0)
+	// OK, let's check if we're advancing up level
+	if (percentageFilled >= kSurfaceReqPerLevel)
 	{
-		// OK, he's out of time or mana, but if he's currenlty covering enough area,
-		// then we let it slide
-		if (currentShape != nil)
-		{
-			[surface updateWithShape: currentShape];
-			NSLog(@"Surface filled w. final shape: %f",  [surface percentageFilled]);
-			
-			if ([surface percentageFilled] >= kSurfaceReqPerLevel)
-			{
-				[self endExpansionOfShape: currentShape];
-				currentShape = nil;
-				return;
-			}
-		}
+		inTransition = YES;
 		
-		[self gameOver];
+		// Give bonus points for each additional percentage point covered
+		
+		float extraPerc = percentageFilled - kSurfaceReqPerLevel;
+		int bonus = extraPerc * 100 + (level * 25);
+		score += bonus;
+		
+		[self runAction: [CCSequence actions:
+						  [CCDelayTime actionWithDuration: 0.15],
+						  [CCCallFunc actionWithTarget: self selector: @selector(advanceLevel)], nil]];
 		
 		return;
 	}
 	
-	if (currentShape != nil)
+	if (mana <= 0 || timeRemaining <= 0)
 	{
+		// OK, he's out of time or mana, but if he's currenlty covering enough area,
+		// then we let it slide
+		
+		BOOL addedShape = NO;
+		for (Shape *shape in shapes)
+		{
+			if (shape.expanding && !shape.destroyed)
+			{
+				[self endExpansionOfShape: shape];
+				addedShape = YES;
+			}
+		}
+		
+		if (!addedShape)
+			[self gameOver];
+		
+		return;
+	}
+	
+	// Go through each shape
+	//
+	// We ignore all shapes that aren't flagged as destroyed or expanding
+	//
+	//  If it's flagged as destroyed, we make it smaller 
+	//  If it's destroyed and very small, we remove it
+	
+	// If it's an expanding shape, we increase its size
+	// and subtract from player's mana
+	
+	for (int i = [shapes count]-1; i >= 0; i--)
+	{
+		Shape *currentShape = [shapes objectAtIndex: i];
+		
+		if (!currentShape.destroyed && !currentShape.expanding)
+			continue;
+		
 		if (currentShape.destroyed)
 		{
 			NSTimeInterval timeSinceDestroyed = NOW - currentShape.ended;
@@ -517,7 +545,6 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 			if (currentShape.size <= 1)
 			{
 				[self removeShape: currentShape];
-				currentShape = nil;
 			}
 			else
 			{
@@ -527,22 +554,19 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		}
 		else
 		{
-			
 			NSTimeInterval timeSinceTouch = NOW - currentShape.created;
 			currentShape.size = timeSinceTouch * 170;
 			
 			mana -= 1.0f/60.0f;
 			manaBar.percentage = (float)mana/kFullMana;
 			
-			//[currentShape runAction: [CCRotateBy actionWithDuration: 1.0/60.0f angle: 5.0]];
-			
-			//cpCircleShapeSetRadius(currentShape.cpShape, currentShape.size/2);
 			cpCircleShape *sh = (cpCircleShape *)currentShape.cpShape;
 			sh->r = currentShape.size/2;
 		
 		}
 	}
 	
+	// Update physics engine
 	cpSpaceStep(space, 1.0f/60.0f);
 	cpSpaceHashEach(space->activeShapes, &UpdateShape, nil);
 }
@@ -628,7 +652,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	[gameOverBlast runAction: [CCSequence actions: 
 							[CCDelayTime actionWithDuration: delay],
 							[CCScaleTo actionWithDuration: 0.33 scale: 1.0],
-							[CCDelayTime actionWithDuration: 1.66],
+							//[CCDelayTime actionWithDuration: 1.66],
 							//[CCScaleTo actionWithDuration: 0.33 scale: 0.0],
 							//[CCCallFunc actionWithTarget: gameOverBlast selector: @selector(dispose)], 
 							nil]];
@@ -638,7 +662,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 #pragma mark -
 #pragma mark Shapes and Physics
 
--(void)createShapeAtPoint: (CGPoint)p
+-(void)createShapeAtPoint: (CGPoint)p forTouch: (UITouch *)touch
 {
 	if ([shapes count] == kMaxShapes)
 	{
@@ -646,29 +670,33 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		return;
 	}
 	
+	NSLog(@"Creating shape at point %f,%f", p.x,p.y);
+	
 	// Create shape and add it to scene
-	currentShape = [[[currentShapeClass alloc] init] autorelease];
-	currentShape.position = p;
-	[currentShape addToSpace: space];
-	[self addChild: currentShape z: 98];
+	Shape *shape = [[[currentShapeClass alloc] init] autorelease];
+	shape.position = p;
+	shape.touch = touch;
+	[shape addToSpace: space];
+	[shapes addObject: shape];
+	[self addChild: shape z: 98];
 		
 	//[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch:1.0f pan:0.0f gain:0.3f];
 }
 
 -(void)endExpansionOfShape: (Shape *)shape
-{
-	
+{	
 	// Failure, shape too small
 	if (shape.size < kMinimumShapeSize)
 	{
+		CCLOG(@"Shape is less than minimum size, removing");
 		shape.destroyed = YES;
 		shape.ended = NOW;
-		[self removeShape: shape];
-	
+		
 		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch:0.891 pan:0.0f gain:0.3f];
 	}
 	else
 	{
+		CCLOG(@"Successful expansion");
 		shape.expanding = NO;
 		shape.fullSize = shape.size;
 
@@ -677,7 +705,6 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		//NSLog([surface description]);
 		
 		shape.cpShape->collision_type = 0;
-		[shapes addObject: shape];
 		
 		//
 		int value = (filledSq + (level * 20)) * (float)shape.fullSize/100;
@@ -685,37 +712,21 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 //		NSLog(@"Value: %d", value);
 		score += value;
 		
-		[bgRenderTexture drawShape: currentShape];
+		[bgRenderTexture drawShape: shape];
 		
 //		[bgRenderTexture begin];
 //		[currentShape drawFilledShape];
 //		[bgRenderTexture end];
 		
-		float percentFilled = [surface percentageFilled];
+		percentageFilled = [surface percentageFilled];
 		
 		[self updateScore];
-		[self percentageBlast: percentFilled atPoint: shape.position];
+		[self percentageBlast: percentageFilled atPoint: shape.position];
 		
 		int size = shape.size;
 		int index = size % 7;
 		float pitch = [Instrument bluesPitchForIndex: index];
 		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];
-		
-		// OK, we're advancing up level
-		if (percentFilled >= kSurfaceReqPerLevel)
-		{
-			inTransition = YES;
-			
-			// Give bonus points for each additional percentage point covered
-			
-			float extraPerc = percentFilled - kSurfaceReqPerLevel;
-			int bonus = extraPerc * 100 + (level * 25);
-			score += bonus;
-			
-			[self runAction: [CCSequence actions:
-								[CCDelayTime actionWithDuration: 0.15],
-							  [CCCallFunc actionWithTarget: self selector: @selector(advanceLevel)], nil]];
-		}
 	}
 
 }
@@ -724,6 +735,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 {
 	if (shape != nil)
 	{
+		NSLog(@"Removing shape at point %f,%f", shape.position.x,shape.position.y);
 		cpSpaceRemoveBody(space, shape.cpBody);
 		cpBodyDestroy(shape.cpBody);
 		cpBodyFree(shape.cpBody);
@@ -732,6 +744,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		cpShapeFree(shape.cpShape);
 		cpSpaceRemoveShape(space, shape.cpShape);
 		
+		[shapes removeObjectIdenticalTo: shape];
 		[self removeChild: shape cleanup: YES];
 	}
 }
@@ -789,7 +802,6 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	}
 	
 	[self updateLevel];
-	[self updateTimer];
 	
 	[self runAction: [CCCallFunc actionWithTarget: self selector: @selector(endTransition)]];
 }
@@ -799,15 +811,15 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	inTransition = YES;
 	
 	// Clear all shapes from our databank
-	for (Shape *s in shapes)
+	for (int i = [shapes count]-1; i >= 0; i--)
 	{
-		[self removeShape: s];
+		[self removeShape: [shapes objectAtIndex: i]];
 	}
-	[shapes removeAllObjects];
 	
 	// Remove bouncing balls
 	for (BouncingBall *b in bounceBalls)
 		[self removeShape: (Shape *)b]; // this is dirty
+	
 	[bounceBalls removeAllObjects];
 	
 	// Clear surface
@@ -815,9 +827,11 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	[surface clear]; 
 	
 	level += 1;
+	percentageFilled = 0.0f;
 	
 	// Add to time
 	timeRemaining += kTimePerLevel;
+	[self updateTimer];
 	
 	oldMana = mana;
 	newMana = mana + kManaPerLevel;
@@ -841,40 +855,42 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 -(void)gameOver
 {
 	inTransition = YES;
+	gameOver = YES;
 	
-	// Remove all shapes
-	if (currentShape != nil)
+	// Clear all shapes from our databank
+	for (int i = [shapes count]-1; i >= 0; i--)
 	{
-		[self removeShape: currentShape];
-		currentShape = nil;
+		[self removeShape: [shapes objectAtIndex: i]];
 	}
-	
-	// Remove old shapes
-	for (Shape *s in shapes)
-	{
-		[self removeShape: s];
-	}
-	[shapes removeAllObjects];
 	
 	// Remove bouncing balls
 	for (BouncingBall *b in bounceBalls)
 		[self removeShape: (Shape *)b]; // this is dirty
-	[bounceBalls removeAllObjects];
-	
 
 	
-	[bgRenderTexture goBlack];
-	[piano playWithInterval: 0.4 afterDelay: 0 chords: @"1,2,5", @"1,2,5", @"1,2,5", @"1,2,4", @"1,2,4", @"1,2,3", @"1,2,3", nil];
-
+	//[bgRenderTexture goBlack];
+	gameOverCircle = [[[GameOverCircle alloc] init] autorelease];
+	gameOverCircle.position = kGameBoxCenterPoint;
+	[self addChild: gameOverCircle z: 90];
+	[gameOverCircle runAction: [CCSequence actions:	[CCDelayTime actionWithDuration: 0.1],
+												[CCCallFunc actionWithTarget: gameOverCircle selector: @selector(startExpanding)],
+						  nil]];
+	
+	[piano playWithInterval: 0.4 afterDelay: 0 chords: @"1,2,5", @"1,2,5", @"1,2,5", @"1,2,4", @"1,2,4", @"1,2,3", @"1,2,3", nil]; 
 	[self gameOverBlastAfterDelay: 0.2];
 	
-	[self runAction: [CCSequence actions:
-					  
-					  [CCDelayTime actionWithDuration: 2.5],
-					  [CCCallFuncO actionWithTarget: [CCDirector sharedDirector] 
-										   selector: @selector(replaceScene:) 
-											 object: [CCTransitionSlideInL transitionWithDuration: 0.35 scene: [MainMenuScene scene]]],
-					  nil]];
+	// Submit score to Game Center
+	if ([GameCenterManager isGameCenterAvailable] &&
+		[[NSUserDefaults standardUserDefaults] boolForKey: @"GameCenterEnabled"])
+		[[GameCenterManager sharedManager] authenticateLocalUserAndReportScore: score level: level];
+	
+//	[self runAction: [CCSequence actions:
+//					  
+//					  [CCDelayTime actionWithDuration: 2.5],
+//					  [CCCallFuncO actionWithTarget: [CCDirector sharedDirector] 
+//										   selector: @selector(replaceScene:) 
+//											 object: [CCTransitionSlideInL transitionWithDuration: 0.35 scene: [MainMenuScene scene]]],
+//					  nil]];
 	 
 	
 }
@@ -889,33 +905,69 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 
 -(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event 
 {
-    UITouch *touch = [touches anyObject];
-	CGPoint location = [touch locationInView: [touch view]];
-	location = [[CCDirector sharedDirector] convertToGL: location];
+	if (gameOver)
+		[[CCDirector sharedDirector] replaceScene: [CCTransitionSlideInL transitionWithDuration: 0.35 scene: [MainMenuScene scene]]];
 		
-	NSLog(@"Touch began");
-
-	if (!inTransition && CGRectContainsPoint(kGameBoxRect, location))
+	if (inTransition)
+		return;
+	
+	NSArray *tchs = [touches allObjects];
+	
+	for (UITouch *touch in tchs)
 	{
-		[self createShapeAtPoint: location];
-	}	
+		CGPoint location = [touch locationInView: [touch view]];
+		location = [[CCDirector sharedDirector] convertToGL: location];
+		
+		if (CGRectContainsPoint(kGameBoxRect, location))
+		{
+			[self createShapeAtPoint: location forTouch: touch];
+		}
+	}
 }
 
 -(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event 
 {
+	if (inTransition)
+		return;
 	
+	NSArray *tchs = [touches allObjects];
+	
+	for (UITouch *touch in tchs)
+	{
+		for (Shape *s in shapes)
+		{
+			if (touch == s.touch && s.expanding && !s.destroyed && NOW - s.created > 0.5f)
+			{
+				CGPoint location = [touch locationInView: [touch view]];
+				location = [[CCDirector sharedDirector] convertToGL: location];
+				
+				if (ccpDistance(s.position, location) > s.size/2)
+					[self endExpansionOfShape: s];
+			}
+		}
+	}
 }
 
 -(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
-{
-	NSLog(@"Touch ended");
-    //UITouch *touch = [touches anyObject];
+{			
+	if (inTransition)
+		return;
 	
-	if (currentShape != nil && !currentShape.destroyed)
+	NSArray *tchs = [touches allObjects];
+	
+	for (UITouch *touch in tchs)
 	{
-		[self endExpansionOfShape: currentShape];
-		currentShape = nil;
+		for (int i = [shapes count]-1; i >= 0; i--)
+		{
+			Shape *s = [shapes objectAtIndex: i];
+			
+			if (touch == s.touch && s.expanding && !s.destroyed)
+			{
+				[self endExpansionOfShape: s];
+			}
+		}
 	}
+	
 	
 }
 

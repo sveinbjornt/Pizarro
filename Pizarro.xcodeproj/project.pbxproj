@@ -284,6 +284,7 @@
 		E0D2C48A12AEDE5C008D5DBB /* cpVect.c in Sources */ = {isa = PBXBuildFile; fileRef = E0D2C45312AEDE5C008D5DBB /* cpVect.c */; };
 		E0D2C48B12AEDE5C008D5DBB /* prime.h in Headers */ = {isa = PBXBuildFile; fileRef = E0D2C45412AEDE5C008D5DBB /* prime.h */; };
 		E0F81038120A173C005866B8 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0F81037120A173C005866B8 /* RootViewController.m */; };
+		F40580B0131300CA0021CCDF /* GameOverCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = F40580AF131300CA0021CCDF /* GameOverCircle.m */; };
 		F4361312130BE361004A41CA /* BouncingBall.m in Sources */ = {isa = PBXBuildFile; fileRef = F4361311130BE361004A41CA /* BouncingBall.m */; };
 		F4A00253130BAD18000FCEDE /* Circle.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0024F130BAD18000FCEDE /* Circle.m */; };
 		F4A00254130BAD18000FCEDE /* PizarroGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A00252130BAD18000FCEDE /* PizarroGameScene.m */; };
@@ -649,6 +650,8 @@
 		E0F81035120A173C005866B8 /* GameConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
 		E0F81036120A173C005866B8 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		E0F81037120A173C005866B8 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		F40580AE131300CA0021CCDF /* GameOverCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverCircle.h; sourceTree = "<group>"; };
+		F40580AF131300CA0021CCDF /* GameOverCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverCircle.m; sourceTree = "<group>"; };
 		F4361310130BE361004A41CA /* BouncingBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BouncingBall.h; sourceTree = "<group>"; };
 		F4361311130BE361004A41CA /* BouncingBall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BouncingBall.m; sourceTree = "<group>"; };
 		F4A0024E130BAD18000FCEDE /* Circle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Circle.h; sourceTree = "<group>"; };
@@ -1261,6 +1264,8 @@
 				F4A4631E130C0E1700A20694 /* Shape.m */,
 				F4A0024E130BAD18000FCEDE /* Circle.h */,
 				F4A0024F130BAD18000FCEDE /* Circle.m */,
+				F40580AE131300CA0021CCDF /* GameOverCircle.h */,
+				F40580AF131300CA0021CCDF /* GameOverCircle.m */,
 				F4A46477130C225300A20694 /* Square.h */,
 				F4A46478130C225300A20694 /* Square.m */,
 				F4A46488130C23C600A20694 /* Triangle.h */,
@@ -1446,8 +1451,8 @@
 			children = (
 				F4CE228A130F0870006C0F2C /* ScoreManager.h */,
 				F4CE228B130F0870006C0F2C /* ScoreManager.m */,
-				F4CE228C130F0870006C0F2C /* GameCenterManager.m */,
 				F4CE228D130F0870006C0F2C /* GameCenterManager.h */,
+				F4CE228C130F0870006C0F2C /* GameCenterManager.m */,
 			);
 			name = "Game Center";
 			sourceTree = "<group>";
@@ -1759,6 +1764,7 @@
 				F4CE228F130F0870006C0F2C /* GameCenterManager.m in Sources */,
 				F4CE2292130F08BA006C0F2C /* NSFileManager+DocumentFolder.m in Sources */,
 				F4BD2D3B1311D252002284C3 /* MMLetterSprite.m in Sources */,
+				F40580B0131300CA0021CCDF /* GameOverCircle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
