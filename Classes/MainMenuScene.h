@@ -28,13 +28,12 @@
 	
 	MMLetterSprite	*icon;
 	
-	CCMenu			*menu, *scoresMenu;
+	CCMenu			*menu, *scoresMenu, *settingsMenu, *resumeMenu;
 	
 	int				state;
 	
 	// Settings
 	CCLabelTTF		*musicLabel, *soundLabel, *gameCenterLabel;
-	CCMenu			*settingsMenu;
 	
 	
 	// Credits
@@ -66,6 +65,7 @@
 -(void)showCredits;
 -(void)hideCredits;
 
+-(void)showPausedMenu;
 
 -(void)shiftOutWithDuration: (NSTimeInterval)duration;
 -(void)shiftOut;

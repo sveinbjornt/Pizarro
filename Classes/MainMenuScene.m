@@ -102,9 +102,9 @@
 	[CCMenuItemFont setFontName: kMainMenuFont];
 	[CCMenuItemFont setFontSize: kMainMenuMenuFontSize];
 	
-	NSString *playStr = paused ? @"New Game" : @"Play";
+	//NSString *playStr = paused ? @"New Game" : @"Play";
 	
-	CCMenuItemFont *menuItem1 = [CCMenuItemFont itemFromString: playStr target:self selector:@selector(onPlay:)];
+	CCMenuItemFont *menuItem1 = [CCMenuItemFont itemFromString: @"Play" target:self selector:@selector(onPlay:)];
 	CCMenuItemFont *menuItem2 = [CCMenuItemFont itemFromString: @"Settings" target:self selector:@selector(onSettings:)];
 	CCMenuItemFont *menuItem3 = [CCMenuItemFont itemFromString: @"Credits" target:self selector:@selector(onCredits:)];
 	menuItem1.color = ccc3(0,0,0);
@@ -114,31 +114,42 @@
 	menu = [CCMenu menuWithItems:menuItem1, menuItem2, menuItem3, nil];
 	[menu alignItemsHorizontallyWithPadding: 35.0f];
 	[self addChild:menu z: 1000];
-	menu.position = ccpAdd(kMainMenuMenuPoint, ccp(0,-130));
+	
+//	if (paused)
+//		menu.position = kMainMenuMenuPoint;
+//	else
+		menu.position = ccpAdd(kMainMenuMenuPoint, ccp(0,-130));
 	
 	CCMenuItemSprite *scoresMenuItem = [CCMenuItemSprite itemFromNormalSprite: [CCSprite spriteWithFile: @"scores_button.png"] 
 															   selectedSprite: [CCSprite spriteWithFile: @"scores_button.png"]
 																	   target: [[UIApplication sharedApplication] delegate] 
 																	 selector: @selector(loadLeaderboard)];
-	scoresMenu = [CCMenu menuWithItems: scoresMenuItem, nil];
-	scoresMenu.position = ccp(-45,320+35);
-	[self addChild: scoresMenu];
+	if (!paused)
+	{
+		scoresMenu = [CCMenu menuWithItems: scoresMenuItem, nil];
+		scoresMenu.position = ccp(-45,320+35);
+		[self addChild: scoresMenu];
+	}
 }
 
 -(void)createBackground
 {
 	// Moving background
 	bg1 = [CCSprite spriteWithFile: @"mainscreen_bg.png"];
-	bg1.position = ccpAdd(kMainMenuBackgroundPoint, ccp(0,-130));
+//	if (paused)
+//		bg1.position = kMainMenuBackgroundPoint;
+//	else
+		bg1.position = ccpAdd(kMainMenuBackgroundPoint, ccp(0,-130));
 	[self addChild: bg1];
-//		[bg1 runAction: [CCRepeatForever actionWithAction: [CCMoveBy actionWithDuration: 0.05 position: ccp(-1,0)]]];
 
 	bg2 = [CCSprite spriteWithFile: @"mainscreen_bg.png"];
 	CGPoint p = kMainMenuBackgroundPoint;
 	p.x += kGameScreenWidth;
-	bg2.position = ccpAdd(p, ccp(0,-130));
+//	if (paused)
+//		bg2.position = p;
+//	else
+		bg2.position = ccpAdd(p, ccp(0,-130));
 	[self addChild: bg2];
-//		[bg2 runAction: [CCRepeatForever actionWithAction: [CCMoveBy actionWithDuration: 0.05 position: ccp(-1,0)]]];
 }
 
 -(void)createLetterAndLogo
@@ -248,7 +259,7 @@
 
 -(void)onPlay:(id)sender
 {	
-	//[piano playSequence: @"7, ,1,3,4,3,4,3"];
+	[piano playSequence: @"7, ,1,3,4,3,4,3"];
 	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.63];
 	[self runAction: [CCSequence actions:
 		
@@ -256,7 +267,7 @@
 		//[CCDelayTime actionWithDuration: 0.15],
 		[CCCallFuncO actionWithTarget: [CCDirector sharedDirector] 
 							 selector: @selector(replaceScene:) 
-							   object: [CCTransitionMoveInL transitionWithDuration: 0.35 scene: [PizarroGameScene scene]]],
+							   object: [CCTransitionSlideInR transitionWithDuration: 0.35 scene: [PizarroGameScene scene]]],
 										nil]];
 }
 
@@ -282,6 +293,13 @@
 	[self showCredits];	
 }
 
+-(void)onResume:(id)sender
+{
+	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.3];
+	[self shiftOut];
+	[[CCDirector sharedDirector] popSceneWithTransition: [CCTransitionSlideInR class] duration: 0.35f];
+}
+
 #pragma mark -
 #pragma mark Shift In/Out transitions
 
@@ -289,25 +307,33 @@
 {
 	inTransition = YES;
 	
-	for (int i = 0; i < [kGameName length]; i++)
+	if (!paused)
 	{
-		MMLetterSprite *letter = [letters objectAtIndex: i];
-		
-		CGPoint p = kMainMenuLetterShiftVector;
-		p.x -= i * 13;
-		CGPoint dest = ccpAdd(letter.originalPosition, p);
-		
-		[letter stopAllActions];
-		[letter runAction: [CCMoveBy actionWithDuration: duration position: p]];
-		[letter runAction: [CCScaleTo actionWithDuration: duration scale: 0.8]];
-		letter.originalPosition = dest;
-		//[letter runAction: [CCRepeatForever actionWithAction: [CCDelayTime actionWithDuration: 1.0]]];
+		for (int i = 0; i < [kGameName length]; i++)
+		{
+			MMLetterLabel *letter = [letters objectAtIndex: i];
+			
+			CGPoint p = kMainMenuLetterShiftVector;
+			p.x -= i * 13;
+			CGPoint dest = ccpAdd(letter.originalPosition, p);
+			
+			[letter stopAllActions];
+			[letter runAction: [CCMoveBy actionWithDuration: duration position: p]];
+			[letter runAction: [CCScaleTo actionWithDuration: duration scale: 0.8]];
+			letter.originalPosition = dest;
+			//[letter runAction: [CCRepeatForever actionWithAction: [CCDelayTime actionWithDuration: 1.0]]];
+		}
+		[scoresMenu runAction: [CCMoveTo actionWithDuration: duration position: ccp(-45,480+35)]];
 	}
+	else
+	{
+		[resumeMenu runAction: [CCFadeOut actionWithDuration: 0.25]];
+	}
+
 	
 	[bg1 runAction: [CCMoveBy actionWithDuration: duration position: ccp(0,-130)]];
 	[bg2 runAction: [CCMoveBy actionWithDuration: duration position: ccp(0,-130)]];
 	[menu runAction: [CCMoveBy actionWithDuration: duration position: ccp(0,-130)]];
-	[scoresMenu runAction: [CCMoveTo actionWithDuration: duration position: ccp(-45,480+35)]];
 	[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(endTransition)] withDelay: duration + 0.2]];
 }
 
@@ -320,27 +346,36 @@
 {
 	inTransition = YES;
 	
-	for (int i = 0; i < [kGameName length]; i++)
+	if (!paused)
 	{
-		MMLetterSprite *letter = [letters objectAtIndex: i];
-		
-		CGPoint p = kMainMenuLetterShiftVector;
-		p.x = (-1) * p.x;
-		p.y = (-1) * p.y;
-		p.x += i * 13;
-		CGPoint dest = ccpAdd(letter.originalPosition, p);
-		
-		[letter stopAllActions];
-		[letter runAction: [CCMoveBy actionWithDuration: duration position: p]];
-		[letter runAction: [CCScaleTo actionWithDuration: duration scale: 1.0]];
-		letter.originalPosition = dest;
-		//[letter runAction: [CCRepeatForever actionWithAction: [CCDelayTime actionWithDuration: 1.0]]];
+		for (int i = 0; i < [kGameName length]; i++)
+		{
+			MMLetterLabel *letter = [letters objectAtIndex: i];
+			
+			CGPoint p = kMainMenuLetterShiftVector;
+			p.x = (-1) * p.x;
+			p.y = (-1) * p.y;
+			p.x += i * 13;
+			CGPoint dest = ccpAdd(letter.originalPosition, p);
+			
+			[letter stopAllActions];
+			[letter runAction: [CCMoveBy actionWithDuration: duration position: p]];
+			[letter runAction: [CCScaleTo actionWithDuration: duration scale: 1.0]];
+			letter.originalPosition = dest;
+			//[letter runAction: [CCRepeatForever actionWithAction: [CCDelayTime actionWithDuration: 1.0]]];
+			
+			
+		}
+		[scoresMenu runAction: [CCMoveTo actionWithDuration: duration position: ccp(45,320-35)]];
 	}
-	
+	else
+	{
+		[resumeMenu runAction: [CCFadeIn actionWithDuration: 0.25]];
+	}
 	[bg1 runAction: [CCMoveBy actionWithDuration: duration position: ccp(0,130)]];
 	[bg2 runAction: [CCMoveBy actionWithDuration: duration position: ccp(0,130)]];
 	[menu runAction: [CCMoveBy actionWithDuration: duration position: ccp(0,130)]];
-	[scoresMenu runAction: [CCMoveTo actionWithDuration: duration position: ccp(45,320-35)]];
+	
 	
 	piano.tempo = 0.07;
 	[piano playSequence: @"7,6,5,4,3,2,1"];
@@ -364,7 +399,19 @@
 
 -(void)showPausedMenu
 {
+	[CCMenuItemFont setFontName: kMainMenuFont];
+	[CCMenuItemFont setFontSize: kResumeGameMenuFontSize];
+		
+	CCMenuItemFont *menuItem1 = [CCMenuItemFont itemFromString: @"RESUME GAME" target:self selector:@selector(onResume:)];
+	resumeMenu = [CCMenu menuWithItems:menuItem1, nil];
+	[self addChild: resumeMenu z: 1000];
+	resumeMenu.position = ccpAdd(kResumeGameMenuPoint, ccp(-340,0));
 	
+	[resumeMenu runAction:  [CCEaseIn actionWithAction: [CCMoveTo actionWithDuration: 0.35 position: kResumeGameMenuPoint] rate: 4.0f]];
+	
+	[bg1 runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,130)]];
+	[bg2 runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,130)]];
+	[menu runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,130)]];
 }
 
 #pragma mark -
@@ -388,33 +435,33 @@
 	[gameCenterLabel runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(125, 100)]];
 	
 	
-	CCMenuItem *musicOnItem = [CCMenuItemImage itemFromNormalImage:@"checkbox_on.png"
-													 selectedImage:@"checkbox_on.png"
+	CCMenuItem *musicOnItem = [CCMenuItemImage itemFromNormalImage: kCheckBoxOnSprite
+													 selectedImage: kCheckBoxOnSprite
 															target:nil
 														  selector:nil];
 	
-	CCMenuItem *musicOffItem = [CCMenuItemImage itemFromNormalImage:@"checkbox_off.png"
-													  selectedImage:@"checkbox_off.png"
+	CCMenuItem *musicOffItem = [CCMenuItemImage itemFromNormalImage: kCheckBoxOffSprite
+													  selectedImage: kCheckBoxOffSprite
 															 target:nil
 														   selector:nil];
 	
-	CCMenuItem *soundOnItem = [CCMenuItemImage itemFromNormalImage:@"checkbox_on.png"
-													 selectedImage:@"checkbox_on.png"
+	CCMenuItem *soundOnItem = [CCMenuItemImage itemFromNormalImage:kCheckBoxOnSprite
+													 selectedImage:kCheckBoxOnSprite
 															target:nil
 														  selector:nil];
 	
-	CCMenuItem *soundOffItem = [CCMenuItemImage itemFromNormalImage:@"checkbox_off.png"
-													  selectedImage:@"checkbox_off.png"
+	CCMenuItem *soundOffItem = [CCMenuItemImage itemFromNormalImage:kCheckBoxOffSprite
+													  selectedImage:kCheckBoxOffSprite
 															 target:nil
 														   selector:nil];
 	
-	CCMenuItem *gameCenterOnItem = [CCMenuItemImage itemFromNormalImage:@"checkbox_on.png"
-														  selectedImage:@"checkbox_on.png"
+	CCMenuItem *gameCenterOnItem = [CCMenuItemImage itemFromNormalImage:kCheckBoxOnSprite
+														  selectedImage:kCheckBoxOnSprite
 																 target:nil
 															   selector:nil];
 	
-	CCMenuItem *gameCenterOffItem = [CCMenuItemImage itemFromNormalImage:@"checkbox_off.png"
-														   selectedImage:@"checkbox_off.png"
+	CCMenuItem *gameCenterOffItem = [CCMenuItemImage itemFromNormalImage:kCheckBoxOffSprite
+														   selectedImage:kCheckBoxOffSprite
 																  target:nil
 																selector:nil];
 	
@@ -437,7 +484,7 @@
 	toggleGameCenter.selectedIndex = [[[NSUserDefaults standardUserDefaults] valueForKey: @"GameCenterEnabled"] boolValue];
 	
 	settingsMenu = [CCMenu menuWithItems: toggleMusic, toggleSound, toggleGameCenter, nil];
-	[settingsMenu alignItemsVerticallyWithPadding: 0.0f];
+	[settingsMenu alignItemsVerticallyWithPadding: 10.0f];
 	settingsMenu.position = ccp(-185,150);
 	[self addChild: settingsMenu];
 	[settingsMenu runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(240,150)]];

@@ -125,7 +125,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		// Go!
 		inTransition = YES;
 		[self levelBlast: level atPoint: kGameBoxCenterPoint afterDelay: 1.0];
-		[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(startLevel)] withDelay: 2.5]];;
+		[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(startLevel)] withDelay: 3.1]];;
 
 	}
 	return self;
@@ -194,7 +194,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 {
 	NSLog(@"Paused");
 	
-	[[CCDirector sharedDirector] pushScene: [CCTransitionMoveInR transitionWithDuration: 0.35 scene: [MainMenuScene scenePausedForScene: (CCScene *)self.parent]]];	
+	[[CCDirector sharedDirector] pushScene: [CCTransitionSlideInL transitionWithDuration: 0.35 scene: [MainMenuScene scenePausedForScene: (CCScene *)self.parent]]];	
 }
 
 -(void)setupGame
@@ -770,7 +770,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	[piano playWithInterval: 0.22 afterDelay: 0 chords: @"1,2,5", @"1,2,5", @"1,2,4", @"1,2,3", nil];
 		
 	[self levelBlast: level atPoint: kGameBoxCenterPoint afterDelay: 1.0];
-	[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(startLevel)] withDelay: 2.6]];;
+	[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(startLevel)] withDelay: 3.1]];;
 }
 
 -(int)currentLevel
@@ -802,7 +802,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 					  [CCDelayTime actionWithDuration: 2.5],
 					  [CCCallFuncO actionWithTarget: [CCDirector sharedDirector] 
 										   selector: @selector(replaceScene:) 
-											 object: [CCTransitionMoveInR transitionWithDuration: 0.35 scene: [MainMenuScene scene]]],
+											 object: [CCTransitionSlideInL transitionWithDuration: 0.35 scene: [MainMenuScene scene]]],
 					  nil]];
 	 
 	

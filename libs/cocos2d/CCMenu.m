@@ -261,7 +261,7 @@ enum {
 
 -(BOOL) ccMouseDown:(NSEvent *)event
 {
-	if( ! visible_ )
+	if( ! visible_ || opacity_ == 0.0f )
 		return NO;
 	
 	selectedItem_ = [self itemForMouseEvent:event];

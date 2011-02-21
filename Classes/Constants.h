@@ -100,19 +100,25 @@
 #define kGameOverBlastFontSize		84
 #define kMainMenuTitleFontSize		84
 #define kMainMenuMenuFontSize		42
+#define kResumeGameMenuFontSize		52
 
 
-// Main Menu settings
+// Menu settings
 
 #define kMainMenuBackgroundPoint	CGPointMake([[CCDirector sharedDirector] winSize].width/2, 65)
 #define kMainMenuMenuPoint			CGPointMake([[CCDirector sharedDirector] winSize].width/2, 42)
-#define kMainMenuIconPoint			CGPointMake(392, 220)
+#define kMainMenuIconPoint			CGPointMake(385, 220)
 #define kMenuPauseButtonPoint		CGPointMake(36, 290)
 #define kMainMenuFirstLetterPoint	CGPointMake(54, 190)
 #define kMainMenuLetterSpacing		50
 #define kMainMenuLetterShiftVector	CGPointMake(-20, 90)
-
 #define kMainMenuScoresButtonPoint	CGPointMake(45, 320-35)
+#define kResumeGameMenuPoint		CGPointMake(182, 180)
+
+// Sprite files
+
+#define kCheckBoxOnSprite	@"checkbox-checked.png"
+#define kCheckBoxOffSprite	@"checkbox-unchecked.png"
 
 // Convenience 
 
