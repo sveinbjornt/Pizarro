@@ -20,6 +20,7 @@
 #define kSavedHighscoreFilename		@"PizzaroLocalHighscore"
 #define kSavedHighscorePlistKey		@"LocalHighscore"
 #define kGameCenterScoreCategory	@"Pizarro_Phone_Score"
+#define kGameCenterLevelCategory	@"Pizarro_Phone_Level"
 #define kSavedGKScoreSuffix			@".pizarroScore"
 
 
@@ -29,7 +30,7 @@
 #define kFullMana				10.0
 #define kStartingMana			10.0
 #define kManaPercentageLow		0.25
-#define kManaPerLevel			(kFullMana/3.0f) + (level * (kFullMana/20))
+#define kManaPerLevel			(kFullMana/3.0f) + (level * (kFullMana/24))
 
 // Time
 #define kStartingTime			60.0f

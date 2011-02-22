@@ -305,13 +305,13 @@
 {
 	if(error == NULL)
 	{
-		//		NSLog(@"Authenticated");
+		//		CCLOG(@"Authenticated");
 		//[self.gameCenterManager reloadHighScoresForCategory: self.currentLeaderBoard];
 		//[FlurryAPI logEvent:@"Using GameCenter"];
 	}
 	else
 	{
-		//		NSLog(@"Error w. Game Center: %@", [error localizedDescription]);
+		//		CCLOG(@"Error w. Game Center: %@", [error localizedDescription]);
 	}	
 }
 

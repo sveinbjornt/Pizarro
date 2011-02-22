@@ -40,15 +40,15 @@
 #pragma mark -
 #pragma mark Leaderboard High Scores
 
-+ (void)reportGameScore: (NSUInteger)score level: (NSUInteger)level
++(void)reportGameScore: (NSUInteger)score level: (NSUInteger)level
 {
 	[self reportArchivedScores]; // every time a score is submitted, we try to submit our archived scores as well
 	
 	[self reportNewGKScore: score forCategory: kGameCenterScoreCategory];
-	//[self reportNewGKScore: level	forCategory: kGameCenterLevelCategory];
+	[self reportNewGKScore: level forCategory: kGameCenterLevelCategory];
 }
 
-+ (void)reportNewGKScore: (NSUInteger)score forCategory: (NSString*)category
++(void)reportNewGKScore: (NSUInteger)score forCategory: (NSString*)category
 {
 	// create new GKScore object and send it to Apple's servers
     GKScore *gkScore = [[[GKScore alloc] initWithCategory:category] autorelease];
@@ -60,7 +60,7 @@
 // If a score report fails for some reason, the score/combos/level is 
 // written to files and resubmitted at a later date
 
-+ (void)reportGKScore: (GKScore *)theScore
++(void)reportGKScore: (GKScore *)theScore
 {
 	[theScore reportScoreWithCompletionHandler:^(NSError *error) 
 	 {
@@ -79,7 +79,7 @@
 	 }];
 }
 
-+ (void)archiveScore: (GKScore *)theScore
++(void)archiveScore: (GKScore *)theScore
 {	
 	// filename for each archived score is RAND-UNIXDATE-SCOREVALUE.SUFFIX to guarantee uniqueness
 	uint32_t rand = arc4random() % 100000;
@@ -93,7 +93,7 @@
 // go through all files in the documents folder, read the score from them, delete them and submit their data
 // if they fail, they'll just end up being written back to the folder
 
-+ (void)reportArchivedScores
++(void)reportArchivedScores
 {
 	NSString *saveFolder = [NSFileManager documentFolder];
 	NSError *err;
@@ -126,7 +126,7 @@
 #pragma mark -
 #pragma mark Achievements
 
-+ (void)reportAchievement: (NSString *)identifier
++(void)reportAchievement: (NSString *)identifier
 {
 	GKAchievement *achievement= [[[GKAchievement alloc] initWithIdentifier: identifier] autorelease];
 	achievement.percentComplete = 100.0f;

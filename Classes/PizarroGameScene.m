@@ -662,11 +662,11 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 {
 	if ([shapes count] == kMaxShapes)
 	{
-		NSLog(@"Max shape count reached");
+		CCLOG(@"Max shape count reached");
 		return;
 	}
 	
-	NSLog(@"Creating shape at point %f,%f", p.x,p.y);
+	CCLOG(@"Creating shape at point %f,%f", p.x,p.y);
 	
 	// Create shape and add it to scene
 	Shape *shape = [[[currentShapeClass alloc] init] autorelease];
@@ -699,7 +699,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 
 		int filledSq = [surface updateWithShape: shape];
 	
-		//NSLog([surface description]);
+		//CCLOG([surface description]);
 		
 		shape.cpShape->collision_type = 0;
 		
@@ -712,8 +712,8 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		value *= (float)shape.fullSize/100;
 		
 		
-//		NSLog(@"Score filledSq: %d + shapesize: %f, level: %d", filledSq, (float)shape.fullSize/100, level);
-		NSLog(@"Value: %d", value);
+//		CCLOG(@"Score filledSq: %d + shapesize: %f, level: %d", filledSq, (float)shape.fullSize/100, level);
+		CCLOG(@"Value: %d", value);
 		score += value;
 		
 		[bgRenderTexture drawShape: shape];
@@ -740,7 +740,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 {
 	if (shape != nil)
 	{
-		NSLog(@"Removing shape at point %f,%f", shape.position.x,shape.position.y);
+		CCLOG(@"Removing shape at point %f,%f", shape.position.x,shape.position.y);
 		cpSpaceRemoveBody(space, shape.cpBody);
 		cpBodyDestroy(shape.cpBody);
 		cpBodyFree(shape.cpBody);
