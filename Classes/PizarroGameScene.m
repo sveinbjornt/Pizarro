@@ -770,6 +770,23 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	[self addChild: bounceBall];
 }
 
+
+-(void)removeAllShapes
+{
+	// Clear all shapes from our databank
+	for (int i = [shapes count]-1; i >= 0; i--)
+	{
+		[self removeShape: [shapes objectAtIndex: i]];
+	}
+	
+	// Remove bouncing balls
+	for (BouncingBall *b in bounceBalls)
+		[self removeShape: (Shape *)b]; // this is dirty
+	
+	[shapes removeAllObjects];
+	[bounceBalls removeAllObjects];
+}
+
 #pragma mark -
 #pragma mark Level transitions
 
@@ -821,18 +838,8 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 {
 	inTransition = YES;
 	
-	// Clear all shapes from our databank
-	for (int i = [shapes count]-1; i >= 0; i--)
-	{
-		[self removeShape: [shapes objectAtIndex: i]];
-	}
-	
-	// Remove bouncing balls
-	for (BouncingBall *b in bounceBalls)
-		[self removeShape: (Shape *)b]; // this is dirty
-	
-	[bounceBalls removeAllObjects];
-	
+	[self removeAllShapes];
+		
 	// Clear surface
 	[bgRenderTexture clear];
 	[surface clear]; 
@@ -868,16 +875,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	inTransition = YES;
 	gameOver = YES;
 	
-	// Clear all shapes from our databank
-	for (int i = [shapes count]-1; i >= 0; i--)
-	{
-		[self removeShape: [shapes objectAtIndex: i]];
-	}
-	
-	// Remove bouncing balls
-	for (BouncingBall *b in bounceBalls)
-		[self removeShape: (Shape *)b]; // this is dirty
-
+	[self removeAllShapes];
 	
 	//[bgRenderTexture goBlack];
 	gameOverCircle = [[[GameOverCircle alloc] init] autorelease];
