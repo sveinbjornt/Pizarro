@@ -50,10 +50,14 @@
 	
 	CCLOG(@"User defaults: Music: %d Sound: %d GameCenter: %d", MUSIC_ENABLED, SOUND_ENABLED, GAMECENTER_ENABLED);
 	
+	[[CDAudioManager sharedManager] setResignBehavior:kAMRBStopPlay autoHandle:YES];
+	
 	if (MUSIC_ENABLED)
 		[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume: 1.0f];
 	else
 		[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume: 0.0f];
+	
+	
 	
 	application.statusBarOrientation = UIInterfaceOrientationLandscapeRight;
 	
@@ -67,6 +71,8 @@
 	
 	
 	CCDirector *director = [CCDirector sharedDirector];
+	
+	
 	
 	// Init the View Controller
 	viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
@@ -107,7 +113,12 @@
 #endif
 	
 	[director setAnimationInterval:1.0/60];
-	[director setDisplayFPS:YES];
+	
+#if COCOS2D_DEBUG == TRUE
+	[director setDisplayFPS: YES];
+#endif
+	
+	[self loadResources];
 	
 	// make the OpenGLView a child of the view controller
 	[viewController setView:glView];
@@ -124,8 +135,6 @@
 	
 	// Removes the startup flicker
 	[self removeStartupFlicker];
-	
-	[self loadResources];
 	
 	// Run the intro Scene
 	//[[CCDirector sharedDirector] runWithScene: [PizarroGameScene scene]];		
@@ -193,6 +202,7 @@
 	NSString	*hdSuffix = @"-hd.png";
 	NSString	*pngSuffix = @".png";
 	NSString	*wavSuffix = @".wav";
+	NSString	*mp3Suffix = @".mp3";
 	
 	NSString *rsrcPath = [[NSBundle mainBundle] resourcePath];
 	
@@ -210,11 +220,18 @@
 			[[CCTextureCache sharedTextureCache] addImage: file];
 		}
 		
-		// If audio, preload it
+		// If audio effect, preload it
 		if ([file hasSuffix: wavSuffix])
 		{
 			CCLOG(@"Loading sound \"%@\"", file);
 			[[SimpleAudioEngine sharedEngine] preloadEffect: file];
+		}
+		
+		// If music, preload
+		if  ([file hasPrefix: mp3Suffix])
+		{
+			CCLOG(@"Preloading music \"%@\"", file);
+			[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic: file];
 		}
 	}	
 	
@@ -263,7 +280,8 @@
 	
 	CCLOG(@"Game Center: %d", GAMECENTER_ENABLED);
 	
-	[[GameCenterManager sharedManager] authenticateLocalUser];
+	if (!enabled)
+		[[GameCenterManager sharedManager] authenticateLocalUser];
 }
 
 
