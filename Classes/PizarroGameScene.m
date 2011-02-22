@@ -937,25 +937,25 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 
 -(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event 
 {
-	if (inTransition)
-		return;
-	
-	NSArray *tchs = [touches allObjects];
-	
-	for (UITouch *touch in tchs)
-	{
-		for (Shape *s in shapes)
-		{
-			if (touch == s.touch && s.expanding && !s.destroyed && NOW - s.created > 0.5f)
-			{
-				CGPoint location = [touch locationInView: [touch view]];
-				location = [[CCDirector sharedDirector] convertToGL: location];
-				
-				if (ccpDistance(s.position, location) > s.size/2)
-					[self endExpansionOfShape: s];
-			}
-		}
-	}
+//	if (inTransition)
+//		return;
+//	
+//	NSArray *tchs = [touches allObjects];
+//	
+//	for (UITouch *touch in tchs)
+//	{
+//		for (Shape *s in shapes)
+//		{
+//			if (touch == s.touch && s.expanding && !s.destroyed && NOW - s.created > 0.5f)
+//			{
+//				CGPoint location = [touch locationInView: [touch view]];
+//				location = [[CCDirector sharedDirector] convertToGL: location];
+//				
+//				if (ccpDistance(s.position, location) > s.size/2)
+//					[self endExpansionOfShape: s];
+//			}
+//		}
+//	}
 }
 
 -(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
