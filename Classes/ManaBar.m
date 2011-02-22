@@ -36,11 +36,6 @@
 	return self;
 }
 
-//-(void)dealloc
-//{
-//	[super dealloc];
-//}
-
 -(void)setManaLevel:(float)level
 {
 	float perc = (float)(level/kFullMana);
