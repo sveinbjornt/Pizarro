@@ -262,6 +262,8 @@
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	
 	CCLOG(@"Game Center: %d", GAMECENTER_ENABLED);
+	
+	[[GameCenterManager sharedManager] authenticateLocalUser];
 }
 
 

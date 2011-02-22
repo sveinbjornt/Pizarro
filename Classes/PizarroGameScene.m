@@ -126,7 +126,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		[[CCTextureCache sharedTextureCache] addImage: @"manabar_red_top.png"];
 		
 		// Music and sound
-		[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"bassline.mp3"];
+		[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"bassline.mp3" loop: YES];
 		piano = [[Instrument alloc] initWithName: @"piano" numberOfNotes: 7 tempo: 0.1];
 		
 		// Increase mana bar

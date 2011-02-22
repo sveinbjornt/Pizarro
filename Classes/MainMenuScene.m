@@ -71,7 +71,8 @@
 		[self schedule: @selector(bgMovetick:) interval: kBackgroundMovementInterval];
 		
 		// Background music
-		[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"mainmenu_music.mp3"];
+		if (!paused)
+			[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"mainmenu_music.mp3"];
 		
 		// Create instrument
 		piano = [[Instrument alloc] initWithName: @"piano" numberOfNotes: 7 tempo: 0.07];
@@ -304,7 +305,6 @@
 
 -(void)onResume:(id)sender
 {
-	[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
 	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.3];
 	[self shiftOut];
 	[[CCDirector sharedDirector] popSceneWithTransition: [CCTransitionSlideInR class] duration: 0.35f];
