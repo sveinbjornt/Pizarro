@@ -353,7 +353,7 @@
 		F4CE1F9A130E96B7006C0F2C /* piano5.wav in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F69130E96B7006C0F2C /* piano5.wav */; };
 		F4CE1F9B130E96B7006C0F2C /* piano6.wav in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F6A130E96B7006C0F2C /* piano6.wav */; };
 		F4CE1F9C130E96B7006C0F2C /* piano7.wav in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F6B130E96B7006C0F2C /* piano7.wav */; };
-		F4CE1F9E130E96B7006C0F2C /* trumpet_start.wav in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F6D130E96B7006C0F2C /* trumpet_start.wav */; };
+		F4CE1F9E130E96B7006C0F2C /* trumpet.wav in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F6D130E96B7006C0F2C /* trumpet.wav */; };
 		F4CE228E130F0870006C0F2C /* ScoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CE228B130F0870006C0F2C /* ScoreManager.m */; };
 		F4CE228F130F0870006C0F2C /* GameCenterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CE228C130F0870006C0F2C /* GameCenterManager.m */; };
 		F4CE2292130F08BA006C0F2C /* NSFileManager+DocumentFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CE2291130F08BA006C0F2C /* NSFileManager+DocumentFolder.m */; };
@@ -730,9 +730,7 @@
 		F4CE1F69130E96B7006C0F2C /* piano5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = piano5.wav; sourceTree = "<group>"; };
 		F4CE1F6A130E96B7006C0F2C /* piano6.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = piano6.wav; sourceTree = "<group>"; };
 		F4CE1F6B130E96B7006C0F2C /* piano7.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = piano7.wav; sourceTree = "<group>"; };
-		F4CE1F6C130E96B7006C0F2C /* trumpet_down.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = trumpet_down.wav; sourceTree = "<group>"; };
-		F4CE1F6D130E96B7006C0F2C /* trumpet_start.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = trumpet_start.wav; sourceTree = "<group>"; };
-		F4CE1F6E130E96B7006C0F2C /* trumpet_up.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = trumpet_up.wav; sourceTree = "<group>"; };
+		F4CE1F6D130E96B7006C0F2C /* trumpet.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = trumpet.wav; sourceTree = "<group>"; };
 		F4CE228A130F0870006C0F2C /* ScoreManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreManager.h; sourceTree = "<group>"; };
 		F4CE228B130F0870006C0F2C /* ScoreManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreManager.m; sourceTree = "<group>"; };
 		F4CE228C130F0870006C0F2C /* GameCenterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterManager.m; sourceTree = "<group>"; };
@@ -1413,9 +1411,7 @@
 				F4CE1F69130E96B7006C0F2C /* piano5.wav */,
 				F4CE1F6A130E96B7006C0F2C /* piano6.wav */,
 				F4CE1F6B130E96B7006C0F2C /* piano7.wav */,
-				F4CE1F6C130E96B7006C0F2C /* trumpet_down.wav */,
-				F4CE1F6D130E96B7006C0F2C /* trumpet_start.wav */,
-				F4CE1F6E130E96B7006C0F2C /* trumpet_up.wav */,
+				F4CE1F6D130E96B7006C0F2C /* trumpet.wav */,
 			);
 			path = sounds;
 			sourceTree = "<group>";
@@ -1707,7 +1703,7 @@
 				F4CE1F9A130E96B7006C0F2C /* piano5.wav in Resources */,
 				F4CE1F9B130E96B7006C0F2C /* piano6.wav in Resources */,
 				F4CE1F9C130E96B7006C0F2C /* piano7.wav in Resources */,
-				F4CE1F9E130E96B7006C0F2C /* trumpet_start.wav in Resources */,
+				F4CE1F9E130E96B7006C0F2C /* trumpet.wav in Resources */,
 				F4BD2A9013117233002284C3 /* bouncingball-hd.png in Resources */,
 				F4BD2A9113117233002284C3 /* bouncingball.png in Resources */,
 				F4BD2BCB1311A4A8002284C3 /* scores_button-hd.png in Resources */,
