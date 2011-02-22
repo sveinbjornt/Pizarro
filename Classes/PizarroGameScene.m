@@ -46,7 +46,8 @@ static void CollisionBallExpansionCircle (cpArbiter *arb, cpSpace *space, void *
 	Shape *shape = b->data;
 	shape.destroyed = YES;
 	
-	[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch:0.891 pan:0.0f gain:0.3f];	
+	if (SOUND_ENABLED)
+		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch:0.891 pan:0.0f gain:0.3f];	
 }
 
 static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *data)
@@ -62,7 +63,8 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	while (lastPlayedIndex > 7)
 		lastPlayedIndex = 1 + (lastPlayedIndex - 8);
 	
-	[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"piano%d.wav", lastPlayedIndex] pitch:1.0f pan:0.0f gain:0.1f];
+	if (SOUND_ENABLED)
+		[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"piano%d.wav", lastPlayedIndex] pitch:1.0f pan:0.0f gain:0.1f];
 }
 
 #pragma mark -
@@ -692,7 +694,8 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		shape.destroyed = YES;
 		shape.ended = NOW;
 		
-		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch:0.891 pan:0.0f gain:0.3f];
+		if (SOUND_ENABLED)
+			[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch:0.891 pan:0.0f gain:0.3f];
 	}
 	else
 	{
@@ -733,7 +736,8 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		int size = shape.size;
 		int index = size % 7;
 		float pitch = [Instrument bluesPitchForIndex: index];
-		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];
+		if (SOUND_ENABLED)
+			[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];
 	}
 
 }
@@ -887,8 +891,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	[self gameOverBlastAfterDelay: 0.2];
 	
 	// Submit score to Game Center
-	if ([GameCenterManager isGameCenterAvailable] &&
-		[[NSUserDefaults standardUserDefaults] boolForKey: @"GameCenterEnabled"])
+	if ([GameCenterManager isGameCenterAvailable] && GAMECENTER_ENABLED)
 		[[GameCenterManager sharedManager] authenticateLocalUserAndReportScore: score level: level];
 	
 //	[self runAction: [CCSequence actions:

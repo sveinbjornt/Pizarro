@@ -9,6 +9,7 @@
 #import "Instrument.h"
 #import "SimpleAudioEngine.h"
 #import "cocos2d.h"
+#import "Constants.h"
 
 @implementation Instrument
 @synthesize tempo, pitch, gain, numberOfNotes, delegate, selector;
@@ -58,7 +59,8 @@
 	if (note > numberOfNotes)
 		CCLOG(@"Warning, note index %d out of bounds", note);
 	
-	[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%@%d.wav", name, note] pitch: pitch pan:0.0f gain: gain];
+	if (SOUND_ENABLED)
+		[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%@%d.wav", name, note] pitch: pitch pan:0.0f gain: gain];
 	
 	if (delegate)
 	{

@@ -46,8 +46,14 @@
 	[[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjects:
 															 
 															 [NSArray arrayWithObjects:  [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool: [GameCenterManager isGameCenterAvailable]], nil]
-																			   forKeys:  [NSArray arrayWithObjects: @"MusicEnabled", @"SoundEffectsEnabled", @"GameCenterEnabled", nil]]];	
+																			   forKeys:  [NSArray arrayWithObjects: kMusicEnabled, kSoundEnabled, kGameCenterEnabled, nil]]];	
 	
+	CCLOG(@"User defaults: Music: %d Sound: %d GameCenter: %d", MUSIC_ENABLED, SOUND_ENABLED, GAMECENTER_ENABLED);
+	
+	if (MUSIC_ENABLED)
+		[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume: 1.0f];
+	else
+		[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume: 0.0f];
 	
 	application.statusBarOrientation = UIInterfaceOrientationLandscapeRight;
 	
@@ -129,8 +135,8 @@
 	// Init and log in to game center
 	[self initGameCenter];
 	
-//	if ([[NSUserDefaults standardUserDefaults] boolForKey: @"GameCenterEnabled"])
-//		[[GameCenterManager sharedManager] authenticateLocalUser];
+	if (GAMECENTER_ENABLED)
+		[[GameCenterManager sharedManager] authenticateLocalUser];
 }
 
 
@@ -194,7 +200,11 @@
 	for (NSString *file in files)
 	{			
 		// If texture, add to texture cache
-		if (![file hasSuffix: hdSuffix] && [file hasSuffix: pngSuffix] && ![file hasPrefix: @"Icon"] && ![file hasPrefix: @"Default"])
+		if (![file hasSuffix: hdSuffix] && 
+			[file hasSuffix: pngSuffix] && 
+			![file hasPrefix: @"Icon"] && 
+			![file hasPrefix: @"Default"] &&
+			![file isEqualToString: @"fps_images.png"])
 		{
 			CCLOG(@"Loading into Texture Cache: \"%@\"", file);
 			[[CCTextureCache sharedTextureCache] addImage: file];
@@ -216,41 +226,42 @@
 
 - (void)toggleMusic
 {
-	NSLog(@"Toggling music");
-	BOOL enabled = [[[NSUserDefaults standardUserDefaults] valueForKey: @"MusicEnabled"] boolValue];
+	CCLOG(@"Toggling music");
+	BOOL enabled = MUSIC_ENABLED;
 	
 	if (!enabled)
 		[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume: 1.0f];
 	else
 		[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume: 0.0f];
 	
-	[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: !enabled] forKey:@"MusicEnabled"];
+	[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: !enabled] forKey: kMusicEnabled];
+	[[NSUserDefaults standardUserDefaults] synchronize];
 	
-	NSLog(@"Music: %d", [[[NSUserDefaults standardUserDefaults] valueForKey: @"MusicEnabled"] boolValue]);
+	CCLOG(@"Music: %d", MUSIC_ENABLED);
 }
 
 - (void)toggleSound
 {
-	NSLog(@"Toggling sound effects");
-	BOOL enabled = [[[NSUserDefaults standardUserDefaults] valueForKey: @"SoundEffectsEnabled"] boolValue];
+	CCLOG(@"Toggling sound effects");
+	BOOL enabled = SOUND_ENABLED;
 	
-	[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: !enabled] forKey:@"SoundEffectsEnabled"];
+	[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: !enabled] forKey:kSoundEnabled];
+	[[NSUserDefaults standardUserDefaults] synchronize];
 	
-	NSLog(@"Sound: %d", [[[NSUserDefaults standardUserDefaults] valueForKey: @"SoundEffectsEnabled"] boolValue]);
-	[[SimpleAudioEngine sharedEngine] setEffectsVolume: [[[NSUserDefaults standardUserDefaults] valueForKey: @"SoundEffectsEnabled"] boolValue]];	
-//	NSLog(@"Effects volume %f", [[SimpleAudioEngine sharedEngine] effectsVolume]); 
-	//[[SimpleAudioEngine sharedEngine] setEnabled:  [[[NSUserDefaults standardUserDefaults] valueForKey: @"SoundEffectsEnabled"] boolValue] ];
+	CCLOG(@"Sound: %d", SOUND_ENABLED);
+	[[SimpleAudioEngine sharedEngine] setEffectsVolume: SOUND_ENABLED];	
 }
 
 
 - (void)toggleGameCenter
 {
-	NSLog(@"Toggling game center");
-	BOOL enabled = [[[NSUserDefaults standardUserDefaults] valueForKey: @"GameCenterEnabled"] boolValue];
+	CCLOG(@"Toggling game center");
+	BOOL enabled = GAMECENTER_ENABLED;
 	
-	[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: !enabled] forKey:@"GameCenterEnabled"];
+	[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: !enabled] forKey: kGameCenterEnabled];
+	[[NSUserDefaults standardUserDefaults] synchronize];
 	
-	NSLog(@"Game Center: %d", [[[NSUserDefaults standardUserDefaults] valueForKey: @"GameCenterEnabled"] boolValue]);
+	CCLOG(@"Game Center: %d", GAMECENTER_ENABLED);
 }
 
 
@@ -259,16 +270,15 @@
 
 -(void)initGameCenter
 {
-	NSLog(@"Initing Game Center");
+	CCLOG(@"Initing Game Center");
 	if ([GameCenterManager isGameCenterAvailable])
 	{
-		//[self setGameCenterDelegate: gameCenterManager];
 		[[GameCenterManager sharedManager] setDelegate: self];
 		
 		//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationChanged) name:GKPlayerAuthenticationDidChangeNotificationName object:nil];
 	}
 	else
-		[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: NO] forKey: @"GameCenterEnabled"];		
+		[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: NO] forKey: kGameCenterEnabled];		
 }
 
 -(void)processGameCenterAuth: (NSError*) error
@@ -291,7 +301,7 @@
 
 - (void)loadLeaderboard
 {
-	NSLog(@"Loading leaderboard");
+	CCLOG(@"Loading leaderboard");
 		
 	if (![GameCenterManager isGameCenterAvailable])
 	{
@@ -302,7 +312,7 @@
 											  otherButtonTitles: NULL] autorelease];
 		[alert show];
 	}
-	else if ([[[NSUserDefaults standardUserDefaults] valueForKey: @"GameCenterEnabled"] boolValue] == NO)
+	else if (!GAMECENTER_ENABLED)
 	{
 		UIAlertView* alert= [[[UIAlertView alloc] initWithTitle: @"Game Center is disabled" 
 														message: @"Game Center is required to view Pizarro scores, but it has been disabled in Settings."
@@ -336,7 +346,7 @@
 
 - (void)showLeaderboard
 {		
-	NSLog(@"Showing leaderboard");
+	CCLOG(@"Showing leaderboard");
 	leaderboardController = [[GKLeaderboardViewController alloc] init];
 	if (leaderboardController != NULL) 
 	{

@@ -479,19 +479,19 @@
 									 soundOffItem,
 									 soundOnItem,
 									 nil];
-	toggleSound.selectedIndex = [[[NSUserDefaults standardUserDefaults] valueForKey: @"SoundEffectsEnabled"] boolValue];
+	toggleSound.selectedIndex = SOUND_ENABLED;
 	
 	ExpandingMenuItemToggle *toggleMusic = [ExpandingMenuItemToggle itemWithTarget: [[UIApplication sharedApplication] delegate] selector:@selector(toggleMusic) items:
 									 musicOffItem,
 									 musicOnItem,
 									 nil];
-	toggleMusic.selectedIndex = [[[NSUserDefaults standardUserDefaults] valueForKey: @"MusicEnabled"] boolValue];
+	toggleMusic.selectedIndex = MUSIC_ENABLED;
 		
 	ExpandingMenuItemToggle *toggleGameCenter = [ExpandingMenuItemToggle itemWithTarget: [[UIApplication sharedApplication] delegate] selector:@selector(toggleGameCenter) items:
 										  gameCenterOffItem,
 										  gameCenterOnItem,
 										  nil];
-	toggleGameCenter.selectedIndex = [[[NSUserDefaults standardUserDefaults] valueForKey: @"GameCenterEnabled"] boolValue];
+	toggleGameCenter.selectedIndex = GAMECENTER_ENABLED;
 	
 	settingsMenu = [CCMenu menuWithItems: toggleMusic, toggleSound, toggleGameCenter, nil];
 	[settingsMenu alignItemsVerticallyWithPadding: 10.0f];
@@ -556,7 +556,8 @@
 {
 	float pitch =  [Instrument bluesPitchForIndex: RandomBetween(0, 6)];
 	
-	[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];	
+	if (SOUND_ENABLED)
+		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];	
 		
 	[icon runAction: [CCSequence actions:
 											   [CCScaleTo actionWithDuration: 0.1 scale: 1.2],

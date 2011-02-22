@@ -118,11 +118,19 @@
 #define kCheckBoxOnSprite	@"checkbox-checked.png"
 #define kCheckBoxOffSprite	@"checkbox-unchecked.png"
 
+// Settings
+
+#define kMusicEnabled		@"MusicEnabled"
+#define kSoundEnabled		@"SoundEnabled"
+#define kGameCenterEnabled	@"GameCenterEnabled"
+
 // Convenience 
 
-#define NOW [NSDate timeIntervalSinceReferenceDate]
-#define RETINA_DISPLAY (CC_CONTENT_SCALE_FACTOR() == 2.0)
-
+#define NOW					[NSDate timeIntervalSinceReferenceDate]
+#define RETINA_DISPLAY		(CC_CONTENT_SCALE_FACTOR() == 2.0)
+#define MUSIC_ENABLED		[[[NSUserDefaults standardUserDefaults] valueForKey: kMusicEnabled] boolValue]
+#define SOUND_ENABLED		[[[NSUserDefaults standardUserDefaults] valueForKey: kSoundEnabled] boolValue]
+#define GAMECENTER_ENABLED	[[[NSUserDefaults standardUserDefaults] valueForKey: kGameCenterEnabled] boolValue]
 
 
 

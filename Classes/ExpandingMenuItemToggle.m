@@ -10,6 +10,7 @@
 #import "Instrument.h"
 #import "SimpleAudioEngine.h"
 #import "Common.c"
+#import "Constants.h"
 
 @implementation ExpandingMenuItemToggle
 
@@ -39,7 +40,8 @@
 		
 		
 		float pitch = [Instrument bluesPitchForIndex: i + 2 + index + dir];
-		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];
+		if (SOUND_ENABLED)
+			[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];
 	}
 }
 
