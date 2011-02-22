@@ -28,6 +28,8 @@
 	cpSpaceAddShape(space, self.cpShape);
 }
 
+
+
 -(void)pushWithVector: (cpVect)v
 {
 	cpBodyApplyImpulse(self.cpBody, v,cpvzero);

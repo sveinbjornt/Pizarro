@@ -40,9 +40,9 @@
 #define kSurfaceReqPerLevel		80.0f
 
 // Shapes
-#define kMinimumShapeSize		15
-#define kNumShapeKinds			3
-
+#define kMinimumShapeSize					15
+#define kNumShapeKinds						3
+#define kCircleExpansionDiameterPerSecond	170.0f
 
 // Limits
 #define kMaxShapes				65535

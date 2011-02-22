@@ -551,7 +551,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		else
 		{
 			NSTimeInterval timeSinceTouch = NOW - currentShape.created;
-			currentShape.size = timeSinceTouch * 170;
+			currentShape.size = timeSinceTouch * kCircleExpansionDiameterPerSecond;
 			
 			mana -= 1.0f/60.0f;
 			manaBar.percentage = (float)mana/kFullMana;

@@ -14,7 +14,7 @@
 #import "Instrument.h"
 
 #define kAnimationInterval					1.0f / 2.0f
-#define kBackgroundMovementInterval		1.0f / 20.0f
+#define kBackgroundMovementInterval			1.0f / 20.0f
 
 #pragma mark -
 
@@ -644,9 +644,8 @@
 				state = kMainState;
 				break;
 		}
-		
+
 	}
-	
 }
 
 -(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event 
@@ -654,7 +653,6 @@
 	if (inTransition || currTouch == nil)
 		return;
 
-	
 	CGPoint location = [currTouch locationInView: [currTouch view]];
 	location = [[CCDirector sharedDirector] convertToGL: location];
 	
@@ -667,7 +665,6 @@
 			[piano playNote: i+1];
 			playedNote = YES;
 		}
-		
 	}
 	
 	if (!playedNote && CGRectContainsPoint([icon rect], location))
