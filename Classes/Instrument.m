@@ -41,17 +41,12 @@
 
 -(void)playSequence: (NSString *)seq
 {
-//	NSMutableArray *actions = [[[NSMutableArray alloc] initWithCapacity: 255] autorelease];
-	
-	CCLOG(@"Generating action sequence for seq: \"%@\"", seq);
-	
 	int iterator = 0;
 	for (NSString *str in [seq componentsSeparatedByString: @","])
 	{
 		if (![str isEqualToString: @" "])
 		{
 			int note = [str intValue];
-			CCLOG(@"NOTE IS %d", note);
 			[self performSelector: @selector(playNoteNumber:) withObject: [NSNumber numberWithInteger: note] afterDelay: iterator * tempo];
 		}
 		iterator++;
@@ -59,9 +54,7 @@
 }
 
 -(void)playNote:(int)note
-{
-	CCLOG(@"Playing note %d", note);
-	
+{	
 	if (note > numberOfNotes)
 		CCLOG(@"Warning, note index %d out of bounds", note);
 	
@@ -113,7 +106,6 @@
 		 
 -(void)playNoteNumber: (NSNumber *)num
 {
-	CCLOG(@"PLAY NOTE NUMBER %d", [num intValue]);
 	[self playNote: [num integerValue]];
 }
 

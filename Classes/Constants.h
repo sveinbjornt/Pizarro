@@ -39,7 +39,7 @@
 #define kSurfaceReqPerLevel		80.0f
 
 // Shapes
-#define kMinimumShapeSize		8
+#define kMinimumShapeSize		15
 #define kNumShapeKinds			3
 
 
@@ -97,7 +97,7 @@
 #define kPercentageBlastFontSize	64
 #define kGameOverBlastFontSize		84
 #define kMainMenuTitleFontSize		84
-#define kMainMenuMenuFontSize		42
+#define kMainMenuMenuFontSize		44
 #define kResumeGameMenuFontSize		52
 
 

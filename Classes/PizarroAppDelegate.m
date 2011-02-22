@@ -49,6 +49,8 @@
 																			   forKeys:  [NSArray arrayWithObjects: @"MusicEnabled", @"SoundEffectsEnabled", @"GameCenterEnabled", nil]]];	
 	
 	
+	application.statusBarOrientation = UIInterfaceOrientationLandscapeRight;
+	
 	// Init the window
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	
@@ -290,28 +292,29 @@
 - (void)loadLeaderboard
 {
 	NSLog(@"Loading leaderboard");
-	
-	//	UIAlertView* alert= [[[UIAlertView alloc] initWithTitle: @"Game Center not enabled" 
-	//													message: @"Game Center functionality is disabled in this beta build"
-	//												   delegate: nil
-	//										  cancelButtonTitle: @"OK" 
-	//										  otherButtonTitles: NULL] autorelease];
-	//	[alert show];
-	
-	//	if (![GameCenterManager isGameCenterAvailable])
-	//	{
-	////		[GMenuGenerator createGameCenterRequiredMenu: engine.menuManager delegate: engine];
-	////		[engine showMenu:@"gamecenterrequired"];
-	//	}
-	////	else if ([[[NSUserDefaults standardUserDefaults] valueForKey: @"GameCenterEnabled"] boolValue] == NO)
-	//	{
-	//		[GMenuGenerator createEnableGameCenterMenu: engine.menuManager delegate: engine];
-	//		[engine showMenu:@"enablegamecenter"];
-	//	}
-	//	else
-	//	{
-	[[GameCenterManager sharedManager] authenticateLocalUserForLeaderboard];
-	//	}	
+		
+	if (![GameCenterManager isGameCenterAvailable])
+	{
+		UIAlertView* alert= [[[UIAlertView alloc] initWithTitle: @"Game Center not available" 
+														message: @"Game Center is required to view Pizarro scores.  Unfortunately, it is not available on your device software."
+													   delegate: nil
+											  cancelButtonTitle: @"OK" 
+											  otherButtonTitles: NULL] autorelease];
+		[alert show];
+	}
+	else if ([[[NSUserDefaults standardUserDefaults] valueForKey: @"GameCenterEnabled"] boolValue] == NO)
+	{
+		UIAlertView* alert= [[[UIAlertView alloc] initWithTitle: @"Game Center is disabled" 
+														message: @"Game Center is required to view Pizarro scores, but it has been disabled in Settings."
+													   delegate: nil
+											  cancelButtonTitle: @"OK" 
+											  otherButtonTitles: NULL] autorelease];
+		[alert show];
+	}
+	else
+	{
+		[[GameCenterManager sharedManager] authenticateLocalUserForLeaderboard];
+	}	
 }
 
 

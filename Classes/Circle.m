@@ -89,7 +89,6 @@
 	
 	glColor4ub(color.r,color.g,color.b,opacity);
 	
-	NSLog(@"Drawing w. fillcircle");
 	ccFillCircle(p, self.size/2, CC_DEGREES_TO_RADIANS(360), 60, NO);
 
 //	glDisable(GL_TEXTURE_2D);

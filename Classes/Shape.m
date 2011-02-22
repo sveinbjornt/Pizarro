@@ -17,7 +17,7 @@
 	{
 		opacity = 255;
 		color = ccc3(0,0,0);
-		size = 1;
+		size = 8;
 		created = NOW;
 		expanding = YES;
 		destroyed = NO;

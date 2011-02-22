@@ -486,7 +486,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		// Give bonus points for each additional percentage point covered
 		
 		float extraPerc = percentageFilled - kSurfaceReqPerLevel;
-		int bonus = extraPerc * 100 + (level * 25);
+		int bonus = extraPerc * 10 + level;
 		score += bonus;
 		
 		[self runAction: [CCSequence actions:
@@ -707,9 +707,16 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		shape.cpShape->collision_type = 0;
 		
 		//
-		int value = (filledSq + (level * 20)) * (float)shape.fullSize/100;
+		//int value = (filledSq + (level * 20)) * (float)shape.fullSize/100;
+		int value = filledSq / 10;
+		if (!value)
+			value = 1;
+		value += level;
+		value *= (float)shape.fullSize/100;
+		
+		
 //		NSLog(@"Score filledSq: %d + shapesize: %f, level: %d", filledSq, (float)shape.fullSize/100, level);
-//		NSLog(@"Value: %d", value);
+		NSLog(@"Value: %d", value);
 		score += value;
 		
 		[bgRenderTexture drawShape: shape];
@@ -795,7 +802,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		startingPoint.y += (mod * 15 + RandomBetween(5, 10)) * i;
 		
 		// Define movement vector
-		CGPoint movementVector = cpv( (5000 + (level * 550 )) * mod, (5000 + (level * 550)) * mod);
+		CGPoint movementVector = cpv( (5000 + (level/2 * 600 ) * mod), (5000 + ((float)(level/numBalls) * 600) * mod));
 		
 		// Add ball
 		[self addBouncingBallAtPoint: startingPoint withVelocity: movementVector];
