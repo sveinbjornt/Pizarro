@@ -260,6 +260,11 @@
 
 -(void)onPlay:(id)sender
 {	
+	if (inTransition)
+		return;
+	
+	inTransition = YES;
+	
 	//[piano playSequence: @"7, ,1,3,4,3,4,3"];
 	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.63];
 	
@@ -283,8 +288,12 @@
 
 -(void)onSettings:(id)sender
 {
+	if (inTransition)
+		return;
+	
+	inTransition = YES;
 	state = kSettingsState;
-
+	
 	[piano playSequence: @"1,3,2,4,3,5,7"];
 	
 	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.5];
@@ -294,6 +303,10 @@
 
 -(void)onCredits:(id)sender
 {
+	if (inTransition)
+		return;
+	
+	inTransition = YES;
 	state = kCreditsState;
 		
 	[piano playSequence: @"1,2,3,4,5,6,7"];
@@ -305,6 +318,10 @@
 
 -(void)onResume:(id)sender
 {
+	if (inTransition)
+		return;
+	
+	inTransition = YES;
 	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.3];
 	[self shiftOut];
 	[[CCDirector sharedDirector] popSceneWithTransition: [CCTransitionSlideInR class] duration: 0.35f];
@@ -391,7 +408,7 @@
 	[piano playSequence: @"7,6,5,4,3,2,1"];
 	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: duration + 0.2];
 	
-	[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(endTransition)] withDelay: 0.5]];
+	[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(endTransition)] withDelay: duration + 0.2]];
 }
 
 -(void)shiftIn
