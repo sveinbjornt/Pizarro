@@ -295,6 +295,9 @@
 		F4A46449130C1D6A00A20694 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A46448130C1D6A00A20694 /* GameKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F4A46479130C225300A20694 /* Square.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A46478130C225300A20694 /* Square.m */; };
 		F4A4648A130C23C600A20694 /* Triangle.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A46489130C23C600A20694 /* Triangle.m */; };
+		F4B3F0331313F81D006C443B /* bassline1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F4B3F0321313F81D006C443B /* bassline1.mp3 */; };
+		F4B3F0411313FB19006C443B /* bassline2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F4B3F0401313FB19006C443B /* bassline2.mp3 */; };
+		F4B3F048131401D8006C443B /* bassline3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F4B3F047131401D8006C443B /* bassline3.mp3 */; };
 		F4BD2A9013117233002284C3 /* bouncingball-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BD2A8E13117233002284C3 /* bouncingball-hd.png */; };
 		F4BD2A9113117233002284C3 /* bouncingball.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BD2A8F13117233002284C3 /* bouncingball.png */; };
 		F4BD2BCB1311A4A8002284C3 /* scores_button-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BD2BC91311A4A8002284C3 /* scores_button-hd.png */; };
@@ -344,7 +347,6 @@
 		F4CE1F91130E96B7006C0F2C /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F5F130E96B7006C0F2C /* Icon@2x.png */; };
 		F4CE1F92130E96B7006C0F2C /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F60130E96B7006C0F2C /* iTunesArtwork */; };
 		F4CE1F93130E96B7006C0F2C /* Icon-48px.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F61130E96B7006C0F2C /* Icon-48px.png */; };
-		F4CE1F94130E96B7006C0F2C /* bassline.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F63130E96B7006C0F2C /* bassline.mp3 */; };
 		F4CE1F95130E96B7006C0F2C /* mainmenu_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F64130E96B7006C0F2C /* mainmenu_music.mp3 */; };
 		F4CE1F96130E96B7006C0F2C /* piano1.wav in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F65130E96B7006C0F2C /* piano1.wav */; };
 		F4CE1F97130E96B7006C0F2C /* piano2.wav in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F66130E96B7006C0F2C /* piano2.wav */; };
@@ -668,6 +670,9 @@
 		F4A46478130C225300A20694 /* Square.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Square.m; sourceTree = "<group>"; };
 		F4A46488130C23C600A20694 /* Triangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Triangle.h; sourceTree = "<group>"; };
 		F4A46489130C23C600A20694 /* Triangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Triangle.m; sourceTree = "<group>"; };
+		F4B3F0321313F81D006C443B /* bassline1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bassline1.mp3; sourceTree = "<group>"; };
+		F4B3F0401313FB19006C443B /* bassline2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bassline2.mp3; sourceTree = "<group>"; };
+		F4B3F047131401D8006C443B /* bassline3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bassline3.mp3; sourceTree = "<group>"; };
 		F4BD2A8E13117233002284C3 /* bouncingball-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bouncingball-hd.png"; sourceTree = "<group>"; };
 		F4BD2A8F13117233002284C3 /* bouncingball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bouncingball.png; sourceTree = "<group>"; };
 		F4BD2BC91311A4A8002284C3 /* scores_button-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scores_button-hd.png"; sourceTree = "<group>"; };
@@ -721,7 +726,6 @@
 		F4CE1F5F130E96B7006C0F2C /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		F4CE1F60130E96B7006C0F2C /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		F4CE1F61130E96B7006C0F2C /* Icon-48px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-48px.png"; sourceTree = "<group>"; };
-		F4CE1F63130E96B7006C0F2C /* bassline.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bassline.mp3; sourceTree = "<group>"; };
 		F4CE1F64130E96B7006C0F2C /* mainmenu_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainmenu_music.mp3; sourceTree = "<group>"; };
 		F4CE1F65130E96B7006C0F2C /* piano1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = piano1.wav; sourceTree = "<group>"; };
 		F4CE1F66130E96B7006C0F2C /* piano2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = piano2.wav; sourceTree = "<group>"; };
@@ -1402,7 +1406,9 @@
 		F4CE1F62130E96B7006C0F2C /* sounds */ = {
 			isa = PBXGroup;
 			children = (
-				F4CE1F63130E96B7006C0F2C /* bassline.mp3 */,
+				F4B3F0321313F81D006C443B /* bassline1.mp3 */,
+				F4B3F0401313FB19006C443B /* bassline2.mp3 */,
+				F4B3F047131401D8006C443B /* bassline3.mp3 */,
 				F4CE1F64130E96B7006C0F2C /* mainmenu_music.mp3 */,
 				F4CE1F65130E96B7006C0F2C /* piano1.wav */,
 				F4CE1F66130E96B7006C0F2C /* piano2.wav */,
@@ -1694,7 +1700,6 @@
 				F4CE1F91130E96B7006C0F2C /* Icon@2x.png in Resources */,
 				F4CE1F92130E96B7006C0F2C /* iTunesArtwork in Resources */,
 				F4CE1F93130E96B7006C0F2C /* Icon-48px.png in Resources */,
-				F4CE1F94130E96B7006C0F2C /* bassline.mp3 in Resources */,
 				F4CE1F95130E96B7006C0F2C /* mainmenu_music.mp3 in Resources */,
 				F4CE1F96130E96B7006C0F2C /* piano1.wav in Resources */,
 				F4CE1F97130E96B7006C0F2C /* piano2.wav in Resources */,
@@ -1720,6 +1725,9 @@
 				F4BD2E0B1311E48A002284C3 /* manabar_red_top.png in Resources */,
 				F4BD2E691311EAEA002284C3 /* manabar_red-hd.png in Resources */,
 				F4BD2E6D1311EB7A002284C3 /* manabar_red.png in Resources */,
+				F4B3F0331313F81D006C443B /* bassline1.mp3 in Resources */,
+				F4B3F0411313FB19006C443B /* bassline2.mp3 in Resources */,
+				F4B3F048131401D8006C443B /* bassline3.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
