@@ -47,7 +47,7 @@ static void CollisionBallExpansionCircle (cpArbiter *arb, cpSpace *space, void *
 	shape.destroyed = YES;
 	
 	if (SOUND_ENABLED)
-		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch:0.891 pan:0.0f gain:0.3f];	
+		[[SimpleAudioEngine sharedEngine] playEffect: kTrumpetSoundEffect pitch:0.891 pan:0.0f gain:0.3f];	
 }
 
 static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *data)
@@ -118,13 +118,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		[self setupHUD];
 		[self setupGame];
 		//[self updateCurrentShape];
-		
-		// hack f. mana images
-		[[CCTextureCache sharedTextureCache] addImage: @"manabar_green.png"];
-		[[CCTextureCache sharedTextureCache] addImage: @"manabar_red.png"];
-		[[CCTextureCache sharedTextureCache] addImage: @"manabar_green_top.png"];
-		[[CCTextureCache sharedTextureCache] addImage: @"manabar_red_top.png"];
-		
+				
 		// Music and sound
 		[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"bassline.mp3" loop: YES];
 		piano = [[Instrument alloc] initWithName: @"piano" numberOfNotes: 7 tempo: 0.1];
@@ -166,7 +160,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 -(void)setupHUD
 {	
 	// BACKGROUND
-	CCSprite *bg = [CCSprite spriteWithFile: @"bg.png"];
+	CCSprite *bg = [CCSprite spriteWithFile: kGameScreenBackgroundSprite];
 	bg.blendFunc = (ccBlendFunc) { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
 	bg.position = kGameScreenCenterPoint;
 	[self addChild: bg z: 100];	
@@ -200,8 +194,8 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	[self addChild: manaBar z: 99];
 	
 	// Pause button
-	CCMenuItemSprite *pauseMenuItem = [CCMenuItemSprite itemFromNormalSprite: [CCSprite spriteWithFile: @"menu_button_black.png"] 
-															  selectedSprite: [CCSprite spriteWithFile: @"menu_button_white.png"] 
+	CCMenuItemSprite *pauseMenuItem = [CCMenuItemSprite itemFromNormalSprite: [CCSprite spriteWithFile: kInGameMenuButtonOffSprite] 
+															  selectedSprite: [CCSprite spriteWithFile: kInGameMenuButtonOnSprite] 
 																	  target: self 
 																	selector: @selector(pauseGame)];
 	pauseMenu = [CCMenu menuWithItems: pauseMenuItem, nil];
@@ -682,7 +676,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	[shapes addObject: shape];
 	[self addChild: shape z: 98];
 		
-	//[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch:1.0f pan:0.0f gain:0.3f];
+	//[[SimpleAudioEngine sharedEngine] playEffect: kTrumpetSoundEffect pitch:1.0f pan:0.0f gain:0.3f];
 }
 
 -(void)endExpansionOfShape: (Shape *)shape
@@ -695,7 +689,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		shape.ended = NOW;
 		
 		if (SOUND_ENABLED)
-			[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch:0.891 pan:0.0f gain:0.3f];
+			[[SimpleAudioEngine sharedEngine] playEffect: kTrumpetSoundEffect pitch:0.891 pan:0.0f gain:0.3f];
 	}
 	else
 	{
@@ -737,7 +731,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		int index = size % 7;
 		float pitch = [Instrument bluesPitchForIndex: index];
 		if (SOUND_ENABLED)
-			[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];
+			[[SimpleAudioEngine sharedEngine] playEffect: kTrumpetSoundEffect pitch: pitch pan:0.0f gain:0.3f];
 	}
 
 }
@@ -762,7 +756,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 
 -(void)addBouncingBallAtPoint: (CGPoint)p withVelocity: (CGPoint)movementVector
 {
-	BouncingBall *bounceBall = [BouncingBall spriteWithFile: @"bouncingball.png"];
+	BouncingBall *bounceBall = [BouncingBall spriteWithFile: kBouncingBallSprite];
 	bounceBall.size = 20;
 	bounceBall.position = p;
 	bounceBall.opacity = 0.0f;
@@ -801,15 +795,21 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	{
 		// Define starting point
 		CGPoint startingPoint = kGameScreenCenterPoint;
-		int mod = RandomBetween(0, 1) ? -1 : 1;
+		int mod = RandomBetween(0, 1);
+		if (mod)
+			mod = -1;
+		else
+			mod = 1;
+		
 		startingPoint.x += (mod * 25 + RandomBetween(5, 10)) * i;
 		startingPoint.y += (mod * 15 + RandomBetween(5, 10)) * i;
 		
 		// Define movement vector
-		CGPoint movementVector = cpv( (5000 + (level/2 * 600 ) * mod), (5000 + ((float)(level/numBalls) * 600) * mod));
+		float x = (5000 + (level/2 * 600 )) * mod;
+		float y = (5000 + (float)(level/numBalls) * 600) * mod;
 		
 		// Add ball
-		[self addBouncingBallAtPoint: startingPoint withVelocity: movementVector];
+		[self addBouncingBallAtPoint: startingPoint withVelocity: cpv(x,y)];
 	}
 	
 	[self updateLevel];

@@ -136,14 +136,14 @@
 -(void)createBackground
 {
 	// Moving background
-	bg1 = [CCSprite spriteWithFile: @"mainscreen_bg.png"];
+	bg1 = [CCSprite spriteWithFile: kMainMenuBackgroundSprite];
 //	if (paused)
 //		bg1.position = kMainMenuBackgroundPoint;
 //	else
 		bg1.position = ccpAdd(kMainMenuBackgroundPoint, ccp(0,-130));
 	[self addChild: bg1];
 
-	bg2 = [CCSprite spriteWithFile: @"mainscreen_bg.png"];
+	bg2 = [CCSprite spriteWithFile: kMainMenuBackgroundSprite];
 	CGPoint p = kMainMenuBackgroundPoint;
 	p.x += kGameScreenWidth;
 //	if (paused)
@@ -180,7 +180,7 @@
 		[self addChild: n];
 	}
 	
-	icon = [MMLetterSprite spriteWithFile: @"mainscreen_icon.png"];
+	icon = [MMLetterSprite spriteWithFile: kGameIconSprite];
 	icon.position = kMainMenuIconPoint;
 	icon.originalPosition = kMainMenuIconPoint;
 	[self addChild: icon];
@@ -574,7 +574,7 @@
 	float pitch =  [Instrument bluesPitchForIndex: RandomBetween(0, 6)];
 	
 	if (SOUND_ENABLED)
-		[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];	
+		[[SimpleAudioEngine sharedEngine] playEffect: kTrumpetSoundEffect pitch: pitch pan:0.0f gain:0.3f];	
 		
 	[icon runAction: [CCSequence actions:
 											   [CCScaleTo actionWithDuration: 0.1 scale: 1.2],

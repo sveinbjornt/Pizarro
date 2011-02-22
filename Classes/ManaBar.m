@@ -18,10 +18,10 @@
 	{
 		percentage = 1.0;
 		
-		manaBarRed = [CCSprite spriteWithFile: @"manabar_red.png"];
-		manaBarRedTop = [CCSprite spriteWithFile: @"manabar_red_top.png"];
-		manaBarGreen = [CCSprite spriteWithFile: @"manabar_green.png"];
-		manaBarGreenTop = [CCSprite spriteWithFile: @"manabar_green_top.png"];
+		manaBarRed = [CCSprite spriteWithFile: kManaBarRedSprite];
+		manaBarRedTop = [CCSprite spriteWithFile: kManaBarRedTopSprite];
+		manaBarGreen = [CCSprite spriteWithFile: kManaBarGreenSprite];
+		manaBarGreenTop = [CCSprite spriteWithFile: kManaBarGreenTopSprite];
 		
 		manaBarRed.visible = NO;
 		manaBarRedTop.visible = NO;

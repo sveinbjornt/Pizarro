@@ -115,8 +115,28 @@
 
 // Sprite files
 
+#define kBouncingBallSprite	@"bouncingball.png"
+
+#define kGameScreenBackgroundSprite @"bg.png"
+
+#define kMainMenuBackgroundSprite @"mainscreen_bg.png"
+
+#define kGameIconSprite @"mainscreen_icon.png"
+
 #define kCheckBoxOnSprite	@"checkbox-checked.png"
 #define kCheckBoxOffSprite	@"checkbox-unchecked.png"
+
+#define kManaBarRedSprite		@"manabar_red.png"
+#define kManaBarRedTopSprite	@"manabar_red_top.png"
+#define kManaBarGreenSprite		@"manabar_green.png"
+#define kManaBarGreenTopSprite	@"manabar_green_top.png"
+
+#define kInGameMenuButtonOffSprite	@"menu_button_black.png"
+#define kInGameMenuButtonOnSprite	@"menu_button_white.png"
+
+// Audio files
+
+#define kTrumpetSoundEffect	@"trumpet_start.wav"
 
 // Settings
 

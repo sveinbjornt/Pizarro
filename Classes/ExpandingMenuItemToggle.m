@@ -41,7 +41,7 @@
 		
 		float pitch = [Instrument bluesPitchForIndex: i + 2 + index + dir];
 		if (SOUND_ENABLED)
-			[[SimpleAudioEngine sharedEngine] playEffect: @"trumpet_start.wav" pitch: pitch pan:0.0f gain:0.3f];
+			[[SimpleAudioEngine sharedEngine] playEffect: kTrumpetSoundEffect pitch: pitch pan:0.0f gain:0.3f];
 	}
 }
 
