@@ -770,7 +770,6 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	[self addChild: bounceBall];
 }
 
-
 -(void)removeAllShapes
 {
 	// Clear all shapes from our databank

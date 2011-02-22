@@ -23,6 +23,7 @@
 
 -(void)dealloc
 {
+	[self removeAllChildrenWithCleanup: YES];
 	[letters release];
 	[piano release];
 	[super dealloc];
@@ -32,7 +33,7 @@
 {
 	CCScene *scene = [CCScene node];	
 	
-	MainMenuScene *layer = [[MainMenuScene alloc] initWithPause: NO];
+	MainMenuScene *layer = [[[MainMenuScene alloc] initWithPause: NO] autorelease];
 	layer.color = ccc3(0,0,0);
 
 	[scene addChild: layer];
@@ -45,7 +46,7 @@
 {
 	CCScene *scene = [CCScene node];	
 
-	MainMenuScene *layer = [[MainMenuScene alloc] initWithPause: YES];
+	MainMenuScene *layer = [[[MainMenuScene alloc] initWithPause: YES] autorelease];
 	layer.color = ccc3(0,0,0);
 	layer.pausedScene = gameScene;
 	
