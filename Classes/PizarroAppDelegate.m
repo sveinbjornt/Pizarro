@@ -45,8 +45,8 @@
 {
 	[[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjects:
 															 
-															 [NSArray arrayWithObjects:  [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithInt: kStartingBassLine], [NSNumber numberWithBool: [GameCenterManager isGameCenterAvailable]], nil]
-																			   forKeys:  [NSArray arrayWithObjects: kMusicEnabled, kSoundEnabled, kLastBassLine, kGameCenterEnabled, nil]]];	
+															 [NSArray arrayWithObjects:  [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithInt: kStartingBassLine], [NSNumber numberWithBool: [GameCenterManager isGameCenterAvailable]], [NSNumber numberWithBool:YES], nil]
+																			   forKeys:  [NSArray arrayWithObjects: kMusicEnabled, kSoundEnabled, kLastBassLine, kGameCenterEnabled, kShowTutorial, nil]]];	
 	
 	CCLOG(@"User defaults: Music: %d Sound: %d GameCenter: %d", MUSIC_ENABLED, SOUND_ENABLED, GAMECENTER_ENABLED);
 	
@@ -115,7 +115,7 @@
 	[director setAnimationInterval:1.0/60];
 	
 #if COCOS2D_DEBUG == TRUE
-	[director setDisplayFPS: YES];
+	//[director setDisplayFPS: YES];
 #endif
 	
 	[self loadResources];

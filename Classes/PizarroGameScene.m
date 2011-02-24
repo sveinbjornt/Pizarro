@@ -38,6 +38,24 @@ static void UpdateShape(void* ptr, void* unused)
 	}
 }
 
+static void PlayBallCollisionSound (int level)
+{
+	if (!SOUND_ENABLED)
+		return;
+	
+	int mod = RandomBetween(-level, level);
+	
+	lastPlayedIndex += mod;
+	while (lastPlayedIndex < 1)
+		lastPlayedIndex = 7 + lastPlayedIndex;
+	while (lastPlayedIndex > 7)
+		lastPlayedIndex = 1 + (lastPlayedIndex - 8);
+	
+	[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"piano%d.wav", lastPlayedIndex] pitch:1.0f pan:0.0f gain:0.1f];
+	
+}
+
+
 static void CollisionBallExpansionCircle (cpArbiter *arb, cpSpace *space, void *data)
 {
 	cpShape *a, *b; 
@@ -53,18 +71,15 @@ static void CollisionBallExpansionCircle (cpArbiter *arb, cpSpace *space, void *
 static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *data)
 {
 	PizarroGameScene *scene = (PizarroGameScene *)data;
-	int lvl = [scene currentLevel]+1;
+	PlayBallCollisionSound([scene currentLevel]+1);
 	
-	int mod = RandomBetween(-lvl, lvl);
-	
-	lastPlayedIndex += mod;
-	while (lastPlayedIndex < 1)
-		lastPlayedIndex = 7 + lastPlayedIndex;
-	while (lastPlayedIndex > 7)
-		lastPlayedIndex = 1 + (lastPlayedIndex - 8);
-	
-	if (SOUND_ENABLED)
-		[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"piano%d.wav", lastPlayedIndex] pitch:1.0f pan:0.0f gain:0.1f];
+}
+
+static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
+{
+	PizarroGameScene *scene = (PizarroGameScene *)data;
+	PlayBallCollisionSound([scene currentLevel]+1);
+	PlayBallCollisionSound([scene currentLevel]+2);
 }
 
 #pragma mark -
@@ -83,7 +98,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	// 'layer' is an autorelease object.
 	PizarroGameScene *layer = [PizarroGameScene layerWithColor: ccc4(255,255,255,255)];
 	
-	[layer setColor: ccc3(255,255,255)];
+	[layer setColor: kWhiteColor];
 	
 	// add layer as a child to scene
 	[scene addChild: layer];
@@ -110,7 +125,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	{		
 		// White, touch-sensitive layer
 		self.isTouchEnabled = YES;
-		self.color = ccc3(255,255,255);
+		self.color = kWhiteColor;
 		self.opacity = 255;
 		
 		// Setup
@@ -136,12 +151,15 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		manaIncreaseTime = NOW;
 		[self schedule: @selector(manaIncreaseTicker:) interval: 1.0/60];
 		
-		// Go!
-		inTransition = YES;
-		[self levelBlast: level atPoint: kGameBoxCenterPoint afterDelay: 1.0];
-		[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(startLevel)] withDelay: 3.1]];;
-
+		if (SHOW_TUTORIAL)
+		{
+			tutorialStep = kTutorialStep1;
+			[self showTutorialStep: tutorialStep];
+		}
+		else
+			[self startGame];
 	}
+	
 	return self;
 }
 
@@ -245,8 +263,9 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	space->elasticIterations = 0;
 	
 	// Add collision handlers	
-	cpSpaceAddCollisionHandler(space, 1, 2, NULL, NULL, &CollisionBallExpansionCircle, NULL, NULL);  // collision between expanding shape and bouncing ball
+	cpSpaceAddCollisionHandler(space, 1, 2, NULL, NULL, &CollisionBallExpansionCircle, NULL, self);  // collision between expanding shape and bouncing ball
 	cpSpaceAddCollisionHandler(space, 1, 0, NULL, NULL, &CollisionBallAndCircleOrWall, NULL, self); // collision between finished circles or walls and a bouncing ball
+	cpSpaceAddCollisionHandler(space, 1, 1, NULL, NULL, &CollisionBallAndBall, NULL, self); 
 	
 	[self createPhysicalBox];
 }
@@ -343,6 +362,185 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 }
 
 #pragma mark -
+#pragma mark Tutorial 
+
+-(void)showTutorialStep: (int)stepNum
+{
+	if (currentTutorialNode != nil)
+	{
+		lastTutorialNode = currentTutorialNode;
+		
+		[lastTutorialNode runAction: [CCSequence actions: 
+									  [CCMoveBy actionWithDuration: 0.33 position: ccp(-420, 0)],
+									  [CCCallFunc actionWithTarget: lastTutorialNode selector: @selector(dispose)],
+									  nil]];
+	}
+	
+	currentTutorialNode = [CCNode node];
+	BOOL tutorialOver = NO;
+	
+	switch (stepNum)
+	{
+		case kTutorialStep1:
+		{			
+			CCLabelTTF *welcome = [CCLabelTTF labelWithString: @"WELCOME TO PIZARRO" fontName: kTutorialFont fontSize: kWelcomeToPizarroFontSize];
+			CGPoint p = kGameBoxCenterPoint;
+			p.y += 100;
+			welcome.position = p;
+			welcome.color = kBlackColor;
+			[currentTutorialNode addChild: welcome];
+			
+			NSString *expl = @"The objective of the game is\nto cover 80% of the\nsurface area in each level\nby creating circles.";
+			CCLabelTTF *text = [CCLabelTTF labelWithString: expl
+												dimensions: CGSizeMake(400,140) 
+												 alignment: UITextAlignmentLeft
+												  fontName: kTutorialFont 
+												  fontSize: kTutorialFontSize];
+			
+			text.position = kGameBoxCenterPoint;
+			text.color = kBlackColor;
+			[currentTutorialNode addChild: text];
+			
+			CCLabelTTF *press = [CCLabelTTF labelWithString: @"PRESS TO CONTINUE -->" fontName: kTutorialFont fontSize: kTutorialFontSize];
+			p = kGameBoxCenterPoint;
+			p.y = 45;
+			press.position = p;
+			press.color = kBlackColor;
+			[currentTutorialNode addChild: press];
+		}
+		break;
+			
+		case kTutorialStep2:
+		{						
+			NSString *expl = @"You create circles by pressing\nthe screen and holding.\nThe longer you hold, the bigger the circle.\n<-- Creating circles uses up energy (green bar left)";
+			CCLabelTTF *text = [CCLabelTTF labelWithString: expl
+												dimensions: CGSizeMake(400,200) 
+												 alignment: UITextAlignmentLeft
+												  fontName: kTutorialFont 
+												  fontSize: kTutorialFontSize];
+			CGPoint p = kGameBoxCenterPoint;
+			p.y += 20;
+			text.position = p;
+			text.color = kBlackColor;
+			[currentTutorialNode addChild: text];
+			
+			CCLabelTTF *press = [CCLabelTTF labelWithString: @"PRESS TO CONTINUE -->" fontName: kTutorialFont fontSize: kTutorialFontSize];
+			p = kGameBoxCenterPoint;
+			p.y = 45;
+			press.position = p;
+			press.color = kBlackColor;
+			[currentTutorialNode addChild: press];
+		}
+		break;
+			
+		case kTutorialStep3:
+		{						
+			NSString *expl = @"Each level contains one or more bouncing red balls.\n\nIf a circle you're creating collides with a red bouncing ball, it disappears.";
+			CCLabelTTF *text = [CCLabelTTF labelWithString: expl
+												dimensions: CGSizeMake(400,200) 
+												 alignment: UITextAlignmentLeft
+												  fontName: kTutorialFont 
+												  fontSize: kTutorialFontSize];
+			CGPoint p = kGameBoxCenterPoint;
+			p.y += 20;
+			text.position = p;
+			text.color = kBlackColor;
+			[currentTutorialNode addChild: text];
+			
+			CCSprite *bball = [CCSprite spriteWithFile: kBouncingBallSprite];
+			
+			
+			CCLabelTTF *press = [CCLabelTTF labelWithString: @"PRESS TO CONTINUE -->" fontName: kTutorialFont fontSize: kTutorialFontSize];
+			p = kGameBoxCenterPoint;
+			p.y = 45;
+			press.position = p;
+			press.color = kBlackColor;
+			[currentTutorialNode addChild: press];
+		}
+		break;
+			
+		case kTutorialStep4:
+		{						
+			NSString *expl = @"If you run out of energy (left) or time (top right), you lose the game.\nEvery time you complete a level, you get more energy and time.";
+			CCLabelTTF *text = [CCLabelTTF labelWithString: expl
+												dimensions: CGSizeMake(400,200) 
+												 alignment: UITextAlignmentLeft
+												  fontName: kTutorialFont 
+												  fontSize: kTutorialFontSize];
+			CGPoint p = kGameBoxCenterPoint;
+			p.y += 20;
+			text.position = p;
+			text.color = kBlackColor;
+			[currentTutorialNode addChild: text];
+			
+			CCLabelTTF *press = [CCLabelTTF labelWithString: @"PRESS TO CONTINUE -->" fontName: kTutorialFont fontSize: kTutorialFontSize];
+			p = kGameBoxCenterPoint;
+			p.y = 45;
+			press.position = p;
+			press.color = kBlackColor;
+			[currentTutorialNode addChild: press];
+		}
+		break;
+			
+		case kTutorialStep5:
+		{						
+			NSString *expl = @"\nYou should now be ready to play.";
+			CCLabelTTF *text = [CCLabelTTF labelWithString: expl
+												dimensions: CGSizeMake(400,200) 
+												 alignment: UITextAlignmentLeft
+												  fontName: kTutorialFont 
+												  fontSize: kTutorialFontSize];
+			CGPoint p = kGameBoxCenterPoint;
+			p.y += 20;
+			text.position = p;
+			text.color = kBlackColor;
+			[currentTutorialNode addChild: text];
+			
+			CCLabelTTF *enjoy = [CCLabelTTF labelWithString: @"ENJOY PIZARRO!"
+												   fontName:  kTutorialFont
+												   fontSize: kWelcomeToPizarroFontSize];
+			
+			enjoy.position = kGameBoxCenterPoint;
+			enjoy.color = kBlackColor;
+			[currentTutorialNode addChild: enjoy];
+			
+			CCLabelTTF *press = [CCLabelTTF labelWithString: @"PRESS TO START GAME -->" fontName: kTutorialFont fontSize: kTutorialFontSize];
+			p = kGameBoxCenterPoint;
+			p.y = 45;
+			press.position = p;
+			press.color = kBlackColor;
+			[currentTutorialNode addChild: press];
+		}
+		break;
+			
+		case kTutorialStep6:
+			tutorialOver = YES;
+			tutorialStep = kTutorialStepNone;
+			[self startGame];
+			break;
+	}
+	
+	if (!tutorialOver)
+	{
+		float pitch = [Instrument bluesPitchForIndex: RandomBetween(0, 6)];
+		if (SOUND_ENABLED)
+			[[SimpleAudioEngine sharedEngine] playEffect: kTrumpetSoundEffect pitch: pitch pan:0.0f gain:0.3f];
+		
+		inTransition = YES;
+		CGPoint startPos = ccp(0,0);
+		startPos.x += 420;
+		currentTutorialNode.position = startPos;
+		[self addChild: currentTutorialNode z: 91];
+		
+		[currentTutorialNode runAction: [CCMoveBy actionWithDuration: 0.33 position: ccp(-420, 0)]];
+		[self runAction: [CCSequence actions:
+								[CCDelayTime actionWithDuration: 0.33],
+								[CCCallFunc actionWithTarget: self selector: @selector(endTransition)],
+						  nil]];
+	}
+}
+
+#pragma mark -
 #pragma mark HUD
 
 -(void)updateLevel
@@ -362,7 +560,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	
 	NSString *scoreStr = [NSString stringWithFormat: @"%.06d", score];
 	scoreLabel = [CCLabelTTF labelWithString: scoreStr dimensions:CGSizeMake(160,40) alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: kHUDFontSize];
-	scoreLabel.color = ccc3(0,0,0);
+	scoreLabel.color = kBlackColor;
 	scoreLabel.position =  ccp(262, 300 );
 	[self addChild: scoreLabel z: 1001];
 }
@@ -379,7 +577,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	timeLabel = [CCLabelTTF labelWithString: timeStr dimensions:CGSizeMake(110,40) alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: kHUDFontSize];
 	
 	if (timeRemaining > kTimeLow)
-		timeLabel.color = ccc3(0,0,0); // black
+		timeLabel.color = kBlackColor; // black
 	else
 		timeLabel.color = ccc3(180,0,0); // red
 	
@@ -393,7 +591,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		
 	shapeLabel = [CCLabelTTF labelWithString: [currentShapeClass textSymbol] fontName: kHUDFont fontSize: [currentShapeClass textSymbolSizeForHUD]];
 	shapeLabel.position =  ccp(330, 297);
-	shapeLabel.color = ccc3(0,0,0);
+	shapeLabel.color = kBlackColor;
 	[self addChild: shapeLabel z: 1001];	
 }
 
@@ -447,7 +645,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 
 -(void)timeTicker: (ccTime)dt
 {
-	if (inTransition)
+	if (inTransition || tutorialStep != kTutorialStepNone)
 		return;
 	
 	timeRemaining--;
@@ -480,7 +678,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 
 -(void)tick: (ccTime)dt
 {
-	if (inTransition)
+	if (inTransition || tutorialStep != kTutorialStepNone)
 		return;
 	
 	// OK, let's check if we're advancing up level
@@ -589,7 +787,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	levelBlast.position = p;
 	levelBlast.scale = 0.0;
 	levelBlast.opacity = 255.0;
-	levelBlast.color = ccc3(0,0,0);
+	levelBlast.color = kBlackColor;
 	[self addChild: levelBlast z: 1000];
 	
 	[piano playWithInterval: 0.3 afterDelay: delay + 0.4 chords: @"1,2,3",  @"1,2,4", @"1,2,5", nil];
@@ -610,7 +808,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	scoreBlast.position = p;
 	scoreBlast.scale = 0.4;
 	scoreBlast.opacity = 255.0;
-	scoreBlast.color = ccc3(255,255,255);
+	scoreBlast.color = kWhiteColor;
 	[self addChild: scoreBlast z: 1000];
 	
 	[scoreBlast runAction: [CCSequence actions: 
@@ -629,7 +827,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	scoreBlast2.position = p;
 	scoreBlast2.scale = 0.4;
 	scoreBlast2.opacity = 255.0;
-	scoreBlast2.color = ccc3(0,0,0);
+	scoreBlast2.color = kBlackColor;
 	[self addChild: scoreBlast2 z: 999];
 	
 	[scoreBlast2 runAction: [CCSequence actions: 
@@ -654,7 +852,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	gameOverBlast.position = kGameBoxCenterPoint;
 	gameOverBlast.scale = 0.0;
 	gameOverBlast.opacity = 255.0;
-	gameOverBlast.color = ccc3(255,255,255);
+	gameOverBlast.color = kWhiteColor;
 	[self addChild: gameOverBlast z: 1000];
 		
 	[gameOverBlast runAction: [CCSequence actions: 
@@ -674,12 +872,12 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	noteBlast.position = p;
 	noteBlast.scale = 0.0;
 	noteBlast.opacity = 255.0;
-	noteBlast.color = ccc3(0,0,0);
+	noteBlast.color = kBlackColor;
 	[self addChild: noteBlast z: 1001];
 	
 	[noteBlast runAction: [CCSequence actions: 
 							   [CCDelayTime actionWithDuration: delay],
-							   [CCScaleTo actionWithDuration: 0.33 scale: 1.0],
+								[CCMoveBy actionWithDuration: 1.0 position: ccp(0, 200)],
 							   [CCDelayTime actionWithDuration: 1.33],
 							   //[CCScaleTo actionWithDuration: 0.33 scale: 0.0],
 							   [CCCallFunc actionWithTarget: noteBlast selector: @selector(dispose)], 
@@ -820,6 +1018,13 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 #pragma mark -
 #pragma mark Level transitions
 
+-(void)startGame
+{
+		inTransition = YES;
+		[self levelBlast: level atPoint: kGameBoxCenterPoint afterDelay: 1.0];
+		[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(startLevel)] withDelay: 3.1]];;
+}
+
 -(void)startLevel
 {	
 	// Set mana bar increase flow going
@@ -954,7 +1159,7 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	if (gameOver)
 		[[CCDirector sharedDirector] replaceScene: [CCTransitionSlideInL transitionWithDuration: 0.35 scene: [MainMenuScene scene]]];
 		
-	if (inTransition)
+	if (inTransition || tutorialStep != kTutorialStepNone)
 		return;
 	
 	NSArray *tchs = [touches allObjects];
@@ -998,6 +1203,12 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 {			
 	if (inTransition)
 		return;
+	
+	if (tutorialStep != kTutorialStepNone)
+	{
+		tutorialStep += 1;
+		[self showTutorialStep: tutorialStep];
+	}
 	
 	NSArray *tchs = [touches allObjects];
 	

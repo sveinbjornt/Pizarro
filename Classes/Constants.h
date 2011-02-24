@@ -99,6 +99,7 @@
 #define kPercentageBlastFont		@"RedStateBlueState BB"
 #define kGameOverBlastFont			@"RedStateBlueState BB"
 #define kLevelBlastFont				@"RedStateBlueState BB"
+#define kTutorialFont				@"RedStateBlueState BB"
 #define kNoteBlastFont				@"Verdana"
 
 #define kHUDFontSize				42
@@ -107,8 +108,12 @@
 #define kGameOverBlastFontSize		84
 #define kMainMenuTitleFontSize		84
 #define kMainMenuMenuFontSize		44
+#define kSettingsFontSize			36
 #define kResumeGameMenuFontSize		52
 #define kNoteBlastFontSize			64
+
+#define kWelcomeToPizarroFontSize	45
+#define kTutorialFontSize			28
 
 // Menu settings
 
@@ -132,8 +137,8 @@
 
 #define kGameIconSprite @"mainscreen_icon.png"
 
-#define kCheckBoxOnSprite	@"checkbox-checked.png"
-#define kCheckBoxOffSprite	@"checkbox-unchecked.png"
+#define kCheckBoxOnSprite	@"checkbox.png"
+#define kCheckBoxOffSprite	@"checkbox-nocheck.png"
 
 #define kManaBarRedSprite		@"manabar_red.png"
 #define kManaBarRedTopSprite	@"manabar_red_top.png"
@@ -143,9 +148,11 @@
 #define kInGameMenuButtonOffSprite	@"menu_button_black.png"
 #define kInGameMenuButtonOnSprite	@"menu_button_white.png"
 
+#define kCompanyLogoSprite	@"corrino_logo.png"
+
 // Audio files
 
-#define kTrumpetSoundEffect	@"trumpet_start.wav"
+#define kTrumpetSoundEffect	@"trumpet.wav"
 
 #define kNumBassLines		3
 #define	kStartingBassLine	kNumBassLines
@@ -156,6 +163,23 @@
 #define kSoundEnabled		@"SoundEnabled"
 #define kGameCenterEnabled	@"GameCenterEnabled"
 #define kLastBassLine		@"LastBassLine"
+#define kShowTutorial		@"ShowTutorial"
+
+// Tutorial
+
+#define kTutorialStepNone	0
+#define kTutorialStep1		1
+#define kTutorialStep2		2
+#define kTutorialStep3		3
+#define kTutorialStep4		4
+#define kTutorialStep5		5
+#define kTutorialStep6		6
+
+// Colors
+
+#define kBlackColor			ccc3(0,0,0)
+#define kWhiteColor			ccc3(255,255,255)
+#define kRedColor			ccc3(180,0,0)
 
 // Convenience 
 
@@ -164,6 +188,6 @@
 #define MUSIC_ENABLED		[[[NSUserDefaults standardUserDefaults] valueForKey: kMusicEnabled] boolValue]
 #define SOUND_ENABLED		[[[NSUserDefaults standardUserDefaults] valueForKey: kSoundEnabled] boolValue]
 #define GAMECENTER_ENABLED	[[[NSUserDefaults standardUserDefaults] valueForKey: kGameCenterEnabled] boolValue]
-
+#define SHOW_TUTORIAL		[[[NSUserDefaults standardUserDefaults] valueForKey: kShowTutorial] boolValue]
 
 

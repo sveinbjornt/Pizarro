@@ -447,18 +447,18 @@
 
 -(void)showSettings
 {	
-	musicLabel = [CCLabelTTF labelWithString: @"Music" fontName: kMainMenuFont fontSize: 32];
+	musicLabel = [CCLabelTTF labelWithString: @"Music" fontName: kMainMenuFont fontSize: kSettingsFontSize];
 	musicLabel.position = ccp(-185, 200);
 	[self addChild: musicLabel z: 1001];
 	[musicLabel runAction: [CCMoveTo actionWithDuration: 0.5 position: ccp(170, 200)]];
 	
-	soundLabel = [CCLabelTTF labelWithString: @"Sound" fontName: kMainMenuFont fontSize: 32];
-	soundLabel.position = ccp(-185, 160);
+	soundLabel = [CCLabelTTF labelWithString: @"Sound" fontName: kMainMenuFont fontSize: kSettingsFontSize];
+	soundLabel.position = ccp(-185, 155);
 	[self addChild: soundLabel z: 1001];
 	[soundLabel runAction: [CCMoveTo actionWithDuration: 0.4 position: ccp(165, 150)]];
 	
-	gameCenterLabel = [CCLabelTTF labelWithString: @"Game Center" fontName: kMainMenuFont fontSize: 32];
-	gameCenterLabel.position = ccp(-185, 120);
+	gameCenterLabel = [CCLabelTTF labelWithString: @"Game Center" fontName: kMainMenuFont fontSize: kSettingsFontSize];
+	gameCenterLabel.position = ccp(-185, 110);
 	[self addChild: gameCenterLabel z: 1001];
 	[gameCenterLabel runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(125, 100)]];
 	
@@ -515,7 +515,7 @@
 	[settingsMenu alignItemsVerticallyWithPadding: 10.0f];
 	settingsMenu.position = ccp(-185,150);
 	[self addChild: settingsMenu];
-	[settingsMenu runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(240,150)]];
+	[settingsMenu runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(250,150)]];
 
 }
 
@@ -536,7 +536,7 @@
 
 -(void)showCredits
 {
-	creditsLogo = [CCSprite spriteWithFile: @"corrino_logo.png"];
+	creditsLogo = [CCSprite spriteWithFile: kCompanyLogoSprite];
 	creditsLogo.position = ccp(-278, 194);
 	[self addChild: creditsLogo];
 	[creditsLogo runAction: [CCMoveTo actionWithDuration: 0.45 position: ccp(40, 194)]];

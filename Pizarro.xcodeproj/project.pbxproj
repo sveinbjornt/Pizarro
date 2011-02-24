@@ -285,7 +285,12 @@
 		E0D2C48B12AEDE5C008D5DBB /* prime.h in Headers */ = {isa = PBXBuildFile; fileRef = E0D2C45412AEDE5C008D5DBB /* prime.h */; };
 		E0F81038120A173C005866B8 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0F81037120A173C005866B8 /* RootViewController.m */; };
 		F40580B0131300CA0021CCDF /* GameOverCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = F40580AF131300CA0021CCDF /* GameOverCircle.m */; };
+		F429190613168A4C00EBD8D8 /* checkbox-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F429190213168A4C00EBD8D8 /* checkbox-hd.png */; };
+		F429190713168A4C00EBD8D8 /* checkbox-nocheck-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F429190313168A4C00EBD8D8 /* checkbox-nocheck-hd.png */; };
+		F429190813168A4C00EBD8D8 /* checkbox-nocheck.png in Resources */ = {isa = PBXBuildFile; fileRef = F429190413168A4C00EBD8D8 /* checkbox-nocheck.png */; };
+		F429190913168A4C00EBD8D8 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = F429190513168A4C00EBD8D8 /* checkbox.png */; };
 		F4361312130BE361004A41CA /* BouncingBall.m in Sources */ = {isa = PBXBuildFile; fileRef = F4361311130BE361004A41CA /* BouncingBall.m */; };
+		F47E4F3E131688F400F21CE5 /* corrino_logo-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F44130E96B7006C0F2C /* corrino_logo-hd.png */; };
 		F4A00253130BAD18000FCEDE /* Circle.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0024F130BAD18000FCEDE /* Circle.m */; };
 		F4A00254130BAD18000FCEDE /* PizarroGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A00252130BAD18000FCEDE /* PizarroGameScene.m */; };
 		F4A462A0130BFE6600A20694 /* CCNode+Cleanup.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A4629F130BFE6600A20694 /* CCNode+Cleanup.m */; };
@@ -303,10 +308,6 @@
 		F4BD2BCB1311A4A8002284C3 /* scores_button-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BD2BC91311A4A8002284C3 /* scores_button-hd.png */; };
 		F4BD2BCC1311A4A8002284C3 /* scores_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BD2BCA1311A4A8002284C3 /* scores_button.png */; };
 		F4BD2D3B1311D252002284C3 /* MMLetterSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DA74A1130C9EE5000045FB /* MMLetterSprite.m */; };
-		F4BD2D931311DA4B002284C3 /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BD2D911311DA4B002284C3 /* checkbox-checked.png */; };
-		F4BD2D941311DA4B002284C3 /* checkbox-unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BD2D921311DA4B002284C3 /* checkbox-unchecked.png */; };
-		F4BD2D9D1311DAFE002284C3 /* checkbox-checked-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BD2D9B1311DAFE002284C3 /* checkbox-checked-hd.png */; };
-		F4BD2D9E1311DAFE002284C3 /* checkbox-unchecked-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BD2D9C1311DAFE002284C3 /* checkbox-unchecked-hd.png */; };
 		F4BD2E061311E48A002284C3 /* manabar_green_top-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BD2E001311E48A002284C3 /* manabar_green_top-hd.png */; };
 		F4BD2E071311E48A002284C3 /* manabar_green_top.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BD2E011311E48A002284C3 /* manabar_green_top.png */; };
 		F4BD2E081311E48A002284C3 /* manabar_green-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BD2E021311E48A002284C3 /* manabar_green-hd.png */; };
@@ -323,11 +324,6 @@
 		F4CE1F70130E96B7006C0F2C /* RedStateBlueStateBB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F3C130E96B7006C0F2C /* RedStateBlueStateBB.ttf */; };
 		F4CE1F71130E96B7006C0F2C /* bg-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F3E130E96B7006C0F2C /* bg-hd.png */; };
 		F4CE1F72130E96B7006C0F2C /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F3F130E96B7006C0F2C /* bg.png */; };
-		F4CE1F73130E96B7006C0F2C /* checkbox_off-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F40130E96B7006C0F2C /* checkbox_off-hd.png */; };
-		F4CE1F74130E96B7006C0F2C /* checkbox_off.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F41130E96B7006C0F2C /* checkbox_off.png */; };
-		F4CE1F75130E96B7006C0F2C /* checkbox_on-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F42130E96B7006C0F2C /* checkbox_on-hd.png */; };
-		F4CE1F76130E96B7006C0F2C /* checkbox_on.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F43130E96B7006C0F2C /* checkbox_on.png */; };
-		F4CE1F77130E96B7006C0F2C /* corrino_logo-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F44130E96B7006C0F2C /* corrino_logo-hd.png */; };
 		F4CE1F78130E96B7006C0F2C /* corrino_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F45130E96B7006C0F2C /* corrino_logo.png */; };
 		F4CE1F79130E96B7006C0F2C /* mainscreen_bg-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F46130E96B7006C0F2C /* mainscreen_bg-hd.png */; };
 		F4CE1F7A130E96B7006C0F2C /* mainscreen_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F47130E96B7006C0F2C /* mainscreen_bg.png */; };
@@ -651,6 +647,10 @@
 		E0F81037120A173C005866B8 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		F40580AE131300CA0021CCDF /* GameOverCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverCircle.h; sourceTree = "<group>"; };
 		F40580AF131300CA0021CCDF /* GameOverCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverCircle.m; sourceTree = "<group>"; };
+		F429190213168A4C00EBD8D8 /* checkbox-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-hd.png"; sourceTree = "<group>"; };
+		F429190313168A4C00EBD8D8 /* checkbox-nocheck-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-nocheck-hd.png"; sourceTree = "<group>"; };
+		F429190413168A4C00EBD8D8 /* checkbox-nocheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-nocheck.png"; sourceTree = "<group>"; };
+		F429190513168A4C00EBD8D8 /* checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox.png; sourceTree = "<group>"; };
 		F4361310130BE361004A41CA /* BouncingBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BouncingBall.h; sourceTree = "<group>"; };
 		F4361311130BE361004A41CA /* BouncingBall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BouncingBall.m; sourceTree = "<group>"; };
 		F4A0024E130BAD18000FCEDE /* Circle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Circle.h; sourceTree = "<group>"; };
@@ -677,10 +677,6 @@
 		F4BD2A8F13117233002284C3 /* bouncingball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bouncingball.png; sourceTree = "<group>"; };
 		F4BD2BC91311A4A8002284C3 /* scores_button-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scores_button-hd.png"; sourceTree = "<group>"; };
 		F4BD2BCA1311A4A8002284C3 /* scores_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scores_button.png; sourceTree = "<group>"; };
-		F4BD2D911311DA4B002284C3 /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked.png"; sourceTree = "<group>"; };
-		F4BD2D921311DA4B002284C3 /* checkbox-unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked.png"; sourceTree = "<group>"; };
-		F4BD2D9B1311DAFE002284C3 /* checkbox-checked-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked-hd.png"; sourceTree = "<group>"; };
-		F4BD2D9C1311DAFE002284C3 /* checkbox-unchecked-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked-hd.png"; sourceTree = "<group>"; };
 		F4BD2E001311E48A002284C3 /* manabar_green_top-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "manabar_green_top-hd.png"; sourceTree = "<group>"; };
 		F4BD2E011311E48A002284C3 /* manabar_green_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = manabar_green_top.png; sourceTree = "<group>"; };
 		F4BD2E021311E48A002284C3 /* manabar_green-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "manabar_green-hd.png"; sourceTree = "<group>"; };
@@ -701,10 +697,6 @@
 		F4CE1F3C130E96B7006C0F2C /* RedStateBlueStateBB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RedStateBlueStateBB.ttf; sourceTree = "<group>"; };
 		F4CE1F3E130E96B7006C0F2C /* bg-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-hd.png"; sourceTree = "<group>"; };
 		F4CE1F3F130E96B7006C0F2C /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
-		F4CE1F40130E96B7006C0F2C /* checkbox_off-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_off-hd.png"; sourceTree = "<group>"; };
-		F4CE1F41130E96B7006C0F2C /* checkbox_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_off.png; sourceTree = "<group>"; };
-		F4CE1F42130E96B7006C0F2C /* checkbox_on-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_on-hd.png"; sourceTree = "<group>"; };
-		F4CE1F43130E96B7006C0F2C /* checkbox_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_on.png; sourceTree = "<group>"; };
 		F4CE1F44130E96B7006C0F2C /* corrino_logo-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "corrino_logo-hd.png"; sourceTree = "<group>"; };
 		F4CE1F45130E96B7006C0F2C /* corrino_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = corrino_logo.png; sourceTree = "<group>"; };
 		F4CE1F46130E96B7006C0F2C /* mainscreen_bg-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mainscreen_bg-hd.png"; sourceTree = "<group>"; };
@@ -1352,20 +1344,16 @@
 			children = (
 				F4CE1F3E130E96B7006C0F2C /* bg-hd.png */,
 				F4CE1F3F130E96B7006C0F2C /* bg.png */,
-				F4CE1F40130E96B7006C0F2C /* checkbox_off-hd.png */,
-				F4CE1F41130E96B7006C0F2C /* checkbox_off.png */,
-				F4CE1F42130E96B7006C0F2C /* checkbox_on-hd.png */,
-				F4CE1F43130E96B7006C0F2C /* checkbox_on.png */,
+				F429190213168A4C00EBD8D8 /* checkbox-hd.png */,
+				F429190313168A4C00EBD8D8 /* checkbox-nocheck-hd.png */,
+				F429190413168A4C00EBD8D8 /* checkbox-nocheck.png */,
+				F429190513168A4C00EBD8D8 /* checkbox.png */,
 				F4CE1F44130E96B7006C0F2C /* corrino_logo-hd.png */,
 				F4CE1F45130E96B7006C0F2C /* corrino_logo.png */,
 				F4CE1F46130E96B7006C0F2C /* mainscreen_bg-hd.png */,
 				F4CE1F47130E96B7006C0F2C /* mainscreen_bg.png */,
 				F4CE1F48130E96B7006C0F2C /* mainscreen_icon-hd.png */,
 				F4CE1F49130E96B7006C0F2C /* mainscreen_icon.png */,
-				F4BD2D911311DA4B002284C3 /* checkbox-checked.png */,
-				F4BD2D921311DA4B002284C3 /* checkbox-unchecked.png */,
-				F4BD2D9B1311DAFE002284C3 /* checkbox-checked-hd.png */,
-				F4BD2D9C1311DAFE002284C3 /* checkbox-unchecked-hd.png */,
 				F4CE1F4A130E96B7006C0F2C /* menu_button_black-hd.png */,
 				F4CE1F4B130E96B7006C0F2C /* menu_button_black.png */,
 				F4CE1F4C130E96B7006C0F2C /* menu_button_white-hd.png */,
@@ -1676,11 +1664,6 @@
 				F4CE1F70130E96B7006C0F2C /* RedStateBlueStateBB.ttf in Resources */,
 				F4CE1F71130E96B7006C0F2C /* bg-hd.png in Resources */,
 				F4CE1F72130E96B7006C0F2C /* bg.png in Resources */,
-				F4CE1F73130E96B7006C0F2C /* checkbox_off-hd.png in Resources */,
-				F4CE1F74130E96B7006C0F2C /* checkbox_off.png in Resources */,
-				F4CE1F75130E96B7006C0F2C /* checkbox_on-hd.png in Resources */,
-				F4CE1F76130E96B7006C0F2C /* checkbox_on.png in Resources */,
-				F4CE1F77130E96B7006C0F2C /* corrino_logo-hd.png in Resources */,
 				F4CE1F78130E96B7006C0F2C /* corrino_logo.png in Resources */,
 				F4CE1F79130E96B7006C0F2C /* mainscreen_bg-hd.png in Resources */,
 				F4CE1F7A130E96B7006C0F2C /* mainscreen_bg.png in Resources */,
@@ -1713,10 +1696,6 @@
 				F4BD2A9113117233002284C3 /* bouncingball.png in Resources */,
 				F4BD2BCB1311A4A8002284C3 /* scores_button-hd.png in Resources */,
 				F4BD2BCC1311A4A8002284C3 /* scores_button.png in Resources */,
-				F4BD2D931311DA4B002284C3 /* checkbox-checked.png in Resources */,
-				F4BD2D941311DA4B002284C3 /* checkbox-unchecked.png in Resources */,
-				F4BD2D9D1311DAFE002284C3 /* checkbox-checked-hd.png in Resources */,
-				F4BD2D9E1311DAFE002284C3 /* checkbox-unchecked-hd.png in Resources */,
 				F4BD2E061311E48A002284C3 /* manabar_green_top-hd.png in Resources */,
 				F4BD2E071311E48A002284C3 /* manabar_green_top.png in Resources */,
 				F4BD2E081311E48A002284C3 /* manabar_green-hd.png in Resources */,
@@ -1728,6 +1707,11 @@
 				F4B3F0331313F81D006C443B /* bassline1.mp3 in Resources */,
 				F4B3F0411313FB19006C443B /* bassline2.mp3 in Resources */,
 				F4B3F048131401D8006C443B /* bassline3.mp3 in Resources */,
+				F47E4F3E131688F400F21CE5 /* corrino_logo-hd.png in Resources */,
+				F429190613168A4C00EBD8D8 /* checkbox-hd.png in Resources */,
+				F429190713168A4C00EBD8D8 /* checkbox-nocheck-hd.png in Resources */,
+				F429190813168A4C00EBD8D8 /* checkbox-nocheck.png in Resources */,
+				F429190913168A4C00EBD8D8 /* checkbox.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

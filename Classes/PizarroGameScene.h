@@ -57,6 +57,10 @@
 	BOOL			gameOver;
 	
 	Instrument		*piano;
+	
+	int				tutorialStep;
+	CCNode			*currentTutorialNode, *lastTutorialNode;
+	
 }
 
 +(id)scene;
@@ -72,14 +76,20 @@
 -(void)updateTimer;
 -(void)updateCurrentShape;
 
+-(void)showTutorialStep: (int)stepNum;
+
 -(void)levelBlast: (NSUInteger)lvl atPoint: (CGPoint)p afterDelay: (NSTimeInterval)delay;
 -(void)percentageBlast: (NSUInteger)s atPoint: (CGPoint)p;
+-(void)noteBlastAtPoint: (CGPoint)p afterDelay: (NSTimeInterval)delay;
+
 
 -(void)addBouncingBallAtPoint: (CGPoint)p withVelocity: (CGPoint)movementVector;
 -(void)endExpansionOfShape: (Shape *)shape;
 
 -(void)createShapeAtPoint: (CGPoint)p forTouch: (UITouch *)touch;
 -(void)removeShape: (Shape *)shape;
+
+-(void)startGame;
 
 -(void)advanceLevel;
 -(int)currentLevel;
