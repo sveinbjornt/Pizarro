@@ -149,7 +149,15 @@
 }
 
 
-- (void)applicationWillResignActive:(UIApplication *)application {
+- (void)applicationWillResignActive:(UIApplication *)application 
+{
+	CCScene *s = [[CCDirector sharedDirector] runningScene];
+	id layer = [s.children objectAtIndex: 0];
+	
+	if ([layer isKindOfClass: [PizarroGameScene class]])
+	{
+		[(PizarroGameScene *)layer pauseGameWithAnimation: NO];
+	}
 	[[CCDirector sharedDirector] pause];
 }
 

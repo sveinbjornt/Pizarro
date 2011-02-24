@@ -9,7 +9,7 @@
 
 
 // Game Info
-#define kGameName				@"Pizarro"
+#define kGameName				@"PIZARRO"
 #define	kGameVersion			1.0
 #define kGameReleaseYear		2011
 #define kGameDeveloper			@"Corrino Software"
@@ -65,6 +65,7 @@
 #define kWallMass					INFINITY
 #define kWallInertia				INFINITY
 #define kWallShapeGroup				100
+#define kPhysicalBoxOffset			4
 
 
 // Surface matrix

@@ -104,9 +104,9 @@
 	[CCMenuItemFont setFontName: kMainMenuFont];
 	[CCMenuItemFont setFontSize: kMainMenuMenuFontSize];
 	
-	//NSString *playStr = paused ? @"New Game" : @"Play";
+	NSString *playStr = paused ? @"New" : @"Play";
 	
-	CCMenuItemFont *menuItem1 = [CCMenuItemFont itemFromString: @"Play" target:self selector:@selector(onPlay:)];
+	CCMenuItemFont *menuItem1 = [CCMenuItemFont itemFromString: playStr target:self selector:@selector(onPlay:)];
 	CCMenuItemFont *menuItem2 = [CCMenuItemFont itemFromString: @"Settings" target:self selector:@selector(onSettings:)];
 	CCMenuItemFont *menuItem3 = [CCMenuItemFont itemFromString: @"Credits" target:self selector:@selector(onCredits:)];
 	menuItem1.color = ccc3(0,0,0);

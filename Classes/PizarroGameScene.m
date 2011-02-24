@@ -19,6 +19,7 @@
 #import "Common.c"
 #import "MainMenuScene.h"
 #import "GameCenterManager.h"
+#import "MenuButtonSprite.h"
 
 #pragma mark Chipmunk Callbacks
 
@@ -226,18 +227,13 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[self addChild: manaBar z: 99];
 	
 	// Pause button
-	CCMenuItemSprite *pauseMenuItem = [CCMenuItemSprite itemFromNormalSprite: [CCSprite spriteWithFile: kInGameMenuButtonOffSprite] 
+	MenuButtonSprite *pauseMenuItem = [MenuButtonSprite itemFromNormalSprite: [CCSprite spriteWithFile: kInGameMenuButtonOffSprite] 
 															  selectedSprite: [CCSprite spriteWithFile: kInGameMenuButtonOnSprite] 
 																	  target: self 
 																	selector: @selector(pauseGame)];
 	pauseMenu = [CCMenu menuWithItems: pauseMenuItem, nil];
 	pauseMenu.position = kMenuPauseButtonPoint;
-	[self addChild: pauseMenu z: 10002];
-}
-
--(void)pauseGame
-{	
-	[[CCDirector sharedDirector] pushScene: [CCTransitionSlideInL transitionWithDuration: 0.35 scene: [MainMenuScene scenePausedForScene: (CCScene *)self.parent]]];	
+	[self addChild: pauseMenu z: 100];
 }
 
 -(void)setupGame
@@ -280,16 +276,16 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	CGPoint lp1,lp2;
 	
 	// Create the square shape by making 4 lines: floor, ceiling, left, right
-	
+		
 	// Floor
 	cpBody* floorBody = cpBodyNew(kWallMass, kWallInertia);
 	
 	floorBody->p = cpv(0, 0);
 	
 	lp1 = cpv(kGameBoxXOffset - kWallThickness, 
-			  kGameBoxYOffset - kWallThickness);
+			  kGameBoxYOffset - kWallThickness + kPhysicalBoxOffset);
 	lp2 = cpv(kGameBoxXOffset + kGameBoxWidth + kWallThickness, 
-			  kGameBoxYOffset- kWallThickness);
+			  kGameBoxYOffset - kWallThickness + kPhysicalBoxOffset);
 	
 	cpShape* floorShape = cpSegmentShapeNew(floorBody, lp1, lp2, kWallThickness);
 	
@@ -301,16 +297,15 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	cpSpaceAddStaticShape(space, floorShape);
 	
 	
-	
 	// Ceiling
 	cpBody* ceilingBody = cpBodyNew(kWallMass, kWallInertia);
 	
 	ceilingBody->p = cpv(0, 0);
 	
 	lp1 = cpv(kGameBoxXOffset - kWallThickness, 
-			  kGameBoxYOffset + kGameBoxHeight + kWallThickness );
+			  kGameBoxYOffset + kGameBoxHeight + kWallThickness - kPhysicalBoxOffset);
 	lp2 = cpv(kGameBoxXOffset + kGameBoxWidth + kWallThickness, 
-			  kGameBoxYOffset + kGameBoxHeight + kWallThickness);
+			  kGameBoxYOffset + kGameBoxHeight + kWallThickness - kPhysicalBoxOffset);
 	
 	cpShape* ceilingShape = cpSegmentShapeNew(ceilingBody, lp1, lp2, kWallThickness);
 	
@@ -329,9 +324,9 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	leftBody->p = cpv(0, 0);
 	
-	lp1 = cpv(kGameBoxXOffset - kWallThickness, 
+	lp1 = cpv(kGameBoxXOffset - kWallThickness + kPhysicalBoxOffset, 
 			  kGameBoxYOffset - kWallThickness );
-	lp2 = cpv(kGameBoxXOffset - kWallThickness, 
+	lp2 = cpv(kGameBoxXOffset - kWallThickness + kPhysicalBoxOffset, 
 			  kGameBoxYOffset + kGameBoxHeight + kWallThickness);
 	
 	cpShape* leftShape = cpSegmentShapeNew(leftBody, lp1, lp2, kWallThickness);
@@ -351,9 +346,9 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	rightBody->p = cpv(0, 0);
 	
-	lp1 = cpv(kGameBoxXOffset + kGameBoxWidth + kWallThickness, 
+	lp1 = cpv(kGameBoxXOffset + kGameBoxWidth + kWallThickness - kPhysicalBoxOffset, 
 			  kGameBoxYOffset - kWallThickness );
-	lp2 = cpv(kGameBoxXOffset + kGameBoxWidth + kWallThickness, 
+	lp2 = cpv(kGameBoxXOffset + kGameBoxWidth + kWallThickness - kPhysicalBoxOffset, 
 			  kGameBoxYOffset + kGameBoxHeight + kWallThickness);
 	
 	cpShape* rightShape = cpSegmentShapeNew(rightBody, lp1, lp2, kWallThickness);
@@ -365,6 +360,30 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	cpSpaceAddStaticShape(space, rightShape);
 }
+
+#pragma mark -
+#pragma mark Pause
+
+
+-(void)pauseGame
+{
+	[self pauseGameWithAnimation: NO];
+}
+
+-(void)pauseGameWithAnimation: (BOOL)animated
+{	
+	for (Shape *s in shapes)
+	{
+		if (s.expanding && !s.destroyed)
+			[self endExpansionOfShape: s];
+	}
+	
+	if (animated)
+		[[CCDirector sharedDirector] pushScene: [CCTransitionSlideInL transitionWithDuration: 0.35 scene: [MainMenuScene scenePausedForScene: (CCScene *)self.parent]]];	
+	else
+		[[CCDirector sharedDirector] pushScene: [MainMenuScene scenePausedForScene: (CCScene *)self.parent]];
+}
+
 
 #pragma mark -
 #pragma mark Tutorial 
@@ -1184,13 +1203,13 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	if ([GameCenterManager isGameCenterAvailable] && GAMECENTER_ENABLED)
 		[[GameCenterManager sharedManager] authenticateLocalUserAndReportScore: score level: level];
 	
-//	[self runAction: [CCSequence actions:
-//					  
-//					  [CCDelayTime actionWithDuration: 2.5],
-//					  [CCCallFuncO actionWithTarget: [CCDirector sharedDirector] 
-//										   selector: @selector(replaceScene:) 
-//											 object: [CCTransitionSlideInL transitionWithDuration: 0.35 scene: [MainMenuScene scene]]],
-//					  nil]];
+	
+	[self runAction: [CCSequence actions:
+					  
+					  [CCDelayTime actionWithDuration: 2.0],
+					  [CCCallFunc actionWithTarget: self
+										   selector: @selector(endTransition)],
+					  nil]];
 	 
 	
 }
@@ -1208,6 +1227,12 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	if (inTransition || tutorialStep != kTutorialStepNone)
 		return;
 	
+	if (gameOver)
+	{
+		[[CCDirector sharedDirector] pushScene: [CCTransitionSlideInL transitionWithDuration: 0.35 scene: [MainMenuScene scene]]];
+		return;
+	}
+	
 	NSArray *tchs = [touches allObjects];
 	
 	for (UITouch *touch in tchs)
@@ -1215,10 +1240,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		CGPoint location = [touch locationInView: [touch view]];
 		location = [[CCDirector sharedDirector] convertToGL: location];
 		
-		if (CGRectContainsPoint(kGameBoxRect, location))
-		{
+//		if (CGRectContainsPoint(kGameBoxRect, location))
+//		{
 			[self createShapeAtPoint: location forTouch: touch];
-		}
+//		}
 	}
 }
 
@@ -1247,14 +1272,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 
 -(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
 {			
-	if (gameOver)
-	{
-		[[CCDirector sharedDirector] pushScene: [CCTransitionSlideInL transitionWithDuration: 0.35 scene: [MainMenuScene scene]]];
-	}
-	else
-		[self gameOver];
-	
-	if (inTransition)
+	if (inTransition || gameOver)
 		return;
 	
 	if (tutorialStep != kTutorialStepNone)

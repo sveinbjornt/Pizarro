@@ -76,6 +76,10 @@
 -(void)updateTimer;
 -(void)updateCurrentShape;
 
+-(void)pauseGame;
+-(void)pauseGameWithAnimation: (BOOL)animated;
+
+
 -(void)showTutorialStep: (int)stepNum;
 
 -(void)levelBlast: (NSUInteger)lvl atPoint: (CGPoint)p afterDelay: (NSTimeInterval)delay;
