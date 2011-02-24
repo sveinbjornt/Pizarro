@@ -22,7 +22,7 @@
 {
 	return CGRectMake( position_.x,
 					  position_.y + 1000,
-					  40, 60);	
+					  30, 60);	
 }
 
 

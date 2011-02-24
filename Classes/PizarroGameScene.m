@@ -367,7 +367,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 
 -(void)pauseGame
 {
-	[self pauseGameWithAnimation: NO];
+	[self pauseGameWithAnimation: YES];
 }
 
 -(void)pauseGameWithAnimation: (BOOL)animated
@@ -606,10 +606,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 {
 	[self removeChild: scoreLabel cleanup: YES];
 	
-	NSString *scoreStr = [NSString stringWithFormat: @"%.06d", score];
+	NSString *scoreStr = [NSString stringWithFormat: @"%d", score];
 	scoreLabel = [CCLabelTTF labelWithString: scoreStr dimensions:CGSizeMake(160,40) alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: kHUDFontSize];
 	scoreLabel.color = kBlackColor;
-	scoreLabel.position =  ccp(262, 300 );
+	scoreLabel.position =  ccp(188 + scoreLabel.contentSize.width/2, 300 );
 	[self addChild: scoreLabel z: 1001];
 }
 
@@ -629,8 +629,19 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	else
 		timeLabel.color = ccc3(180,0,0); // red
 	
-	timeLabel.position =  ccp(415, 300);
-	[self addChild: timeLabel z: 1001];	
+	timeLabel.position =  ccp(417, 300);
+	[self addChild: timeLabel z: 1001];
+	
+	if (timeRemaining <= kTimeLow && SOUND_ENABLED)
+	{
+		int index = ((kTimeLow - timeRemaining) / 2);
+		if (index > 6)
+			index = 6;
+		
+		float pitch = [Instrument bluesPitchForIndex: index];
+		
+		[[SimpleAudioEngine sharedEngine] playEffect: @"piano1.wav" pitch: pitch pan:0.0f gain:0.6f];
+	}
 }
 
 -(void)updateCurrentShape
@@ -1002,11 +1013,16 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		
 		//
 		//int value = (filledSq + (level * 20)) * (float)shape.fullSize/100;
-		int value = filledSq / 10;
-		if (!value)
+		float value = (float) filledSq / 10;
+		if (value < 1)
 			value = 1;
 		value += level;
-		value *= (float)shape.fullSize/100;
+		
+		float mult = (float)shape.fullSize/80;
+		if (mult < 1.0f)
+			mult = 1.0f;
+		
+		value *= mult;
 		
 		
 //		CCLOG(@"Score filledSq: %d + shapesize: %f, level: %d", filledSq, (float)shape.fullSize/100, level);
@@ -1188,6 +1204,11 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	[self removeAllShapes];
 	
+	// Unschedule tickers
+	
+	[self unschedule: @selector(tick:)];
+	[self unschedule: @selector(timeTicker:)];
+	
 	//[bgRenderTexture goBlack];
 	gameOverCircle = [[[GameOverCircle alloc] init] autorelease];
 	gameOverCircle.position = kGameScreenCenterPoint;
@@ -1240,10 +1261,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		CGPoint location = [touch locationInView: [touch view]];
 		location = [[CCDirector sharedDirector] convertToGL: location];
 		
-//		if (CGRectContainsPoint(kGameBoxRect, location))
-//		{
+		if (CGRectContainsPoint(kGameBoxRect, location))
+		{
 			[self createShapeAtPoint: location forTouch: touch];
-//		}
+		}
 	}
 }
 

@@ -40,9 +40,9 @@
 #define kManaPerLevel			(kFullMana/3) + (level * (kFullMana/45))
 
 // Time
-#define kStartingTime			60.0f
+#define kStartingTime			50.0f
 #define kTimePerLevel			15.0f
-#define kTimeLow				20.0f
+#define kTimeLow				15.0f
 
 #define kSurfaceReqPerLevel		80.0f
 
@@ -157,6 +157,7 @@
 // Audio files
 
 #define kTrumpetSoundEffect	@"trumpet.wav"
+#define kBassSoundEffect @"bass.wav"
 
 #define kNumBassLines		3
 #define	kStartingBassLine	kNumBassLines
