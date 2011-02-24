@@ -61,6 +61,9 @@ static void CollisionBallExpansionCircle (cpArbiter *arb, cpSpace *space, void *
 	cpShape *a, *b; 
 	cpArbiterGetShapes(arb, &a, &b);
 	
+	Shape *bball = a->data;
+	[bball hilight];
+	
 	Shape *shape = b->data;
 	shape.destroyed = YES;
 	
@@ -424,6 +427,17 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 			text.color = kBlackColor;
 			[currentTutorialNode addChild: text];
 			
+			CCSprite *tutorialCircle = [CCSprite spriteWithFile: kTutorialCircleSprite];
+			tutorialCircle.position = ccp(412,200);
+			[currentTutorialNode addChild: tutorialCircle];
+			[tutorialCircle runAction: [CCRepeatForever actionWithAction: [CCSequence actions:
+											
+																		   [CCScaleTo actionWithDuration: 0.5 scale: 1.25],
+																		   [CCScaleTo actionWithDuration: 0.5 scale: 1.0],
+																		   
+																		   nil]]];
+			
+			
 			CCLabelTTF *press = [CCLabelTTF labelWithString: @"PRESS TO CONTINUE -->" fontName: kTutorialFont fontSize: kTutorialFontSize];
 			p = kGameBoxCenterPoint;
 			p.y = 45;
@@ -448,7 +462,15 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 			[currentTutorialNode addChild: text];
 			
 			CCSprite *bball = [CCSprite spriteWithFile: kBouncingBallSprite];
+			bball.position = ccp(235,195);
+			[currentTutorialNode addChild: bball];
 			
+			[bball runAction: [CCRepeatForever actionWithAction: [CCSequence actions:
+																		   
+																		   [CCScaleTo actionWithDuration: 0.5 scale: 1.25],
+																		   [CCScaleTo actionWithDuration: 0.5 scale: 1.0],
+																		   
+																		   nil]]];
 			
 			CCLabelTTF *press = [CCLabelTTF labelWithString: @"PRESS TO CONTINUE -->" fontName: kTutorialFont fontSize: kTutorialFontSize];
 			p = kGameBoxCenterPoint;
@@ -461,7 +483,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 			
 		case kTutorialStep4:
 		{						
-			NSString *expl = @"If you run out of energy (left) or time (top right), you lose the game.\nEvery time you complete a level, you get more energy and time.";
+			NSString *expl = @"If you run out of energy (left) or time (top right), you lose the game.\n\nEvery time you complete a level, you get more energy and time.";
 			CCLabelTTF *text = [CCLabelTTF labelWithString: expl
 												dimensions: CGSizeMake(400,200) 
 												 alignment: UITextAlignmentLeft
@@ -484,7 +506,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 			
 		case kTutorialStep5:
 		{						
-			NSString *expl = @"\nYou should now be ready to play.";
+			NSString *expl = @"You should now be ready to play.";
 			CCLabelTTF *text = [CCLabelTTF labelWithString: expl
 												dimensions: CGSizeMake(400,200) 
 												 alignment: UITextAlignmentLeft

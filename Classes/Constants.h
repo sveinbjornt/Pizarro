@@ -130,6 +130,7 @@
 // Sprite files
 
 #define kBouncingBallSprite	@"bouncingball.png"
+#define kBouncingBallHilightSprite @"bouncingball_hilight.png"
 
 #define kGameScreenBackgroundSprite @"bg.png"
 
@@ -149,6 +150,8 @@
 #define kInGameMenuButtonOnSprite	@"menu_button_white.png"
 
 #define kCompanyLogoSprite	@"corrino_logo.png"
+
+#define kTutorialCircleSprite @"tutorial_circle.png"
 
 // Audio files
 

@@ -17,6 +17,8 @@
 	
 	cpShape			*cpShape;
 	cpBody			*cpBody;
+	
+	//CCSprite		*hilightSprite;
 }
 @property (readwrite, assign) float size;
 @property (readwrite, assign) cpShape *cpShape;

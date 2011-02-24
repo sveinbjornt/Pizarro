@@ -7,7 +7,7 @@
 //
 
 #import "BouncingBall.h"
-
+#import "Constants.h"
 
 @implementation BouncingBall
 @synthesize size, cpShape, cpBody;
@@ -29,6 +29,18 @@
 }
 
 
+-(void)hilight
+{
+	[self removeAllChildrenWithCleanup: YES];
+	
+	CCSprite *hilightBall = [CCSprite spriteWithFile: kBouncingBallHilightSprite];
+	hilightBall.position = ccp(self.size/2, self.size/2);
+	[self addChild: hilightBall];
+	[hilightBall runAction: [CCSequence actions:
+							 [CCFadeOut actionWithDuration: 0.33],
+							 [CCCallFunc actionWithTarget: hilightBall selector: @selector(dispose)],
+							 nil]];
+}
 
 -(void)pushWithVector: (cpVect)v
 {
