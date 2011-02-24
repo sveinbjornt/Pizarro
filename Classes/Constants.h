@@ -36,7 +36,7 @@
 // Mana
 #define kFullMana				10.0
 #define kStartingMana			10.0
-#define kManaPercentageLow		0.25
+#define kManaPercentageLow		0.30
 #define kManaPerLevel			(kFullMana/3) + (level * (kFullMana/45))
 
 // Time

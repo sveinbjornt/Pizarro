@@ -81,7 +81,7 @@
 		piano.selector = @selector(notePressed:);
 		
 		if (!paused)
-			[self shiftInWithDuration: 0.3f];
+			[self shiftIn];
 		else
 			[self showPausedMenu];
 

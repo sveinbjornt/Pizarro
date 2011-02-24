@@ -185,6 +185,8 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	currShapeIndex = 0;
 	currentShapeClass = [Circle class];//[Circle class];
 	shapeKinds = [[NSArray arrayWithObjects: [Circle class], [Square class], [Triangle class], nil] retain];
+	
+	currentTutorialNode = nil;
 }
 
 -(void)setupHUD
@@ -536,10 +538,15 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		break;
 			
 		case kTutorialStep6:
+		{
+			[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: NO] forKey: kShowTutorial];
+			[[NSUserDefaults standardUserDefaults] synchronize];
+			
 			tutorialOver = YES;
 			tutorialStep = kTutorialStepNone;
 			[self startGame];
-			break;
+		}
+		break;
 	}
 	
 	if (!tutorialOver)
@@ -700,7 +707,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 
 -(void)tick: (ccTime)dt
 {
-	if (inTransition || tutorialStep != kTutorialStepNone)
+	if (inTransition || tutorialStep != kTutorialStepNone || gameOver)
 		return;
 	
 	// OK, let's check if we're advancing up level
@@ -726,7 +733,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	if (mana <= 0 || timeRemaining <= 0)
 	{
-		// OK, he's out of time or mana, but if he's currenlty covering enough area,
+		// OK, he's out of time or mana, but if he's currently covering enough area,
 		// then we let it slide
 		
 		BOOL addedShape = NO;
@@ -845,18 +852,18 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	//							[CCFadeTo actionWithDuration: 0.2 opacity: 0.0], 
 	//							nil]];
 	
-	CCLabelTTF *scoreBlast2 = [CCLabelTTF labelWithString: scoreStr fontName: kPercentageBlastFont fontSize: kPercentageBlastFontSize];
-	scoreBlast2.position = p;
-	scoreBlast2.scale = 0.4;
-	scoreBlast2.opacity = 255.0;
-	scoreBlast2.color = kBlackColor;
-	[self addChild: scoreBlast2 z: 999];
-	
-	[scoreBlast2 runAction: [CCSequence actions: 
-							 
-							 [CCScaleTo actionWithDuration: 0.4 scale: 1.0],
-							 [CCCallFunc actionWithTarget: scoreBlast2 selector: @selector(dispose)], 
-							 nil]];
+//	CCLabelTTF *scoreBlast2 = [CCLabelTTF labelWithString: scoreStr fontName: kPercentageBlastFont fontSize: kPercentageBlastFontSize];
+//	scoreBlast2.position = p;
+//	scoreBlast2.scale = 0.4;
+//	scoreBlast2.opacity = 255.0;
+//	scoreBlast2.color = kBlackColor;
+//	[self addChild: scoreBlast2 z: 999];
+//	
+//	[scoreBlast2 runAction: [CCSequence actions: 
+//							 
+//							 [CCScaleTo actionWithDuration: 0.4 scale: 1.0],
+//							 [CCCallFunc actionWithTarget: scoreBlast2 selector: @selector(dispose)], 
+//							 nil]];
 	
 	//	[scoreBlast2 runAction: [CCSequence actions: 
 	//							
@@ -871,11 +878,13 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 {
 	NSString *gameOverStr = [NSString stringWithFormat: @"GAME OVER"];
 	CCLabelTTF *gameOverBlast = [CCLabelTTF labelWithString: gameOverStr fontName: kGameOverBlastFont fontSize: kGameOverBlastFontSize];
-	gameOverBlast.position = kGameBoxCenterPoint;
+	CGPoint p1 = kGameScreenCenterPoint;
+	p1.y += 40;
+	gameOverBlast.position = p1;
 	gameOverBlast.scale = 0.0;
 	gameOverBlast.opacity = 255.0;
 	gameOverBlast.color = kWhiteColor;
-	[self addChild: gameOverBlast z: 1000];
+	[self addChild: gameOverBlast z: 100001];
 		
 	[gameOverBlast runAction: [CCSequence actions: 
 							[CCDelayTime actionWithDuration: delay],
@@ -884,6 +893,24 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 							//[CCScaleTo actionWithDuration: 0.33 scale: 0.0],
 							//[CCCallFunc actionWithTarget: gameOverBlast selector: @selector(dispose)], 
 							nil]];
+	
+	NSString *scoreStr = [NSString stringWithFormat: @"SCORE: %d", score];
+	CCLabelTTF *finalScoreLabel = [CCLabelTTF labelWithString: scoreStr fontName: kHUDFont fontSize: kHUDFontSize];
+	finalScoreLabel.opacity = 0.0f;
+	CGPoint p = kGameScreenCenterPoint;
+	p.y -= 10;
+	finalScoreLabel.color = kWhiteColor;
+	finalScoreLabel.position = p;
+	[self addChild: finalScoreLabel z: 100002];
+	
+	[finalScoreLabel runAction: [CCSequence actions: 
+							   [CCDelayTime actionWithDuration: delay + 0.33],
+							   [CCFadeIn actionWithDuration: 0.33],
+							   //[CCDelayTime actionWithDuration: 1.66],
+							   //[CCScaleTo actionWithDuration: 0.33 scale: 0.0],
+							   //[CCCallFunc actionWithTarget: gameOverBlast selector: @selector(dispose)], 
+							   nil]];
+	
 }
 
 -(void)noteBlastAtPoint: (CGPoint)p afterDelay: (NSTimeInterval)delay
@@ -1144,8 +1171,8 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	//[bgRenderTexture goBlack];
 	gameOverCircle = [[[GameOverCircle alloc] init] autorelease];
-	gameOverCircle.position = kGameBoxCenterPoint;
-	[self addChild: gameOverCircle z: 90];
+	gameOverCircle.position = kGameScreenCenterPoint;
+	[self addChild: gameOverCircle z: 100000];
 	[gameOverCircle runAction: [CCSequence actions:	[CCDelayTime actionWithDuration: 0.1],
 												[CCCallFunc actionWithTarget: gameOverCircle selector: @selector(startExpanding)],
 						  nil]];
@@ -1177,10 +1204,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 #pragma mark  Touch handling
 
 -(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event 
-{
-	if (gameOver)
-		[[CCDirector sharedDirector] replaceScene: [CCTransitionSlideInL transitionWithDuration: 0.35 scene: [MainMenuScene scene]]];
-		
+{	
 	if (inTransition || tutorialStep != kTutorialStepNone)
 		return;
 	
@@ -1223,6 +1247,13 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 
 -(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
 {			
+	if (gameOver)
+	{
+		[[CCDirector sharedDirector] pushScene: [CCTransitionSlideInL transitionWithDuration: 0.35 scene: [MainMenuScene scene]]];
+	}
+	else
+		[self gameOver];
+	
 	if (inTransition)
 		return;
 	

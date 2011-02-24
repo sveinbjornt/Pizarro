@@ -21,7 +21,7 @@
 		expanding = NO;
 		destroyed = NO;
 		animationDuration = 0.4f;
-		fullSize = 330;
+		fullSize = 800;
 	}
 	return self;
 }
@@ -35,14 +35,31 @@
 {
 	NSTimeInterval elapsed = NOW - created;
 	float fraction = elapsed / animationDuration;
+	if (fraction > 1.0f)
+		fraction = 1.0f;
 	
 	size = fraction * fullSize;
+	
 }
 
 
 -(void)draw
 {
-	[self drawFilledShape];
+	// We draw square to fill screen if fullsize
+	if (size == fullSize && ![self.children count])
+	{
+		glColor4ub(0,0,0,255);
+		CGPoint vertices[] = 
+		{
+			{ -kGameScreenWidth/2, -kGameScreenHeight/2 },
+			{  kGameScreenWidth/2, -kGameScreenHeight/2 },
+			{  kGameScreenWidth/2,  kGameScreenHeight/2 },
+			{ -kGameScreenWidth/2,  kGameScreenHeight/2 }
+		};
+		ccFillPoly(vertices,  4, YES);
+	}
+	else
+		[self drawFilledShape];
 }
 
 

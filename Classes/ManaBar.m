@@ -58,8 +58,12 @@
 		barTopSprite = manaBarGreenTop;
 		manaBarRed.visible = NO;
 		manaBarRedTop.visible = NO;
+		[manaBarRed stopAllActions];
+		[manaBarRedTop stopAllActions];
+		
 		manaBarGreen.visible = YES;
 		manaBarGreenTop.visible = YES;
+		
 	}
 	else
 	{
@@ -69,6 +73,18 @@
 		manaBarGreenTop.visible = NO;
 		manaBarRed.visible = YES;
 		manaBarRedTop.visible = YES;
+		
+		[manaBarRed runAction: [CCRepeatForever actionWithAction: [CCSequence actions:
+																   
+																   [CCTintTo actionWithDuration: 0.5 red: 180 green: 255 blue:255],
+																   [CCTintTo actionWithDuration: 0.5 red: 255 green: 255 blue:255],
+																   nil]]];
+		[manaBarRedTop runAction: [CCRepeatForever actionWithAction: [CCSequence actions:
+																   
+																   [CCTintTo actionWithDuration: 0.5 red: 180 green: 255 blue:255],
+																   [CCTintTo actionWithDuration: 0.5 red: 255 green: 255 blue:255],
+																   nil]]];
+
 	}
 
 	barSprite.scaleY = height;
