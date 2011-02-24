@@ -293,6 +293,7 @@
 		F4291A5B1316AFAF00EBD8D8 /* tutorial_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = F4291A591316AFAF00EBD8D8 /* tutorial_circle.png */; };
 		F4291A691316B23200EBD8D8 /* bouncingball_hilight-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4291A671316B23200EBD8D8 /* bouncingball_hilight-hd.png */; };
 		F4291A6A1316B23200EBD8D8 /* bouncingball_hilight.png in Resources */ = {isa = PBXBuildFile; fileRef = F4291A681316B23200EBD8D8 /* bouncingball_hilight.png */; };
+		F4291C0E1316E3CD00EBD8D8 /* MenuButtonSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = F4291C0D1316E3CD00EBD8D8 /* MenuButtonSprite.m */; };
 		F4361312130BE361004A41CA /* BouncingBall.m in Sources */ = {isa = PBXBuildFile; fileRef = F4361311130BE361004A41CA /* BouncingBall.m */; };
 		F47E4F3E131688F400F21CE5 /* corrino_logo-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F44130E96B7006C0F2C /* corrino_logo-hd.png */; };
 		F4A00253130BAD18000FCEDE /* Circle.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0024F130BAD18000FCEDE /* Circle.m */; };
@@ -659,6 +660,8 @@
 		F4291A591316AFAF00EBD8D8 /* tutorial_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial_circle.png; sourceTree = "<group>"; };
 		F4291A671316B23200EBD8D8 /* bouncingball_hilight-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bouncingball_hilight-hd.png"; sourceTree = "<group>"; };
 		F4291A681316B23200EBD8D8 /* bouncingball_hilight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bouncingball_hilight.png; sourceTree = "<group>"; };
+		F4291C0C1316E3CD00EBD8D8 /* MenuButtonSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuButtonSprite.h; sourceTree = "<group>"; };
+		F4291C0D1316E3CD00EBD8D8 /* MenuButtonSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuButtonSprite.m; sourceTree = "<group>"; };
 		F4361310130BE361004A41CA /* BouncingBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BouncingBall.h; sourceTree = "<group>"; };
 		F4361311130BE361004A41CA /* BouncingBall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BouncingBall.m; sourceTree = "<group>"; };
 		F4A0024E130BAD18000FCEDE /* Circle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Circle.h; sourceTree = "<group>"; };
@@ -1249,6 +1252,8 @@
 			children = (
 				F4A462C0130C021200A20694 /* ManaBar.h */,
 				F4A462C1130C021200A20694 /* ManaBar.m */,
+				F4291C0C1316E3CD00EBD8D8 /* MenuButtonSprite.h */,
+				F4291C0D1316E3CD00EBD8D8 /* MenuButtonSprite.m */,
 			);
 			name = HUD;
 			sourceTree = "<group>";
@@ -1761,6 +1766,7 @@
 				F4CE2292130F08BA006C0F2C /* NSFileManager+DocumentFolder.m in Sources */,
 				F4BD2D3B1311D252002284C3 /* MMLetterSprite.m in Sources */,
 				F40580B0131300CA0021CCDF /* GameOverCircle.m in Sources */,
+				F4291C0E1316E3CD00EBD8D8 /* MenuButtonSprite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
