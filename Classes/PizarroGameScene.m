@@ -120,7 +120,16 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		//[self updateCurrentShape];
 				
 		// Music and sound
-		[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"bassline.mp3" loop: YES];
+		int bassLineNum = [[NSUserDefaults standardUserDefaults] integerForKey: kLastBassLine] + 1;
+		if (bassLineNum > kNumBassLines)
+			bassLineNum = 1;
+		[[NSUserDefaults standardUserDefaults] setInteger: bassLineNum forKey: kLastBassLine];
+		CCLOG(@"Bass line is %d", bassLineNum);
+		NSString *musicFile = [NSString stringWithFormat: @"bassline%d.mp3", bassLineNum];
+		
+		[[SimpleAudioEngine sharedEngine] playBackgroundMusic: musicFile loop: YES];
+		
+	
 		piano = [[Instrument alloc] initWithName: @"piano" numberOfNotes: 7 tempo: 0.1];
 		
 		// Increase mana bar
@@ -485,6 +494,9 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		int bonus = extraPerc * 10 + level;
 		score += bonus;
 		
+		Shape *lastShape = [shapes lastObject];
+		[self noteBlastAtPoint: lastShape.position afterDelay: 0.1];
+		
 		[self runAction: [CCSequence actions:
 						  [CCDelayTime actionWithDuration: 0.15],
 						  [CCCallFunc actionWithTarget: self selector: @selector(advanceLevel)], nil]];
@@ -652,7 +664,26 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 							//[CCScaleTo actionWithDuration: 0.33 scale: 0.0],
 							//[CCCallFunc actionWithTarget: gameOverBlast selector: @selector(dispose)], 
 							nil]];
+}
+
+-(void)noteBlastAtPoint: (CGPoint)p afterDelay: (NSTimeInterval)delay
+{
+	//♪♪♫
 	
+	CCLabelTTF *noteBlast = [CCLabelTTF labelWithString: @"♫" fontName: kNoteBlastFont fontSize: kNoteBlastFontSize];
+	noteBlast.position = p;
+	noteBlast.scale = 0.0;
+	noteBlast.opacity = 255.0;
+	noteBlast.color = ccc3(0,0,0);
+	[self addChild: noteBlast z: 1001];
+	
+	[noteBlast runAction: [CCSequence actions: 
+							   [CCDelayTime actionWithDuration: delay],
+							   [CCScaleTo actionWithDuration: 0.33 scale: 1.0],
+							   [CCDelayTime actionWithDuration: 1.33],
+							   //[CCScaleTo actionWithDuration: 0.33 scale: 0.0],
+							   [CCCallFunc actionWithTarget: noteBlast selector: @selector(dispose)], 
+							   nil]];
 }
 
 #pragma mark -
@@ -791,20 +822,28 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 
 -(void)startLevel
 {	
+	// Set mana bar increase flow going
+	mana = newMana;
+	[self unschedule: @selector(manaIncreaseTicker:)];
+	
+	// Decide on number of balls for level
+	
 	int numBalls = 0;
 	
-	if (level < 4)
+	if (level <= 4)
 		numBalls = 1;
-	else if (level >= 5 && level < 7)
+	else if (level >= 5 && level < 10)
 		numBalls = 2;
-	else
-		numBalls = 2 + (level / 7);	
+	else if (level >= 10)
+		numBalls = 1 + (level / 5);	
 	
 	if (numBalls > kMaxBounceBalls)
 		numBalls = kMaxBounceBalls;
 	
-	mana = newMana;
-	[self unschedule: @selector(manaIncreaseTicker:)];
+	// Decide how much energy is in the physical system
+	
+	float energy = 6000 + (level * 1200);
+	float energyPerBall = energy / (numBalls - (numBalls * 0.08));
 	
 	// Create the balls and set them going
 	for (int i = 0; i < numBalls; i++)
@@ -812,17 +851,17 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 		// Define starting point
 		CGPoint startingPoint = kGameScreenCenterPoint;
 		int mod = RandomBetween(0, 1);
-		if (mod)
-			mod = -1;
-		else
-			mod = 1;
+		mod = mod ? -1 : 1;
 		
 		startingPoint.x += (mod * 25 + RandomBetween(5, 10)) * i;
 		startingPoint.y += (mod * 15 + RandomBetween(5, 10)) * i;
 		
 		// Define movement vector
-		float x = (5000 + (level/2 * 600 )) * mod;
-		float y = (5000 + (float)(level/numBalls) * 600) * mod;
+		float x = RandomBetween(0, energyPerBall);
+		float y = energyPerBall - x;
+		
+//		float x = (5800 + (level * 700 ) - (numBalls * 2200)) * mod;
+//		float y = (5800 + (level * 700 ) - (numBalls * 2200)) * mod;
 		
 		// Add ball
 		[self addBouncingBallAtPoint: startingPoint withVelocity: cpv(x,y)];

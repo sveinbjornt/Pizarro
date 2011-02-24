@@ -19,9 +19,16 @@
 // High scores
 #define kSavedHighscoreFilename		@"PizzaroLocalHighscore"
 #define kSavedHighscorePlistKey		@"LocalHighscore"
+#define kSavedGKScoreSuffix			@".pizarroScore"
+
+// GAME CENTER
+
+// leaderboards
 #define kGameCenterScoreCategory	@"Pizarro_Phone_Score"
 #define kGameCenterLevelCategory	@"Pizarro_Phone_Level"
-#define kSavedGKScoreSuffix			@".pizarroScore"
+
+// achievements
+#define kGameCenterLevelInOneAchievement	@"Pizarro_Achievement_LevelInOne"
 
 
 ///// GAMEPLAY ///////
@@ -30,7 +37,7 @@
 #define kFullMana				10.0
 #define kStartingMana			10.0
 #define kManaPercentageLow		0.25
-#define kManaPerLevel			(kFullMana/3.0f) + (level * (kFullMana/24))
+#define kManaPerLevel			(kFullMana/3) + (level * (kFullMana/45))
 
 // Time
 #define kStartingTime			60.0f
@@ -92,6 +99,7 @@
 #define kPercentageBlastFont		@"RedStateBlueState BB"
 #define kGameOverBlastFont			@"RedStateBlueState BB"
 #define kLevelBlastFont				@"RedStateBlueState BB"
+#define kNoteBlastFont				@"Verdana"
 
 #define kHUDFontSize				42
 #define kLevelBlastFontSize			78
@@ -100,7 +108,7 @@
 #define kMainMenuTitleFontSize		84
 #define kMainMenuMenuFontSize		44
 #define kResumeGameMenuFontSize		52
-
+#define kNoteBlastFontSize			64
 
 // Menu settings
 
@@ -139,11 +147,15 @@
 
 #define kTrumpetSoundEffect	@"trumpet_start.wav"
 
+#define kNumBassLines		3
+#define	kStartingBassLine	kNumBassLines
+
 // Settings
 
 #define kMusicEnabled		@"MusicEnabled"
 #define kSoundEnabled		@"SoundEnabled"
 #define kGameCenterEnabled	@"GameCenterEnabled"
+#define kLastBassLine		@"LastBassLine"
 
 // Convenience 
 

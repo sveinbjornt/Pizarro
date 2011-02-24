@@ -537,9 +537,9 @@
 -(void)showCredits
 {
 	creditsLogo = [CCSprite spriteWithFile: @"corrino_logo.png"];
-	creditsLogo.position = ccp(-278, 205);
+	creditsLogo.position = ccp(-278, 194);
 	[self addChild: creditsLogo];
-	[creditsLogo runAction: [CCMoveTo actionWithDuration: 0.45 position: ccp(40, 205)]];
+	[creditsLogo runAction: [CCMoveTo actionWithDuration: 0.45 position: ccp(40, 194)]];
 	//[creditsLogo runAction: [CCRepeatForever actionWithAction: [CCRotateBy actionWithDuration: 0.1 angle: -10]]]; 
 	
 	NSString *creditsStr = [NSString stringWithFormat: @"A\n%@\nGAME", kGameDeveloper];

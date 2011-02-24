@@ -45,8 +45,8 @@
 {
 	[[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjects:
 															 
-															 [NSArray arrayWithObjects:  [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithBool: [GameCenterManager isGameCenterAvailable]], nil]
-																			   forKeys:  [NSArray arrayWithObjects: kMusicEnabled, kSoundEnabled, kGameCenterEnabled, nil]]];	
+															 [NSArray arrayWithObjects:  [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithInt: kStartingBassLine], [NSNumber numberWithBool: [GameCenterManager isGameCenterAvailable]], nil]
+																			   forKeys:  [NSArray arrayWithObjects: kMusicEnabled, kSoundEnabled, kLastBassLine, kGameCenterEnabled, nil]]];	
 	
 	CCLOG(@"User defaults: Music: %d Sound: %d GameCenter: %d", MUSIC_ENABLED, SOUND_ENABLED, GAMECENTER_ENABLED);
 	
