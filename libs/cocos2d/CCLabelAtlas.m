@@ -34,6 +34,8 @@
 
 @implementation CCLabelAtlas
 
+@synthesize spacing;
+
 #pragma mark CCLabelAtlas - Creation & Init
 +(id) labelWithString:(NSString*)string charMapFile:(NSString*)charmapfile itemWidth:(int)w itemHeight:(int)h startCharMap:(char)c
 {
@@ -52,6 +54,7 @@
 
 	if ((self=[super initWithTileFile:charmapfile tileWidth:w tileHeight:h itemsToRender:[theString length] ]) ) {
 
+		spacing = 0.0f;
 		mapStartChar = c;		
 		[self setString: theString];
 	}
@@ -179,7 +182,7 @@
 #if CC_LABELATLAS_DEBUG_DRAW
 	CGSize s = [self contentSize];
 	CGPoint vertices[4]={
-		ccp(0,0),ccp(s.width,0),
+		ccp(0+spacing,0),ccp(s.width,0),
 		ccp(s.width,s.height),ccp(0,s.height),
 	};
 	ccDrawPoly(vertices, 4, YES);

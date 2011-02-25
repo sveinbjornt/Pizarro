@@ -45,8 +45,11 @@
 	
 	// the first char in the charmap
 	char			mapStartChar;
+	
+	// spacing
+	float spacing;
 }
-
+@property (readwrite, assign) float spacing;
 
 /** creates the CCLabelAtlas with a string, a char map file(the atlas), the width and height of each element in points and the starting char of the atlas */
 +(id) labelWithString:(NSString*) string charMapFile: (NSString*) charmapfile itemWidth:(int)w itemHeight:(int)h startCharMap:(char)c;
