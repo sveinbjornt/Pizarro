@@ -1218,21 +1218,21 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 			case 1:
 			{
 				CCLOG(@"Finished w. one shape");
-				//[ScoreManager reportAchievement: kGameCenterLevelInOneAchievement];
+				[ScoreManager reportAchievement: kGameCenterLevelInOneAchievement];
 			}
 			break;
 				
 			case 2:
 			{
 				CCLOG(@"Finished w. two shapes");
-				//[ScoreManager reportAchievement: kGameCenterLevelInTwoAchievement];
+				[ScoreManager reportAchievement: kGameCenterLevelInTwoAchievement];
 			}
 			break;
 				
 			case 3:
 			{
 				CCLOG(@"Finished w. three shapes");
-				//[ScoreManager reportAchievement: kGameCenterLevelInThreeAchievement];
+				[ScoreManager reportAchievement: kGameCenterLevelInThreeAchievement];
 			}
 			break;
 		}
@@ -1254,35 +1254,35 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		case 5:
 		{
 			CCLOG(@"Got to level 5");
-			//[ScoreManager reportAchievement: kGameCenterLevel5Achievement];
+			[ScoreManager reportAchievement: kGameCenterLevel5Achievement];
 		}
 		break;
 			
 		case 10:
 		{
 			CCLOG(@"Got to level 10");
-			//[ScoreManager reportAchievement: kGameCenterLevel10Achievement];
+			[ScoreManager reportAchievement: kGameCenterLevel10Achievement];
 		}
 		break;
 			
 		case 15:
 		{
 			CCLOG(@"Got to level 15");
-			//[ScoreManager reportAchievement: kGameCenterLevel15Achievement];
+			[ScoreManager reportAchievement: kGameCenterLevel15Achievement];
 		}
 		break;
 			
 		case 20:
 		{
 			CCLOG(@"Got to level 20");
-			//[ScoreManager reportAchievement: kGameCenterLevel20Achievement];
+			[ScoreManager reportAchievement: kGameCenterLevel20Achievement];
 		}
 		break;
 			
 		case 25:
 		{
 			CCLOG(@"Got to level 25");
-			//[ScoreManager reportAchievement: kGameCenterLevel25Achievement];
+			[ScoreManager reportAchievement: kGameCenterLevel25Achievement];
 		}
 		break;
 	}
@@ -1290,7 +1290,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	if (percentageFilled >= 95.0f)
 	{
 		CCLOG(@"Got to level 25");
-		//[ScoreManager reportAchievement: kGameCenterOverkillAchievement];
+		[ScoreManager reportAchievement: kGameCenterOverkillAchievement];
 	}
 
 	percentageFilled = 0.0f;

@@ -138,11 +138,11 @@
 		 {
 			 if (error != nil)
 			 {
-//				 NSLog(@"%@", [error localizedDescription]);
+				 NSLog(@"%@", [error localizedDescription]);
 			 }
 			 else
 			 {
-//				 NSLog(@"Achievement posted");
+				 NSLog(@"Achievement posted");
 			 }			 
 		 }];
 	}
