@@ -186,6 +186,8 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		manaIncreaseTime = NOW;
 		[self schedule: @selector(manaIncreaseTicker:) interval: 1.0/60];
 		
+		// Start game
+		
 		if (SHOW_TUTORIAL)
 		{
 			tutorialStep = kTutorialStep1;
@@ -673,7 +675,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		
 		float pitch = [Instrument bluesPitchForIndex: index];
 		
-		[[SimpleAudioEngine sharedEngine] playEffect: @"piano1.wav" pitch: pitch pan:0.0f gain:0.6f];
+		[[SimpleAudioEngine sharedEngine] playEffect: @"piano1.wav" pitch: pitch pan:0.0f gain:0.54f];
 	}
 }
 

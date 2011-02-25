@@ -66,7 +66,7 @@
 	 {
 		 if (error != nil)
 		 {
-			 NSLog(@"%@", [error localizedDescription]);
+			 //NSLog(@"%@", [error localizedDescription]);
 			 
 			 // we only archive score if there is a player ID 
 			 if (theScore.playerID != nil)
@@ -74,7 +74,7 @@
 		 }
 		 else
 		 {
-			 NSLog(@"Posted");
+			 //NSLog(@"Posted");
 		 }
 	 }];
 }
@@ -138,11 +138,11 @@
 		 {
 			 if (error != nil)
 			 {
-				 NSLog(@"%@", [error localizedDescription]);
+				 //NSLog(@"%@", [error localizedDescription]);
 			 }
 			 else
 			 {
-				 NSLog(@"Achievement posted");
+				 //NSLog(@"Achievement posted");
 			 }			 
 		 }];
 	}

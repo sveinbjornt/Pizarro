@@ -642,7 +642,6 @@
 	if (!playedNote && CGRectContainsPoint([icon rect], location))
 	{
 		[self trumpetPressed];
-		playedNote = YES;
 	}
 	
 	if (!playedNote)

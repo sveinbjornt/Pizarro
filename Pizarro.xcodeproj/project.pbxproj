@@ -298,7 +298,6 @@
 		F4291D8F1316FAAF00EBD8D8 /* tutorial_button_black.png in Resources */ = {isa = PBXBuildFile; fileRef = F4291D8B1316FAAF00EBD8D8 /* tutorial_button_black.png */; };
 		F4291D901316FAAF00EBD8D8 /* tutorial_button_white-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4291D8C1316FAAF00EBD8D8 /* tutorial_button_white-hd.png */; };
 		F4291D911316FAAF00EBD8D8 /* tutorial_button_white.png in Resources */ = {isa = PBXBuildFile; fileRef = F4291D8D1316FAAF00EBD8D8 /* tutorial_button_white.png */; };
-		F4291DB91316FD0200EBD8D8 /* percentblast_spriteatlas.png in Resources */ = {isa = PBXBuildFile; fileRef = F4291DB81316FD0200EBD8D8 /* percentblast_spriteatlas.png */; };
 		F4291DE91316FFE200EBD8D8 /* scores_button_off-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4291DE71316FFE200EBD8D8 /* scores_button_off-hd.png */; };
 		F4291DEA1316FFE200EBD8D8 /* scores_button_on-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4291DE81316FFE200EBD8D8 /* scores_button_on-hd.png */; };
 		F4291E051317012200EBD8D8 /* scores_button_off.png in Resources */ = {isa = PBXBuildFile; fileRef = F4291E031317012200EBD8D8 /* scores_button_off.png */; };
@@ -334,7 +333,6 @@
 		F4CE1CCE130D88B3006C0F2C /* BGRenderTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CE1CCD130D88B3006C0F2C /* BGRenderTexture.m */; };
 		F4CE1DA7130DB740006C0F2C /* ExpandingMenuItemToggle.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CE1DA6130DB740006C0F2C /* ExpandingMenuItemToggle.m */; };
 		F4CE1EB9130E7A25006C0F2C /* MMLetterLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CE1EB8130E7A25006C0F2C /* MMLetterLabel.m */; };
-		F4CE1F6F130E96B7006C0F2C /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F3A130E96B7006C0F2C /* fps_images.png */; };
 		F4CE1F70130E96B7006C0F2C /* RedStateBlueStateBB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F3C130E96B7006C0F2C /* RedStateBlueStateBB.ttf */; };
 		F4CE1F71130E96B7006C0F2C /* bg-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F3E130E96B7006C0F2C /* bg-hd.png */; };
 		F4CE1F72130E96B7006C0F2C /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F3F130E96B7006C0F2C /* bg.png */; };
@@ -350,9 +348,7 @@
 		F4CE1F89130E96B7006C0F2C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F57130E96B7006C0F2C /* Default.png */; };
 		F4CE1F8B130E96B7006C0F2C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F59130E96B7006C0F2C /* Default@2x.png */; };
 		F4CE1F8C130E96B7006C0F2C /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F5A130E96B7006C0F2C /* Icon-72.png */; };
-		F4CE1F8D130E96B7006C0F2C /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F5B130E96B7006C0F2C /* Icon-Small-50.png */; };
 		F4CE1F8E130E96B7006C0F2C /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F5C130E96B7006C0F2C /* Icon-Small.png */; };
-		F4CE1F8F130E96B7006C0F2C /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F5D130E96B7006C0F2C /* Icon-Small@2x.png */; };
 		F4CE1F90130E96B7006C0F2C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F5E130E96B7006C0F2C /* Icon.png */; };
 		F4CE1F91130E96B7006C0F2C /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F5F130E96B7006C0F2C /* Icon@2x.png */; };
 		F4CE1F92130E96B7006C0F2C /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F60130E96B7006C0F2C /* iTunesArtwork */; };
@@ -675,7 +671,6 @@
 		F4291D8B1316FAAF00EBD8D8 /* tutorial_button_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial_button_black.png; sourceTree = "<group>"; };
 		F4291D8C1316FAAF00EBD8D8 /* tutorial_button_white-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial_button_white-hd.png"; sourceTree = "<group>"; };
 		F4291D8D1316FAAF00EBD8D8 /* tutorial_button_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial_button_white.png; sourceTree = "<group>"; };
-		F4291DB81316FD0200EBD8D8 /* percentblast_spriteatlas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = percentblast_spriteatlas.png; sourceTree = "<group>"; };
 		F4291DE71316FFE200EBD8D8 /* scores_button_off-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scores_button_off-hd.png"; sourceTree = "<group>"; };
 		F4291DE81316FFE200EBD8D8 /* scores_button_on-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scores_button_on-hd.png"; sourceTree = "<group>"; };
 		F4291E031317012200EBD8D8 /* scores_button_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scores_button_off.png; sourceTree = "<group>"; };
@@ -1377,7 +1372,6 @@
 			children = (
 				F4CE1F3E130E96B7006C0F2C /* bg-hd.png */,
 				F4CE1F3F130E96B7006C0F2C /* bg.png */,
-				F4291DB81316FD0200EBD8D8 /* percentblast_spriteatlas.png */,
 				F429190213168A4C00EBD8D8 /* checkbox-hd.png */,
 				F429190313168A4C00EBD8D8 /* checkbox-nocheck-hd.png */,
 				F429190413168A4C00EBD8D8 /* checkbox-nocheck.png */,
@@ -1424,13 +1418,13 @@
 				F4CE1F57130E96B7006C0F2C /* Default.png */,
 				F4CE1F59130E96B7006C0F2C /* Default@2x.png */,
 				F4CE1F5A130E96B7006C0F2C /* Icon-72.png */,
-				F4CE1F5B130E96B7006C0F2C /* Icon-Small-50.png */,
+				F4CE1F61130E96B7006C0F2C /* Icon-48px.png */,
 				F4CE1F5C130E96B7006C0F2C /* Icon-Small.png */,
-				F4CE1F5D130E96B7006C0F2C /* Icon-Small@2x.png */,
 				F4CE1F5E130E96B7006C0F2C /* Icon.png */,
 				F4CE1F5F130E96B7006C0F2C /* Icon@2x.png */,
 				F4CE1F60130E96B7006C0F2C /* iTunesArtwork */,
-				F4CE1F61130E96B7006C0F2C /* Icon-48px.png */,
+				F4CE1F5D130E96B7006C0F2C /* Icon-Small@2x.png */,
+				F4CE1F5B130E96B7006C0F2C /* Icon-Small-50.png */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -1704,7 +1698,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4CE1F6F130E96B7006C0F2C /* fps_images.png in Resources */,
 				F4CE1F70130E96B7006C0F2C /* RedStateBlueStateBB.ttf in Resources */,
 				F4CE1F71130E96B7006C0F2C /* bg-hd.png in Resources */,
 				F4CE1F72130E96B7006C0F2C /* bg.png in Resources */,
@@ -1720,9 +1713,7 @@
 				F4CE1F89130E96B7006C0F2C /* Default.png in Resources */,
 				F4CE1F8B130E96B7006C0F2C /* Default@2x.png in Resources */,
 				F4CE1F8C130E96B7006C0F2C /* Icon-72.png in Resources */,
-				F4CE1F8D130E96B7006C0F2C /* Icon-Small-50.png in Resources */,
 				F4CE1F8E130E96B7006C0F2C /* Icon-Small.png in Resources */,
-				F4CE1F8F130E96B7006C0F2C /* Icon-Small@2x.png in Resources */,
 				F4CE1F90130E96B7006C0F2C /* Icon.png in Resources */,
 				F4CE1F91130E96B7006C0F2C /* Icon@2x.png in Resources */,
 				F4CE1F92130E96B7006C0F2C /* iTunesArtwork in Resources */,
@@ -1762,7 +1753,6 @@
 				F4291D8F1316FAAF00EBD8D8 /* tutorial_button_black.png in Resources */,
 				F4291D901316FAAF00EBD8D8 /* tutorial_button_white-hd.png in Resources */,
 				F4291D911316FAAF00EBD8D8 /* tutorial_button_white.png in Resources */,
-				F4291DB91316FD0200EBD8D8 /* percentblast_spriteatlas.png in Resources */,
 				F4291DE91316FFE200EBD8D8 /* scores_button_off-hd.png in Resources */,
 				F4291DEA1316FFE200EBD8D8 /* scores_button_on-hd.png in Resources */,
 				F4291E051317012200EBD8D8 /* scores_button_off.png in Resources */,
