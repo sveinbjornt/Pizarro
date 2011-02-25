@@ -122,8 +122,8 @@
 //	else
 		menu.position = ccpAdd(kMainMenuMenuPoint, ccp(0,-130));
 	
-	CCMenuItemSprite *scoresMenuItem = [CCMenuItemSprite itemFromNormalSprite: [CCSprite spriteWithFile: @"scores_button.png"] 
-															   selectedSprite: [CCSprite spriteWithFile: @"scores_button.png"]
+	CCMenuItemSprite *scoresMenuItem = [CCMenuItemSprite itemFromNormalSprite: [CCSprite spriteWithFile: kScoresButtonOffSprite] 
+															   selectedSprite: [CCSprite spriteWithFile: kScoresButtonOnSprite]
 																	   target: [[UIApplication sharedApplication] delegate] 
 																	 selector: @selector(loadLeaderboard)];
 	if (!paused)
@@ -328,6 +328,13 @@
 	[[CCDirector sharedDirector] popSceneWithTransition: [CCTransitionSlideInR class] duration: 0.35f];
 }
 
+-(void)onTutorial:(id)sender
+{
+	[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: YES] forKey: kShowTutorial];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+	[self onPlay: sender];
+}
+
 #pragma mark -
 #pragma mark Shift In/Out transitions
 
@@ -462,7 +469,6 @@
 	[self addChild: gameCenterLabel z: 1001];
 	[gameCenterLabel runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(125, 100)]];
 	
-	
 	CCMenuItem *musicOnItem = [CCMenuItemImage itemFromNormalImage: kCheckBoxOnSprite
 													 selectedImage: kCheckBoxOnSprite
 															target:nil
@@ -517,6 +523,14 @@
 	[self addChild: settingsMenu];
 	[settingsMenu runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(250,150)]];
 
+	CCMenuItemSprite *tutorialMenuItem = [CCMenuItemSprite itemFromNormalSprite: [CCSprite spriteWithFile: kTutorialButtonOffSprite]
+																 selectedSprite: [CCSprite spriteWithFile: kTutorialButtonOnSprite]
+																	   target: self
+																	 selector: @selector(onTutorial:)];
+	tutorialMenu = [CCMenu menuWithItems: tutorialMenuItem, nil];
+	tutorialMenu.position = ccp(kGameScreenWidth+45, -35);
+	[tutorialMenu runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(kGameScreenWidth - 45,35)]];
+	[self addChild: tutorialMenu];	
 }
 
 -(void)hideSettings
@@ -529,6 +543,8 @@
 							[CCCallFunc actionWithTarget: gameCenterLabel selector: @selector(dispose)], nil]];
 	[settingsMenu runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.5 position: ccp(-185, 120)],
 								 [CCCallFunc actionWithTarget: settingsMenu selector: @selector(dispose)], nil]];
+	[tutorialMenu runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.5 position: ccp(kGameScreenWidth+45, -35)],
+							  [CCCallFunc actionWithTarget: tutorialMenu selector: @selector(dispose)], nil]];
 }
 
 #pragma mark -

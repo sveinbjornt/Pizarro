@@ -56,6 +56,8 @@
 	BOOL			inTransition;
 	BOOL			gameOver;
 	
+	BOOL			flawless;
+	
 	Instrument		*piano;
 	
 	int				tutorialStep;
@@ -79,19 +81,19 @@
 -(void)pauseGame;
 -(void)pauseGameWithAnimation: (BOOL)animated;
 
-
 -(void)showTutorialStep: (int)stepNum;
 
 -(void)levelBlast: (NSUInteger)lvl atPoint: (CGPoint)p afterDelay: (NSTimeInterval)delay;
 -(void)percentageBlast: (NSUInteger)s atPoint: (CGPoint)p;
 -(void)noteBlastAtPoint: (CGPoint)p afterDelay: (NSTimeInterval)delay;
 
-
 -(void)addBouncingBallAtPoint: (CGPoint)p withVelocity: (CGPoint)movementVector;
 -(void)endExpansionOfShape: (Shape *)shape;
 
 -(void)createShapeAtPoint: (CGPoint)p forTouch: (UITouch *)touch;
 -(void)removeShape: (Shape *)shape;
+
+-(void)collision;
 
 -(void)startGame;
 

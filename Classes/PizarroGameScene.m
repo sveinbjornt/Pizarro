@@ -19,11 +19,13 @@
 #import "Common.c"
 #import "MainMenuScene.h"
 #import "GameCenterManager.h"
+#import "ScoreManager.h"
 #import "MenuButtonSprite.h"
 
 #pragma mark Chipmunk Callbacks
 
 int lastPlayedIndex = 0;
+int pentatonicCount = 0;
 
 static void UpdateShape(void* ptr, void* unused)
 {	
@@ -46,11 +48,26 @@ static void PlayBallCollisionSound (int level)
 	
 	int mod = RandomBetween(-level, level);
 	
-	lastPlayedIndex += mod;
+	int lp = lastPlayedIndex;
+	
+	lastPlayedIndex += mod + RandomBetween(-2, 2);
 	while (lastPlayedIndex < 1)
 		lastPlayedIndex = 7 + lastPlayedIndex;
 	while (lastPlayedIndex > 7)
 		lastPlayedIndex = 1 + (lastPlayedIndex - 8);
+	
+	// Pentatonic count achievemtn
+	if (lastPlayedIndex <= lp || (lp - lastPlayedIndex) > 1)
+		pentatonicCount = 0;
+	else
+	{
+		pentatonicCount++;
+		if (pentatonicCount >= 6)
+		{
+			[ScoreManager reportAchievement: kGameCenterMinorPentatonicAchievement];
+			pentatonicCount = 0;
+		}
+	}
 	
 	[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"piano%d.wav", lastPlayedIndex] pitch:1.0f pan:0.0f gain:0.1f];
 	
@@ -62,11 +79,13 @@ static void CollisionBallExpansionCircle (cpArbiter *arb, cpSpace *space, void *
 	cpShape *a, *b; 
 	cpArbiterGetShapes(arb, &a, &b);
 	
-	Shape *bball = a->data;
+	BouncingBall *bball = (BouncingBall *)a->data;
 	[bball hilight];
 	
 	Shape *shape = b->data;
 	shape.destroyed = YES;
+	
+	[(PizarroGameScene *)data collision];
 	
 	if (SOUND_ENABLED)
 		[[SimpleAudioEngine sharedEngine] playEffect: kTrumpetSoundEffect pitch:0.891 pan:0.0f gain:0.3f];	
@@ -77,6 +96,11 @@ static void CollisionBallAndCircleOrWall (cpArbiter *arb, cpSpace *space, void *
 	PizarroGameScene *scene = (PizarroGameScene *)data;
 	PlayBallCollisionSound([scene currentLevel]+1);
 	
+	cpShape *a, *b; 
+	cpArbiterGetShapes(arb, &a, &b);
+	
+	BouncingBall *bball = a->data;
+	[bball hilight];
 }
 
 static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
@@ -84,6 +108,13 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	PizarroGameScene *scene = (PizarroGameScene *)data;
 	PlayBallCollisionSound([scene currentLevel]+1);
 	PlayBallCollisionSound([scene currentLevel]+2);
+	
+	cpShape *a, *b; 
+	cpArbiterGetShapes(arb, &a, &b);
+	
+	BouncingBall *aball = a->data, *bball = b->data;
+	[aball hilight];
+	[bball hilight];
 }
 
 #pragma mark -
@@ -181,6 +212,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	newMana = kStartingMana;
 	oldMana = 0;
 	
+	flawless = YES;
 	timeRemaining = kStartingTime;
 	gameOver = NO;
 	currShapeIndex = 0;
@@ -215,7 +247,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	// SCORE
 	CCLabelTTF *scoreL = [CCLabelTTF labelWithString: @"SCORE" dimensions:CGSizeMake(140,40) alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: kHUDFontSize];
 	scoreL.color = ccc3(0,0,0);
-	scoreL.position =  ccp(133, 300);
+	scoreL.position =  ccp(145, 302);
 	[self addChild: scoreL z: 1001];
 	
 	[self updateScore];
@@ -541,7 +573,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 			
 			CCLabelTTF *enjoy = [CCLabelTTF labelWithString: @"ENJOY PIZARRO!"
 												   fontName:  kTutorialFont
-												   fontSize: kWelcomeToPizarroFontSize];
+												   fontSize: kEnjoyPizarroFontSize];
 			
 			enjoy.position = kGameBoxCenterPoint;
 			enjoy.color = kBlackColor;
@@ -593,13 +625,14 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 
 -(void)updateLevel
 {
-//	[self removeChild: levelLabel cleanup: YES];
-//	
-//	NSString *levelStr = [NSString stringWithFormat: @"%d", level];
-//	levelLabel = [CCLabelTTF labelWithString: levelStr fontName: kHUDFont fontSize: kHUDFontSize];
-//	levelLabel.color = ccc3(255,255,255);
-//	levelLabel.position =  ccp(14 , 304 );
-//	[self addChild: levelLabel z: 1001];
+	[self removeChild: levelLabel cleanup: YES];
+	
+	NSString *levelStr = [NSString stringWithFormat: @"%d", level];
+	levelLabel = [CCLabelTTF labelWithString: levelStr fontName: kHUDFont fontSize: kLevelLabelFontSize];
+	levelLabel.color = kBlackColor;
+	levelLabel.position =  ccp(472,8);
+	//levelLabel.rotation = -45.0f;
+	[self addChild: levelLabel z: 1001];
 }
 
 -(void)updateScore
@@ -609,7 +642,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	NSString *scoreStr = [NSString stringWithFormat: @"%d", score];
 	scoreLabel = [CCLabelTTF labelWithString: scoreStr dimensions:CGSizeMake(160,40) alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: kHUDFontSize];
 	scoreLabel.color = kBlackColor;
-	scoreLabel.position =  ccp(188 + scoreLabel.contentSize.width/2, 300 );
+	scoreLabel.position =  ccp(200 + scoreLabel.contentSize.width/2, 302 );
 	[self addChild: scoreLabel z: 1001];
 }
 
@@ -629,7 +662,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	else
 		timeLabel.color = ccc3(180,0,0); // red
 	
-	timeLabel.position =  ccp(417, 300);
+	timeLabel.position =  ccp(417, 301);
 	[self addChild: timeLabel z: 1001];
 	
 	if (timeRemaining <= kTimeLow && SOUND_ENABLED)
@@ -766,19 +799,23 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		// OK, he's out of time or mana, but if he's currently covering enough area,
 		// then we let it slide
 		
-		BOOL addedShape = NO;
+		int addedShapes = 0;
 		for (Shape *shape in shapes)
 		{
 			if (shape.expanding && !shape.destroyed)
 			{
 				[self endExpansionOfShape: shape];
-				addedShape = YES;
+				addedShapes++;
 			}
 		}
 		
-		if (!addedShape)
+		if (!addedShapes)
 			[self gameOver];
-		
+		else if (addedShapes >= 4)
+		{
+			[ScoreManager reportAchievement: kGameCenterTouchmasterAchievement];
+		}
+
 		return;
 	}
 	
@@ -863,16 +900,23 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 -(void)percentageBlast: (NSUInteger)s atPoint: (CGPoint)p
 {
 	NSString *scoreStr = [NSString stringWithFormat: @"%d%%", s];
-	CCLabelTTF *scoreBlast = [CCLabelTTF labelWithString: scoreStr fontName: kPercentageBlastFont fontSize: kPercentageBlastFontSize];
+	
+//	CCLabelAtlas *scoreBlast = [CCLabelAtlas labelWithString: scoreStr 
+//												  charMapFile:@"percentblast_spriteatlas.png" itemWidth:85 itemHeight:100 startCharMap:'0'];
+
+	CCLabelBMFont *scoreBlast = [CCLabelBMFont labelWithString: scoreStr fntFile: @"font.fnt"];
+	
+//	CCLabelTTF *scoreBlast = [CCLabelTTF labelWithString: scoreStr fontName: kPercentageBlastFont fontSize: kPercentageBlastFontSize];
 	scoreBlast.position = p;
-	scoreBlast.scale = 0.4;
+	scoreBlast.scale = 0.2 * CC_CONTENT_SCALE_FACTOR();
 	scoreBlast.opacity = 255.0;
-	scoreBlast.color = kWhiteColor;
+//	scoreBlast.spacing = -70;
+//	scoreBlast.color = kWhiteColor;
 	[self addChild: scoreBlast z: 1000];
 	
 	[scoreBlast runAction: [CCSequence actions: 
 							
-							[CCScaleTo actionWithDuration: 0.4 scale: 1.0],
+							[CCScaleTo actionWithDuration: 0.4 scale: 0.5 * CC_CONTENT_SCALE_FACTOR()],
 							[CCCallFunc actionWithTarget: scoreBlast selector: @selector(dispose)], 
 							nil]];
 	
@@ -1026,7 +1070,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		
 		
 //		CCLOG(@"Score filledSq: %d + shapesize: %f, level: %d", filledSq, (float)shape.fullSize/100, level);
-		CCLOG(@"Value: %d", value);
+		CCLOG(@"Value: %f", value);
 		score += value;
 		
 		[bgRenderTexture drawShape: shape];
@@ -1100,7 +1144,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 }
 
 #pragma mark -
-#pragma mark Level transitions
+#pragma mark Level transitions / Game state changes
 
 -(void)startGame
 {
@@ -1165,6 +1209,37 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 {
 	inTransition = YES;
 	
+	// CHECK FOR ACHIEVEMENTS
+	
+	if (flawless)
+	{
+		switch ([shapes count])
+		{
+			case 1:
+			{
+				CCLOG(@"Finished w. one shape");
+				//[ScoreManager reportAchievement: kGameCenterLevelInOneAchievement];
+			}
+			break;
+				
+			case 2:
+			{
+				CCLOG(@"Finished w. two shapes");
+				//[ScoreManager reportAchievement: kGameCenterLevelInTwoAchievement];
+			}
+			break;
+				
+			case 3:
+			{
+				CCLOG(@"Finished w. three shapes");
+				//[ScoreManager reportAchievement: kGameCenterLevelInThreeAchievement];
+			}
+			break;
+		}
+	}
+	
+	
+	
 	[self removeAllShapes];
 		
 	// Clear surface
@@ -1172,8 +1247,57 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[surface clear]; 
 	
 	level += 1;
+	
+	// Check for level achievements
+	switch (level)
+	{
+		case 5:
+		{
+			CCLOG(@"Got to level 5");
+			//[ScoreManager reportAchievement: kGameCenterLevel5Achievement];
+		}
+		break;
+			
+		case 10:
+		{
+			CCLOG(@"Got to level 10");
+			//[ScoreManager reportAchievement: kGameCenterLevel10Achievement];
+		}
+		break;
+			
+		case 15:
+		{
+			CCLOG(@"Got to level 15");
+			//[ScoreManager reportAchievement: kGameCenterLevel15Achievement];
+		}
+		break;
+			
+		case 20:
+		{
+			CCLOG(@"Got to level 20");
+			//[ScoreManager reportAchievement: kGameCenterLevel20Achievement];
+		}
+		break;
+			
+		case 25:
+		{
+			CCLOG(@"Got to level 25");
+			//[ScoreManager reportAchievement: kGameCenterLevel25Achievement];
+		}
+		break;
+	}
+	
+	if (percentageFilled >= 95.0f)
+	{
+		CCLOG(@"Got to level 25");
+		//[ScoreManager reportAchievement: kGameCenterOverkillAchievement];
+	}
+
 	percentageFilled = 0.0f;
 	
+	if (flawless)
+		[ScoreManager reportAchievement: kGameCenterFlawlessAchievement];
+		
 	// Add to time
 	timeRemaining += kTimePerLevel;
 	[self updateTimer];
@@ -1228,11 +1352,14 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[self runAction: [CCSequence actions:
 					  
 					  [CCDelayTime actionWithDuration: 2.0],
-					  [CCCallFunc actionWithTarget: self
-										   selector: @selector(endTransition)],
+					  [CCCallFunc actionWithTarget: self selector: @selector(endTransition)],
+					  
 					  nil]];
-	 
-	
+}
+
+-(void)collision
+{
+	flawless = NO;
 }
 
 -(void)endTransition

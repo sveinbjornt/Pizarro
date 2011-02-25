@@ -29,6 +29,19 @@
 
 // achievements
 #define kGameCenterLevelInOneAchievement	@"Pizarro_Achievement_LevelInOne"
+#define kGameCenterLevelInTwoAchievement	@"Pizarro_Achievement_LevelInTwo"
+#define kGameCenterLevelInThreeAchievement	@"Pizarro_Achievement_LevelInThree"
+
+#define kGameCenterLevel5Achievement	@"Pizarro_Achievement_Level5"
+#define kGameCenterLevel10Achievement	@"Pizarro_Achievement_Level10"
+#define kGameCenterLevel15Achievement	@"Pizarro_Achievement_Level15"
+#define kGameCenterLevel20Achievement	@"Pizarro_Achievement_Level20"
+#define kGameCenterLevel25Achievement	@"Pizarro_Achievement_Level25"
+
+#define kGameCenterMinorPentatonicAchievement	@"Pizarro_Achievement_MinorPentatonic"
+#define kGameCenterOverkillAchievement			@"Pizarro_Achievement_Overkill"
+#define kGameCenterTouchmasterAchievement		@"Pizarro_Achievement_Touchmaster"
+#define kGameCenterFlawlessAchievement			@"Pizarro_Achievement_Flawless"
 
 
 ///// GAMEPLAY ///////
@@ -40,7 +53,7 @@
 #define kManaPerLevel			(kFullMana/3) + (level * (kFullMana/45))
 
 // Time
-#define kStartingTime			50.0f
+#define kStartingTime			60.0f
 #define kTimePerLevel			15.0f
 #define kTimeLow				15.0f
 
@@ -105,6 +118,7 @@
 
 #define kHUDFontSize				42
 #define kLevelBlastFontSize			78
+#define kLevelLabelFontSize			18
 #define kPercentageBlastFontSize	64
 #define kGameOverBlastFontSize		84
 #define kMainMenuTitleFontSize		84
@@ -115,6 +129,7 @@
 
 #define kWelcomeToPizarroFontSize	45
 #define kTutorialFontSize			28
+#define kEnjoyPizarroFontSize		52
 
 // Menu settings
 
@@ -149,6 +164,13 @@
 
 #define kInGameMenuButtonOffSprite	@"menu_button_black.png"
 #define kInGameMenuButtonOnSprite	@"menu_button_white.png"
+
+#define kTutorialButtonOffSprite @"tutorial_button_white.png"
+#define kTutorialButtonOnSprite @"tutorial_button_black.png"
+
+#define kScoresButtonOffSprite @"scores_button_off.png"
+#define kScoresButtonOnSprite @"scores_button_on.png"
+
 
 #define kCompanyLogoSprite	@"corrino_logo.png"
 

@@ -24,6 +24,7 @@
 @property (readwrite, assign) cpShape *cpShape;
 @property (readwrite, assign) cpBody *cpBody;
 
+-(void)hilight;
 -(void)pushWithVector: (cpVect)v;
 -(void)addToSpace:(cpSpace *)space;
 

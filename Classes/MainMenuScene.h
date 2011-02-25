@@ -34,7 +34,7 @@
 	
 	// Settings
 	CCLabelTTF		*musicLabel, *soundLabel, *gameCenterLabel;
-	
+	CCMenu			*tutorialMenu;
 	
 	// Credits
 	CCLabelTTF		*creditsLabel, *createdByLabel;
