@@ -12,6 +12,7 @@
 #import "Common.c"
 #import "SimpleAudioEngine.h"
 #import "Instrument.h"
+#import "GParams.h"
 
 #define kAnimationInterval					1.0f / 2.0f
 #define kBackgroundMovementInterval			1.0f / 20.0f
@@ -137,14 +138,14 @@
 -(void)createBackground
 {
 	// Moving background
-	bg1 = [CCSprite spriteWithFile: kMainMenuBackgroundSprite];
+	bg1 = [CCSprite spriteWithFile: [GParams spriteFileName: kMainMenuBackgroundSprite]];
 //	if (paused)
 //		bg1.position = kMainMenuBackgroundPoint;
 //	else
 		bg1.position = ccpAdd(kMainMenuBackgroundPoint, ccp(0,-130));
 	[self addChild: bg1];
 
-	bg2 = [CCSprite spriteWithFile: kMainMenuBackgroundSprite];
+	bg2 = [CCSprite spriteWithFile: [GParams spriteFileName: kMainMenuBackgroundSprite]];
 	CGPoint p = kMainMenuBackgroundPoint;
 	p.x += kGameScreenWidth;
 //	if (paused)
@@ -163,10 +164,6 @@
 		NSString *letter = [NSString stringWithFormat: @"%c", [kGameName characterAtIndex: i]];
 		MMLetterLabel *n = [MMLetterLabel labelWithString: letter fontName: kMainMenuFont fontSize: kMainMenuTitleFontSize];
 		
-		
-		
-		
-//		MMLetterSprite *n = [MMLetterSprite spriteWithFile: [NSString stringWithFormat: @"n%d.png", i+1]];
 		CGPoint pos = kMainMenuFirstLetterPoint;
 		pos.x += kMainMenuLetterSpacing * i;
 		
@@ -181,7 +178,7 @@
 		[self addChild: n];
 	}
 	
-	icon = [MMLetterSprite spriteWithFile: kGameIconSprite];
+	icon = [MMLetterSprite spriteWithFile: [GParams spriteFileName: kGameIconSprite]];
 	icon.position = kMainMenuIconPoint;
 	icon.originalPosition = kMainMenuIconPoint;
 	[self addChild: icon];
@@ -469,33 +466,33 @@
 	[self addChild: gameCenterLabel z: 1001];
 	[gameCenterLabel runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(125, 100)]];
 	
-	CCMenuItem *musicOnItem = [CCMenuItemImage itemFromNormalImage: kCheckBoxOnSprite
-													 selectedImage: kCheckBoxOnSprite
+	CCMenuItem *musicOnItem = [CCMenuItemImage itemFromNormalImage: [GParams spriteFileName: kCheckBoxOnSprite]
+													 selectedImage: [GParams spriteFileName: kCheckBoxOnSprite]
 															target:nil
 														  selector:nil];
 	
-	CCMenuItem *musicOffItem = [CCMenuItemImage itemFromNormalImage: kCheckBoxOffSprite
-													  selectedImage: kCheckBoxOffSprite
+	CCMenuItem *musicOffItem = [CCMenuItemImage itemFromNormalImage: [GParams spriteFileName: kCheckBoxOffSprite]
+													  selectedImage: [GParams spriteFileName: kCheckBoxOffSprite]
 															 target:nil
 														   selector:nil];
 	
-	CCMenuItem *soundOnItem = [CCMenuItemImage itemFromNormalImage:kCheckBoxOnSprite
-													 selectedImage:kCheckBoxOnSprite
+	CCMenuItem *soundOnItem = [CCMenuItemImage itemFromNormalImage: [GParams spriteFileName: kCheckBoxOnSprite]
+													 selectedImage: [GParams spriteFileName: kCheckBoxOnSprite]
 															target:nil
 														  selector:nil];
 	
-	CCMenuItem *soundOffItem = [CCMenuItemImage itemFromNormalImage:kCheckBoxOffSprite
-													  selectedImage:kCheckBoxOffSprite
+	CCMenuItem *soundOffItem = [CCMenuItemImage itemFromNormalImage: [GParams spriteFileName: kCheckBoxOffSprite]
+													  selectedImage: [GParams spriteFileName: kCheckBoxOffSprite]
 															 target:nil
 														   selector:nil];
 	
-	CCMenuItem *gameCenterOnItem = [CCMenuItemImage itemFromNormalImage:kCheckBoxOnSprite
-														  selectedImage:kCheckBoxOnSprite
+	CCMenuItem *gameCenterOnItem = [CCMenuItemImage itemFromNormalImage: [GParams spriteFileName: kCheckBoxOnSprite]
+														  selectedImage: [GParams spriteFileName: kCheckBoxOnSprite]
 																 target:nil
 															   selector:nil];
 	
-	CCMenuItem *gameCenterOffItem = [CCMenuItemImage itemFromNormalImage:kCheckBoxOffSprite
-														   selectedImage:kCheckBoxOffSprite
+	CCMenuItem *gameCenterOffItem = [CCMenuItemImage itemFromNormalImage: [GParams spriteFileName: kCheckBoxOffSprite]
+														   selectedImage: [GParams spriteFileName: kCheckBoxOffSprite]
 																  target:nil
 																selector:nil];
 	
@@ -523,8 +520,8 @@
 	[self addChild: settingsMenu];
 	[settingsMenu runAction: [CCMoveTo actionWithDuration: 0.3 position: ccp(250,150)]];
 
-	CCMenuItemSprite *tutorialMenuItem = [CCMenuItemSprite itemFromNormalSprite: [CCSprite spriteWithFile: kTutorialButtonOffSprite]
-																 selectedSprite: [CCSprite spriteWithFile: kTutorialButtonOnSprite]
+	CCMenuItemSprite *tutorialMenuItem = [CCMenuItemSprite itemFromNormalSprite: [CCSprite spriteWithFile: [GParams spriteFileName: kTutorialButtonOffSprite]]
+																 selectedSprite: [CCSprite spriteWithFile: [GParams spriteFileName: kTutorialButtonOnSprite]]
 																	   target: self
 																	 selector: @selector(onTutorial:)];
 	tutorialMenu = [CCMenu menuWithItems: tutorialMenuItem, nil];
@@ -552,7 +549,7 @@
 
 -(void)showCredits
 {
-	creditsLogo = [CCSprite spriteWithFile: kCompanyLogoSprite];
+	creditsLogo = [CCSprite spriteWithFile: [GParams spriteFileName: kCompanyLogoSprite]];
 	creditsLogo.position = ccp(-278, 194);
 	[self addChild: creditsLogo];
 	[creditsLogo runAction: [CCMoveTo actionWithDuration: 0.45 position: ccp(40, 194)]];

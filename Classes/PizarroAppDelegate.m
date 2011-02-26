@@ -14,6 +14,7 @@
 #import "PizarroGameScene.h"
 #import "MainMenuScene.h"
 #import "SimpleAudioEngine.h"
+#import "GParams.h"
 
 @implementation PizarroAppDelegate
 
@@ -216,7 +217,9 @@
 	
 	NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: rsrcPath  error: NULL];
 	for (NSString *file in files)
-	{			
+	{	
+		// ADD IPAD SUPPORT HERE
+		
 		// If texture, add to texture cache
 		if (![file hasSuffix: hdSuffix] && 
 			[file hasSuffix: pngSuffix] && 
