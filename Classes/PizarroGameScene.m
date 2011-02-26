@@ -21,6 +21,7 @@
 #import "GameCenterManager.h"
 #import "ScoreManager.h"
 #import "MenuButtonSprite.h"
+#import "GParams.h"
 
 #pragma mark Chipmunk Callbacks
 
@@ -227,7 +228,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 -(void)setupHUD
 {	
 	// BACKGROUND
-	CCSprite *bg = [CCSprite spriteWithFile: kGameScreenBackgroundSprite];
+	CCSprite *bg = [CCSprite spriteWithFile: [GParams spriteFileName: kGameScreenBackgroundSprite]];
 	bg.blendFunc = (ccBlendFunc) { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
 	bg.position = kGameScreenCenterPoint;
 	[self addChild: bg z: 100];	
@@ -261,12 +262,12 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[self addChild: manaBar z: 99];
 	
 	// Pause button
-	MenuButtonSprite *pauseMenuItem = [MenuButtonSprite itemFromNormalSprite: [CCSprite spriteWithFile: kInGameMenuButtonOffSprite] 
-															  selectedSprite: [CCSprite spriteWithFile: kInGameMenuButtonOnSprite] 
+	MenuButtonSprite *pauseMenuItem = [MenuButtonSprite itemFromNormalSprite: [CCSprite spriteWithFile: [GParams spriteFileName: kInGameMenuButtonOffSprite]] 
+															  selectedSprite: [CCSprite spriteWithFile: [GParams spriteFileName: kInGameMenuButtonOnSprite]] 
 																	  target: self 
 																	selector: @selector(pauseGame)];
 	pauseMenu = [CCMenu menuWithItems: pauseMenuItem, nil];
-	pauseMenu.position = kMenuPauseButtonPoint;
+	pauseMenu.position = [GParams menuPauseButtonPoint];
 	[self addChild: pauseMenu z: 100];
 }
 
@@ -482,7 +483,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 			text.color = kBlackColor;
 			[currentTutorialNode addChild: text];
 			
-			CCSprite *tutorialCircle = [CCSprite spriteWithFile: kTutorialCircleSprite];
+			CCSprite *tutorialCircle = [CCSprite spriteWithFile: [GParams spriteFileName: kTutorialCircleSprite]];
 			tutorialCircle.position = ccp(412,200);
 			[currentTutorialNode addChild: tutorialCircle];
 			[tutorialCircle runAction: [CCRepeatForever actionWithAction: [CCSequence actions:
@@ -516,7 +517,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 			text.color = kBlackColor;
 			[currentTutorialNode addChild: text];
 			
-			CCSprite *bball = [CCSprite spriteWithFile: kBouncingBallSprite];
+			CCSprite *bball = [CCSprite spriteWithFile: [GParams spriteFileName: kBouncingBallSprite]];
 			bball.position = ccp(235,195);
 			[currentTutorialNode addChild: bball];
 			
@@ -1115,7 +1116,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 
 -(void)addBouncingBallAtPoint: (CGPoint)p withVelocity: (CGPoint)movementVector
 {
-	BouncingBall *bounceBall = [BouncingBall spriteWithFile: kBouncingBallSprite];
+	BouncingBall *bounceBall = [BouncingBall spriteWithFile: [GParams spriteFileName: kBouncingBallSprite]];
 	bounceBall.size = 20;
 	bounceBall.position = p;
 	bounceBall.opacity = 0.0f;

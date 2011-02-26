@@ -7,7 +7,7 @@
 //
 
 #import "ManaBar.h"
-
+#import "GParams.h"
 
 @implementation ManaBar
 @synthesize percentage;
@@ -18,10 +18,10 @@
 	{
 		percentage = 1.0;
 		
-		manaBarRed = [CCSprite spriteWithFile: kManaBarRedSprite];
-		manaBarRedTop = [CCSprite spriteWithFile: kManaBarRedTopSprite];
-		manaBarGreen = [CCSprite spriteWithFile: kManaBarGreenSprite];
-		manaBarGreenTop = [CCSprite spriteWithFile: kManaBarGreenTopSprite];
+		manaBarRed = [CCSprite spriteWithFile: [GParams spriteFileName: kManaBarRedSprite]];
+		manaBarRedTop = [CCSprite spriteWithFile: [GParams spriteFileName: kManaBarRedTopSprite]];
+		manaBarGreen = [CCSprite spriteWithFile: [GParams spriteFileName: kManaBarGreenSprite]];
+		manaBarGreenTop = [CCSprite spriteWithFile: [GParams spriteFileName: kManaBarGreenTopSprite]];
 		
 		manaBarRed.visible = NO;
 		manaBarRedTop.visible = NO;

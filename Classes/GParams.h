@@ -14,4 +14,15 @@
 
 }
 +(NSString *)spriteFileName: (NSString *)spriteFileName;
++(CGPoint)mainMenuPoint;
++(CGPoint)mainMenuStartingPoint;
++(CGPoint)mainMenuIconPoint;
++(CGPoint)menuPauseButtonPoint;
++(CGPoint)mainMenuFirstLetterPoint;
++(float)mainMenuLetterSpacing;
++(CGPoint)mainMenuLetterShiftVector;
++(CGPoint)mainMenuScoresButtonPoint;
++(CGPoint)resumeGameMenuPoint;
++(CGPoint)mainMenuBackgroundPoint;
++(CGPoint)mainMenuBackgroundStartPosition;
 @end

@@ -118,13 +118,10 @@
 	[menu alignItemsHorizontallyWithPadding: 35.0f];
 	[self addChild:menu z: 1000];
 	
-//	if (paused)
-//		menu.position = kMainMenuMenuPoint;
-//	else
-		menu.position = ccpAdd(kMainMenuMenuPoint, ccp(0,-130));
+	menu.position = [GParams mainMenuStartingPoint];
 	
-	CCMenuItemSprite *scoresMenuItem = [CCMenuItemSprite itemFromNormalSprite: [CCSprite spriteWithFile: kScoresButtonOffSprite] 
-															   selectedSprite: [CCSprite spriteWithFile: kScoresButtonOnSprite]
+	CCMenuItemSprite *scoresMenuItem = [CCMenuItemSprite itemFromNormalSprite: [CCSprite spriteWithFile: [GParams spriteFileName: kScoresButtonOffSprite]] 
+															   selectedSprite: [CCSprite spriteWithFile: [GParams spriteFileName: kScoresButtonOnSprite]]
 																	   target: [[UIApplication sharedApplication] delegate] 
 																	 selector: @selector(loadLeaderboard)];
 	if (!paused)
@@ -142,11 +139,11 @@
 //	if (paused)
 //		bg1.position = kMainMenuBackgroundPoint;
 //	else
-		bg1.position = ccpAdd(kMainMenuBackgroundPoint, ccp(0,-130));
+		bg1.position = [GParams mainMenuBackgroundStartPosition];
 	[self addChild: bg1];
 
 	bg2 = [CCSprite spriteWithFile: [GParams spriteFileName: kMainMenuBackgroundSprite]];
-	CGPoint p = kMainMenuBackgroundPoint;
+	CGPoint p = [GParams mainMenuBackgroundPoint];
 	p.x += kGameScreenWidth;
 //	if (paused)
 //		bg2.position = p;
@@ -164,10 +161,10 @@
 		NSString *letter = [NSString stringWithFormat: @"%c", [kGameName characterAtIndex: i]];
 		MMLetterLabel *n = [MMLetterLabel labelWithString: letter fontName: kMainMenuFont fontSize: kMainMenuTitleFontSize];
 		
-		CGPoint pos = kMainMenuFirstLetterPoint;
-		pos.x += kMainMenuLetterSpacing * i;
+		CGPoint pos = [GParams mainMenuFirstLetterPoint];
+		pos.x += [GParams mainMenuLetterSpacing] * i;
 		
-		CGPoint p = kMainMenuLetterShiftVector;
+		CGPoint p = [GParams mainMenuLetterShiftVector];
 		p.x -= i * 13;
 		CGPoint dest = ccpAdd(pos, p);
 		
@@ -179,8 +176,8 @@
 	}
 	
 	icon = [MMLetterSprite spriteWithFile: [GParams spriteFileName: kGameIconSprite]];
-	icon.position = kMainMenuIconPoint;
-	icon.originalPosition = kMainMenuIconPoint;
+	icon.position = [GParams mainMenuIconPoint];
+	icon.originalPosition = [GParams mainMenuIconPoint];
 	[self addChild: icon];
 	[letters addObject: icon];
 	
@@ -222,7 +219,7 @@
 {
 	float y = bg1.position.y;
 	
-	CGPoint bgCenterPt = kMainMenuBackgroundPoint;
+	CGPoint bgCenterPt = [GParams mainMenuBackgroundPoint];
 	if (bg1.position.x == bgCenterPt.x - kGameScreenWidth)
 	{
 		bgCenterPt.y = y;
@@ -237,7 +234,7 @@
 	}
 
 	
-	bgCenterPt = kMainMenuBackgroundPoint;
+	bgCenterPt = [GParams mainMenuBackgroundPoint];
 	if (bg2.position.x == bgCenterPt.x - kGameScreenWidth)
 	{
 		bgCenterPt.y = y;
@@ -345,7 +342,7 @@
 		{
 			MMLetterLabel *letter = [letters objectAtIndex: i];
 			
-			CGPoint p = kMainMenuLetterShiftVector;
+			CGPoint p = [GParams mainMenuLetterShiftVector];
 			p.x -= i * 13;
 			CGPoint dest = ccpAdd(letter.originalPosition, p);
 			
@@ -384,7 +381,7 @@
 		{
 			MMLetterLabel *letter = [letters objectAtIndex: i];
 			
-			CGPoint p = kMainMenuLetterShiftVector;
+			CGPoint p = [GParams mainMenuLetterShiftVector];
 			p.x = (-1) * p.x;
 			p.y = (-1) * p.y;
 			p.x += i * 13;
@@ -437,9 +434,9 @@
 	CCMenuItemFont *menuItem1 = [CCMenuItemFont itemFromString: @"RESUME GAME" target:self selector:@selector(onResume:)];
 	resumeMenu = [CCMenu menuWithItems:menuItem1, nil];
 	[self addChild: resumeMenu z: 1000];
-	resumeMenu.position = ccpAdd(kResumeGameMenuPoint, ccp(-340,0));
+	resumeMenu.position = ccpAdd([GParams resumeGameMenuPoint], ccp(-340,0));
 	
-	[resumeMenu runAction:  [CCEaseIn actionWithAction: [CCMoveTo actionWithDuration: 0.35 position: kResumeGameMenuPoint] rate: 4.0f]];
+	[resumeMenu runAction:  [CCEaseIn actionWithAction: [CCMoveTo actionWithDuration: 0.35 position: [GParams resumeGameMenuPoint]] rate: 4.0f]];
 	
 	[bg1 runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,130)]];
 	[bg2 runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,130)]];

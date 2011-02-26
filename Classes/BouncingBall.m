@@ -8,6 +8,7 @@
 
 #import "BouncingBall.h"
 #import "Constants.h"
+#import "GParams.h"
 
 @implementation BouncingBall
 @synthesize size, cpShape, cpBody;
@@ -33,7 +34,7 @@
 {
 	[self removeAllChildrenWithCleanup: YES];
 	
-	CCSprite *hilightBall = [CCSprite spriteWithFile: kBouncingBallHilightSprite];
+	CCSprite *hilightBall = [CCSprite spriteWithFile: [GParams spriteFileName: kBouncingBallHilightSprite]];
 	hilightBall.position = ccp(self.size/2, self.size/2);
 	[self addChild: hilightBall];
 	[hilightBall runAction: [CCSequence actions:

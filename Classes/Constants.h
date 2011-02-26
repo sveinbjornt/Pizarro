@@ -96,8 +96,8 @@
 #define kGameBoxXOffset				26
 #define kGameBoxYOffset				3
 
-#define kGameScreenWidth			480
-#define kGameScreenHeight			320
+#define kGameScreenWidth			[[CCDirector sharedDirector] winSize].width
+#define kGameScreenHeight			[[CCDirector sharedDirector] winSize].height
 
 #define kGameScreenCenterPoint		CGPointMake([[CCDirector sharedDirector] winSize].width/2,[[CCDirector sharedDirector] winSize].height/2)
 #define kGameBoxCenterPoint			CGPointMake(kGameBoxXOffset + (kGameBoxWidth/2), kGameBoxYOffset + (kGameBoxHeight/2)) 
@@ -131,50 +131,38 @@
 #define kTutorialFontSize			28
 #define kEnjoyPizarroFontSize		52
 
-// Menu settings
-
-#define kMainMenuBackgroundPoint	CGPointMake([[CCDirector sharedDirector] winSize].width/2, 65)
-#define kMainMenuMenuPoint			CGPointMake([[CCDirector sharedDirector] winSize].width/2, 42)
-#define kMainMenuIconPoint			CGPointMake(385, 220)
-#define kMenuPauseButtonPoint		CGPointMake(36, 290)
-#define kMainMenuFirstLetterPoint	CGPointMake(54, 190)
-#define kMainMenuLetterSpacing		50
-#define kMainMenuLetterShiftVector	CGPointMake(-20, 90)
-#define kMainMenuScoresButtonPoint	CGPointMake(45, 320-35)
-#define kResumeGameMenuPoint		CGPointMake(182, 180)
 
 // Sprite files
 
-#define kBouncingBallSprite	@"bouncingball"
-#define kBouncingBallHilightSprite @"bouncingball_hilight"
+#define kBouncingBallSprite			@"bouncingball"
+#define kBouncingBallHilightSprite	@"bouncingball_hilight"
 
 #define kGameScreenBackgroundSprite @"bg"
 
-#define kMainMenuBackgroundSprite @"mainscreen_bg"
+#define kMainMenuBackgroundSprite	@"mainscreen_bg"
 
-#define kGameIconSprite @"mainscreen_icon"
+#define kGameIconSprite				@"mainscreen_icon"
 
-#define kCheckBoxOnSprite	@"checkbox"
-#define kCheckBoxOffSprite	@"checkbox-nocheck"
+#define kCheckBoxOnSprite			@"checkbox"
+#define kCheckBoxOffSprite			@"checkbox-nocheck"
 
-#define kManaBarRedSprite		@"manabar_red"
-#define kManaBarRedTopSprite	@"manabar_red_top"
-#define kManaBarGreenSprite		@"manabar_green"
-#define kManaBarGreenTopSprite	@"manabar_green_top"
+#define kManaBarRedSprite			@"manabar_red"
+#define kManaBarRedTopSprite		@"manabar_red_top"
+#define kManaBarGreenSprite			@"manabar_green"
+#define kManaBarGreenTopSprite		@"manabar_green_top"
 
 #define kInGameMenuButtonOffSprite	@"menu_button_black"
 #define kInGameMenuButtonOnSprite	@"menu_button_white"
 
-#define kTutorialButtonOffSprite @"tutorial_button_white"
-#define kTutorialButtonOnSprite @"tutorial_button_black"
+#define kTutorialButtonOffSprite	@"tutorial_button_white"
+#define kTutorialButtonOnSprite		@"tutorial_button_black"
 
-#define kScoresButtonOffSprite @"scores_button_off"
-#define kScoresButtonOnSprite @"scores_button_on"
+#define kScoresButtonOffSprite		@"scores_button_off"
+#define kScoresButtonOnSprite		@"scores_button_on"
 
+#define kCompanyLogoSprite			@"corrino_logo"
 
-#define kCompanyLogoSprite	@"corrino_logo"
-
-#define kTutorialCircleSprite @"tutorial_circle"
+#define kTutorialCircleSprite		@"tutorial_circle"
 
 // Audio files
 
