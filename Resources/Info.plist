@@ -10,20 +10,8 @@
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
-	<key>Icon files</key>
-	<array>
-		<string>Icon.png</string>
-		<string>Icon@2x.png</string>
-		<string>Icon-72.png</string>
-		<string>Icon-Small.png</string>
-		<string>Icon-48px.png</string>
-	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>RedStateBlueStateBB.ttf</string>
-	</array>
 	<key>CFBundleIdentifier</key>
-	<string>com.corrinosoftware.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>com.corrinosoftware.Pizarro</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -34,19 +22,24 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+	<key>Icon files</key>
+	<array>
+		<string>Icon.png</string>
+		<string>Icon@2x.png</string>
+		<string>Icon-72.png</string>
+		<string>Icon-Small.png</string>
+		<string>Icon-48px.png</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>UIPrerenderedIcon</key>
-	<true/>
-	<key>UIStatusBarHidden</key>
-	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>RedStateBlueStateBB.ttf</string>
+	</array>
 	<key>UIInterfaceOrientation</key>
 	<string>UIInterfaceOrientationLandscapeRight</string>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-	</array>
+	<key>UIPrerenderedIcon</key>
+	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<dict>
 		<key>accelerometer</key>
@@ -54,5 +47,12 @@
 		<key>opengles-1</key>
 		<true/>
 	</dict>
+	<key>UIStatusBarHidden</key>
+	<true/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+	</array>
 </dict>
 </plist>

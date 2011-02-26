@@ -129,7 +129,7 @@
 	if (!paused)
 	{
 		scoresMenu = [CCMenu menuWithItems: scoresMenuItem, nil];
-		scoresMenu.position = ccp(-45,320+35);
+		scoresMenu.position = ccp(-77,320+60);
 		[self addChild: scoresMenu];
 	}
 }
@@ -401,7 +401,7 @@
 			
 			
 		}
-		[scoresMenu runAction: [CCMoveTo actionWithDuration: duration position: ccp(45,320-35)]];
+		[scoresMenu runAction: [CCMoveTo actionWithDuration: duration position: ccp(37,320-30)]];
 	}
 	else
 	{

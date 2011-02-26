@@ -2050,7 +2050,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sveinbjorn Thordarson (Z648TA835W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sveinbjorn Thordarson";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = NO;
 				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
@@ -2060,7 +2060,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "087E7930-C3B9-4F7F-95F9-D11260724FED";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "80A5B6EA-FB34-4743-A875-1BFF96E1CF5E";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
