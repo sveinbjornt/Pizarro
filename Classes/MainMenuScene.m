@@ -103,7 +103,7 @@
 {
 	// Menu at bottom
 	[CCMenuItemFont setFontName: kMainMenuFont];
-	[CCMenuItemFont setFontSize: kMainMenuMenuFontSize];
+	[CCMenuItemFont setFontSize: [GParams mainMenuFontSize]];
 	
 	NSString *playStr = paused ? @"New" : @"Play";
 	
@@ -115,7 +115,7 @@
 	menuItem3.color = ccc3(0,0,0);
 	
 	menu = [CCMenu menuWithItems:menuItem1, menuItem2, menuItem3, nil];
-	[menu alignItemsHorizontallyWithPadding: 35.0f];
+	[menu alignItemsHorizontallyWithPadding: [GParams mainMenuPadding]];
 	[self addChild:menu z: 1000];
 	
 	menu.position = [GParams mainMenuStartingPoint];
@@ -127,7 +127,7 @@
 	if (!paused)
 	{
 		scoresMenu = [CCMenu menuWithItems: scoresMenuItem, nil];
-		scoresMenu.position = ccp(-77,320+60);
+		scoresMenu.position = [GParams scoresMenuStartPosition];
 		[self addChild: scoresMenu];
 	}
 }
@@ -136,19 +136,13 @@
 {
 	// Moving background
 	bg1 = [CCSprite spriteWithFile: [GParams spriteFileName: kMainMenuBackgroundSprite]];
-//	if (paused)
-//		bg1.position = kMainMenuBackgroundPoint;
-//	else
-		bg1.position = [GParams mainMenuBackgroundStartPosition];
+	bg1.position = [GParams mainMenuBackgroundStartPosition];
 	[self addChild: bg1];
 
 	bg2 = [CCSprite spriteWithFile: [GParams spriteFileName: kMainMenuBackgroundSprite]];
-	CGPoint p = [GParams mainMenuBackgroundPoint];
+	CGPoint p = [GParams mainMenuBackgroundStartPosition];
 	p.x += kGameScreenWidth;
-//	if (paused)
-//		bg2.position = p;
-//	else
-		bg2.position = ccpAdd(p, ccp(0,-130));
+	bg2.position = p;
 	[self addChild: bg2];
 }
 
@@ -159,7 +153,7 @@
 	for (int i = 0; i < [kGameName length]; i++)
 	{
 		NSString *letter = [NSString stringWithFormat: @"%c", [kGameName characterAtIndex: i]];
-		MMLetterLabel *n = [MMLetterLabel labelWithString: letter fontName: kMainMenuFont fontSize: kMainMenuTitleFontSize];
+		MMLetterLabel *n = [MMLetterLabel labelWithString: letter fontName: kMainMenuFont fontSize: [GParams mainMenuTitleFontSize]];
 		
 		CGPoint pos = [GParams mainMenuFirstLetterPoint];
 		pos.x += [GParams mainMenuLetterSpacing] * i;
@@ -352,7 +346,7 @@
 			letter.originalPosition = dest;
 			//[letter runAction: [CCRepeatForever actionWithAction: [CCDelayTime actionWithDuration: 1.0]]];
 		}
-		[scoresMenu runAction: [CCMoveTo actionWithDuration: duration position: ccp(-45,480+35)]];
+		[scoresMenu runAction: [CCMoveTo actionWithDuration: duration position: [GParams scoresMenuShiftOutPosition]]];
 	}
 	else
 	{
@@ -360,9 +354,9 @@
 	}
 
 	
-	[bg1 runAction: [CCMoveBy actionWithDuration: duration position: ccp(0,-130)]];
-	[bg2 runAction: [CCMoveBy actionWithDuration: duration position: ccp(0,-130)]];
-	[menu runAction: [CCMoveBy actionWithDuration: duration position: ccp(0,-130)]];
+	[bg1 runAction: [CCMoveBy actionWithDuration: duration position: [GParams mainMenuShiftOutVector]]];
+	[bg2 runAction: [CCMoveBy actionWithDuration: duration position: [GParams mainMenuShiftOutVector]]];
+	[menu runAction: [CCMoveBy actionWithDuration: duration position: [GParams mainMenuShiftOutVector]]];
 	[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(endTransition)] withDelay: duration + 0.2]];
 }
 
@@ -393,18 +387,16 @@
 			letter.originalPosition = dest;
 			//[letter runAction: [CCRepeatForever actionWithAction: [CCDelayTime actionWithDuration: 1.0]]];
 			
-			
 		}
-		[scoresMenu runAction: [CCMoveTo actionWithDuration: duration position: ccp(37,320-30)]];
+		[scoresMenu runAction: [CCMoveTo actionWithDuration: duration position: [GParams scoresMenuPosition]]];
 	}
 	else
 	{
 		[resumeMenu runAction: [CCFadeIn actionWithDuration: 0.25]];
 	}
-	[bg1 runAction: [CCMoveBy actionWithDuration: duration position: ccp(0,130)]];
-	[bg2 runAction: [CCMoveBy actionWithDuration: duration position: ccp(0,130)]];
-	[menu runAction: [CCMoveBy actionWithDuration: duration position: ccp(0,130)]];
-	
+	[bg1 runAction: [CCMoveBy actionWithDuration: duration position: [GParams mainMenuShiftInVector]]];
+	[bg2 runAction: [CCMoveBy actionWithDuration: duration position: [GParams mainMenuShiftInVector]]];
+	[menu runAction: [CCMoveBy actionWithDuration: duration position: [GParams mainMenuShiftInVector]]];
 	
 	piano.tempo = 0.07;
 	[piano playSequence: @"7,6,5,4,3,2,1"];
@@ -438,9 +430,9 @@
 	
 	[resumeMenu runAction:  [CCEaseIn actionWithAction: [CCMoveTo actionWithDuration: 0.35 position: [GParams resumeGameMenuPoint]] rate: 4.0f]];
 	
-	[bg1 runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,130)]];
-	[bg2 runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,130)]];
-	[menu runAction: [CCMoveBy actionWithDuration: 0.3 position: ccp(0,130)]];
+	[bg1 runAction: [CCMoveBy actionWithDuration: 0.3 position: [GParams mainMenuShiftInVector]]];
+	[bg2 runAction: [CCMoveBy actionWithDuration: 0.3 position: [GParams mainMenuShiftInVector]]];
+	[menu runAction: [CCMoveBy actionWithDuration: 0.3 position: [GParams mainMenuShiftInVector]]];
 }
 
 #pragma mark -

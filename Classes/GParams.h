@@ -14,8 +14,19 @@
 
 }
 +(NSString *)spriteFileName: (NSString *)spriteFileName;
+
++(float)mainMenuFontSize;
 +(CGPoint)mainMenuPoint;
 +(CGPoint)mainMenuStartingPoint;
++(float)mainMenuPadding;
+
++(float)mainMenuTitleFontSize;
+
++(CGPoint)scoresMenuStartPosition;
++(CGPoint)scoresMenuPosition;
++(CGPoint)scoresMenuShiftOutPosition;
+
+
 +(CGPoint)mainMenuIconPoint;
 +(CGPoint)menuPauseButtonPoint;
 +(CGPoint)mainMenuFirstLetterPoint;
@@ -25,4 +36,6 @@
 +(CGPoint)resumeGameMenuPoint;
 +(CGPoint)mainMenuBackgroundPoint;
 +(CGPoint)mainMenuBackgroundStartPosition;
++(CGPoint)mainMenuShiftOutVector;
++(CGPoint)mainMenuShiftInVector;
 @end
