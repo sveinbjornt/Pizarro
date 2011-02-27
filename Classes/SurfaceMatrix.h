@@ -17,10 +17,12 @@
 @interface SurfaceMatrix : NSObject 
 {
 	int totalFilled;
-	int matrix[kMatrixWidth][kMatrixHeight];
+	int height, width;
+	int matrix[100][100];
 }
 @property (readonly,assign) int totalFilled;
 
+-(id)initWithWidth: (int)w height: (int)h;
 -(void)clear;
 -(int)numPoints;
 -(float)percentageFilled;

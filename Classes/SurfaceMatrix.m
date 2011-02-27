@@ -13,10 +13,12 @@
 @implementation SurfaceMatrix
 @synthesize totalFilled;
 
--(id)init
+-(id)initWithWidth: (int)w height: (int)h 
 {
 	if ((self = [super init]))
 	{
+		width = w;
+		height = h;
 		[self clear];
 	}
 	return self;
@@ -25,12 +27,12 @@
 -(void)clear
 {
 	totalFilled = 0;
-	memset(matrix, kNotCoveredPoint, sizeof(matrix[0][0]) * kMatrixWidth * kMatrixHeight);
+	memset(matrix, kNotCoveredPoint, sizeof(matrix[0][0]) * 100 * 100);
 }
 
 -(int)numPoints
 {
-	return kMatrixWidth * kMatrixHeight;
+	return height * width;
 }
 
 -(float)percentageFilled
@@ -47,9 +49,9 @@
 	// we iterate through the matrix, find if any non-covered point
 	// is within the surface area of the shape.  If so, we mark it
 	// as covered
-	for (int x = 0; x < kMatrixWidth; x++)
+	for (int x = 0; x < width; x++)
 	{
-		for (int y = 0; y < kMatrixHeight; y++)
+		for (int y = 0; y < height; y++)
 		{
 			if (matrix[x][y] == kCoveredPoint)
 			{
@@ -82,8 +84,8 @@
 {
 	return [NSString stringWithFormat: @"%@\nSurfaceMatrix (%d x %d) - Filled: %f%% (%d / %d)",
 			[super description],
-			kMatrixWidth,
-			kMatrixHeight,
+			width,
+			height,
 			[self percentageFilled],
 			totalFilled,
 			[self numPoints]];

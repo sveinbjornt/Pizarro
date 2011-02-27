@@ -82,9 +82,6 @@
 
 
 // Surface matrix
-
-#define kMatrixWidth				45
-#define kMatrixHeight				28
 #define kMatrixUnitSize				10
 
 

@@ -92,9 +92,17 @@
 +(CGPoint)scoreLabelPoint
 {
 	if (IPAD)
-		return ccp(400, 725);
+		return ccp(410, 725);
 	
 	return ccp(200, 302);
+}
+
++(CGPoint)scoreLPoint
+{
+	if (IPAD)
+		return ccp(280, 725);
+	
+	return ccp(155, 302);
 }
 
 +(CGPoint)timeLabelPoint
@@ -111,6 +119,38 @@
 		return CGSizeMake(220,80);
 	
 	return CGSizeMake(110,40);
+}
+
++(CGPoint)levelLabelPoint
+{
+	if (IPAD)
+		return ccp(1006,14);
+	
+	return ccp(472,8);
+}
+
++(float)levelLabelFontSize
+{
+	if (IPAD)
+		return kLevelLabelFontSize * 2;
+	
+	return kLevelLabelFontSize;
+}
+
++(float)gameOverFontSize
+{
+	if (IPAD)
+		return kGameOverBlastFontSize * 2;
+
+	return kGameOverBlastFontSize;
+}
+
++(float)levelBlastFontSize
+{
+	if (IPAD)
+		return kLevelBlastFontSize * 2;
+	
+	return kLevelBlastFontSize;
 }
 
 #pragma mark -
@@ -192,7 +232,7 @@
 +(CGPoint)menuPauseButtonPoint
 {
 	if (IPAD)
-		CGPointMake(172, 718);
+		return CGPointMake(72, 708);
 	
 	return CGPointMake(36, 290);
 }

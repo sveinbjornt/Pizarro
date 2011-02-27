@@ -35,7 +35,7 @@
 	[self removeAllChildrenWithCleanup: YES];
 	
 	CCSprite *hilightBall = [CCSprite spriteWithFile: [GParams spriteFileName: kBouncingBallHilightSprite]];
-	hilightBall.position = ccp(self.size/2, self.size/2);
+	hilightBall.position = ccp(self.contentSize.width/2, self.contentSize.height/2);
 	[self addChild: hilightBall];
 	[hilightBall runAction: [CCSequence actions:
 							 [CCFadeOut actionWithDuration: 0.33],

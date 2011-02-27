@@ -103,8 +103,8 @@
 -(void)draw
 {	
 	// First draw white over everything
-	float w = IPAD ? 40 : 19;
-	float h = IPAD ? 640 : 270;
+	float w = IPAD ? 44 : 19;
+	float h = IPAD ? 655 : 270;
 	
 	CGPoint whiteVertices[4] = 
 		{

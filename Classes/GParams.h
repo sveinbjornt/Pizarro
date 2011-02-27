@@ -29,11 +29,13 @@
 +(float)HUDFontSize;
 +(CGSize)scoreLabelSize;
 +(CGPoint)scoreLabelPoint;
++(CGPoint)scoreLPoint;
 +(CGPoint)timeLabelPoint;
 +(CGSize)timeLabelSize;
-+(float)manaBarHeight;
-
-
++(CGPoint)levelLabelPoint;
++(float)levelLabelFontSize;
++(float)gameOverFontSize;
++(float)levelBlastFontSize;
 
 
 

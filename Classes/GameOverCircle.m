@@ -7,7 +7,7 @@
 //
 
 #import "GameOverCircle.h"
-
+#import "GParams.h"
 
 @implementation GameOverCircle
 
@@ -21,7 +21,10 @@
 		expanding = NO;
 		destroyed = NO;
 		animationDuration = 0.4f;
-		fullSize = 800;
+		if (IPAD)
+			fullSize = 1600;
+		else
+			fullSize = 800;
 	}
 	return self;
 }

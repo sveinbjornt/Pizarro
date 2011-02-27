@@ -248,9 +248,9 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[self updateLevel];
 	
 	// SCORE
-	CCLabelTTF *scoreL = [CCLabelTTF labelWithString: @"SCORE" dimensions: [GParams scoreLabelSize] alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: [GParams HUDFontSize]];
+	CCLabelTTF *scoreL = [CCLabelTTF labelWithString: @"SCORE" dimensions: [GParams timeLabelSize] alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: [GParams HUDFontSize]];
 	scoreL.color = ccc3(0,0,0);
-	scoreL.position =  [GParams scoreLabelPoint];
+	scoreL.position = [GParams scoreLPoint];
 	[self addChild: scoreL z: 1001];
 	[self updateScore];
 	
@@ -273,7 +273,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 -(void)setupGame
 {
 	//surface matrix
-	surface = [[SurfaceMatrix alloc] init];
+	int h = IPAD ? 66 : 28;
+	int w = IPAD ? 95 : 45;
+
+	surface = [[SurfaceMatrix alloc] initWithWidth: w height: h];
 	
 	// Array of objects
 	shapes = [[NSMutableArray alloc] initWithCapacity: kMaxShapes];
@@ -630,9 +633,9 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[self removeChild: levelLabel cleanup: YES];
 	
 	NSString *levelStr = [NSString stringWithFormat: @"%d", level];
-	levelLabel = [CCLabelTTF labelWithString: levelStr fontName: kHUDFont fontSize: kLevelLabelFontSize];
+	levelLabel = [CCLabelTTF labelWithString: levelStr fontName: kHUDFont fontSize: [GParams levelLabelFontSize]];
 	levelLabel.color = kBlackColor;
-	levelLabel.position =  ccp(472,8);
+	levelLabel.position =  [GParams levelLabelPoint];
 	//levelLabel.rotation = -45.0f;
 	[self addChild: levelLabel z: 1001];
 }
@@ -642,7 +645,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[self removeChild: scoreLabel cleanup: YES];
 	
 	NSString *scoreStr = [NSString stringWithFormat: @"%d", score];
-	scoreLabel = [CCLabelTTF labelWithString: scoreStr dimensions: [GParams scoreLabelSize] alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: [GParams HUDFontSize]];
+	scoreLabel = [CCLabelTTF labelWithString: scoreStr dimensions: [GParams timeLabelSize] alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: [GParams HUDFontSize]];
 	scoreLabel.color = kBlackColor;
 	CGPoint p = [GParams scoreLabelPoint];
 	p.x += scoreLabel.contentSize.width/2;
@@ -884,7 +887,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 -(void)levelBlast: (NSUInteger)lvl atPoint: (CGPoint)p afterDelay: (NSTimeInterval)delay
 {
 	NSString *levelStr = [NSString stringWithFormat: @"Level %d", lvl];
-	CCLabelTTF *levelBlast = [CCLabelTTF labelWithString: levelStr fontName: kLevelBlastFont fontSize: kLevelBlastFontSize];
+	CCLabelTTF *levelBlast = [CCLabelTTF labelWithString: levelStr fontName: kLevelBlastFont fontSize: [GParams levelBlastFontSize]];
 	levelBlast.position = p;
 	levelBlast.scale = 0.0;
 	levelBlast.opacity = 255.0;
@@ -956,7 +959,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 -(void)gameOverBlastAfterDelay: (NSTimeInterval)delay
 {
 	NSString *gameOverStr = [NSString stringWithFormat: @"GAME OVER"];
-	CCLabelTTF *gameOverBlast = [CCLabelTTF labelWithString: gameOverStr fontName: kGameOverBlastFont fontSize: kGameOverBlastFontSize];
+	CCLabelTTF *gameOverBlast = [CCLabelTTF labelWithString: gameOverStr fontName: kGameOverBlastFont fontSize: [GParams gameOverFontSize] ];
 	CGPoint p1 = kGameScreenCenterPoint;
 	p1.y += 40;
 	gameOverBlast.position = p1;
@@ -977,7 +980,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	CCLabelTTF *finalScoreLabel = [CCLabelTTF labelWithString: scoreStr fontName: kHUDFont fontSize: [GParams HUDFontSize]];
 	finalScoreLabel.opacity = 0.0f;
 	CGPoint p = kGameScreenCenterPoint;
-	p.y -= 10;
+	if (IPAD)
+		p.y -= 60;
+	else
+		p.y -= 10;
 	finalScoreLabel.color = kWhiteColor;
 	finalScoreLabel.position = p;
 	[self addChild: finalScoreLabel z: 100002];
@@ -1119,7 +1125,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 -(void)addBouncingBallAtPoint: (CGPoint)p withVelocity: (CGPoint)movementVector
 {
 	BouncingBall *bounceBall = [BouncingBall spriteWithFile: [GParams spriteFileName: kBouncingBallSprite]];
-	bounceBall.size = 20;
+	bounceBall.size = IPAD ? 40: 20;
 	bounceBall.position = p;
 	bounceBall.opacity = 0.0f;
 	[bounceBall runAction: [CCFadeIn actionWithDuration: 0.15]];

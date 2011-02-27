@@ -209,6 +209,7 @@
 	
 	//	BOOL	 useHD = CC_CONTENT_SCALE_FACTOR() == 2.0 ? YES : NO;
 	NSString	*hdSuffix = @"-hd.png";
+	NSString	*ipadSuffix = @"-ipad.png";
 	NSString	*pngSuffix = @".png";
 	NSString	*wavSuffix = @".wav";
 	NSString	*mp3Suffix = @".mp3";
@@ -217,16 +218,17 @@
 	
 	NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: rsrcPath  error: NULL];
 	for (NSString *file in files)
-	{	
-		// ADD IPAD SUPPORT HERE
-		
+	{			
 		// If texture, add to texture cache
 		if (![file hasSuffix: hdSuffix] && 
 			[file hasSuffix: pngSuffix] && 
 			![file hasPrefix: @"Icon"] && 
 			![file hasPrefix: @"Default"] &&
-			![file isEqualToString: @"fps_images.png"])
-		{
+			![file isEqualToString: @"fps_images.png"] &&
+			((IPAD && [file hasSuffix: ipadSuffix]) ||
+			 (!IPAD && ![file hasSuffix: ipadSuffix]))
+			)
+		{			
 			CCLOG(@"Loading into Texture Cache: \"%@\"", file);
 			[[CCTextureCache sharedTextureCache] addImage: file];
 		}
