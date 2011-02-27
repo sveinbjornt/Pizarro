@@ -78,6 +78,7 @@
 -(void)setupGame;
 -(void)setupChipmunk;
 -(void)createPhysicalBox;
+-(void)destroyPhysicalSpace;
 
 -(void)updateLevel;
 -(void)updateScore;

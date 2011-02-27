@@ -146,38 +146,8 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 - (void) dealloc
 {
 	CCLOG(@"Deallocing Pizarro Game Scene");
-	
-	// floor
-	cpBodyDestroy(floorBody);
-	cpBodyFree(floorBody);
-	
-	cpShapeDestroy(floorShape);
-	cpShapeFree(floorShape);
-	
-	// ceiling
-	cpBodyDestroy(ceilingBody);
-	cpBodyFree(ceilingBody);
-	
-	cpShapeDestroy(ceilingShape);
-	cpShapeFree(ceilingShape);
-	
-	// left
-	
-	cpBodyDestroy(leftBody);
-	cpBodyFree(leftBody);
-	
-	cpShapeDestroy(leftShape);
-	cpShapeFree(leftShape);
-	
-	// right
-	
-	cpBodyDestroy(rightBody);
-	cpBodyFree(rightBody);
-	
-	cpShapeDestroy(rightShape);
-	cpShapeFree(rightShape);
-	
-	cpSpaceFree(space);
+		
+	[self destroyPhysicalSpace];
 	
 	[bounceBalls release];
 	[shapes release];
@@ -432,6 +402,43 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	rightShape->group = kWallShapeGroup;
 	
 	cpSpaceAddStaticShape(space, rightShape);
+}
+
+-(void)destroyPhysicalSpace
+{
+	// floor
+	cpBodyDestroy(floorBody);
+	cpBodyFree(floorBody);
+	
+	cpShapeDestroy(floorShape);
+	cpShapeFree(floorShape);
+	
+	// ceiling
+	cpBodyDestroy(ceilingBody);
+	cpBodyFree(ceilingBody);
+	
+	cpShapeDestroy(ceilingShape);
+	cpShapeFree(ceilingShape);
+	
+	// left
+	
+	cpBodyDestroy(leftBody);
+	cpBodyFree(leftBody);
+	
+	cpShapeDestroy(leftShape);
+	cpShapeFree(leftShape);
+	
+	// right
+	
+	cpBodyDestroy(rightBody);
+	cpBodyFree(rightBody);
+	
+	cpShapeDestroy(rightShape);
+	cpShapeFree(rightShape);
+	
+	cpSpaceFree(space);
+	
+	
 }
 
 #pragma mark -
