@@ -148,43 +148,34 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	CCLOG(@"Deallocing Pizarro Game Scene");
 	
 	// floor
-	cpSpaceRemoveBody(space, floorBody);
 	cpBodyDestroy(floorBody);
 	cpBodyFree(floorBody);
 	
 	cpShapeDestroy(floorShape);
 	cpShapeFree(floorShape);
-	cpSpaceRemoveShape(space, floorShape);
 	
 	// ceiling
-	
-	cpSpaceRemoveBody(space, ceilingBody);
 	cpBodyDestroy(ceilingBody);
 	cpBodyFree(ceilingBody);
 	
 	cpShapeDestroy(ceilingShape);
 	cpShapeFree(ceilingShape);
-	cpSpaceRemoveShape(space, ceilingShape);
 	
 	// left
 	
-	cpSpaceRemoveBody(space, leftBody);
 	cpBodyDestroy(leftBody);
 	cpBodyFree(leftBody);
 	
 	cpShapeDestroy(leftShape);
 	cpShapeFree(leftShape);
-	cpSpaceRemoveShape(space, leftShape);
 	
 	// right
 	
-	cpSpaceRemoveBody(space, rightBody);
 	cpBodyDestroy(rightBody);
 	cpBodyFree(rightBody);
 	
 	cpShapeDestroy(rightShape);
 	cpShapeFree(rightShape);
-	cpSpaceRemoveShape(space, rightShape);
 	
 	cpSpaceFree(space);
 	
