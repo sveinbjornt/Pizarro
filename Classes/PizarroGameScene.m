@@ -234,7 +234,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[self addChild: bg z: 100];	
 	
 	// game backing texture
-	bgRenderTexture = [BGRenderTexture renderTextureWithWidth: kGameBoxWidth height: kGameBoxHeight];
+	bgRenderTexture = [BGRenderTexture renderTextureWithWidth: [GParams gameBoxWidth] height: [GParams gameBoxHeight]];
 	[bgRenderTexture setPosition: kGameBoxCenterPoint];
 	[bgRenderTexture clear];
 	bgRenderTexture.sprite.blendFunc = (ccBlendFunc) { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
@@ -316,10 +316,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	floorBody->p = cpv(0, 0);
 	
-	lp1 = cpv(kGameBoxXOffset - kWallThickness, 
-			  kGameBoxYOffset - kWallThickness + kPhysicalBoxOffset);
-	lp2 = cpv(kGameBoxXOffset + kGameBoxWidth + kWallThickness, 
-			  kGameBoxYOffset - kWallThickness + kPhysicalBoxOffset);
+	lp1 = cpv([GParams gameBoxXOffset] - kWallThickness, 
+			  [GParams gameBoxYOffset] - kWallThickness + kPhysicalBoxOffset);
+	lp2 = cpv([GParams gameBoxXOffset] + [GParams gameBoxWidth] + kWallThickness, 
+			  [GParams gameBoxYOffset] - kWallThickness + kPhysicalBoxOffset);
 	
 	cpShape* floorShape = cpSegmentShapeNew(floorBody, lp1, lp2, kWallThickness);
 	
@@ -336,10 +336,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	ceilingBody->p = cpv(0, 0);
 	
-	lp1 = cpv(kGameBoxXOffset - kWallThickness, 
-			  kGameBoxYOffset + kGameBoxHeight + kWallThickness - kPhysicalBoxOffset);
-	lp2 = cpv(kGameBoxXOffset + kGameBoxWidth + kWallThickness, 
-			  kGameBoxYOffset + kGameBoxHeight + kWallThickness - kPhysicalBoxOffset);
+	lp1 = cpv([GParams gameBoxXOffset] - kWallThickness, 
+			  [GParams gameBoxYOffset] + [GParams gameBoxHeight] + kWallThickness - kPhysicalBoxOffset);
+	lp2 = cpv([GParams gameBoxXOffset] + [GParams gameBoxWidth] + kWallThickness, 
+			  [GParams gameBoxYOffset] + [GParams gameBoxHeight] + kWallThickness - kPhysicalBoxOffset);
 	
 	cpShape* ceilingShape = cpSegmentShapeNew(ceilingBody, lp1, lp2, kWallThickness);
 	
@@ -358,10 +358,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	leftBody->p = cpv(0, 0);
 	
-	lp1 = cpv(kGameBoxXOffset - kWallThickness + kPhysicalBoxOffset, 
-			  kGameBoxYOffset - kWallThickness );
-	lp2 = cpv(kGameBoxXOffset - kWallThickness + kPhysicalBoxOffset, 
-			  kGameBoxYOffset + kGameBoxHeight + kWallThickness);
+	lp1 = cpv([GParams gameBoxXOffset] - kWallThickness + kPhysicalBoxOffset, 
+			  [GParams gameBoxYOffset] - kWallThickness );
+	lp2 = cpv([GParams gameBoxXOffset] - kWallThickness + kPhysicalBoxOffset, 
+			  [GParams gameBoxYOffset] + [GParams gameBoxHeight] + kWallThickness);
 	
 	cpShape* leftShape = cpSegmentShapeNew(leftBody, lp1, lp2, kWallThickness);
 	
@@ -380,10 +380,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	rightBody->p = cpv(0, 0);
 	
-	lp1 = cpv(kGameBoxXOffset + kGameBoxWidth + kWallThickness - kPhysicalBoxOffset, 
-			  kGameBoxYOffset - kWallThickness );
-	lp2 = cpv(kGameBoxXOffset + kGameBoxWidth + kWallThickness - kPhysicalBoxOffset, 
-			  kGameBoxYOffset + kGameBoxHeight + kWallThickness);
+	lp1 = cpv([GParams gameBoxXOffset] + [GParams gameBoxWidth] + kWallThickness - kPhysicalBoxOffset, 
+			  [GParams gameBoxYOffset] - kWallThickness );
+	lp2 = cpv([GParams gameBoxXOffset] + [GParams gameBoxWidth] + kWallThickness - kPhysicalBoxOffset, 
+			  [GParams gameBoxYOffset] + [GParams gameBoxHeight] + kWallThickness);
 	
 	cpShape* rightShape = cpSegmentShapeNew(rightBody, lp1, lp2, kWallThickness);
 	
@@ -861,7 +861,8 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		else
 		{
 			NSTimeInterval timeSinceTouch = NOW - currentShape.created;
-			currentShape.size = timeSinceTouch * kCircleExpansionDiameterPerSecond;
+			float diamSec = IPAD ? kCircleExpansionDiameterPerSecond * 2 : kCircleExpansionDiameterPerSecond;
+			currentShape.size = timeSinceTouch * diamSec;
 			
 			mana -= 1.0f/60.0f;
 			manaBar.percentage = (float)mana/kFullMana;

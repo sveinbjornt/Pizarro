@@ -8,6 +8,7 @@
 
 #import "SurfaceMatrix.h"
 #import "Shape.h"
+#import "GParams.h"
 
 @implementation SurfaceMatrix
 @synthesize totalFilled;
@@ -56,7 +57,7 @@
 				continue;
 			}
 			
-			CGPoint p = CGPointMake((x * kMatrixUnitSize) + kGameBoxXOffset, (y * kMatrixUnitSize) + kGameBoxYOffset);
+			CGPoint p = CGPointMake((x * kMatrixUnitSize) + [GParams gameBoxXOffset], (y * kMatrixUnitSize) + [GParams gameBoxYOffset]);
 			
 			if ([shape isKindOfClass: [Circle class]])
 			{

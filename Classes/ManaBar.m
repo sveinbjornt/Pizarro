@@ -48,7 +48,9 @@
 		return;
 	
 	percentage = p;
-	float height = roundf((self.percentage * [GParams manaBarHeight]));
+	
+	float fullHeight = IPAD ? 632 : 268;
+	float height = roundf((self.percentage * fullHeight));
 	
 	CCSprite *barSprite, *barTopSprite;
 	
@@ -88,7 +90,10 @@
 	}
 
 	barSprite.scaleY = height;
-	barSprite.position = ccp(10, -14 + (height/2));
+	if (IPAD)
+		barSprite.position = ccp(23, -14 + (height/2));
+	else
+		barSprite.position = ccp(10, -14 + (height/2));
 	
 	barTopSprite.position = ccp(barTopSprite.contentSize.width/2, (height + barTopSprite.contentSize.height/2)-15);
 	
@@ -98,13 +103,16 @@
 -(void)draw
 {	
 	// First draw white over everything
-	CGPoint whiteVertices[4] =
-	{
-		ccp(0,0),
-		ccp(0,270),
-		ccp(19,270),
-		ccp(19,0)
-	};
+	float w = IPAD ? 40 : 19;
+	float h = IPAD ? 640 : 270;
+	
+	CGPoint whiteVertices[4] = 
+		{
+			ccp(0,0),
+			ccp(0,h),
+			ccp(w,h),
+			ccp(w,0)
+		};
 	
 	glColor4ub(255,255,255,255);
 	ccFillPoly(whiteVertices, 4, YES);

@@ -24,6 +24,55 @@
 #pragma mark -
 #pragma mark In-Game
 
++(float)gameBoxWidth
+{
+	if (IPAD)
+		return 958;
+	
+	return 450;
+}
+
++(float)gameBoxHeight
+{
+	if (IPAD)
+		return 664;
+	
+	return 280;
+}
+
++(float)gameBoxXOffset
+{
+	if (IPAD)
+		return 52;
+	
+	return 26;
+}
+
++(float)gameBoxYOffset
+{
+	if (IPAD)
+		return 10;
+	
+	return 3;
+}
+
++(int)matrixWidth
+{
+	return 45;
+}
+
++(int)matrixHeight
+{
+	
+	return 28;
+}
+
++(int)matrixUnitSize
+{
+	return 10;
+}
+
+
 +(float)HUDFontSize
 {
 	if (IPAD)
@@ -62,14 +111,6 @@
 		return CGSizeMake(220,80);
 	
 	return CGSizeMake(110,40);
-}
-
-+(float)manaBarHeight
-{
-	if (IPAD)
-		return 640;
-	
-	return 268;
 }
 
 #pragma mark -

@@ -90,20 +90,14 @@
 
 // Game box
 
-#define kGameBoxWidth				450
-#define kGameBoxHeight				280
-
-#define kGameBoxXOffset				26
-#define kGameBoxYOffset				3
-
 #define kGameScreenWidth			[[CCDirector sharedDirector] winSize].width
 #define kGameScreenHeight			[[CCDirector sharedDirector] winSize].height
 
 #define kGameScreenCenterPoint		CGPointMake([[CCDirector sharedDirector] winSize].width/2,[[CCDirector sharedDirector] winSize].height/2)
-#define kGameBoxCenterPoint			CGPointMake(kGameBoxXOffset + (kGameBoxWidth/2), kGameBoxYOffset + (kGameBoxHeight/2)) 
+#define kGameBoxCenterPoint			CGPointMake([GParams gameBoxXOffset] + ([GParams gameBoxWidth]/2), [GParams gameBoxYOffset] + ([GParams gameBoxHeight]/2)) 
 #define kGameOverPoint				CGPointMake([[CCDirector sharedDirector] winSize].width/2, [[CCDirector sharedDirector] winSize].height * (float)5/9)
 
-#define kGameBoxRect				CGRectMake(kGameBoxXOffset, kGameBoxYOffset, kGameBoxWidth, kGameBoxHeight)
+#define kGameBoxRect				CGRectMake([GParams gameBoxXOffset], [GParams gameBoxYOffset], [GParams gameBoxWidth], [GParams gameBoxHeight])
 
 
 // Font

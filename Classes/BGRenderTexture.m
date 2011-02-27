@@ -8,6 +8,7 @@
 
 #import "BGRenderTexture.h"
 #import "Circle.h"
+#import "GParams.h"
 
 @implementation BGRenderTexture
 
@@ -28,7 +29,7 @@
 	glGetFloatv(GL_SMOOTH_POINT_SIZE_RANGE, (float *)&maxSmoothPointSize);
 	
 	// get circle point in local coordinates
-	CGPoint p = ccpSub(circle.position, CGPointMake(kGameBoxXOffset, kGameBoxYOffset));
+	CGPoint p = ccpSub(circle.position, CGPointMake([GParams gameBoxXOffset], [GParams gameBoxYOffset]));
 	// Set color
 	glColor4ub(circle.color.r,circle.color.g,circle.color.b,circle.opacity);
 	

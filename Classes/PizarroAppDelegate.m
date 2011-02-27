@@ -116,7 +116,7 @@
 	[director setAnimationInterval:1.0/60];
 	
 #if COCOS2D_DEBUG == TRUE
-	//[director setDisplayFPS: YES];
+	[director setDisplayFPS: YES];
 #endif
 	
 	[self loadResources];

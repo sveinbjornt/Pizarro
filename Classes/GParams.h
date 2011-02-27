@@ -15,6 +15,17 @@
 }
 +(NSString *)spriteFileName: (NSString *)spriteFileName;
 
+
++(float)gameBoxWidth;
++(float)gameBoxHeight;
++(float)gameBoxXOffset;
++(float)gameBoxYOffset;
+
++(int)matrixWidth;
++(int)matrixHeight;
++(int)matrixUnitSize;
+
+
 +(float)HUDFontSize;
 +(CGSize)scoreLabelSize;
 +(CGPoint)scoreLabelPoint;
