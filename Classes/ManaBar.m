@@ -48,7 +48,7 @@
 		return;
 	
 	percentage = p;
-	float height = roundf((self.percentage * 268));
+	float height = roundf((self.percentage * [GParams manaBarHeight]));
 	
 	CCSprite *barSprite, *barTopSprite;
 	

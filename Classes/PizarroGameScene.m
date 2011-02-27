@@ -248,9 +248,9 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[self updateLevel];
 	
 	// SCORE
-	CCLabelTTF *scoreL = [CCLabelTTF labelWithString: @"SCORE" dimensions:CGSizeMake(140,40) alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: kHUDFontSize];
+	CCLabelTTF *scoreL = [CCLabelTTF labelWithString: @"SCORE" dimensions: [GParams scoreLabelSize] alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: [GParams HUDFontSize]];
 	scoreL.color = ccc3(0,0,0);
-	scoreL.position =  ccp(145, 302);
+	scoreL.position =  [GParams scoreLabelPoint];
 	[self addChild: scoreL z: 1001];
 	[self updateScore];
 	
@@ -642,9 +642,11 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[self removeChild: scoreLabel cleanup: YES];
 	
 	NSString *scoreStr = [NSString stringWithFormat: @"%d", score];
-	scoreLabel = [CCLabelTTF labelWithString: scoreStr dimensions:CGSizeMake(160,40) alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: kHUDFontSize];
+	scoreLabel = [CCLabelTTF labelWithString: scoreStr dimensions: [GParams scoreLabelSize] alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: [GParams HUDFontSize]];
 	scoreLabel.color = kBlackColor;
-	scoreLabel.position =  ccp(200 + scoreLabel.contentSize.width/2, 302 );
+	CGPoint p = [GParams scoreLabelPoint];
+	p.x += scoreLabel.contentSize.width/2;
+	scoreLabel.position = p;
 	[self addChild: scoreLabel z: 1001];
 }
 
@@ -657,14 +659,14 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	sec = timeRemaining - (min*60);
 		
 	NSString *timeStr = [NSString stringWithFormat: @"%.2d:%.2d", min, sec];
-	timeLabel = [CCLabelTTF labelWithString: timeStr dimensions:CGSizeMake(110,40) alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: kHUDFontSize];
+	timeLabel = [CCLabelTTF labelWithString: timeStr dimensions: [GParams timeLabelSize] alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: [GParams HUDFontSize]];
 	
 	if (timeRemaining > kTimeLow)
 		timeLabel.color = kBlackColor; // black
 	else
 		timeLabel.color = ccc3(180,0,0); // red
 	
-	timeLabel.position =  ccp(417, 301);
+	timeLabel.position =  [GParams timeLabelPoint];
 	[self addChild: timeLabel z: 1001];
 	
 	if (timeRemaining <= kTimeLow && SOUND_ENABLED)
@@ -971,7 +973,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 							nil]];
 	
 	NSString *scoreStr = [NSString stringWithFormat: @"SCORE: %d", score];
-	CCLabelTTF *finalScoreLabel = [CCLabelTTF labelWithString: scoreStr fontName: kHUDFont fontSize: kHUDFontSize];
+	CCLabelTTF *finalScoreLabel = [CCLabelTTF labelWithString: scoreStr fontName: kHUDFont fontSize: [GParams HUDFontSize]];
 	finalScoreLabel.opacity = 0.0f;
 	CGPoint p = kGameScreenCenterPoint;
 	p.y -= 10;

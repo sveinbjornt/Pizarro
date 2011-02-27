@@ -21,6 +21,60 @@
 	return [NSString stringWithFormat: @"%@.png", spriteFileName];
 }
 
+#pragma mark -
+#pragma mark In-Game
+
++(float)HUDFontSize
+{
+	if (IPAD)
+		return kHUDFontSize * 2;
+	
+	return kHUDFontSize;
+}
+
++(CGSize)scoreLabelSize
+{
+	if (IPAD)
+		CGSizeMake(320,80);
+	
+	return CGSizeMake(160,40);
+}
+
++(CGPoint)scoreLabelPoint
+{
+	if (IPAD)
+		return ccp(400, 725);
+	
+	return ccp(200, 302);
+}
+
++(CGPoint)timeLabelPoint
+{
+	if (IPAD)
+		return ccp(910, 725);
+	
+	return ccp(417, 301);
+}
+
++(CGSize)timeLabelSize
+{
+	if (IPAD)
+		return CGSizeMake(220,80);
+	
+	return CGSizeMake(110,40);
+}
+
++(float)manaBarHeight
+{
+	if (IPAD)
+		return 640;
+	
+	return 268;
+}
+
+#pragma mark -
+#pragma mark Main Menu Scene
+
 +(float)mainMenuFontSize
 {
 	if (IPAD)

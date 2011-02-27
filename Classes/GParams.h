@@ -15,6 +15,21 @@
 }
 +(NSString *)spriteFileName: (NSString *)spriteFileName;
 
++(float)HUDFontSize;
++(CGSize)scoreLabelSize;
++(CGPoint)scoreLabelPoint;
++(CGPoint)timeLabelPoint;
++(CGSize)timeLabelSize;
++(float)manaBarHeight;
+
+
+
+
+
+
+
+
+
 +(float)mainMenuFontSize;
 +(CGPoint)mainMenuPoint;
 +(CGPoint)mainMenuStartingPoint;
