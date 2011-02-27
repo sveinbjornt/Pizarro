@@ -97,7 +97,7 @@
 +(CGPoint)menuPauseButtonPoint
 {
 	if (IPAD)
-		CGPointMake(72, 580);
+		CGPointMake(172, 718);
 	
 	return CGPointMake(36, 290);
 }

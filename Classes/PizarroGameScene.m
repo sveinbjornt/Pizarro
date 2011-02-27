@@ -252,7 +252,6 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	scoreL.color = ccc3(0,0,0);
 	scoreL.position =  ccp(145, 302);
 	[self addChild: scoreL z: 1001];
-	
 	[self updateScore];
 	
 	// MANA BAR
