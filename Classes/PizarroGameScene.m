@@ -147,6 +147,45 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 {
 	CCLOG(@"Deallocing Pizarro Game Scene");
 	
+	// floor
+	cpSpaceRemoveBody(space, floorBody);
+	cpBodyDestroy(floorBody);
+	cpBodyFree(floorBody);
+	
+	cpShapeDestroy(floorShape);
+	cpShapeFree(floorShape);
+	cpSpaceRemoveShape(space, floorShape);
+	
+	// ceiling
+	
+	cpSpaceRemoveBody(space, ceilingBody);
+	cpBodyDestroy(ceilingBody);
+	cpBodyFree(ceilingBody);
+	
+	cpShapeDestroy(ceilingShape);
+	cpShapeFree(ceilingShape);
+	cpSpaceRemoveShape(space, ceilingShape);
+	
+	// left
+	
+	cpSpaceRemoveBody(space, leftBody);
+	cpBodyDestroy(leftBody);
+	cpBodyFree(leftBody);
+	
+	cpShapeDestroy(leftShape);
+	cpShapeFree(leftShape);
+	cpSpaceRemoveShape(space, leftShape);
+	
+	// right
+	
+	cpSpaceRemoveBody(space, rightBody);
+	cpBodyDestroy(rightBody);
+	cpBodyFree(rightBody);
+	
+	cpShapeDestroy(rightShape);
+	cpShapeFree(rightShape);
+	cpSpaceRemoveShape(space, rightShape);
+	
 	cpSpaceFree(space);
 	
 	[bounceBalls release];
@@ -321,7 +360,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	// Create the square shape by making 4 lines: floor, ceiling, left, right
 		
 	// Floor
-	cpBody* floorBody = cpBodyNew(kWallMass, kWallInertia);
+	floorBody = cpBodyNew(kWallMass, kWallInertia);
 	
 	floorBody->p = cpv(0, 0);
 	
@@ -330,7 +369,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	lp2 = cpv([GParams gameBoxXOffset] + [GParams gameBoxWidth] + kWallThickness, 
 			  [GParams gameBoxYOffset] - kWallThickness + kPhysicalBoxOffset);
 	
-	cpShape* floorShape = cpSegmentShapeNew(floorBody, lp1, lp2, kWallThickness);
+	floorShape = cpSegmentShapeNew(floorBody, lp1, lp2, kWallThickness);
 	
 	floorShape->e = kWallElasticity;
 	floorShape->u = kWallFriction;
@@ -341,7 +380,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	
 	// Ceiling
-	cpBody* ceilingBody = cpBodyNew(kWallMass, kWallInertia);
+	ceilingBody = cpBodyNew(kWallMass, kWallInertia);
 	
 	ceilingBody->p = cpv(0, 0);
 	
@@ -350,7 +389,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	lp2 = cpv([GParams gameBoxXOffset] + [GParams gameBoxWidth] + kWallThickness, 
 			  [GParams gameBoxYOffset] + [GParams gameBoxHeight] + kWallThickness - kPhysicalBoxOffset);
 	
-	cpShape* ceilingShape = cpSegmentShapeNew(ceilingBody, lp1, lp2, kWallThickness);
+	ceilingShape = cpSegmentShapeNew(ceilingBody, lp1, lp2, kWallThickness);
 	
 	ceilingShape->e = kWallElasticity;
 	ceilingShape->u = kWallFriction;
@@ -363,7 +402,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	// Left side
 	
-	cpBody* leftBody = cpBodyNew(kWallMass, kWallInertia);
+	leftBody = cpBodyNew(kWallMass, kWallInertia);
 	
 	leftBody->p = cpv(0, 0);
 	
@@ -372,7 +411,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	lp2 = cpv([GParams gameBoxXOffset] - kWallThickness + kPhysicalBoxOffset, 
 			  [GParams gameBoxYOffset] + [GParams gameBoxHeight] + kWallThickness);
 	
-	cpShape* leftShape = cpSegmentShapeNew(leftBody, lp1, lp2, kWallThickness);
+	leftShape = cpSegmentShapeNew(leftBody, lp1, lp2, kWallThickness);
 	
 	leftShape->e = kWallElasticity;
 	leftShape->u = kWallFriction;
@@ -385,7 +424,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	// Right side
 	
-	cpBody* rightBody = cpBodyNew(kWallMass, kWallInertia);
+	rightBody = cpBodyNew(kWallMass, kWallInertia);
 	
 	rightBody->p = cpv(0, 0);
 	
@@ -394,7 +433,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	lp2 = cpv([GParams gameBoxXOffset] + [GParams gameBoxWidth] + kWallThickness - kPhysicalBoxOffset, 
 			  [GParams gameBoxYOffset] + [GParams gameBoxHeight] + kWallThickness);
 	
-	cpShape* rightShape = cpSegmentShapeNew(rightBody, lp1, lp2, kWallThickness);
+	rightShape = cpSegmentShapeNew(rightBody, lp1, lp2, kWallThickness);
 	
 	rightShape->e = kWallElasticity;
 	rightShape->u = kWallFriction;

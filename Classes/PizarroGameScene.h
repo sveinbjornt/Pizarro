@@ -36,9 +36,16 @@
 		
 	GameOverCircle	*gameOverCircle;
 	
+	// CHipmunk objects
 	cpSpace* space;	
 	
+	cpBody *floorBody, *ceilingBody, *leftBody, *rightBody;
+	cpShape *floorShape, *ceilingShape, *leftShape, *rightShape;
+	
 	SurfaceMatrix	*surface;
+	
+	
+	
 	
 	
 	int				currShapeIndex;
