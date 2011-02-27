@@ -14,6 +14,7 @@
 #import "PizarroGameScene.h"
 #import "MainMenuScene.h"
 #import "SimpleAudioEngine.h"
+#import "GParams.h"
 
 @implementation PizarroAppDelegate
 
@@ -106,16 +107,16 @@
 	// By default, this template only supports Landscape orientations.
 	// Edit the RootViewController.m file to edit the supported orientations.
 	//
-#if GAME_AUTOROTATION == kGameAutorotationUIViewController
-	[director setDeviceOrientation:kCCDeviceOrientationPortrait];
-#else
-	[director setDeviceOrientation:kCCDeviceOrientationLandscapeLeft];
-#endif
+
+	if (IPAD)
+		[director setDeviceOrientation:kCCDeviceOrientationPortrait];
+	else
+		[director setDeviceOrientation:kCCDeviceOrientationLandscapeLeft];
 	
 	[director setAnimationInterval:1.0/60];
 	
 #if COCOS2D_DEBUG == TRUE
-	//[director setDisplayFPS: YES];
+	[director setDisplayFPS: YES];
 #endif
 	
 	[self loadResources];
@@ -208,6 +209,7 @@
 	
 	//	BOOL	 useHD = CC_CONTENT_SCALE_FACTOR() == 2.0 ? YES : NO;
 	NSString	*hdSuffix = @"-hd.png";
+	NSString	*ipadSuffix = @"-ipad.png";
 	NSString	*pngSuffix = @".png";
 	NSString	*wavSuffix = @".wav";
 	NSString	*mp3Suffix = @".mp3";
@@ -222,8 +224,11 @@
 			[file hasSuffix: pngSuffix] && 
 			![file hasPrefix: @"Icon"] && 
 			![file hasPrefix: @"Default"] &&
-			![file isEqualToString: @"fps_images.png"])
-		{
+			![file isEqualToString: @"fps_images.png"] &&
+			((IPAD && [file hasSuffix: ipadSuffix]) ||
+			 (!IPAD && ![file hasSuffix: ipadSuffix]))
+			)
+		{			
 			CCLOG(@"Loading into Texture Cache: \"%@\"", file);
 			[[CCTextureCache sharedTextureCache] addImage: file];
 		}

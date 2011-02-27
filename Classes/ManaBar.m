@@ -7,7 +7,7 @@
 //
 
 #import "ManaBar.h"
-
+#import "GParams.h"
 
 @implementation ManaBar
 @synthesize percentage;
@@ -18,10 +18,10 @@
 	{
 		percentage = 1.0;
 		
-		manaBarRed = [CCSprite spriteWithFile: kManaBarRedSprite];
-		manaBarRedTop = [CCSprite spriteWithFile: kManaBarRedTopSprite];
-		manaBarGreen = [CCSprite spriteWithFile: kManaBarGreenSprite];
-		manaBarGreenTop = [CCSprite spriteWithFile: kManaBarGreenTopSprite];
+		manaBarRed = [CCSprite spriteWithFile: [GParams spriteFileName: kManaBarRedSprite]];
+		manaBarRedTop = [CCSprite spriteWithFile: [GParams spriteFileName: kManaBarRedTopSprite]];
+		manaBarGreen = [CCSprite spriteWithFile: [GParams spriteFileName: kManaBarGreenSprite]];
+		manaBarGreenTop = [CCSprite spriteWithFile: [GParams spriteFileName: kManaBarGreenTopSprite]];
 		
 		manaBarRed.visible = NO;
 		manaBarRedTop.visible = NO;
@@ -48,7 +48,9 @@
 		return;
 	
 	percentage = p;
-	float height = roundf((self.percentage * 268));
+	
+	float fullHeight = IPAD ? 632 : 268;
+	float height = roundf((self.percentage * fullHeight));
 	
 	CCSprite *barSprite, *barTopSprite;
 	
@@ -88,7 +90,10 @@
 	}
 
 	barSprite.scaleY = height;
-	barSprite.position = ccp(10, -14 + (height/2));
+	if (IPAD)
+		barSprite.position = ccp(23, -14 + (height/2));
+	else
+		barSprite.position = ccp(10, -14 + (height/2));
 	
 	barTopSprite.position = ccp(barTopSprite.contentSize.width/2, (height + barTopSprite.contentSize.height/2)-15);
 	
@@ -98,13 +103,16 @@
 -(void)draw
 {	
 	// First draw white over everything
-	CGPoint whiteVertices[4] =
-	{
-		ccp(0,0),
-		ccp(0,270),
-		ccp(19,270),
-		ccp(19,0)
-	};
+	float w = IPAD ? 44 : 19;
+	float h = IPAD ? 655 : 270;
+	
+	CGPoint whiteVertices[4] = 
+		{
+			ccp(0,0),
+			ccp(0,h),
+			ccp(w,h),
+			ccp(w,0)
+		};
 	
 	glColor4ub(255,255,255,255);
 	ccFillPoly(whiteVertices, 4, YES);

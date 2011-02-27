@@ -21,6 +21,7 @@
 #import "GameCenterManager.h"
 #import "ScoreManager.h"
 #import "MenuButtonSprite.h"
+#import "GParams.h"
 
 #pragma mark Chipmunk Callbacks
 
@@ -227,13 +228,13 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 -(void)setupHUD
 {	
 	// BACKGROUND
-	CCSprite *bg = [CCSprite spriteWithFile: kGameScreenBackgroundSprite];
+	CCSprite *bg = [CCSprite spriteWithFile: [GParams spriteFileName: kGameScreenBackgroundSprite]];
 	bg.blendFunc = (ccBlendFunc) { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
 	bg.position = kGameScreenCenterPoint;
 	[self addChild: bg z: 100];	
 	
 	// game backing texture
-	bgRenderTexture = [BGRenderTexture renderTextureWithWidth: kGameBoxWidth height: kGameBoxHeight];
+	bgRenderTexture = [BGRenderTexture renderTextureWithWidth: [GParams gameBoxWidth] height: [GParams gameBoxHeight]];
 	[bgRenderTexture setPosition: kGameBoxCenterPoint];
 	[bgRenderTexture clear];
 	bgRenderTexture.sprite.blendFunc = (ccBlendFunc) { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
@@ -247,11 +248,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[self updateLevel];
 	
 	// SCORE
-	CCLabelTTF *scoreL = [CCLabelTTF labelWithString: @"SCORE" dimensions:CGSizeMake(140,40) alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: kHUDFontSize];
+	CCLabelTTF *scoreL = [CCLabelTTF labelWithString: @"SCORE" dimensions: [GParams timeLabelSize] alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: [GParams HUDFontSize]];
 	scoreL.color = ccc3(0,0,0);
-	scoreL.position =  ccp(145, 302);
+	scoreL.position = [GParams scoreLPoint];
 	[self addChild: scoreL z: 1001];
-	
 	[self updateScore];
 	
 	// MANA BAR
@@ -261,19 +261,22 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[self addChild: manaBar z: 99];
 	
 	// Pause button
-	MenuButtonSprite *pauseMenuItem = [MenuButtonSprite itemFromNormalSprite: [CCSprite spriteWithFile: kInGameMenuButtonOffSprite] 
-															  selectedSprite: [CCSprite spriteWithFile: kInGameMenuButtonOnSprite] 
+	MenuButtonSprite *pauseMenuItem = [MenuButtonSprite itemFromNormalSprite: [CCSprite spriteWithFile: [GParams spriteFileName: kInGameMenuButtonOffSprite]] 
+															  selectedSprite: [CCSprite spriteWithFile: [GParams spriteFileName: kInGameMenuButtonOnSprite]] 
 																	  target: self 
 																	selector: @selector(pauseGame)];
 	pauseMenu = [CCMenu menuWithItems: pauseMenuItem, nil];
-	pauseMenu.position = kMenuPauseButtonPoint;
+	pauseMenu.position = [GParams menuPauseButtonPoint];
 	[self addChild: pauseMenu z: 100];
 }
 
 -(void)setupGame
 {
 	//surface matrix
-	surface = [[SurfaceMatrix alloc] init];
+	int h = IPAD ? 66 : 28;
+	int w = IPAD ? 95 : 45;
+
+	surface = [[SurfaceMatrix alloc] initWithWidth: w height: h];
 	
 	// Array of objects
 	shapes = [[NSMutableArray alloc] initWithCapacity: kMaxShapes];
@@ -316,10 +319,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	floorBody->p = cpv(0, 0);
 	
-	lp1 = cpv(kGameBoxXOffset - kWallThickness, 
-			  kGameBoxYOffset - kWallThickness + kPhysicalBoxOffset);
-	lp2 = cpv(kGameBoxXOffset + kGameBoxWidth + kWallThickness, 
-			  kGameBoxYOffset - kWallThickness + kPhysicalBoxOffset);
+	lp1 = cpv([GParams gameBoxXOffset] - kWallThickness, 
+			  [GParams gameBoxYOffset] - kWallThickness + kPhysicalBoxOffset);
+	lp2 = cpv([GParams gameBoxXOffset] + [GParams gameBoxWidth] + kWallThickness, 
+			  [GParams gameBoxYOffset] - kWallThickness + kPhysicalBoxOffset);
 	
 	cpShape* floorShape = cpSegmentShapeNew(floorBody, lp1, lp2, kWallThickness);
 	
@@ -336,10 +339,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	ceilingBody->p = cpv(0, 0);
 	
-	lp1 = cpv(kGameBoxXOffset - kWallThickness, 
-			  kGameBoxYOffset + kGameBoxHeight + kWallThickness - kPhysicalBoxOffset);
-	lp2 = cpv(kGameBoxXOffset + kGameBoxWidth + kWallThickness, 
-			  kGameBoxYOffset + kGameBoxHeight + kWallThickness - kPhysicalBoxOffset);
+	lp1 = cpv([GParams gameBoxXOffset] - kWallThickness, 
+			  [GParams gameBoxYOffset] + [GParams gameBoxHeight] + kWallThickness - kPhysicalBoxOffset);
+	lp2 = cpv([GParams gameBoxXOffset] + [GParams gameBoxWidth] + kWallThickness, 
+			  [GParams gameBoxYOffset] + [GParams gameBoxHeight] + kWallThickness - kPhysicalBoxOffset);
 	
 	cpShape* ceilingShape = cpSegmentShapeNew(ceilingBody, lp1, lp2, kWallThickness);
 	
@@ -358,10 +361,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	leftBody->p = cpv(0, 0);
 	
-	lp1 = cpv(kGameBoxXOffset - kWallThickness + kPhysicalBoxOffset, 
-			  kGameBoxYOffset - kWallThickness );
-	lp2 = cpv(kGameBoxXOffset - kWallThickness + kPhysicalBoxOffset, 
-			  kGameBoxYOffset + kGameBoxHeight + kWallThickness);
+	lp1 = cpv([GParams gameBoxXOffset] - kWallThickness + kPhysicalBoxOffset, 
+			  [GParams gameBoxYOffset] - kWallThickness );
+	lp2 = cpv([GParams gameBoxXOffset] - kWallThickness + kPhysicalBoxOffset, 
+			  [GParams gameBoxYOffset] + [GParams gameBoxHeight] + kWallThickness);
 	
 	cpShape* leftShape = cpSegmentShapeNew(leftBody, lp1, lp2, kWallThickness);
 	
@@ -380,10 +383,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	rightBody->p = cpv(0, 0);
 	
-	lp1 = cpv(kGameBoxXOffset + kGameBoxWidth + kWallThickness - kPhysicalBoxOffset, 
-			  kGameBoxYOffset - kWallThickness );
-	lp2 = cpv(kGameBoxXOffset + kGameBoxWidth + kWallThickness - kPhysicalBoxOffset, 
-			  kGameBoxYOffset + kGameBoxHeight + kWallThickness);
+	lp1 = cpv([GParams gameBoxXOffset] + [GParams gameBoxWidth] + kWallThickness - kPhysicalBoxOffset, 
+			  [GParams gameBoxYOffset] - kWallThickness );
+	lp2 = cpv([GParams gameBoxXOffset] + [GParams gameBoxWidth] + kWallThickness - kPhysicalBoxOffset, 
+			  [GParams gameBoxYOffset] + [GParams gameBoxHeight] + kWallThickness);
 	
 	cpShape* rightShape = cpSegmentShapeNew(rightBody, lp1, lp2, kWallThickness);
 	
@@ -482,7 +485,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 			text.color = kBlackColor;
 			[currentTutorialNode addChild: text];
 			
-			CCSprite *tutorialCircle = [CCSprite spriteWithFile: kTutorialCircleSprite];
+			CCSprite *tutorialCircle = [CCSprite spriteWithFile: [GParams spriteFileName: kTutorialCircleSprite]];
 			tutorialCircle.position = ccp(412,200);
 			[currentTutorialNode addChild: tutorialCircle];
 			[tutorialCircle runAction: [CCRepeatForever actionWithAction: [CCSequence actions:
@@ -516,7 +519,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 			text.color = kBlackColor;
 			[currentTutorialNode addChild: text];
 			
-			CCSprite *bball = [CCSprite spriteWithFile: kBouncingBallSprite];
+			CCSprite *bball = [CCSprite spriteWithFile: [GParams spriteFileName: kBouncingBallSprite]];
 			bball.position = ccp(235,195);
 			[currentTutorialNode addChild: bball];
 			
@@ -630,9 +633,9 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[self removeChild: levelLabel cleanup: YES];
 	
 	NSString *levelStr = [NSString stringWithFormat: @"%d", level];
-	levelLabel = [CCLabelTTF labelWithString: levelStr fontName: kHUDFont fontSize: kLevelLabelFontSize];
+	levelLabel = [CCLabelTTF labelWithString: levelStr fontName: kHUDFont fontSize: [GParams levelLabelFontSize]];
 	levelLabel.color = kBlackColor;
-	levelLabel.position =  ccp(472,8);
+	levelLabel.position =  [GParams levelLabelPoint];
 	//levelLabel.rotation = -45.0f;
 	[self addChild: levelLabel z: 1001];
 }
@@ -642,9 +645,11 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[self removeChild: scoreLabel cleanup: YES];
 	
 	NSString *scoreStr = [NSString stringWithFormat: @"%d", score];
-	scoreLabel = [CCLabelTTF labelWithString: scoreStr dimensions:CGSizeMake(160,40) alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: kHUDFontSize];
+	scoreLabel = [CCLabelTTF labelWithString: scoreStr dimensions: [GParams timeLabelSize] alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: [GParams HUDFontSize]];
 	scoreLabel.color = kBlackColor;
-	scoreLabel.position =  ccp(200 + scoreLabel.contentSize.width/2, 302 );
+	CGPoint p = [GParams scoreLabelPoint];
+	p.x += scoreLabel.contentSize.width/2;
+	scoreLabel.position = p;
 	[self addChild: scoreLabel z: 1001];
 }
 
@@ -657,14 +662,14 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	sec = timeRemaining - (min*60);
 		
 	NSString *timeStr = [NSString stringWithFormat: @"%.2d:%.2d", min, sec];
-	timeLabel = [CCLabelTTF labelWithString: timeStr dimensions:CGSizeMake(110,40) alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: kHUDFontSize];
+	timeLabel = [CCLabelTTF labelWithString: timeStr dimensions: [GParams timeLabelSize] alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: [GParams HUDFontSize]];
 	
 	if (timeRemaining > kTimeLow)
 		timeLabel.color = kBlackColor; // black
 	else
 		timeLabel.color = ccc3(180,0,0); // red
 	
-	timeLabel.position =  ccp(417, 301);
+	timeLabel.position =  [GParams timeLabelPoint];
 	[self addChild: timeLabel z: 1001];
 	
 	if (timeRemaining <= kTimeLow && SOUND_ENABLED)
@@ -696,28 +701,28 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 //-(void)draw
 //{
 //	[super draw];
-	
-//	if (currentCircle != nil)
-//		ccDrawPoint(currentCircle.position);
-	
-	//[self drawGameSquare];
+//
+////	if (currentCircle != nil)
+////		ccDrawPoint(currentCircle.position);
+//	
+//	//[self drawGameSquare];
 //	glDisable(GL_TEXTURE_2D);
 //	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 //	glDisableClientState(GL_COLOR_ARRAY);
 //
 //	
-//	for (int x = 0; x < kMatrixWidth; x++)
+//	for (int x = 0; x < surface.width; x++)
 //	{
-//		for (int y = 0; y < kMatrixHeight; y++)
+//		for (int y = 0; y < surface.height; y++)
 //		{
-//			if (matrix[x][y] == 1)
+//			if ([surface valueAtPointX: x Y: y] == 1)
 //			{
 //				glColor4ub(255,0,0,255);
 //			}
 //			else
 //				glColor4ub(0,0,255,255);
 //			
-//			CGPoint p = CGPointMake((x * kMatrixUnitSize) + kGameBoxXOffset, (y * kMatrixUnitSize) + kGameBoxYOffset);
+//			CGPoint p = CGPointMake((x * kMatrixUnitSize) + [GParams matrixXOffset], (y * kMatrixUnitSize) + [GParams matrixYOffset]);
 //			
 //			glPointSize(1);
 //			glEnable(GL_POINT_SMOOTH);
@@ -858,8 +863,11 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		}
 		else
 		{
+//			1260
+//			6270
 			NSTimeInterval timeSinceTouch = NOW - currentShape.created;
-			currentShape.size = timeSinceTouch * kCircleExpansionDiameterPerSecond;
+			float diamSec = IPAD ? kCircleExpansionDiameterPerSecond * 2.0 : kCircleExpansionDiameterPerSecond;
+			currentShape.size = timeSinceTouch * diamSec;
 			
 			mana -= 1.0f/60.0f;
 			manaBar.percentage = (float)mana/kFullMana;
@@ -881,7 +889,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 -(void)levelBlast: (NSUInteger)lvl atPoint: (CGPoint)p afterDelay: (NSTimeInterval)delay
 {
 	NSString *levelStr = [NSString stringWithFormat: @"Level %d", lvl];
-	CCLabelTTF *levelBlast = [CCLabelTTF labelWithString: levelStr fontName: kLevelBlastFont fontSize: kLevelBlastFontSize];
+	CCLabelTTF *levelBlast = [CCLabelTTF labelWithString: levelStr fontName: kLevelBlastFont fontSize: [GParams levelBlastFontSize]];
 	levelBlast.position = p;
 	levelBlast.scale = 0.0;
 	levelBlast.opacity = 255.0;
@@ -908,9 +916,12 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 
 	CCLabelBMFont *scoreBlast = [CCLabelBMFont labelWithString: scoreStr fntFile: @"font.fnt"];
 	
+	
+	float startScale = (IPAD || CC_CONTENT_SCALE_FACTOR() > 1) ? 0.4 : 0.20;
+	float endScale = (IPAD || CC_CONTENT_SCALE_FACTOR() > 1) ? 1.0 : 0.6;
 //	CCLabelTTF *scoreBlast = [CCLabelTTF labelWithString: scoreStr fontName: kPercentageBlastFont fontSize: kPercentageBlastFontSize];
 	scoreBlast.position = p;
-	scoreBlast.scale = 0.2 * CC_CONTENT_SCALE_FACTOR();
+	scoreBlast.scale = startScale;
 	scoreBlast.opacity = 255.0;
 //	scoreBlast.spacing = -70;
 //	scoreBlast.color = kWhiteColor;
@@ -918,7 +929,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	[scoreBlast runAction: [CCSequence actions: 
 							
-							[CCScaleTo actionWithDuration: 0.4 scale: 0.5 * CC_CONTENT_SCALE_FACTOR()],
+							[CCScaleTo actionWithDuration: 0.4 scale: endScale],
 							[CCCallFunc actionWithTarget: scoreBlast selector: @selector(dispose)], 
 							nil]];
 	
@@ -953,7 +964,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 -(void)gameOverBlastAfterDelay: (NSTimeInterval)delay
 {
 	NSString *gameOverStr = [NSString stringWithFormat: @"GAME OVER"];
-	CCLabelTTF *gameOverBlast = [CCLabelTTF labelWithString: gameOverStr fontName: kGameOverBlastFont fontSize: kGameOverBlastFontSize];
+	CCLabelTTF *gameOverBlast = [CCLabelTTF labelWithString: gameOverStr fontName: kGameOverBlastFont fontSize: [GParams gameOverFontSize] ];
 	CGPoint p1 = kGameScreenCenterPoint;
 	p1.y += 40;
 	gameOverBlast.position = p1;
@@ -971,10 +982,13 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 							nil]];
 	
 	NSString *scoreStr = [NSString stringWithFormat: @"SCORE: %d", score];
-	CCLabelTTF *finalScoreLabel = [CCLabelTTF labelWithString: scoreStr fontName: kHUDFont fontSize: kHUDFontSize];
+	CCLabelTTF *finalScoreLabel = [CCLabelTTF labelWithString: scoreStr fontName: kHUDFont fontSize: [GParams HUDFontSize]];
 	finalScoreLabel.opacity = 0.0f;
 	CGPoint p = kGameScreenCenterPoint;
-	p.y -= 10;
+	if (IPAD)
+		p.y -= 60;
+	else
+		p.y -= 10;
 	finalScoreLabel.color = kWhiteColor;
 	finalScoreLabel.position = p;
 	[self addChild: finalScoreLabel z: 100002];
@@ -1115,8 +1129,8 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 
 -(void)addBouncingBallAtPoint: (CGPoint)p withVelocity: (CGPoint)movementVector
 {
-	BouncingBall *bounceBall = [BouncingBall spriteWithFile: kBouncingBallSprite];
-	bounceBall.size = 20;
+	BouncingBall *bounceBall = [BouncingBall spriteWithFile: [GParams spriteFileName: kBouncingBallSprite]];
+	bounceBall.size = IPAD ? 40: 20;
 	bounceBall.position = p;
 	bounceBall.opacity = 0.0f;
 	[bounceBall runAction: [CCFadeIn actionWithDuration: 0.15]];
@@ -1177,7 +1191,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	// Decide how much energy is in the physical system
 	
-	float energy = 6000 + (level * 1200);
+	float energy = 6150 + (level * 1200);
 	float energyPerBall = energy / (numBalls - (numBalls * 0.08));
 	
 	// Create the balls and set them going
@@ -1194,6 +1208,12 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		// Define movement vector
 		float x = RandomBetween(0, energyPerBall);
 		float y = energyPerBall - x;
+		
+		if (IPAD)
+		{
+			y *= 2.13;
+			x *= 2.13;
+		}
 		
 //		float x = (5800 + (level * 700 ) - (numBalls * 2200)) * mod;
 //		float y = (5800 + (level * 700 ) - (numBalls * 2200)) * mod;

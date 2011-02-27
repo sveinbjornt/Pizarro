@@ -7,7 +7,7 @@
 //
 
 #import "Circle.h"
-
+#import "GParams.h"
 
 @implementation Circle
 
@@ -56,7 +56,9 @@
 //	ccFillCircle(p, size/2, CC_DEGREES_TO_RADIANS(360), 60, NO);
 	
 	BOOL white = NO;
-	for (int i = size; i > 0; i-= (15 * CC_CONTENT_SCALE_FACTOR()))
+	int spacing = IPAD ? 45: 15;
+	
+	for (int i = size; i > 0; i-= (spacing * CC_CONTENT_SCALE_FACTOR()))
 	{
 		if (white)
 			glColor4ub(255,255,255,opacity);
