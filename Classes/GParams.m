@@ -320,7 +320,7 @@
 +(CGPoint)mainMenuShiftOutVector
 {
 	if (IPAD)
-		return ccp(0, -320);
+		return ccp(0, -300);
 	
 	return ccp(0,-130);
 }
@@ -328,7 +328,7 @@
 +(CGPoint)mainMenuShiftInVector
 {
 	if (IPAD)
-		return ccp(0,320);
+		return ccp(0,300);
 	
 	return ccp(0,130);
 }

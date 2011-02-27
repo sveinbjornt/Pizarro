@@ -44,8 +44,11 @@
 {
 	[self reportArchivedScores]; // every time a score is submitted, we try to submit our archived scores as well
 	
-	[self reportNewGKScore: score forCategory: kGameCenterScoreCategory];
-	[self reportNewGKScore: level forCategory: kGameCenterLevelCategory];
+	NSString *scoreCategory = IPAD ? kGameCenter_IPAD_ScoreCategory : kGameCenterScoreCategory;
+	NSString *levelCategory = IPAD ? kGameCenter_IPAD_LevelCategory : kGameCenterScoreCategory;
+	
+	[self reportNewGKScore: score forCategory: scoreCategory];
+	[self reportNewGKScore: level forCategory: levelCategory];
 }
 
 +(void)reportNewGKScore: (NSUInteger)score forCategory: (NSString*)category

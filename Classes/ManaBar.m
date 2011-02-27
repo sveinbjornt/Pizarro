@@ -36,6 +36,12 @@
 	return self;
 }
 
+-(void)dealloc
+{
+	[self removeAllChildrenWithCleanup: YES];
+	[super dealloc];
+}
+
 -(void)setManaLevel:(float)level
 {
 	float perc = (float)(level/kFullMana);

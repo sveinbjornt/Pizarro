@@ -145,12 +145,18 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 
 - (void) dealloc
 {
+	CCLOG(@"Deallocing Pizarro Game Scene");
+	
 	cpSpaceFree(space);
+	
 	[bounceBalls release];
-	[shapeKinds release];
-	[surface release];
 	[shapes release];
+	
+	[surface release];
+	
 	[piano release];
+	[manaBar release];
+	
 	[self removeAllChildrenWithCleanup: YES];
 	[super dealloc];
 }
@@ -159,6 +165,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 {
 	if ((self = [super initWithColor: color width: w height: h])) 
 	{		
+		CCLOG(@"Creating Pizarro Game Scene");
 		// White, touch-sensitive layer
 		self.isTouchEnabled = YES;
 		self.color = kWhiteColor;
@@ -220,7 +227,6 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	gameOver = NO;
 	currShapeIndex = 0;
 	currentShapeClass = [Circle class];//[Circle class];
-	shapeKinds = [[NSArray arrayWithObjects: [Circle class], [Square class], [Triangle class], nil] retain];
 	
 	currentTutorialNode = nil;
 }
@@ -255,7 +261,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[self updateScore];
 	
 	// MANA BAR
-	manaBar = [[[ManaBar alloc] init] autorelease];
+	manaBar = [[ManaBar alloc] init];
 	manaBar.position = ccp(4,7);
 	manaBar.percentage = 0.0f;
 	[self addChild: manaBar z: 99];
@@ -760,7 +766,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	if (currShapeIndex >= kNumShapeKinds)
 		currShapeIndex = 0;
 	
-	currentShapeClass = [Circle class];//[shapeKinds objectAtIndex: currShapeIndex];
+	currentShapeClass = [Circle class];
 	[self updateCurrentShape];
 }
 
@@ -1399,7 +1405,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	if (gameOver)
 	{
-		[[CCDirector sharedDirector] pushScene: [CCTransitionSlideInL transitionWithDuration: 0.35 scene: [MainMenuScene scene]]];
+		[[CCDirector sharedDirector] replaceScene: [CCTransitionSlideInL transitionWithDuration: 0.35 scene: [MainMenuScene scene]]];
 		return;
 	}
 	

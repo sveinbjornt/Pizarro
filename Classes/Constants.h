@@ -24,8 +24,12 @@
 // GAME CENTER
 
 // leaderboards
-#define kGameCenterScoreCategory	@"Pizarro_Phone_Score"
-#define kGameCenterLevelCategory	@"Pizarro_Phone_Level"
+#define kGameCenterScoreCategory		@"Pizarro_Phone_Score"
+#define kGameCenterLevelCategory		@"Pizarro_Phone_Level"
+#define kGameCenter_IPAD_ScoreCategory	@"Pizarro_Pad_Score"
+#define kGameCenter_IPAD_LevelCategory	@"Pizarro_Pad_Level"
+
+
 
 // achievements
 #define kGameCenterLevelInOneAchievement	@"Pizarro_Achievement_LevelInOne"
@@ -155,13 +159,13 @@
 
 #define kTutorialCircleSprite		@"tutorial_circle"
 
-// Audio files
+// Audio and music files
 
-#define kTrumpetSoundEffect	@"trumpet.wav"
-#define kBassSoundEffect @"bass.wav"
+#define kTrumpetSoundEffect		@"trumpet.wav"
+#define kBassSoundEffect		@"bass.wav"
 
-#define kNumBassLines		3
-#define	kStartingBassLine	kNumBassLines
+#define kNumBassLines			3
+#define	kStartingBassLine		kNumBassLines
 
 // Settings
 

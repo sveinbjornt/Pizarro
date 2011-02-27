@@ -18,7 +18,6 @@
 
 @interface PizarroGameScene : CCLayerColor
 {	
-	NSArray		   *shapeKinds;
 	NSMutableArray *shapes;
 	NSMutableArray *bounceBalls;
 	

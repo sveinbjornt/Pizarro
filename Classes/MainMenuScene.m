@@ -24,9 +24,11 @@
 
 -(void)dealloc
 {
-	[self removeAllChildrenWithCleanup: YES];
+	CCLOG(@"Deallocing main menu scene");
+	
 	[letters release];
 	[piano release];
+	[self removeAllChildrenWithCleanup: YES];
 	[super dealloc];
 }
 
@@ -60,6 +62,8 @@
 {
 	if ((self = [super init])) 
 	{
+		CCLOG(@"Creating main menu scene");
+		
 		self.isTouchEnabled = YES;
 		self.paused = p;
 		

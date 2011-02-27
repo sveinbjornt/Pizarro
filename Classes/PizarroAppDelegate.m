@@ -383,8 +383,8 @@
 	leaderboardController = [[GKLeaderboardViewController alloc] init];
 	if (leaderboardController != NULL) 
 	{
-		// These defaults can be set in iTunes Connect as oppsoed to code
-		leaderboardController.category = kGameCenterScoreCategory;
+		// These defaults can be set in iTunes Connect as opposed to code
+		leaderboardController.category = IPAD ? kGameCenter_IPAD_ScoreCategory : kGameCenterScoreCategory;
 		leaderboardController.timeScope = GKLeaderboardTimeScopeAllTime;
 		leaderboardController.leaderboardDelegate = self; 
 		//[leaderboardController setModalTransitionStyle: UIModalTransitionStyleFlipHorizontal];
