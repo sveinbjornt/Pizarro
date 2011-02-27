@@ -916,9 +916,12 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 
 	CCLabelBMFont *scoreBlast = [CCLabelBMFont labelWithString: scoreStr fntFile: @"font.fnt"];
 	
+	
+	float startScale = (IPAD || CC_CONTENT_SCALE_FACTOR() > 1) ? 0.4 : 0.20;
+	float endScale = (IPAD || CC_CONTENT_SCALE_FACTOR() > 1) ? 1.0 : 0.6;
 //	CCLabelTTF *scoreBlast = [CCLabelTTF labelWithString: scoreStr fontName: kPercentageBlastFont fontSize: kPercentageBlastFontSize];
 	scoreBlast.position = p;
-	scoreBlast.scale = 0.2 * CC_CONTENT_SCALE_FACTOR();
+	scoreBlast.scale = startScale;
 	scoreBlast.opacity = 255.0;
 //	scoreBlast.spacing = -70;
 //	scoreBlast.color = kWhiteColor;
@@ -926,7 +929,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	[scoreBlast runAction: [CCSequence actions: 
 							
-							[CCScaleTo actionWithDuration: 0.4 scale: 0.5 * CC_CONTENT_SCALE_FACTOR()],
+							[CCScaleTo actionWithDuration: 0.4 scale: endScale],
 							[CCCallFunc actionWithTarget: scoreBlast selector: @selector(dispose)], 
 							nil]];
 	
@@ -1188,7 +1191,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	// Decide how much energy is in the physical system
 	
-	float energy = 6000 + (level * 1200);
+	float energy = 6150 + (level * 1200);
 	float energyPerBall = energy / (numBalls - (numBalls * 0.08));
 	
 	// Create the balls and set them going
@@ -1206,8 +1209,11 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		float x = RandomBetween(0, energyPerBall);
 		float y = energyPerBall - x;
 		
-		y *= 2;
-		x *= 2;
+		if (IPAD)
+		{
+			y *= 2.13;
+			x *= 2.13;
+		}
 		
 //		float x = (5800 + (level * 700 ) - (numBalls * 2200)) * mod;
 //		float y = (5800 + (level * 700 ) - (numBalls * 2200)) * mod;
