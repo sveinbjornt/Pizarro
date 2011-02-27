@@ -24,6 +24,8 @@
 +(int)matrixWidth;
 +(int)matrixHeight;
 +(int)matrixUnitSize;
++(float)matrixXOffset;
++(float)matrixYOffset;
 
 
 +(float)HUDFontSize;
@@ -62,6 +64,7 @@
 +(CGPoint)mainMenuLetterShiftVector;
 +(CGPoint)mainMenuScoresButtonPoint;
 +(CGPoint)resumeGameMenuPoint;
++(float)resumeGameFontSize;
 +(CGPoint)mainMenuBackgroundPoint;
 +(CGPoint)mainMenuBackgroundStartPosition;
 +(CGPoint)mainMenuShiftOutVector;

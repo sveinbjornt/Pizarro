@@ -11,7 +11,7 @@
 #import "GParams.h"
 
 @implementation SurfaceMatrix
-@synthesize totalFilled;
+@synthesize totalFilled,height, width;
 
 -(id)initWithWidth: (int)w height: (int)h 
 {
@@ -22,6 +22,11 @@
 		[self clear];
 	}
 	return self;
+}
+
+-(int)valueAtPointX: (int)x Y: (int)y
+{
+	return matrix[x][y];
 }
 
 -(void)clear
@@ -59,7 +64,7 @@
 				continue;
 			}
 			
-			CGPoint p = CGPointMake((x * kMatrixUnitSize) + [GParams gameBoxXOffset], (y * kMatrixUnitSize) + [GParams gameBoxYOffset]);
+			CGPoint p = CGPointMake((x * kMatrixUnitSize) + [GParams matrixXOffset], (y * kMatrixUnitSize) + [GParams matrixYOffset]);
 			
 			if ([shape isKindOfClass: [Circle class]])
 			{

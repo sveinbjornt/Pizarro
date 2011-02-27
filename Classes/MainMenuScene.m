@@ -421,7 +421,7 @@
 -(void)showPausedMenu
 {
 	[CCMenuItemFont setFontName: kMainMenuFont];
-	[CCMenuItemFont setFontSize: kResumeGameMenuFontSize];
+	[CCMenuItemFont setFontSize: [GParams resumeGameFontSize]];
 		
 	CCMenuItemFont *menuItem1 = [CCMenuItemFont itemFromString: @"RESUME GAME" target:self selector:@selector(onResume:)];
 	resumeMenu = [CCMenu menuWithItems:menuItem1, nil];

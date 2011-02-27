@@ -20,8 +20,15 @@
 
 -(CGRect) rect
 {
+	if (IPAD)
+	{
+		return CGRectMake( position_.x,
+						  position_.y + 100,
+						  60, 120);	
+	}
+	
 	return CGRectMake( position_.x,
-					  position_.y + 1000,
+					  position_.y + 100,
 					  30, 60);	
 }
 

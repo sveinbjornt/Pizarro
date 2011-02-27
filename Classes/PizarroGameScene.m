@@ -701,28 +701,28 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 //-(void)draw
 //{
 //	[super draw];
-	
-//	if (currentCircle != nil)
-//		ccDrawPoint(currentCircle.position);
-	
-	//[self drawGameSquare];
+//
+////	if (currentCircle != nil)
+////		ccDrawPoint(currentCircle.position);
+//	
+//	//[self drawGameSquare];
 //	glDisable(GL_TEXTURE_2D);
 //	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 //	glDisableClientState(GL_COLOR_ARRAY);
 //
 //	
-//	for (int x = 0; x < kMatrixWidth; x++)
+//	for (int x = 0; x < surface.width; x++)
 //	{
-//		for (int y = 0; y < kMatrixHeight; y++)
+//		for (int y = 0; y < surface.height; y++)
 //		{
-//			if (matrix[x][y] == 1)
+//			if ([surface valueAtPointX: x Y: y] == 1)
 //			{
 //				glColor4ub(255,0,0,255);
 //			}
 //			else
 //				glColor4ub(0,0,255,255);
 //			
-//			CGPoint p = CGPointMake((x * kMatrixUnitSize) + kGameBoxXOffset, (y * kMatrixUnitSize) + kGameBoxYOffset);
+//			CGPoint p = CGPointMake((x * kMatrixUnitSize) + [GParams matrixXOffset], (y * kMatrixUnitSize) + [GParams matrixYOffset]);
 //			
 //			glPointSize(1);
 //			glEnable(GL_POINT_SMOOTH);
@@ -863,8 +863,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		}
 		else
 		{
+//			1260
+//			6270
 			NSTimeInterval timeSinceTouch = NOW - currentShape.created;
-			float diamSec = IPAD ? kCircleExpansionDiameterPerSecond * 2 : kCircleExpansionDiameterPerSecond;
+			float diamSec = IPAD ? kCircleExpansionDiameterPerSecond * 2.0 : kCircleExpansionDiameterPerSecond;
 			currentShape.size = timeSinceTouch * diamSec;
 			
 			mana -= 1.0f/60.0f;
@@ -1203,6 +1205,9 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		// Define movement vector
 		float x = RandomBetween(0, energyPerBall);
 		float y = energyPerBall - x;
+		
+		y *= 2;
+		x *= 2;
 		
 //		float x = (5800 + (level * 700 ) - (numBalls * 2200)) * mod;
 //		float y = (5800 + (level * 700 ) - (numBalls * 2200)) * mod;

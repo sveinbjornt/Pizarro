@@ -43,7 +43,7 @@
 +(float)gameBoxXOffset
 {
 	if (IPAD)
-		return 52;
+		return 60;
 	
 	return 26;
 }
@@ -54,6 +54,22 @@
 		return 10;
 	
 	return 3;
+}
+
++(float)matrixXOffset
+{
+	if (IPAD)
+		return 65;
+	
+	return 31;
+}
+
++(float)matrixYOffset
+{
+	if (IPAD)
+		return 20;
+	
+	return 7;
 }
 
 +(int)matrixWidth
@@ -102,7 +118,7 @@
 	if (IPAD)
 		return ccp(280, 725);
 	
-	return ccp(155, 302);
+	return ccp(145, 302);
 }
 
 +(CGPoint)timeLabelPoint
@@ -275,6 +291,14 @@
 		return CGPointMake(364, 360);
 	
 	return CGPointMake(182, 180);
+}
+
++(float)resumeGameFontSize
+{
+	if (IPAD)
+		return kResumeGameMenuFontSize * 2;
+	
+	return kResumeGameMenuFontSize;
 }
 
 +(CGPoint)mainMenuBackgroundPoint
