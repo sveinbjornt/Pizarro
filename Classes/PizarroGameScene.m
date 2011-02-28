@@ -420,6 +420,38 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	rightShape->group = kWallShapeGroup;
 	
 	cpSpaceAddStaticShape(space, rightShape);
+	
+	// If multiplayer, we add the ball drag sources as objects
+	
+	if (multiPlayer)
+	{
+		srcBallBody1 = cpBodyNew(kWallMass, kWallInertia);
+		srcBallBody1->p = ccp(23,370);
+		
+		cpSpaceAddBody(space, srcBallBody1);
+		
+		srcBallShape1 = cpCircleShapeNew(srcBallBody1, 90, cpvzero);
+		srcBallShape1->e = kWallElasticity;
+		srcBallShape1->u = kWallFriction;	
+		srcBallShape1->collision_type = kWallCollisionType;
+		srcBallShape1->group = kWallShapeGroup;
+		
+		cpSpaceAddShape(space, srcBallShape1);
+		
+		
+		srcBallBody1 = cpBodyNew(kWallMass, kWallInertia);
+		srcBallBody1->p = ccp(23,370);
+		
+		cpSpaceAddBody(space, srcBallBody1);
+		
+		srcBallShape1 = cpCircleShapeNew(srcBallBody1, 90, cpvzero);
+		srcBallShape1->e = kWallElasticity;
+		srcBallShape1->u = kWallFriction;	
+		srcBallShape1->collision_type = kWallCollisionType;
+		srcBallShape1->group = kWallShapeGroup;
+		
+		cpSpaceAddShape(space, srcBallShape1);
+	}
 }
 
 -(void)destroyPhysicalSpace
@@ -454,9 +486,23 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	cpShapeDestroy(rightShape);
 	cpShapeFree(rightShape);
 	
+	if (multiPlayer)
+	{
+		cpBodyDestroy(srcBallBody1);
+		cpBodyFree(srcBallBody1);
+		
+		cpShapeDestroy(srcBallShape1);
+		cpShapeFree(srcBallShape1);
+		
+		cpBodyDestroy(srcBallBody2);
+		cpBodyFree(srcBallBody2);
+		
+		cpShapeDestroy(srcBallShape2);
+		cpShapeFree(srcBallShape2);
+	}
+		
 	cpSpaceFree(space);
-	
-	
+
 }
 
 #pragma mark -

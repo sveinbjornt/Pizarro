@@ -39,8 +39,8 @@
 	// CHipmunk objects
 	cpSpace* space;	
 	
-	cpBody *floorBody, *ceilingBody, *leftBody, *rightBody;
-	cpShape *floorShape, *ceilingShape, *leftShape, *rightShape;
+	cpBody *floorBody, *ceilingBody, *leftBody, *rightBody, *srcBallBody1, *srcBallBody2;
+	cpShape *floorShape, *ceilingShape, *leftShape, *rightShape, *srcBallShape1, *srcBallShape2;
 	
 	SurfaceMatrix	*surface;
 		
