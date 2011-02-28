@@ -123,18 +123,21 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 // HelloWorld implementation
 @implementation PizarroGameScene
 
+@synthesize multiPlayer;
+
+
 #pragma mark -
 #pragma mark Instantiation
 
-+(id) scene
++(id) scene: (BOOL)multiPl
 {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
 	
 	// 'layer' is an autorelease object.
-	PizarroGameScene *layer = [PizarroGameScene layerWithColor: ccc4(255,255,255,255)];
-	
-	[layer setColor: kWhiteColor];
+	CGSize s = [[CCDirector sharedDirector] winSize];
+	PizarroGameScene *layer = [[PizarroGameScene alloc] initWithColor: ccc4(255,255,255,255)  width: s.width height: s.height multiPlayer: multiPl];
+	[layer autorelease];
 	
 	// add layer as a child to scene
 	[scene addChild: layer];
@@ -155,13 +158,12 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[surface release];
 	
 	[piano release];
-	[manaBar release];
 	
 	[self removeAllChildrenWithCleanup: YES];
 	[super dealloc];
 }
 
-- (id)initWithColor:(ccColor4B)color width:(GLfloat)w  height:(GLfloat) h
+- (id)initWithColor:(ccColor4B)color width:(GLfloat)w  height:(GLfloat) h multiPlayer: (BOOL)mp
 {
 	if ((self = [super initWithColor: color width: w height: h])) 
 	{		
@@ -170,6 +172,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		self.isTouchEnabled = YES;
 		self.color = kWhiteColor;
 		self.opacity = 255;
+		
+		multiPlayer = mp;
+		
+		CCLOG(@"Multiplayer: %d", multiPlayer);
 		
 		// Setup
 		[self setupGameVariables];
@@ -234,13 +240,18 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 -(void)setupHUD
 {	
 	// BACKGROUND
-	CCSprite *bg = [CCSprite spriteWithFile: [GParams spriteFileName: kGameScreenBackgroundSprite]];
+	CCSprite *bg;
+	if (multiPlayer)
+		bg = [CCSprite spriteWithFile: [GParams spriteFileName: kGameScreenMultiplayerBackgroundSprite]];
+	else
+		bg = [CCSprite spriteWithFile: [GParams spriteFileName: kGameScreenBackgroundSprite]];
+
 	bg.blendFunc = (ccBlendFunc) { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
 	bg.position = kGameScreenCenterPoint;
 	[self addChild: bg z: 100];	
 	
 	// game backing texture
-	bgRenderTexture = [BGRenderTexture renderTextureWithWidth: [GParams gameBoxWidth] height: [GParams gameBoxHeight]];
+	bgRenderTexture = [BGRenderTexture renderTextureWithWidth: [GParams gameBoxWidth: multiPlayer] height: [GParams gameBoxHeight: multiPlayer]];
 	[bgRenderTexture setPosition: kGameBoxCenterPoint];
 	[bgRenderTexture clear];
 	bgRenderTexture.sprite.blendFunc = (ccBlendFunc) { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
@@ -254,17 +265,24 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[self updateLevel];
 	
 	// SCORE
-	CCLabelTTF *scoreL = [CCLabelTTF labelWithString: @"SCORE" dimensions: [GParams timeLabelSize] alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: [GParams HUDFontSize]];
-	scoreL.color = ccc3(0,0,0);
-	scoreL.position = [GParams scoreLPoint];
-	[self addChild: scoreL z: 1001];
-	[self updateScore];
+	if (!multiPlayer)
+	{
+		CCLabelTTF *scoreL = [CCLabelTTF labelWithString: @"SCORE" dimensions: [GParams timeLabelSize] alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: [GParams HUDFontSize]];
+		scoreL.color = ccc3(0,0,0);
+		scoreL.position = [GParams scoreLPoint];
+		[self addChild: scoreL z: 1001];
+		[self updateScore];
+	}
 	
 	// MANA BAR
-	manaBar = [[ManaBar alloc] init];
+	manaBar = [[[ManaBar alloc] init] autorelease];
 	manaBar.position = ccp(4,7);
 	manaBar.percentage = 0.0f;
 	[self addChild: manaBar z: 99];
+	
+	if (multiPlayer)
+		manaBar.visible = NO;
+	
 	
 	// Pause button
 	MenuButtonSprite *pauseMenuItem = [MenuButtonSprite itemFromNormalSprite: [CCSprite spriteWithFile: [GParams spriteFileName: kInGameMenuButtonOffSprite]] 
@@ -325,10 +343,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	floorBody->p = cpv(0, 0);
 	
-	lp1 = cpv([GParams gameBoxXOffset] - kWallThickness, 
-			  [GParams gameBoxYOffset] - kWallThickness + kPhysicalBoxOffset);
-	lp2 = cpv([GParams gameBoxXOffset] + [GParams gameBoxWidth] + kWallThickness, 
-			  [GParams gameBoxYOffset] - kWallThickness + kPhysicalBoxOffset);
+	lp1 = cpv([GParams gameBoxXOffset: multiPlayer] - kWallThickness, 
+			  [GParams gameBoxYOffset: multiPlayer] - kWallThickness + kPhysicalBoxOffset);
+	lp2 = cpv([GParams gameBoxXOffset: multiPlayer] + [GParams gameBoxWidth: multiPlayer] + kWallThickness, 
+			  [GParams gameBoxYOffset: multiPlayer] - kWallThickness + kPhysicalBoxOffset);
 	
 	floorShape = cpSegmentShapeNew(floorBody, lp1, lp2, kWallThickness);
 	
@@ -345,10 +363,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	ceilingBody->p = cpv(0, 0);
 	
-	lp1 = cpv([GParams gameBoxXOffset] - kWallThickness, 
-			  [GParams gameBoxYOffset] + [GParams gameBoxHeight] + kWallThickness - kPhysicalBoxOffset);
-	lp2 = cpv([GParams gameBoxXOffset] + [GParams gameBoxWidth] + kWallThickness, 
-			  [GParams gameBoxYOffset] + [GParams gameBoxHeight] + kWallThickness - kPhysicalBoxOffset);
+	lp1 = cpv([GParams gameBoxXOffset: multiPlayer] - kWallThickness, 
+			  [GParams gameBoxYOffset: multiPlayer] + [GParams gameBoxHeight: multiPlayer] + kWallThickness - kPhysicalBoxOffset);
+	lp2 = cpv([GParams gameBoxXOffset: multiPlayer] + [GParams gameBoxWidth: multiPlayer] + kWallThickness, 
+			  [GParams gameBoxYOffset: multiPlayer] + [GParams gameBoxHeight: multiPlayer] + kWallThickness - kPhysicalBoxOffset);
 	
 	ceilingShape = cpSegmentShapeNew(ceilingBody, lp1, lp2, kWallThickness);
 	
@@ -367,10 +385,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	leftBody->p = cpv(0, 0);
 	
-	lp1 = cpv([GParams gameBoxXOffset] - kWallThickness + kPhysicalBoxOffset, 
-			  [GParams gameBoxYOffset] - kWallThickness );
-	lp2 = cpv([GParams gameBoxXOffset] - kWallThickness + kPhysicalBoxOffset, 
-			  [GParams gameBoxYOffset] + [GParams gameBoxHeight] + kWallThickness);
+	lp1 = cpv([GParams gameBoxXOffset: multiPlayer] - kWallThickness + kPhysicalBoxOffset, 
+			  [GParams gameBoxYOffset: multiPlayer] - kWallThickness );
+	lp2 = cpv([GParams gameBoxXOffset: multiPlayer] - kWallThickness + kPhysicalBoxOffset, 
+			  [GParams gameBoxYOffset: multiPlayer] + [GParams gameBoxHeight: multiPlayer] + kWallThickness);
 	
 	leftShape = cpSegmentShapeNew(leftBody, lp1, lp2, kWallThickness);
 	
@@ -389,10 +407,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	rightBody->p = cpv(0, 0);
 	
-	lp1 = cpv([GParams gameBoxXOffset] + [GParams gameBoxWidth] + kWallThickness - kPhysicalBoxOffset, 
-			  [GParams gameBoxYOffset] - kWallThickness );
-	lp2 = cpv([GParams gameBoxXOffset] + [GParams gameBoxWidth] + kWallThickness - kPhysicalBoxOffset, 
-			  [GParams gameBoxYOffset] + [GParams gameBoxHeight] + kWallThickness);
+	lp1 = cpv([GParams gameBoxXOffset: multiPlayer] + [GParams gameBoxWidth: multiPlayer] + kWallThickness - kPhysicalBoxOffset, 
+			  [GParams gameBoxYOffset: multiPlayer] - kWallThickness );
+	lp2 = cpv([GParams gameBoxXOffset: multiPlayer] + [GParams gameBoxWidth: multiPlayer] + kWallThickness - kPhysicalBoxOffset, 
+			  [GParams gameBoxYOffset: multiPlayer] + [GParams gameBoxHeight: multiPlayer] + kWallThickness);
 	
 	rightShape = cpSegmentShapeNew(rightBody, lp1, lp2, kWallThickness);
 	
@@ -675,6 +693,9 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 {
 	[self removeChild: levelLabel cleanup: YES];
 	
+	if (multiPlayer)
+		return;
+	
 	NSString *levelStr = [NSString stringWithFormat: @"%d", level];
 	levelLabel = [CCLabelTTF labelWithString: levelStr fontName: kHUDFont fontSize: [GParams levelLabelFontSize]];
 	levelLabel.color = kBlackColor;
@@ -686,6 +707,9 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 -(void)updateScore
 {
 	[self removeChild: scoreLabel cleanup: YES];
+	
+	if (multiPlayer)
+		return;
 	
 	NSString *scoreStr = [NSString stringWithFormat: @"%d", score];
 	scoreLabel = [CCLabelTTF labelWithString: scoreStr dimensions: [GParams timeLabelSize] alignment: UITextAlignmentLeft fontName: kHUDFont fontSize: [GParams HUDFontSize]];
@@ -699,7 +723,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 -(void)updateTimer
 {
 	[self removeChild: timeLabel cleanup: YES];
-		
+	
+	if (multiPlayer)
+		return;
+	
 	int min, sec;
 	min = timeRemaining/60;
 	sec = timeRemaining - (min*60);
@@ -1422,7 +1449,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	[self runAction: [CCSequence actions:
 					  
-					  [CCDelayTime actionWithDuration: 2.0],
+					  [CCDelayTime actionWithDuration: 1.2],
 					  [CCCallFunc actionWithTarget: self selector: @selector(endTransition)],
 					  
 					  nil]];

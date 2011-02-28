@@ -16,10 +16,10 @@
 +(NSString *)spriteFileName: (NSString *)spriteFileName;
 
 
-+(float)gameBoxWidth;
-+(float)gameBoxHeight;
-+(float)gameBoxXOffset;
-+(float)gameBoxYOffset;
++(float)gameBoxWidth: (BOOL)mp;
++(float)gameBoxHeight: (BOOL)mp;
++(float)gameBoxXOffset: (BOOL)mp;
++(float)gameBoxYOffset: (BOOL)mp;
 
 +(int)matrixWidth;
 +(int)matrixHeight;

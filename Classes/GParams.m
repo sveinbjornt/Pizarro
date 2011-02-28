@@ -24,15 +24,18 @@
 #pragma mark -
 #pragma mark In-Game
 
-+(float)gameBoxWidth
++(float)gameBoxWidth: (BOOL)mp
 {
+	if (IPAD && mp)
+		return 1004;
+	
 	if (IPAD)
 		return 958;
 	
 	return 450;
 }
 
-+(float)gameBoxHeight
++(float)gameBoxHeight: (BOOL)mp
 {
 	if (IPAD)
 		return 664;
@@ -40,15 +43,18 @@
 	return 280;
 }
 
-+(float)gameBoxXOffset
++(float)gameBoxXOffset: (BOOL)mp
 {
+	if (IPAD && mp)
+		return 10;
+	
 	if (IPAD)
 		return 60;
 	
 	return 26;
 }
 
-+(float)gameBoxYOffset
++(float)gameBoxYOffset: (BOOL)mp
 {
 	if (IPAD)
 		return 10;

@@ -95,10 +95,10 @@
 #define kGameScreenHeight			[[CCDirector sharedDirector] winSize].height
 
 #define kGameScreenCenterPoint		CGPointMake([[CCDirector sharedDirector] winSize].width/2,[[CCDirector sharedDirector] winSize].height/2)
-#define kGameBoxCenterPoint			CGPointMake([GParams gameBoxXOffset] + ([GParams gameBoxWidth]/2), [GParams gameBoxYOffset] + ([GParams gameBoxHeight]/2)) 
+#define kGameBoxCenterPoint			CGPointMake([GParams gameBoxXOffset: multiPlayer] + ([GParams gameBoxWidth: multiPlayer]/2), [GParams gameBoxYOffset: multiPlayer] + ([GParams gameBoxHeight: multiPlayer]/2)) 
 #define kGameOverPoint				CGPointMake([[CCDirector sharedDirector] winSize].width/2, [[CCDirector sharedDirector] winSize].height * (float)5/9)
 
-#define kGameBoxRect				CGRectMake([GParams gameBoxXOffset], [GParams gameBoxYOffset], [GParams gameBoxWidth], [GParams gameBoxHeight])
+#define kGameBoxRect				CGRectMake([GParams gameBoxXOffset: multiPlayer], [GParams gameBoxYOffset: multiPlayer], [GParams gameBoxWidth: multiPlayer], [GParams gameBoxHeight: multiPlayer])
 
 
 // Font
@@ -162,6 +162,7 @@
 
 #define kManSilhouetteSprite		@"mode_silhouette"
 
+#define kGameScreenMultiplayerBackgroundSprite		@"bg-twoplayer"
 
 // Audio and music files
 

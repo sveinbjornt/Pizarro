@@ -9,6 +9,7 @@
 #import "BGRenderTexture.h"
 #import "Circle.h"
 #import "GParams.h"
+#import "PizarroGameScene.h"
 
 @implementation BGRenderTexture
 
@@ -29,7 +30,7 @@
 	glGetFloatv(GL_SMOOTH_POINT_SIZE_RANGE, (float *)&maxSmoothPointSize);
 	
 	// get circle point in local coordinates
-	CGPoint p = ccpSub(circle.position, CGPointMake([GParams gameBoxXOffset], [GParams gameBoxYOffset]));
+	CGPoint p = ccpSub(circle.position, CGPointMake([GParams gameBoxXOffset: [(PizarroGameScene *)self.parent multiPlayer]], [GParams gameBoxYOffset: [(PizarroGameScene *)self.parent multiPlayer]]));
 	// Set color
 	glColor4ub(circle.color.r,circle.color.g,circle.color.b,circle.opacity);
 	

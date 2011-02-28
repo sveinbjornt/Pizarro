@@ -43,11 +43,7 @@
 	cpShape *floorShape, *ceilingShape, *leftShape, *rightShape;
 	
 	SurfaceMatrix	*surface;
-	
-	
-	
-	
-	
+		
 	int				currShapeIndex;
 	int				score;
 	int				level;
@@ -64,14 +60,18 @@
 	
 	BOOL			flawless;
 	
+	BOOL			multiPlayer;
+	
 	Instrument		*piano;
 	
 	int				tutorialStep;
 	CCNode			*currentTutorialNode, *lastTutorialNode;
 	
 }
+@property (readwrite, assign) BOOL multiPlayer;
 
-+(id)scene;
++(id)scene: (BOOL)multiPl;
+-(id)initWithColor:(ccColor4B)color width:(GLfloat)w  height:(GLfloat) h multiPlayer: (BOOL)mp;
 
 -(void)setupGameVariables;
 -(void)setupHUD;

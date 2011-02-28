@@ -265,13 +265,18 @@
 		inTransition = YES;
 		state = kGameModeState;
 		
-		[piano playSequence: @"1,7,2,6,3,5,1"];
+		[piano playSequence: @"1,7,2,6,3,5,7"];
 		
 		[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.5];
 		[self shiftOut];
 		
 		[self showGameModeSelection];
 	}
+}
+
+-(void)onSinglePlayer:(id)sender
+{
+	[self startGame: NO];
 }
 
 -(void)onMultiPlayer:(id)sender
@@ -327,7 +332,7 @@
 {
 	[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: YES] forKey: kShowTutorial];
 	[[NSUserDefaults standardUserDefaults] synchronize];
-	[self onPlay: sender];
+	[self onSinglePlayer: sender];
 }
 
 #pragma mark -
@@ -432,14 +437,13 @@
 	
 	inTransition = YES;
 	
-	//[piano playSequence: @"7, ,1,3,4,3,4,3"];
-	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.63];
+//	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.63];
 	
 	if (paused)
 	{
 		[pausedScene cleanup];
 		
-		// tell CCDirector to remove GameScene from the stack
+		// tell CCDirector to remove the GameScene from the stack
 		[[CCDirector sharedDirector] removeSceneFromStack: pausedScene];		
 	}
 	
@@ -449,7 +453,7 @@
 					  //[CCDelayTime actionWithDuration: 0.15],
 					  [CCCallFuncO actionWithTarget: [CCDirector sharedDirector] 
 										   selector: @selector(replaceScene:) 
-											 object: [CCTransitionSlideInR transitionWithDuration: 0.35 scene: [PizarroGameScene scene]]],
+											 object: [CCTransitionSlideInR transitionWithDuration: 0.35 scene: [PizarroGameScene scene: multiPlayer]]],
 					  nil]];
 }
 
@@ -479,11 +483,10 @@
 -(void)showGameModeSelection
 {
 	// kManSilhouetteSprite
-	//singlePlayerLabel, *multiPlayerLabel
 	[CCMenuItemFont setFontName: kMainMenuFont];
 	[CCMenuItemFont setFontSize: [GParams gameModeFontSize]];
 		
-	CCMenuItemFont *menuItem1 = [CCMenuItemFont itemFromString: @"Single Player" target:self selector:@selector(startGame:)];
+	CCMenuItemFont *menuItem1 = [CCMenuItemFont itemFromString: @"Single Player" target:self selector:@selector(onSinglePlayer:)];
 	CCMenuItemFont *menuItem2 = [CCMenuItemFont itemFromString: @"Two Player" target:self selector:@selector(onMultiPlayer:)];
 	menuItem1.color = kWhiteColor;
 	menuItem2.color = kWhiteColor;
