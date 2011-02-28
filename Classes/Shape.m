@@ -9,7 +9,7 @@
 #import "Shape.h"
 
 @implementation Shape
-@synthesize color, opacity, expanding, destroyed, size, fullSize, created, ended, cpShape, cpBody, touch;
+@synthesize color, opacity, expanding, destroyed, size, fullSize, created, ended, cpShape, cpBody, touch, owner;
 
 -(id)init
 {
@@ -21,6 +21,7 @@
 		created = NOW;
 		expanding = YES;
 		destroyed = NO;
+		owner = kSinglePlayer;
 	}
 	return self;
 }
@@ -30,6 +31,11 @@
 //	expanding = b;
 //	if (!b)
 //		fullSize = size;
+//}
+
+//-(void)setPosition:(CGPoint)p
+//{
+//	
 //}
 
 -(void)setDestroyed:(BOOL)b

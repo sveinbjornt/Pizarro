@@ -172,6 +172,12 @@
 #define kNumBassLines			3
 #define	kStartingBassLine		kNumBassLines
 
+// Multiplayer
+
+#define kSinglePlayer			0
+#define kPlayer1				1
+#define kPlayer2				2
+
 // Settings
 
 #define kMusicEnabled		@"MusicEnabled"

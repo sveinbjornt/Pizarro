@@ -97,7 +97,7 @@
 -(void)addBouncingBallAtPoint: (CGPoint)p withVelocity: (CGPoint)movementVector;
 -(void)endExpansionOfShape: (Shape *)shape;
 
--(void)createShapeAtPoint: (CGPoint)p forTouch: (UITouch *)touch;
+-(Shape *)createShapeAtPoint: (CGPoint)p forTouch: (UITouch *)touch;
 -(void)removeShape: (Shape *)shape;
 
 -(void)collision;

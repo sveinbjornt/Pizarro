@@ -20,6 +20,8 @@
 	BOOL			expanding, destroyed;
 	NSTimeInterval	created, ended;
 	
+	int				owner;
+	
 	cpShape			*cpShape;
 	cpBody			*cpBody;
 	UITouch			*touch;
@@ -33,6 +35,7 @@
 @property (readwrite, assign) cpShape *cpShape;
 @property (readwrite, assign) cpBody *cpBody;
 @property (readwrite, assign) UITouch *touch;
+@property (readwrite, assign) int owner;
 
 
 -(void)addToSpace: (cpSpace *)space;

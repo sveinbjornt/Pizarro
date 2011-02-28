@@ -315,7 +315,6 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[self setupChipmunk];
 }
 
-
 -(void)setupChipmunk
 {	
 	cpInitChipmunk();
@@ -426,11 +425,11 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	if (multiPlayer)
 	{
 		srcBallBody1 = cpBodyNew(kWallMass, kWallInertia);
-		srcBallBody1->p = ccp(23,370);
+		srcBallBody1->p = [GParams multiPlayerSrcBallPoint1];
 		
 		cpSpaceAddBody(space, srcBallBody1);
 		
-		srcBallShape1 = cpCircleShapeNew(srcBallBody1, 90, cpvzero);
+		srcBallShape1 = cpCircleShapeNew(srcBallBody1, [GParams multiPlayerSrcBallRadius], cpvzero);
 		srcBallShape1->e = kWallElasticity;
 		srcBallShape1->u = kWallFriction;	
 		srcBallShape1->collision_type = kWallCollisionType;
@@ -440,11 +439,11 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		
 		
 		srcBallBody1 = cpBodyNew(kWallMass, kWallInertia);
-		srcBallBody1->p = ccp(23,370);
+		srcBallBody1->p = [GParams multiPlayerSrcBallPoint2];
 		
 		cpSpaceAddBody(space, srcBallBody1);
 		
-		srcBallShape1 = cpCircleShapeNew(srcBallBody1, 90, cpvzero);
+		srcBallShape1 = cpCircleShapeNew(srcBallBody1, [GParams multiPlayerSrcBallRadius], cpvzero);
 		srcBallShape1->e = kWallElasticity;
 		srcBallShape1->u = kWallFriction;	
 		srcBallShape1->collision_type = kWallCollisionType;
@@ -488,17 +487,17 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	if (multiPlayer)
 	{
-		cpBodyDestroy(srcBallBody1);
-		cpBodyFree(srcBallBody1);
-		
-		cpShapeDestroy(srcBallShape1);
-		cpShapeFree(srcBallShape1);
-		
-		cpBodyDestroy(srcBallBody2);
-		cpBodyFree(srcBallBody2);
-		
-		cpShapeDestroy(srcBallShape2);
-		cpShapeFree(srcBallShape2);
+//		cpBodyDestroy(srcBallBody1);
+//		cpBodyFree(srcBallBody1);
+//		
+//		cpShapeDestroy(srcBallShape1);
+//		cpShapeFree(srcBallShape1);
+//		
+//		cpBodyDestroy(srcBallBody2);
+//		cpBodyFree(srcBallBody2);
+//		
+//		cpShapeDestroy(srcBallShape2);
+//		cpShapeFree(srcBallShape2);
 	}
 		
 	cpSpaceFree(space);
@@ -1142,12 +1141,12 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 #pragma mark -
 #pragma mark Shapes and Physics
 
--(void)createShapeAtPoint: (CGPoint)p forTouch: (UITouch *)touch
+-(Shape *)createShapeAtPoint: (CGPoint)p forTouch: (UITouch *)touch
 {
 	if ([shapes count] == kMaxShapes)
 	{
 		CCLOG(@"Max shape count reached");
-		return;
+		return nil;
 	}
 	
 	CCLOG(@"Creating shape at point %f,%f", p.x,p.y);
@@ -1159,7 +1158,8 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	[shape addToSpace: space];
 	[shapes addObject: shape];
 	[self addChild: shape z: 98];
-		
+	
+	return shape;
 	//[[SimpleAudioEngine sharedEngine] playEffect: kTrumpetSoundEffect pitch:1.0f pan:0.0f gain:0.3f];
 }
 
@@ -1532,34 +1532,55 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		CGPoint location = [touch locationInView: [touch view]];
 		location = [[CCDirector sharedDirector] convertToGL: location];
 		
-		if (CGRectContainsPoint(kGameBoxRect, location))
+		if (multiPlayer)
 		{
-			[self createShapeAtPoint: location forTouch: touch];
+			if (ccpDistance(location, [GParams multiPlayerSrcBallPoint1]) <  [GParams multiPlayerSrcBallRadius])
+			{
+				Shape *s = [self createShapeAtPoint: location forTouch: touch];
+				s.owner = kPlayer1;
+				s.color = ccc3(0,100,0);
+				s.opacity = 200;
+			}
+			else if (ccpDistance(location, [GParams multiPlayerSrcBallPoint2]) <  [GParams multiPlayerSrcBallRadius])
+			{
+				Shape *s = [self createShapeAtPoint: location forTouch: touch];
+				s.owner = kPlayer2;
+				s.color = ccc3(0,0,100);
+				s.opacity = 200;
+			}
+		}
+		else
+		{
+			if (CGRectContainsPoint(kGameBoxRect, location))
+			{
+				[self createShapeAtPoint: location forTouch: touch];
+			}
 		}
 	}
 }
 
 -(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event 
 {
-//	if (inTransition)
-//		return;
-//	
-//	NSArray *tchs = [touches allObjects];
-//	
-//	for (UITouch *touch in tchs)
-//	{
-//		for (Shape *s in shapes)
-//		{
-//			if (touch == s.touch && s.expanding && !s.destroyed && NOW - s.created > 0.5f)
-//			{
-//				CGPoint location = [touch locationInView: [touch view]];
-//				location = [[CCDirector sharedDirector] convertToGL: location];
-//				
-//				if (ccpDistance(s.position, location) > s.size/2)
-//					[self endExpansionOfShape: s];
-//			}
-//		}
-//	}
+	if (inTransition || !multiPlayer)
+		return;
+
+	NSArray *tchs = [touches allObjects];
+	
+	for (UITouch *touch in tchs)
+	{
+		for (Shape *s in shapes)
+		{
+			if (touch == s.touch && s.expanding && !s.destroyed)
+			{
+				CGPoint location = [touch locationInView: [touch view]];
+				location = [[CCDirector sharedDirector] convertToGL: location];
+				
+				s.position = location;
+				s.cpBody->p = location;
+				//[s setPosition: location];
+			}
+		}
+	}
 }
 
 -(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 

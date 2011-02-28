@@ -176,6 +176,24 @@
 }
 
 #pragma mark -
+#pragma mark Multiplayer 
+
++(CGPoint)multiPlayerSrcBallPoint1
+{
+	return ccp(23,370);
+}
+
++(CGPoint)multiPlayerSrcBallPoint2
+{
+	return ccp(1000,370);
+}
+
++(float)multiPlayerSrcBallRadius
+{
+	return 90;
+}
+
+#pragma mark -
 #pragma mark Main Menu Scene
 
 +(float)mainMenuFontSize

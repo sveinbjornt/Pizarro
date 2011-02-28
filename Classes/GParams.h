@@ -40,6 +40,9 @@
 +(float)levelBlastFontSize;
 
 
++(CGPoint)multiPlayerSrcBallPoint1;
++(CGPoint)multiPlayerSrcBallPoint2;
++(float)multiPlayerSrcBallRadius;
 
 
 
