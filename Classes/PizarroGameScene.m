@@ -1116,7 +1116,8 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		
 		//
 		//int value = (filledSq + (level * 20)) * (float)shape.fullSize/100;
-		float value = (float) filledSq / 10;
+		float sqDivisor = IPAD ? 30 : 10;
+		float value = (float) filledSq / sqDivisor;
 		if (filledSq == 0)
 			value = 0;
 		else if (value < 1)
@@ -1125,7 +1126,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		if (value)
 			value += level;
 		
-		float divisor = IPAD ? 160 : 80;
+		float divisor = IPAD ? 320 : 80;
 		float mult = (float)shape.fullSize/divisor;
 		if (mult < 1.0f)
 			mult = 1.0f;
