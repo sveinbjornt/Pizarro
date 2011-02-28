@@ -293,12 +293,53 @@
 	return CGPointMake(182, 180);
 }
 
++(CGPoint)singlePlayerLabelStartingPoint
+{
+	if (IPAD)
+		return CGPointMake(-364, 380);
+	
+	return CGPointMake(182, 180);
+}
+
++(CGPoint)multiPlayerLabelStartingPoint
+{
+	if (IPAD)
+		return CGPointMake(-364, 230);
+	
+	return CGPointMake(182, 180);
+}
+
++(CGPoint)singlePlayerLabelPoint
+{
+	if (IPAD)
+		return CGPointMake(364, 380);
+	
+	return CGPointMake(182, 180);
+}
+
++(CGPoint)multiPlayerLabelPoint
+{
+	if (IPAD)
+		return CGPointMake(364, 230);
+	
+	return CGPointMake(182, 180);
+}
+
+
 +(float)resumeGameFontSize
 {
 	if (IPAD)
 		return kResumeGameMenuFontSize * 2;
 	
 	return kResumeGameMenuFontSize;
+}
+
++(float)gameModeFontSize
+{
+	if (IPAD)
+		return kGameModeMenuFontSize * 2;
+	
+	return kGameModeMenuFontSize;
 }
 
 +(CGPoint)mainMenuBackgroundPoint

@@ -56,7 +56,6 @@
 +(CGPoint)scoresMenuPosition;
 +(CGPoint)scoresMenuShiftOutPosition;
 
-
 +(CGPoint)mainMenuIconPoint;
 +(CGPoint)menuPauseButtonPoint;
 +(CGPoint)mainMenuFirstLetterPoint;
@@ -64,7 +63,13 @@
 +(CGPoint)mainMenuLetterShiftVector;
 +(CGPoint)mainMenuScoresButtonPoint;
 +(CGPoint)resumeGameMenuPoint;
++(CGPoint)singlePlayerLabelStartingPoint;
++(CGPoint)multiPlayerLabelStartingPoint;
++(CGPoint)singlePlayerLabelPoint;
++(CGPoint)multiPlayerLabelPoint;
+
 +(float)resumeGameFontSize;
++(float)gameModeFontSize;
 +(CGPoint)mainMenuBackgroundPoint;
 +(CGPoint)mainMenuBackgroundStartPosition;
 +(CGPoint)mainMenuShiftOutVector;

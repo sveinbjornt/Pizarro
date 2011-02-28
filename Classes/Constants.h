@@ -120,6 +120,7 @@
 #define kMainMenuMenuFontSize		44
 #define kSettingsFontSize			36
 #define kResumeGameMenuFontSize		52
+#define kGameModeMenuFontSize		52
 #define kNoteBlastFontSize			64
 
 #define kWelcomeToPizarroFontSize	45
@@ -158,6 +159,9 @@
 #define kCompanyLogoSprite			@"corrino_logo"
 
 #define kTutorialCircleSprite		@"tutorial_circle"
+
+#define kManSilhouetteSprite		@"mode_silhouette"
+
 
 // Audio and music files
 

@@ -42,7 +42,7 @@
 	CCSprite		*creditsLogo;
 	
 	// Game mode
-	CCLabelTTF		*singlePlayerLabel, *multiPlayerLabel;
+	CCLabelTTF		*singlePlayerMenu, *multiPlayerMenu;
 	
 	Instrument		*piano;
 	
@@ -62,8 +62,10 @@
 -(void)createBackground;
 -(void)createLetterAndLogo;
 
--(void)startGame;
+-(void)startGame:(BOOL)multiPlayer;
+
 -(void)showGameModeSelection;
+-(void)hideGameModeSelection;
 
 -(void)showSettings;
 -(void)hideSettings;

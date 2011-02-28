@@ -37,7 +37,7 @@
 	CCScene *scene = [CCScene node];	
 	
 	MainMenuScene *layer = [[[MainMenuScene alloc] initWithPause: NO] autorelease];
-	layer.color = ccc3(0,0,0);
+	layer.color = kBlackColor;
 
 	[scene addChild: layer];
 	
@@ -50,7 +50,7 @@
 	CCScene *scene = [CCScene node];	
 
 	MainMenuScene *layer = [[[MainMenuScene alloc] initWithPause: YES] autorelease];
-	layer.color = ccc3(0,0,0);
+	layer.color = kBlackColor;
 	layer.pausedScene = gameScene;
 	
 	[scene addChild: layer];
@@ -114,9 +114,9 @@
 	CCMenuItemFont *menuItem1 = [CCMenuItemFont itemFromString: playStr target:self selector:@selector(onPlay:)];
 	CCMenuItemFont *menuItem2 = [CCMenuItemFont itemFromString: @"Settings" target:self selector:@selector(onSettings:)];
 	CCMenuItemFont *menuItem3 = [CCMenuItemFont itemFromString: @"Credits" target:self selector:@selector(onCredits:)];
-	menuItem1.color = ccc3(0,0,0);
-	menuItem2.color = ccc3(0,0,0);
-	menuItem3.color = ccc3(0,0,0);
+	menuItem1.color = kBlackColor;
+	menuItem2.color = kBlackColor;
+	menuItem3.color = kBlackColor;
 	
 	menu = [CCMenu menuWithItems:menuItem1, menuItem2, menuItem3, nil];
 	[menu alignItemsHorizontallyWithPadding: [GParams mainMenuPadding]];
@@ -258,7 +258,7 @@
 	
 	if (!IPAD)
 	{
-		[self startGame];
+		[self startGame: NO];
 	}
 	else
 	{
@@ -272,6 +272,14 @@
 		
 		[self showGameModeSelection];
 	}
+}
+
+-(void)onMultiPlayer:(id)sender
+{
+	if (inTransition)
+		return;
+	
+	[self startGame: YES];
 }
 
 -(void)onSettings:(id)sender
@@ -417,7 +425,7 @@
 #pragma mark -
 #pragma mark Start game
 
--(void)startGame
+-(void)startGame:(BOOL)multiPlayer
 {
 	if (inTransition)
 		return;
@@ -470,8 +478,36 @@
 
 -(void)showGameModeSelection
 {
+	// kManSilhouetteSprite
+	//singlePlayerLabel, *multiPlayerLabel
+	[CCMenuItemFont setFontName: kMainMenuFont];
+	[CCMenuItemFont setFontSize: [GParams gameModeFontSize]];
+		
+	CCMenuItemFont *menuItem1 = [CCMenuItemFont itemFromString: @"Single Player" target:self selector:@selector(startGame:)];
+	CCMenuItemFont *menuItem2 = [CCMenuItemFont itemFromString: @"Two Player" target:self selector:@selector(onMultiPlayer:)];
+	menuItem1.color = kWhiteColor;
+	menuItem2.color = kWhiteColor;
 	
+	singlePlayerMenu = [CCMenu menuWithItems:menuItem1, nil];
+	multiPlayerMenu = [CCMenu menuWithItems:menuItem2, nil];
 	
+	singlePlayerMenu.position = [GParams singlePlayerLabelStartingPoint];
+	multiPlayerMenu.position = [GParams multiPlayerLabelStartingPoint];
+	
+	[self addChild: singlePlayerMenu z: 1001];
+	[self addChild: multiPlayerMenu z: 1001];
+	
+	[singlePlayerMenu runAction: [CCMoveTo actionWithDuration: 0.33 position: [GParams singlePlayerLabelPoint]]];
+	[multiPlayerMenu runAction: [CCMoveTo actionWithDuration: 0.33 position: [GParams multiPlayerLabelPoint]]];
+}
+
+-(void)hideGameModeSelection
+{
+	[singlePlayerMenu runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.25 position: [GParams singlePlayerLabelStartingPoint]],
+							[CCCallFunc actionWithTarget: singlePlayerMenu selector: @selector(dispose)], nil]];
+	
+	[multiPlayerMenu runAction: [CCSequence actions: [CCMoveTo actionWithDuration: 0.25 position: [GParams multiPlayerLabelStartingPoint]],
+								  [CCCallFunc actionWithTarget: multiPlayerMenu selector: @selector(dispose)], nil]];
 }
 
 #pragma mark -
@@ -686,6 +722,12 @@
 			case kSettingsState:
 				[self shiftIn];
 				[self hideSettings];
+				state = kMainState;
+				break;
+				
+			case kGameModeState:
+				[self shiftIn];
+				[self hideGameModeSelection];
 				state = kMainState;
 				break;
 		}
