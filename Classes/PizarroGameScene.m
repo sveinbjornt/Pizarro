@@ -279,8 +279,8 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 -(void)setupGame
 {
 	//surface matrix
-	int h = IPAD ? 66 : 28;
-	int w = IPAD ? 95 : 45;
+	int h = IPAD ? 66 : 28; // 1848
+	int w = IPAD ? 95 : 45; // 4275
 
 	surface = [[SurfaceMatrix alloc] initWithWidth: w height: h];
 	
@@ -1117,11 +1117,16 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		//
 		//int value = (filledSq + (level * 20)) * (float)shape.fullSize/100;
 		float value = (float) filledSq / 10;
-		if (value < 1)
+		if (filledSq == 0)
+			value = 0;
+		else if (value < 1)
 			value = 1;
-		value += level;
 		
-		float mult = (float)shape.fullSize/80;
+		if (value)
+			value += level;
+		
+		float divisor = IPAD ? 160 : 80;
+		float mult = (float)shape.fullSize/divisor;
 		if (mult < 1.0f)
 			mult = 1.0f;
 		
@@ -1236,7 +1241,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	float energy = 6150 + (level * 1200);
 	float energyPerBall = energy / (numBalls - (numBalls * 0.08));
-	
+		
 	// Create the balls and set them going
 	for (int i = 0; i < numBalls; i++)
 	{
