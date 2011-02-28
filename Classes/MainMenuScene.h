@@ -17,6 +17,7 @@
 #define kMainState		0
 #define kCreditsState	1
 #define kSettingsState	2
+#define kGameModeState	3
 
 @interface MainMenuScene : CCLayerColor
 {
@@ -40,6 +41,9 @@
 	CCLabelTTF		*creditsLabel, *createdByLabel;
 	CCSprite		*creditsLogo;
 	
+	// Game mode
+	CCLabelTTF		*singlePlayerLabel, *multiPlayerLabel;
+	
 	Instrument		*piano;
 	
 	BOOL			inTransition, paused;
@@ -58,6 +62,8 @@
 -(void)createBackground;
 -(void)createLetterAndLogo;
 
+-(void)startGame;
+-(void)showGameModeSelection;
 
 -(void)showSettings;
 -(void)hideSettings;

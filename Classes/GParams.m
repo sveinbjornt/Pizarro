@@ -118,7 +118,7 @@
 	if (IPAD)
 		return ccp(280, 725);
 	
-	return ccp(145, 302);
+	return ccp(135, 302);
 }
 
 +(CGPoint)timeLabelPoint

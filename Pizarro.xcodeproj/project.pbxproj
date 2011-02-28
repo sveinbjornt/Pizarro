@@ -285,6 +285,8 @@
 		E0D2C48B12AEDE5C008D5DBB /* prime.h in Headers */ = {isa = PBXBuildFile; fileRef = E0D2C45412AEDE5C008D5DBB /* prime.h */; };
 		E0F81038120A173C005866B8 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0F81037120A173C005866B8 /* RootViewController.m */; };
 		F40580B0131300CA0021CCDF /* GameOverCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = F40580AF131300CA0021CCDF /* GameOverCircle.m */; };
+		F41A9FEF131BE1FB0079853C /* bg-twoplayer-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F41A9FEE131BE1FB0079853C /* bg-twoplayer-ipad.png */; };
+		F41AA015131BE45D0079853C /* mode_silhouette-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F41AA014131BE45D0079853C /* mode_silhouette-ipad.png */; };
 		F4291C0E1316E3CD00EBD8D8 /* MenuButtonSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = F4291C0D1316E3CD00EBD8D8 /* MenuButtonSprite.m */; };
 		F4291E8F1317142400EBD8D8 /* font.fnt in Resources */ = {isa = PBXBuildFile; fileRef = F4291E8D1317142400EBD8D8 /* font.fnt */; };
 		F4291E901317142400EBD8D8 /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = F4291E8E1317142400EBD8D8 /* font.png */; };
@@ -679,6 +681,8 @@
 		E0F81037120A173C005866B8 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		F40580AE131300CA0021CCDF /* GameOverCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverCircle.h; sourceTree = "<group>"; };
 		F40580AF131300CA0021CCDF /* GameOverCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverCircle.m; sourceTree = "<group>"; };
+		F41A9FEE131BE1FB0079853C /* bg-twoplayer-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-twoplayer-ipad.png"; sourceTree = "<group>"; };
+		F41AA014131BE45D0079853C /* mode_silhouette-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mode_silhouette-ipad.png"; sourceTree = "<group>"; };
 		F4291C0C1316E3CD00EBD8D8 /* MenuButtonSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuButtonSprite.h; sourceTree = "<group>"; };
 		F4291C0D1316E3CD00EBD8D8 /* MenuButtonSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuButtonSprite.m; sourceTree = "<group>"; };
 		F4291E8D1317142400EBD8D8 /* font.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = font.fnt; sourceTree = "<group>"; };
@@ -1526,6 +1530,8 @@
 				F4D12A3E13197513001DCDD6 /* menu_button_white-hd.png */,
 				F4D12A3F13197513001DCDD6 /* menu_button_white.png */,
 				F444577113198F9B00296D2A /* bg-ipad.png */,
+				F41A9FEE131BE1FB0079853C /* bg-twoplayer-ipad.png */,
+				F41AA014131BE45D0079853C /* mode_silhouette-ipad.png */,
 				F444577213198F9B00296D2A /* bouncingball_hilight-ipad.png */,
 				F444577313198F9B00296D2A /* bouncingball-ipad.png */,
 				F444577413198F9B00296D2A /* manabar_green_top-ipad.png */,
@@ -1886,6 +1892,8 @@
 				F444578213198F9C00296D2A /* menu_button_white-ipad.png in Resources */,
 				F444590E131ABE8F00296D2A /* fps_images.png in Resources */,
 				F44FC74C131ADF3C00FE01AB /* Default-ipad.png in Resources */,
+				F41A9FEF131BE1FB0079853C /* bg-twoplayer-ipad.png in Resources */,
+				F41AA015131BE45D0079853C /* mode_silhouette-ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

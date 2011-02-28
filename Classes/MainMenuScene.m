@@ -256,27 +256,22 @@
 	if (inTransition)
 		return;
 	
-	inTransition = YES;
-	
-	//[piano playSequence: @"7, ,1,3,4,3,4,3"];
-	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.63];
-	
-	if (paused)
+	if (!IPAD)
 	{
-		[pausedScene cleanup];
-		
-		// tell CCDirector to remove GameScene from the stack
-		[[CCDirector sharedDirector] removeSceneFromStack: pausedScene];		
+		[self startGame];
 	}
-	
-	[self runAction: [CCSequence actions:
-					  
-					  [CCCallFunc actionWithTarget: self selector: @selector(shiftOut)],
-					  //[CCDelayTime actionWithDuration: 0.15],
-					  [CCCallFuncO actionWithTarget: [CCDirector sharedDirector] 
-										   selector: @selector(replaceScene:) 
-											 object: [CCTransitionSlideInR transitionWithDuration: 0.35 scene: [PizarroGameScene scene]]],
-					  nil]];
+	else
+	{
+		inTransition = YES;
+		state = kGameModeState;
+		
+		[piano playSequence: @"1,7,2,6,3,5,1"];
+		
+		[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.5];
+		[self shiftOut];
+		
+		[self showGameModeSelection];
+	}
 }
 
 -(void)onSettings:(id)sender
@@ -420,6 +415,37 @@
 }
 
 #pragma mark -
+#pragma mark Start game
+
+-(void)startGame
+{
+	if (inTransition)
+		return;
+	
+	inTransition = YES;
+	
+	//[piano playSequence: @"7, ,1,3,4,3,4,3"];
+	[self performSelector: @selector(trumpetPressed) withObject: nil afterDelay: 0.63];
+	
+	if (paused)
+	{
+		[pausedScene cleanup];
+		
+		// tell CCDirector to remove GameScene from the stack
+		[[CCDirector sharedDirector] removeSceneFromStack: pausedScene];		
+	}
+	
+	[self runAction: [CCSequence actions:
+					  
+					  [CCCallFunc actionWithTarget: self selector: @selector(shiftOut)],
+					  //[CCDelayTime actionWithDuration: 0.15],
+					  [CCCallFuncO actionWithTarget: [CCDirector sharedDirector] 
+										   selector: @selector(replaceScene:) 
+											 object: [CCTransitionSlideInR transitionWithDuration: 0.35 scene: [PizarroGameScene scene]]],
+					  nil]];
+}
+
+#pragma mark -
 #pragma mark Paused menu
 
 -(void)showPausedMenu
@@ -437,6 +463,15 @@
 	[bg1 runAction: [CCMoveBy actionWithDuration: 0.3 position: [GParams mainMenuShiftInVector]]];
 	[bg2 runAction: [CCMoveBy actionWithDuration: 0.3 position: [GParams mainMenuShiftInVector]]];
 	[menu runAction: [CCMoveBy actionWithDuration: 0.3 position: [GParams mainMenuShiftInVector]]];
+}
+
+#pragma mark -
+#pragma mark Game type menu
+
+-(void)showGameModeSelection
+{
+	
+	
 }
 
 #pragma mark -
