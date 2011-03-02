@@ -157,9 +157,11 @@
 	
 	if ([layer isKindOfClass: [PizarroGameScene class]])
 	{
+		CCLOG(@"Game layer pausing without animation on resign active");
 		[(PizarroGameScene *)layer pauseGameWithAnimation: NO];
 	}
-	[[CCDirector sharedDirector] pause];
+	
+	[[CCDirector sharedDirector] performSelector: @selector(pause) withObject: nil afterDelay: 0.2];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -171,6 +173,7 @@
 }
 
 -(void) applicationDidEnterBackground:(UIApplication*)application {
+	
 	[[CCDirector sharedDirector] stopAnimation];
 }
 
