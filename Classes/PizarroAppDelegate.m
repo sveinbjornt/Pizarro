@@ -216,7 +216,7 @@
 	NSString	*ipadSuffix = @"-ipad.png";
 	NSString	*pngSuffix = @".png";
 	NSString	*wavSuffix = @".wav";
-	NSString	*mp3Suffix = @".mp3";
+	//NSString	*mp3Suffix = @".mp3";
 	
 	NSString *rsrcPath = [[NSBundle mainBundle] resourcePath];
 	
@@ -244,13 +244,15 @@
 			[[SimpleAudioEngine sharedEngine] preloadEffect: file];
 		}
 		
-		// If music, preload
-		if  ([file hasPrefix: mp3Suffix])
-		{
-			CCLOG(@"Preloading music \"%@\"", file);
-			[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic: file];
-		}
+//		// If music, preload
+//		if ([file hasSuffix: mp3Suffix] )
+//		{
+//			CCLOG(@"Preloading music \"%@\"", file);
+//			[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic: file];
+//		}
 	}	
+	
+	[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic: kMainMenuMusicFile];
 	
 	CCLOG(@"Texture cache: %@", [[CCTextureCache sharedTextureCache] description]);
 }

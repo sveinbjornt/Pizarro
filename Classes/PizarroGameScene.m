@@ -906,7 +906,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		int bonus = extraPerc * 10 + level;
 		score += bonus;
 		
-		Shape *lastShape = [shapes lastObject];
+		//Shape *lastShape = [shapes lastObject];
 		//[self noteBlastAtPoint: lastShape.position afterDelay: 0.1];
 		
 		[self runAction: [CCSequence actions:

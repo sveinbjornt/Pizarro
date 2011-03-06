@@ -115,7 +115,7 @@
 
 #define kHUDFontSize				42
 #define kLevelBlastFontSize			78
-#define kLevelLabelFontSize			18
+#define kLevelLabelFontSize			17
 #define kPercentageBlastFontSize	64
 #define kGameOverBlastFontSize		84
 #define kMainMenuTitleFontSize		84
@@ -168,6 +168,7 @@
 
 // Audio and music files
 
+#define kMainMenuMusicFile		@"mainmenu_music.mp3"
 #define kTrumpetSoundEffect		@"trumpet.wav"
 #define kBassSoundEffect		@"bass.wav"
 

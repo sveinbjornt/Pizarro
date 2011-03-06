@@ -180,11 +180,11 @@ static GameCenterManager *sharedManager = nil;
 				 // whose achievement it in fact is.
 			 }
 			 else
-				 [ScoreManager reportAchievement: achievementIdentifier];
+				 [ScoreManager reportAchievementWithIdentifier: achievementIdentifier];
 		 }];
     }
 	else
-		[ScoreManager reportAchievement: achievementIdentifier];
+		[ScoreManager reportAchievementWithIdentifier: achievementIdentifier];
 }
 
 
@@ -312,10 +312,6 @@ static GameCenterManager *sharedManager = nil;
 	 }];
     
 }*/
-
-
-#pragma mark -
-#pragma mark Singleton
 
 #pragma mark -
 #pragma mark Singleton methods

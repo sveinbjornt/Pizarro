@@ -79,7 +79,7 @@
 		
 		// Background music
 		if (!paused)
-			[[SimpleAudioEngine sharedEngine] playBackgroundMusic: @"mainmenu_music.mp3"];
+			[[SimpleAudioEngine sharedEngine] playBackgroundMusic: kMainMenuMusicFile];
 		
 		// Create instrument
 		piano = [[Instrument alloc] initWithName: @"piano" numberOfNotes: 7 tempo: 0.07];
@@ -448,14 +448,17 @@
 		[[CCDirector sharedDirector] removeSceneFromStack: pausedScene];		
 	}
 	
-	[self runAction: [CCSequence actions:
-					  
-					  [CCCallFunc actionWithTarget: self selector: @selector(shiftOut)],
-					  //[CCDelayTime actionWithDuration: 0.15],
-					  [CCCallFuncO actionWithTarget: [CCDirector sharedDirector] 
-										   selector: @selector(replaceScene:) 
-											 object: [CCTransitionSlideInR transitionWithDuration: 0.35 scene: [PizarroGameScene scene: multiPlayer]]],
-					  nil]];
+	[self shiftOut];
+	[[CCDirector sharedDirector] replaceScene: [CCTransitionSlideInR transitionWithDuration: 0.35 scene: [PizarroGameScene scene: multiPlayer]]];
+	
+//	[self runAction: [CCSequence actions:
+//					  
+//					  [CCCallFunc actionWithTarget: self selector: @selector(shiftOut)],
+//					  //[CCDelayTime actionWithDuration: 0.15],
+//					  [CCCallFuncO actionWithTarget: [CCDirector sharedDirector] 
+//										   selector: @selector(replaceScene:) 
+//											 object: [CCTransitionSlideInR transitionWithDuration: 0.35 scene: [PizarroGameScene scene: multiPlayer]]],
+//					  nil]];
 }
 
 #pragma mark -

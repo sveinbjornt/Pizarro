@@ -149,6 +149,12 @@
 
 +(void)reportAchievementWithIdentifier: (NSString *)identifier
 {
+	if (identifier == nil)
+	{
+		CCLOG(@"Cannot report null achievement");
+		return;
+	}
+	
 	CCLOG(@"Reporting achievement with identifier '%@", identifier);
 	
 	GKAchievement *achievement= [[[GKAchievement alloc] initWithIdentifier: identifier] autorelease];
