@@ -14,6 +14,7 @@
 #import "PizarroGameScene.h"
 #import "MainMenuScene.h"
 #import "SimpleAudioEngine.h"
+#import "ScoreManager.h"
 #import "GParams.h"
 
 @implementation PizarroAppDelegate
@@ -321,7 +322,9 @@
 {
 	if(error == NULL)
 	{
-		//		CCLOG(@"Authenticated");
+		CCLOG(@"Authenticated with Game Center");
+		[ScoreManager reportArchivedScores];
+		
 		//[self.gameCenterManager reloadHighScoresForCategory: self.currentLeaderBoard];
 		//[FlurryAPI logEvent:@"Using GameCenter"];
 	}

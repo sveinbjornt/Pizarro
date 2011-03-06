@@ -6,6 +6,7 @@
 //  Copyright 2010 Corrino Software. All rights reserved.
 //
 
+#import "cocos2d.h"
 #import "ScoreManager.h"
 #import "NSFileManager+DocumentFolder.m"
 
@@ -69,7 +70,7 @@
 	 {
 		 if (error != nil)
 		 {
-			 //NSLog(@"%@", [error localizedDescription]);
+			 CCLOG(@"%@", [error localizedDescription]);
 			 
 			 // we only archive score if there is a player ID 
 			 if (theScore.playerID != nil)
@@ -77,13 +78,14 @@
 		 }
 		 else
 		 {
-			 //NSLog(@"Posted");
+			 CCLOG(@"Reported GKScore");
 		 }
 	 }];
 }
 
 +(void)archiveScore: (GKScore *)theScore
 {	
+	CCLOG(@"Archiving score");
 	// filename for each archived score is RAND-UNIXDATE-SCOREVALUE.SUFFIX to guarantee uniqueness
 	uint32_t rand = arc4random() % 100000;
 	NSString *scoreFileName = [NSString stringWithFormat: @"%d-%f-%d%@", rand, [[theScore date] timeIntervalSince1970], (NSUInteger)theScore.value, kSavedGKScoreSuffix];
@@ -113,12 +115,12 @@
 			
 			if (gkScore == nil)
 			{
-//				NSLog(@"Error reading score from %@", scoreFilePath);
+				CCLOG(@"Error reading score from %@", scoreFilePath);
 			}
 			else
 			{
 				[[NSFileManager defaultManager] removeItemAtPath: scoreFilePath error: &err];
-//				NSLog(@"Reporting archived score %@", scoreFilePath);
+				CCLOG(@"Reporting archived score %@", scoreFilePath);
 				[self reportGKScore: gkScore];
 			}
 		}
@@ -141,11 +143,11 @@
 		 {
 			 if (error != nil)
 			 {
-				 //NSLog(@"%@", [error localizedDescription]);
+				 CCLOG(@"%@", [error localizedDescription]);
 			 }
 			 else
 			 {
-				 //NSLog(@"Achievement posted");
+				 CCLOG(@"Achievement posted");
 			 }			 
 		 }];
 	}
