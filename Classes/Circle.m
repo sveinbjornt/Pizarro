@@ -56,9 +56,9 @@
 //	ccFillCircle(p, size/2, CC_DEGREES_TO_RADIANS(360), 60, NO);
 	
 	BOOL white = NO;
-	int spacing = IPAD ? 45: 15;
+	int spacing = IPAD ? 45: 25;
 	
-	for (int i = size; i > 0; i-= (spacing * CC_CONTENT_SCALE_FACTOR()))
+	for (int i = size; i > 0; i-= spacing)
 	{
 		if (white)
 			glColor4ub(255,255,255,opacity);

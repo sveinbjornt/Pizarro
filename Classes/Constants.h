@@ -15,6 +15,7 @@
 #define kGameDeveloper			@"Corrino Software"
 #define kGameProgramming		@"Sveinbjorn Thordarson"
 #define kGameGraphics			@"Magnus David Magnusson"
+#define kGameDeveloperWebsite	@"http://www.corrinosoftware.com"
 
 // High scores
 #define kSavedHighscoreFilename		@"PizzaroLocalHighscore"

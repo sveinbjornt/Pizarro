@@ -629,12 +629,12 @@
 	NSString *creditsStr = [NSString stringWithFormat: @"A\n%@\nGAME", kGameDeveloper];
 	NSString *createdByStr = [NSString stringWithFormat: @"CREATED BY\n%@ & %@", kGameProgramming, kGameGraphics];
 	
-	creditsLabel = [CCLabelTTF labelWithString: creditsStr dimensions: [GParams creditsLabelSize] alignment: UITextAlignmentCenter fontName: kMainMenuFont fontSize: [GParams creditsFontSize]];
+	creditsLabel = [MMLetterLabel labelWithString: creditsStr dimensions: [GParams creditsLabelSize] alignment: UITextAlignmentCenter fontName: kMainMenuFont fontSize: [GParams creditsFontSize]];
 	creditsLabel.position = [GParams creditsLabelStartingPoint];
 	[self addChild: creditsLabel];
 	[creditsLabel runAction: [CCEaseIn actionWithAction: [CCMoveTo actionWithDuration: 0.45 position: [GParams creditsLabelPoint]] rate:4.0f]];
 	
-	createdByLabel = [CCLabelTTF labelWithString: createdByStr dimensions: [GParams createdByLabelSize] alignment: UITextAlignmentCenter fontName: kMainMenuFont fontSize: [GParams creditsFontSize]];
+	createdByLabel = [MMLetterLabel labelWithString: createdByStr dimensions: [GParams createdByLabelSize] alignment: UITextAlignmentCenter fontName: kMainMenuFont fontSize: [GParams creditsFontSize]];
 	createdByLabel.position = [GParams createdByLabelStartingPoint];
 	[self addChild: createdByLabel];
 	 [createdByLabel runAction: [CCEaseIn actionWithAction: [CCMoveTo actionWithDuration: 0.3 position: [GParams createdByLabelPoint]] rate:4.0f]];
@@ -712,6 +712,12 @@
 		[self trumpetPressed];
 	}
 	
+	// Check if press on Corrino Software
+	if (state == kCreditsState && CGRectContainsPoint([creditsLabel rect], location))
+	{
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString: kGameDeveloperWebsite]];
+	}
+	
 	if (!playedNote)
 	{
 		switch (state)
@@ -734,7 +740,6 @@
 				state = kMainState;
 				break;
 		}
-
 	}
 }
 

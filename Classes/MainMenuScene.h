@@ -38,7 +38,7 @@
 	CCMenu			*tutorialMenu;
 	
 	// Credits
-	CCLabelTTF		*creditsLabel, *createdByLabel;
+	MMLetterLabel	*creditsLabel, *createdByLabel;
 	CCSprite		*creditsLogo;
 	
 	// Game mode
