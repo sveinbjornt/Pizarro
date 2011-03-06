@@ -21,6 +21,7 @@
 #define kSavedHighscoreFilename		@"PizzaroLocalHighscore"
 #define kSavedHighscorePlistKey		@"LocalHighscore"
 #define kSavedGKScoreSuffix			@".pizarroScore"
+#define kSavedGKAchievementSuffix	@".pizarroAchievement"
 
 // GAME CENTER
 

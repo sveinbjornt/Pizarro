@@ -23,6 +23,7 @@
 
 -(void)loadResources;
 
+-(void)alert: (NSString *)str;
 -(void)initGameCenter;
 -(void)loadLeaderboard;
 -(void)endLeaderboard;

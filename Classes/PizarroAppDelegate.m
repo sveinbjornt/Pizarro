@@ -289,6 +289,12 @@
 
 - (void)toggleGameCenter
 {
+	if (![GameCenterManager isGameCenterAvailable])
+	{
+		[self alert: @"Game Center is not supported by your device software"];
+		return;
+	}
+	
 	CCLOG(@"Toggling game center");
 	BOOL enabled = GAMECENTER_ENABLED;
 	
@@ -310,12 +316,15 @@
 	CCLOG(@"Initing Game Center");
 	if ([GameCenterManager isGameCenterAvailable])
 	{
+		CCLOG(@"GameCenterManager up and running");
 		[[GameCenterManager sharedManager] setDelegate: self];
-		
 		//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationChanged) name:GKPlayerAuthenticationDidChangeNotificationName object:nil];
 	}
 	else
-		[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: NO] forKey: kGameCenterEnabled];		
+	{
+		CCLOG(@"Game Center not available, turning it off in defaults");
+		[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: NO] forKey: kGameCenterEnabled];
+	}
 }
 
 -(void)processGameCenterAuth: (NSError*) error
@@ -323,14 +332,11 @@
 	if(error == NULL)
 	{
 		CCLOG(@"Authenticated with Game Center");
-		[ScoreManager reportArchivedScores];
-		
-		//[self.gameCenterManager reloadHighScoresForCategory: self.currentLeaderBoard];
-		//[FlurryAPI logEvent:@"Using GameCenter"];
+		[ScoreManager reportArchivedScoresAndAchievements];		
 	}
 	else
 	{
-		//		CCLOG(@"Error w. Game Center: %@", [error localizedDescription]);
+		CCLOG(@"Error w. Game Center: %@", [error localizedDescription]);
 	}	
 }
 

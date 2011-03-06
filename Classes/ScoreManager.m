@@ -23,8 +23,7 @@
 		return 0;
 	
 	NSString *scoreStr = [dict objectForKey: kSavedHighscorePlistKey];
-	return [scoreStr intValue];
-	
+	return [scoreStr intValue];	
 }
 
 +(void)saveLocalHighScore: (NSUInteger)score
@@ -43,7 +42,7 @@
 
 +(void)reportGameScore: (NSUInteger)score level: (NSUInteger)level
 {
-	[self reportArchivedScores]; // every time a score is submitted, we try to submit our archived scores as well
+	[self reportArchivedScoresAndAchievements]; // every time a score is submitted, we try to submit our archived scores as well
 	
 	NSString *scoreCategory = IPAD ? kGameCenter_IPAD_ScoreCategory : kGameCenterScoreCategory;
 	NSString *levelCategory = IPAD ? kGameCenter_IPAD_LevelCategory : kGameCenterScoreCategory;
@@ -98,7 +97,7 @@
 // go through all files in the documents folder, read the score from them, delete them and submit their data
 // if they fail, they'll just end up being written back to the folder
 
-+(void)reportArchivedScores
++(void)reportArchivedScoresAndAchievements
 {
 	NSString *saveFolder = [NSFileManager documentFolder];
 	NSError *err;
@@ -124,6 +123,23 @@
 				[self reportGKScore: gkScore];
 			}
 		}
+		
+		if ([file hasSuffix: kSavedGKAchievementSuffix])
+		{
+			NSString *achievementFilePath = [saveFolder stringByAppendingPathComponent: file];
+			GKAchievement *gkAchievement = [NSKeyedUnarchiver unarchiveObjectWithFile: achievementFilePath];
+			
+			if (gkAchievement == nil)
+			{
+				CCLOG(@"Error reading achievement from %@", achievementFilePath);
+			}
+			else
+			{
+				[[NSFileManager defaultManager] removeItemAtPath: achievementFilePath error: &err];
+				CCLOG(@"Reporting archived achievement %@", achievementFilePath);
+				[self reportAchievement: gkAchievement];
+			}
+		}
 	}
 }
 
@@ -131,14 +147,22 @@
 #pragma mark -
 #pragma mark Achievements
 
-+(void)reportAchievement: (NSString *)identifier
++(void)reportAchievementWithIdentifier: (NSString *)identifier
 {
+	CCLOG(@"Reporting achievement with identifier '%@", identifier);
+	
 	GKAchievement *achievement= [[[GKAchievement alloc] initWithIdentifier: identifier] autorelease];
 	achievement.percentComplete = 100.0f;
-	
+
+	[self reportAchievement: achievement];
+}
+
++(void)reportAchievement: (GKAchievement *)achievement
+{
 	if (achievement != NULL)
 	{
-		//Submit the Achievement...
+		CCLOG(@"Submitting achievement");
+		
 		[achievement reportAchievementWithCompletionHandler: ^(NSError *error)
 		 {
 			 if (error != nil)
@@ -151,6 +175,17 @@
 			 }			 
 		 }];
 	}
+}
+
+
++(void)archiveAchievement: (GKAchievement *)theAchievement
+{	
+	CCLOG(@"Archiving achievement");
+	// filename for each archived achivement is RAND-UNIXDATE.SUFFIX to guarantee uniqueness
+	uint32_t rand = arc4random() % 100000;
+	NSString *achievementFileName = [NSString stringWithFormat: @"%d-%f%@", rand, [[theAchievement lastReportedDate] timeIntervalSince1970], kSavedGKAchievementSuffix];
+	NSString *achievementPath = [[NSFileManager documentFolder] stringByAppendingPathComponent: achievementFileName];
+	[NSKeyedArchiver archiveRootObject: theAchievement toFile: achievementPath];
 }
 
 @end

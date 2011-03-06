@@ -23,6 +23,7 @@
 + (void)reportNewGKScore: (NSUInteger)score forCategory: (NSString *)category;
 + (void)reportGKScore: (GKScore *)theScore;
 + (void)archiveScore: (GKScore *)theScore;
-+ (void)reportArchivedScores;
-+ (void)reportAchievement: (NSString *)identifier;
++ (void)reportArchivedScoresAndAchievements;
++ (void)reportAchievementWithIdentifier: (NSString *)identifier;
++ (void)reportAchievement: (GKAchievement *)achievement;
 @end

@@ -65,7 +65,7 @@ static void PlayBallCollisionSound (int level)
 		pentatonicCount++;
 		if (pentatonicCount >= 6)
 		{
-			[ScoreManager reportAchievement: kGameCenterMinorPentatonicAchievement];
+			[ScoreManager reportAchievementWithIdentifier: kGameCenterMinorPentatonicAchievement];
 			pentatonicCount = 0;
 		}
 	}
@@ -907,7 +907,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		score += bonus;
 		
 		Shape *lastShape = [shapes lastObject];
-		[self noteBlastAtPoint: lastShape.position afterDelay: 0.1];
+		//[self noteBlastAtPoint: lastShape.position afterDelay: 0.1];
 		
 		[self runAction: [CCSequence actions:
 						  [CCDelayTime actionWithDuration: 0.15],
@@ -935,7 +935,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 			[self gameOver];
 		else if (addedShapes >= 4)
 		{
-			[ScoreManager reportAchievement: kGameCenterTouchmasterAchievement];
+			[ScoreManager reportAchievementWithIdentifier: kGameCenterTouchmasterAchievement];
 		}
 
 		return;
@@ -1370,21 +1370,21 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 			case 1:
 			{
 				CCLOG(@"Finished w. one shape");
-				[ScoreManager reportAchievement: kGameCenterLevelInOneAchievement];
+				[ScoreManager reportAchievementWithIdentifier: kGameCenterLevelInOneAchievement];
 			}
 			break;
 				
 			case 2:
 			{
 				CCLOG(@"Finished w. two shapes");
-				[ScoreManager reportAchievement: kGameCenterLevelInTwoAchievement];
+				[ScoreManager reportAchievementWithIdentifier: kGameCenterLevelInTwoAchievement];
 			}
 			break;
 				
 			case 3:
 			{
 				CCLOG(@"Finished w. three shapes");
-				[ScoreManager reportAchievement: kGameCenterLevelInThreeAchievement];
+				[ScoreManager reportAchievementWithIdentifier: kGameCenterLevelInThreeAchievement];
 			}
 			break;
 		}
@@ -1406,35 +1406,35 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		case 5:
 		{
 			CCLOG(@"Got to level 5");
-			[ScoreManager reportAchievement: kGameCenterLevel5Achievement];
+			[ScoreManager reportAchievementWithIdentifier: kGameCenterLevel5Achievement];
 		}
 		break;
 			
 		case 10:
 		{
 			CCLOG(@"Got to level 10");
-			[ScoreManager reportAchievement: kGameCenterLevel10Achievement];
+			[ScoreManager reportAchievementWithIdentifier: kGameCenterLevel10Achievement];
 		}
 		break;
 			
 		case 15:
 		{
 			CCLOG(@"Got to level 15");
-			[ScoreManager reportAchievement: kGameCenterLevel15Achievement];
+			[ScoreManager reportAchievementWithIdentifier: kGameCenterLevel15Achievement];
 		}
 		break;
 			
 		case 20:
 		{
 			CCLOG(@"Got to level 20");
-			[ScoreManager reportAchievement: kGameCenterLevel20Achievement];
+			[ScoreManager reportAchievementWithIdentifier: kGameCenterLevel20Achievement];
 		}
 		break;
 			
 		case 25:
 		{
 			CCLOG(@"Got to level 25");
-			[ScoreManager reportAchievement: kGameCenterLevel25Achievement];
+			[ScoreManager reportAchievementWithIdentifier: kGameCenterLevel25Achievement];
 		}
 		break;
 	}
@@ -1442,13 +1442,13 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	if (percentageFilled >= 95.0f)
 	{
 		CCLOG(@"Got to level 25");
-		[ScoreManager reportAchievement: kGameCenterOverkillAchievement];
+		[ScoreManager reportAchievementWithIdentifier: kGameCenterOverkillAchievement];
 	}
 
 	percentageFilled = 0.0f;
 	
 	if (flawless)
-		[ScoreManager reportAchievement: kGameCenterFlawlessAchievement];
+		[ScoreManager reportAchievementWithIdentifier: kGameCenterFlawlessAchievement];
 		
 	// Add to time
 	timeRemaining += kTimePerLevel;
@@ -1616,8 +1616,6 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 			}
 		}
 	}
-	
-	
 }
 
 @end

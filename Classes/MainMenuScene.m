@@ -13,6 +13,7 @@
 #import "SimpleAudioEngine.h"
 #import "Instrument.h"
 #import "GParams.h"
+#import "GameCenterManager.h"
 
 #define kAnimationInterval					1.0f / 2.0f
 #define kBackgroundMovementInterval			1.0f / 20.0f
@@ -584,6 +585,9 @@
 										  gameCenterOnItem,
 										  nil];
 	toggleGameCenter.selectedIndex = GAMECENTER_ENABLED;
+	
+	[toggleGameCenter setIsEnabled: [GameCenterManager isGameCenterAvailable]];
+ 	
 	
 	settingsMenu = [CCMenu menuWithItems: toggleMusic, toggleSound, toggleGameCenter, nil];
 	[settingsMenu alignItemsVerticallyWithPadding: [GParams settingsMenuSpacing]];
