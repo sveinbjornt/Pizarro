@@ -1324,12 +1324,20 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		int mod = RandomBetween(0, 1);
 		mod = mod ? -1 : 1;
 		
-		startingPoint.x += (mod * 25 + RandomBetween(5, 10)) * i;
-		startingPoint.y += (mod * 15 + RandomBetween(5, 10)) * i;
+		startingPoint.x += (mod * 35 + RandomBetween(5, 10)) * i;
+		startingPoint.y += (mod * 25 + RandomBetween(5, 10)) * i;
 		
 		// Define movement vector
 		float x = RandomBetween(0, energyPerBall);
 		float y = energyPerBall - x;
+		
+		float xmod = RandomBetween(0, 1);
+		xmod = xmod ? -1 : 1;
+		x *= xmod;
+		
+		float ymod = RandomBetween(0, 1);
+		ymod = mod ? -1 : 1;
+		y *= ymod;
 		
 		if (IPAD)
 		{

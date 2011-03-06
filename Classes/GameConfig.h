@@ -15,14 +15,11 @@
 //		UIViewController,
 //		CCDirector
 //
-#define kGameAutorotationNone 0
-#define kGameAutorotationCCDirector 1
-#define kGameAutorotationUIViewController 2
-
+//#define kGameAutorotationNone 0
+//#define kGameAutorotationCCDirector 1
+//#define kGameAutorotationUIViewController 2
 //
-// Define here the type of autorotation that you want for your game
-//
-#define GAME_AUTOROTATION kGameAutorotationCCDirector
+//#define GAME_AUTOROTATION kGameAutorotationCCDirector
 
 #define CC_FONT_LABEL_SUPPORT	1
 
