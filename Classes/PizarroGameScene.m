@@ -307,7 +307,8 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	bounceBalls = [[NSMutableArray alloc] initWithCapacity: kMaxBounceBalls];
 	
 	// Timers
-	[self schedule: @selector(tick:) interval: 1.0/60];
+	[self schedule: @selector(tick:) interval: 1.0/60.0f];
+	[self schedule: @selector(step:) interval: 1.0/240.0f];
 	[self schedule: @selector(timeTicker:) interval: 1.0];
 	//[self schedule: @selector(symbolTicker:) interval: 2.0];
 	
@@ -992,9 +993,12 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		
 		}
 	}
-	
+}
+
+-(void)step: (ccTime)dt
+{
 	// Update physics engine
-	cpSpaceStep(space, 1.0f/60.0f);
+	cpSpaceStep(space, 1.0f/240.0f);
 	cpSpaceHashEach(space->activeShapes, &UpdateShape, nil);
 }
 
@@ -1314,8 +1318,9 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	// Decide how much energy is in the physical system
 	
 	float energy = 6150 + (level * 1200);
+	energy *= 3.3;
 	float energyPerBall = energy / (numBalls - (numBalls * 0.08));
-		
+	
 	// Create the balls and set them going
 	for (int i = 0; i < numBalls; i++)
 	{
@@ -1483,6 +1488,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	// Unschedule tickers
 	
 	[self unschedule: @selector(tick:)];
+	[self unschedule: @selector(step:)];
 	[self unschedule: @selector(timeTicker:)];
 	
 	//[bgRenderTexture goBlack];
