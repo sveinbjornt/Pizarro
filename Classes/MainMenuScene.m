@@ -713,9 +713,10 @@
 	}
 	
 	// Check if press on Corrino Software
-	if (state == kCreditsState && CGRectContainsPoint([creditsLabel rect], location))
+	if (!playedNote && state == kCreditsState && CGRectContainsPoint([creditsLabel rect], location))
 	{
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString: kGameDeveloperWebsite]];
+		return;
 	}
 	
 	if (!playedNote)
