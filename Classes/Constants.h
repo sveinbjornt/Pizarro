@@ -56,7 +56,7 @@
 #define kFullMana				10.0
 #define kStartingMana			10.0
 #define kManaPercentageLow		0.30
-#define kManaPerLevel			(kFullMana/3) + (level * (kFullMana/45))
+#define kManaPerLevel			(kFullMana/3) + (level * (kFullMana/60))
 
 // Time
 #define kStartingTime			60.0f

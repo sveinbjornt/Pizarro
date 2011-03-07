@@ -1317,9 +1317,9 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	// Decide how much energy is in the physical system
 	
-	float energy = 6150 + (level * 1200);
-	energy *= 3.3;
-	float energyPerBall = energy / (numBalls - (numBalls * 0.08));
+	float energy = 13500 + (level * 2900);
+
+	float energyPerBall = energy / (numBalls - (numBalls * 0.10));
 	
 	// Create the balls and set them going
 	for (int i = 0; i < numBalls; i++)
