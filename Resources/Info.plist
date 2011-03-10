@@ -38,6 +38,10 @@
 	</array>
 	<key>UIInterfaceOrientation</key>
 	<string>UIInterfaceOrientationLandscapeRight</string>
+	<key>UILaunchImageFile</key>
+	<string>Default.png</string>
+	<key>UILaunchImageFile~ipad</key>
+	<string>Default-ipad.png</string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -49,10 +53,6 @@
 	</dict>
 	<key>UIStatusBarHidden</key>
 	<true/>
-	<key>UILaunchImageFile</key>
-	<string>Default.png</string>
-	<key>UILaunchImageFile~ipad</key>
-	<string>Default-ipad.png</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationLandscapeRight</string>
