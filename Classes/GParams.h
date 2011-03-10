@@ -39,6 +39,7 @@
 +(float)gameOverFontSize;
 +(float)levelBlastFontSize;
 
++(float)manaBarHeight;
 
 +(CGPoint)multiPlayerSrcBallPoint1;
 +(CGPoint)multiPlayerSrcBallPoint2;

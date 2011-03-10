@@ -115,6 +115,10 @@
 {
 	if (IPAD)
 		return ccp(410, 725);
+
+#if IAD_ENABLED == 1
+	return ccp(200,270); 
+#endif
 	
 	return ccp(200, 302);
 }
@@ -123,6 +127,10 @@
 {
 	if (IPAD)
 		return ccp(280, 725);
+
+#if IAD_ENABLED == 1
+	return ccp(135,270); 
+#endif
 	
 	return ccp(135, 302);
 }
@@ -131,6 +139,10 @@
 {
 	if (IPAD)
 		return ccp(910, 725);
+
+#if IAD_ENABLED == 1
+	return ccp(417,269); 
+#endif
 	
 	return ccp(417, 301);
 }
@@ -173,6 +185,18 @@
 		return kLevelBlastFontSize * 2;
 	
 	return kLevelBlastFontSize;
+}
+
++(float)manaBarHeight
+{
+	if (IPAD)
+		return 632;
+	
+#if IAD_ENABLED == 1	
+	return 236;
+#endif
+	
+	return 268;
 }
 
 #pragma mark -
@@ -273,6 +297,10 @@
 {
 	if (IPAD)
 		return CGPointMake(72, 708);
+	
+#if IAD_ENABLED == 1
+	return ccp(36,258); 
+#endif
 	
 	return CGPointMake(36, 290);
 }

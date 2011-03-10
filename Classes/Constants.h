@@ -135,7 +135,11 @@
 #define kBouncingBallSprite			@"bouncingball"
 #define kBouncingBallHilightSprite	@"bouncingball_hilight"
 
-#define kGameScreenBackgroundSprite @"bg"
+#if IAD_ENABLED == 1
+	#define kGameScreenBackgroundSprite @"bg_ad"
+#else
+	#define kGameScreenBackgroundSprite @"bg"
+#endif
 
 #define kMainMenuBackgroundSprite	@"mainscreen_bg"
 

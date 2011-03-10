@@ -55,7 +55,7 @@
 	
 	percentage = p;
 	
-	float fullHeight = IPAD ? 632 : 268;
+	float fullHeight = [GParams manaBarHeight];
 	float height = roundf((self.percentage * fullHeight));
 	
 	CCSprite *barSprite, *barTopSprite;

@@ -136,14 +136,16 @@
 	// make the View Controller a child of the main window
 	[window addSubview: viewController.view];
 	
-	id bannerView = [[ADBannerView alloc] initWithFrame:CGRectZero];
+#if IAD_ENABLED == 1
+	id bannerView = [[ADBannerView alloc] initWithFrame:CGRectMake(0,-10,0,0)];
 	[bannerView setRequiredContentSizeIdentifiers:[NSSet setWithObjects:
 												   ADBannerContentSizeIdentifier320x50,
 												   ADBannerContentSizeIdentifier480x32, nil]];
 	
 	[bannerView setCurrentContentSizeIdentifier: ADBannerContentSizeIdentifierLandscape];
-	
 	[bannerView setDelegate:self];
+#endif
+	
 	[viewController.view addSubview: bannerView];  
 	
 	[window makeKeyAndVisible];
