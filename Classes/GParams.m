@@ -41,7 +41,7 @@
 		return 664;
 	
 #if IAD_ENABLED == 1
-	return 250;
+	return 248;
 #endif
 	
 	return 280;

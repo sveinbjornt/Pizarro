@@ -369,6 +369,7 @@
 	else
 	{
 		[resumeMenu runAction: [CCFadeOut actionWithDuration: 0.25]];
+		[resumeMenu setIsTouchEnabled: NO];
 	}
 
 	
@@ -411,6 +412,7 @@
 	else
 	{
 		[resumeMenu runAction: [CCFadeIn actionWithDuration: 0.25]];
+		[resumeMenu setIsTouchEnabled: YES];
 	}
 	[bg1 runAction: [CCMoveBy actionWithDuration: duration position: [GParams mainMenuShiftInVector]]];
 	[bg2 runAction: [CCMoveBy actionWithDuration: duration position: [GParams mainMenuShiftInVector]]];

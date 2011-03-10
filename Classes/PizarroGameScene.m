@@ -628,7 +628,9 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 			[currentTutorialNode addChild: text];
 			
 			CCSprite *bball = [CCSprite spriteWithFile: [GParams spriteFileName: kBouncingBallSprite]];
-			bball.position = ccp(235,195);
+			CGPoint p2 = kGameBoxCenterPoint;
+			p2.y += 50;
+			bball.position = p2;//ccp(235,195);
 			[currentTutorialNode addChild: bball];
 			
 			[bball runAction: [CCRepeatForever actionWithAction: [CCSequence actions:

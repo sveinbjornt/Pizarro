@@ -196,11 +196,12 @@
 
 // Settings
 
-#define kMusicEnabled		@"MusicEnabled"
-#define kSoundEnabled		@"SoundEnabled"
-#define kGameCenterEnabled	@"GameCenterEnabled"
-#define kLastBassLine		@"LastBassLine"
-#define kShowTutorial		@"ShowTutorial"
+#define kMusicEnabled			@"MusicEnabled"
+#define kSoundEnabled			@"SoundEnabled"
+#define kGameCenterEnabled		@"GameCenterEnabled"
+#define kLastBassLine			@"LastBassLine"
+#define kShowTutorial			@"ShowTutorial"
+#define kShowAdForFullVersion	@"ShowFullVersionAd"
 
 // Tutorial
 
@@ -226,5 +227,7 @@
 #define SOUND_ENABLED		[[[NSUserDefaults standardUserDefaults] valueForKey: kSoundEnabled] boolValue]
 #define GAMECENTER_ENABLED	[[[NSUserDefaults standardUserDefaults] valueForKey: kGameCenterEnabled] boolValue]
 #define SHOW_TUTORIAL		[[[NSUserDefaults standardUserDefaults] valueForKey: kShowTutorial] boolValue]
+#define SHOW_FULLVERSION_AD [[[NSUserDefaults standardUserDefaults] valueForKey: kShowAdForFullVersion] boolValue]
+
 #define IPAD				UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
 

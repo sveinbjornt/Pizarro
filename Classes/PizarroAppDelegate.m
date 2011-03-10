@@ -46,10 +46,15 @@
 
 - (void) applicationDidFinishLaunching:(UIApplication*)application
 {
+	BOOL showAdForFullVersion = NO;
+#if IAD_ENABLED == 1
+	showAdForFullVersion = YES;
+#endif
+	
 	[[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjects:
 															 
-															 [NSArray arrayWithObjects:  [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithInt: kStartingBassLine], [NSNumber numberWithBool: [GameCenterManager isGameCenterAvailable]], [NSNumber numberWithBool:YES], nil]
-																			   forKeys:  [NSArray arrayWithObjects: kMusicEnabled, kSoundEnabled, kLastBassLine, kGameCenterEnabled, kShowTutorial, nil]]];	
+															 [NSArray arrayWithObjects:  [NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithInt: kStartingBassLine], [NSNumber numberWithBool: [GameCenterManager isGameCenterAvailable]], [NSNumber numberWithBool:YES], [NSNumber numberWithBool: showAdForFullVersion], nil]
+																			   forKeys:  [NSArray arrayWithObjects: kMusicEnabled, kSoundEnabled, kLastBassLine, kGameCenterEnabled, kShowTutorial, kShowAdForFullVersion, nil]]];	
 	
 	CCLOG(@"User defaults: Music: %d Sound: %d GameCenter: %d", MUSIC_ENABLED, SOUND_ENABLED, GAMECENTER_ENABLED);
 	
@@ -168,6 +173,21 @@
 	
 	if (GAMECENTER_ENABLED)
 		[[GameCenterManager sharedManager] authenticateLocalUser];
+	
+#if IAD_ENABLED == 1
+	if (SHOW_FULLVERSION_AD)
+	{
+		UIAlertView* alert= [[[UIAlertView alloc] initWithTitle: @"Ad-supported Version"
+														message: @"This is the ad-supported version of Pizarro.  If you like the game, get the full version for a richer gaming experience."
+													   delegate: nil
+											  cancelButtonTitle: @"OK" 
+											  otherButtonTitles: NULL] autorelease];
+		[alert show];
+		
+		[[NSUserDefaults standardUserDefaults] setValue: [NSNumber numberWithBool: NO] forKey: kShowAdForFullVersion];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+	}
+#endif
 }
 
 
