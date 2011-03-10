@@ -312,8 +312,6 @@
 		F428F47B13292A2A00101CBC /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = F4291E8E1317142400EBD8D8 /* font.png */; };
 		F428F47C13292A2A00101CBC /* corrino_logo-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4D12A2913197512001DCDD6 /* corrino_logo-hd.png */; };
 		F428F47D13292A2A00101CBC /* corrino_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F4D12A2A13197512001DCDD6 /* corrino_logo.png */; };
-		F428F47E13292A2A00101CBC /* bg-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4D12A2C13197513001DCDD6 /* bg-hd.png */; };
-		F428F47F13292A2A00101CBC /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = F4D12A2D13197513001DCDD6 /* bg.png */; };
 		F428F48013292A2A00101CBC /* bouncingball-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4D12A2E13197513001DCDD6 /* bouncingball-hd.png */; };
 		F428F48113292A2A00101CBC /* bouncingball.png in Resources */ = {isa = PBXBuildFile; fileRef = F4D12A3113197513001DCDD6 /* bouncingball.png */; };
 		F428F48213292A2A00101CBC /* bouncingball_hilight-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4D12A3213197513001DCDD6 /* bouncingball_hilight-hd.png */; };
@@ -408,6 +406,8 @@
 		F428F4DD13292A2A00101CBC /* libcocos2d libraries.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 506EE05E10304ED200A389B3 /* libcocos2d libraries.a */; };
 		F428F4DE13292A2A00101CBC /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A46448130C1D6A00A20694 /* GameKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F428F50513292EB700101CBC /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F428F50413292EB700101CBC /* iAd.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F428F57A13293AC000101CBC /* bg_ad-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F428F57813293AC000101CBC /* bg_ad-hd.png */; };
+		F428F57B13293AC000101CBC /* bg_ad.png in Resources */ = {isa = PBXBuildFile; fileRef = F428F57913293AC000101CBC /* bg_ad.png */; };
 		F4291C0E1316E3CD00EBD8D8 /* MenuButtonSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = F4291C0D1316E3CD00EBD8D8 /* MenuButtonSprite.m */; };
 		F4291E8F1317142400EBD8D8 /* font.fnt in Resources */ = {isa = PBXBuildFile; fileRef = F4291E8D1317142400EBD8D8 /* font.fnt */; };
 		F4291E901317142400EBD8D8 /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = F4291E8E1317142400EBD8D8 /* font.png */; };
@@ -814,6 +814,8 @@
 		F428F4E213292A2A00101CBC /* Pizarro Free.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pizarro Free.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F428F4E413292A2A00101CBC /* Info-Free.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Free.plist"; sourceTree = "<group>"; };
 		F428F50413292EB700101CBC /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		F428F57813293AC000101CBC /* bg_ad-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_ad-hd.png"; sourceTree = "<group>"; };
+		F428F57913293AC000101CBC /* bg_ad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_ad.png; sourceTree = "<group>"; };
 		F4291C0C1316E3CD00EBD8D8 /* MenuButtonSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuButtonSprite.h; sourceTree = "<group>"; };
 		F4291C0D1316E3CD00EBD8D8 /* MenuButtonSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuButtonSprite.m; sourceTree = "<group>"; };
 		F4291E8D1317142400EBD8D8 /* font.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = font.fnt; sourceTree = "<group>"; };
@@ -1666,6 +1668,8 @@
 			children = (
 				F4D12A2C13197513001DCDD6 /* bg-hd.png */,
 				F4D12A2D13197513001DCDD6 /* bg.png */,
+				F428F57813293AC000101CBC /* bg_ad-hd.png */,
+				F428F57913293AC000101CBC /* bg_ad.png */,
 				F4D12A2E13197513001DCDD6 /* bouncingball-hd.png */,
 				F4D12A3113197513001DCDD6 /* bouncingball.png */,
 				F4D12A3213197513001DCDD6 /* bouncingball_hilight-hd.png */,
@@ -2098,8 +2102,6 @@
 				F428F47B13292A2A00101CBC /* font.png in Resources */,
 				F428F47C13292A2A00101CBC /* corrino_logo-hd.png in Resources */,
 				F428F47D13292A2A00101CBC /* corrino_logo.png in Resources */,
-				F428F47E13292A2A00101CBC /* bg-hd.png in Resources */,
-				F428F47F13292A2A00101CBC /* bg.png in Resources */,
 				F428F48013292A2A00101CBC /* bouncingball-hd.png in Resources */,
 				F428F48113292A2A00101CBC /* bouncingball.png in Resources */,
 				F428F48213292A2A00101CBC /* bouncingball_hilight-hd.png in Resources */,
@@ -2157,6 +2159,8 @@
 				F428F4B613292A2A00101CBC /* Default-ipad.png in Resources */,
 				F428F4B713292A2A00101CBC /* bg-twoplayer-ipad.png in Resources */,
 				F428F4B813292A2A00101CBC /* mode_silhouette-ipad.png in Resources */,
+				F428F57A13293AC000101CBC /* bg_ad-hd.png in Resources */,
+				F428F57B13293AC000101CBC /* bg_ad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2513,6 +2517,12 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Pizarro_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DEBUG,
+					"COCOS2D_DEBUG=1",
+					"CD_DEBUG=0",
+					"IAD_ENABLED=1",
+				);
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = libs;
 				INFOPLIST_FILE = "Resources/Info-Free.plist";
@@ -2537,6 +2547,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Pizarro_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "IAD_ENABLED=1";
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = libs;
 				INFOPLIST_FILE = "Resources/Info-Free.plist";
