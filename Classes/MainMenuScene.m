@@ -177,6 +177,11 @@
 	icon = [MMLetterSprite spriteWithFile: [GParams spriteFileName: kGameIconSprite]];
 	icon.position = [GParams mainMenuIconPoint];
 	icon.originalPosition = [GParams mainMenuIconPoint];
+	
+#if IAD_ENABLED == 1
+	icon.scale = 0.8;
+#endif
+	
 	[self addChild: icon];
 	[letters addObject: icon];
 	
@@ -667,10 +672,19 @@
 	
 	if (SOUND_ENABLED)
 		[[SimpleAudioEngine sharedEngine] playEffect: kTrumpetSoundEffect pitch: pitch pan:0.0f gain:0.3f];	
-		
+	
+#if IAD_ENABLED == 1
+	float big_scale = 0.9;
+	float normal_scale = 0.8;
+#else
+	float big_scale = 1.2;
+	float normal_scale = 1.0;
+#endif
+	
+	
 	[icon runAction: [CCSequence actions:
-											   [CCScaleTo actionWithDuration: 0.1 scale: 1.2],
-											   [CCScaleTo actionWithDuration: 0.2 scale: 1.0],
+											   [CCScaleTo actionWithDuration: 0.1 scale: big_scale],
+											   [CCScaleTo actionWithDuration: 0.2 scale: normal_scale],
 											   nil]];
 }
 

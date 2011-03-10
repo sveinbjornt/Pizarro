@@ -558,7 +558,8 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 			welcome.color = kBlackColor;
 			[currentTutorialNode addChild: welcome];
 			
-			NSString *expl = @"The objective of the game is\nto cover 80% of the\nsurface area in each level\nby creating circles.";
+			int perc = kSurfaceReqPerLevel;
+			NSString *expl = [NSString stringWithFormat: @"The objective of the game is\nto cover %d%% of the\nsurface area in each level\nby creating circles.", perc];
 			CCLabelTTF *text = [CCLabelTTF labelWithString: expl
 												dimensions: CGSizeMake(400,140) 
 												 alignment: UITextAlignmentLeft

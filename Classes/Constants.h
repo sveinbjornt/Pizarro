@@ -53,17 +53,26 @@
 ///// GAMEPLAY ///////
 
 // Mana
-#define kFullMana				10.0
-#define kStartingMana			10.0
-#define kManaPercentageLow		0.30
-#define kManaPerLevel			(kFullMana/3) + (level * (kFullMana/60))
 
-// Time
+#if IAD_ENABLED == 1
+	#define kFullMana				8.5
+	#define kStartingMana			8.5
+	#define kSurfaceReqPerLevel		75.0f
+	#define kManaPerLevel			(kFullMana/3) + (level * (kFullMana/72))
+#else
+	#define kFullMana				10.0
+	#define kStartingMana			10.0
+	#define kSurfaceReqPerLevel		80.0f
+	#define kManaPerLevel			(kFullMana/3) + (level * (kFullMana/60))
+#endif
+
 #define kStartingTime			60.0f
 #define kTimePerLevel			15.0f
 #define kTimeLow				15.0f
+#define kManaPercentageLow		0.30
 
-#define kSurfaceReqPerLevel		80.0f
+// Time
+
 
 // Shapes
 #define kMinimumShapeSize					15

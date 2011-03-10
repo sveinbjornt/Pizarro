@@ -40,6 +40,10 @@
 	if (IPAD)
 		return 664;
 	
+#if IAD_ENABLED == 1
+	return 250;
+#endif
+	
 	return 280;
 }
 
@@ -85,6 +89,9 @@
 
 +(int)matrixHeight
 {
+#if IAD_ENABLED == 1
+	return 25;
+#endif
 	
 	return 28;
 }
@@ -274,7 +281,11 @@
 	if (IPAD)
 		return ccp(74,768-60);
 	
-	return ccp(37,320-30);
+#if IAD_ENABLED == 1
+	return ccp(37,260);
+#endif
+	
+	return ccp(37,290);
 }
 
 +(CGPoint)scoresMenuShiftOutPosition
@@ -289,7 +300,11 @@
 {
 	if (IPAD)
 		return CGPointMake(780, 460);
-		
+
+#if IAD_ENABLED == 1
+	return CGPointMake(387, 197);
+#endif
+	
 	return CGPointMake(385, 220);
 }
 
@@ -310,6 +325,10 @@
 	if (IPAD)
 		return CGPointMake(115, 410);
 	
+#if IAD_ENABLED == 1
+	return CGPointMake(54, 172);
+#endif
+	
 	return CGPointMake(54, 190);
 }
 
@@ -325,6 +344,10 @@
 {
 	if (IPAD)
 		return CGPointMake(-50, 220);
+
+#if IAD_ENABLED == 1
+	return CGPointMake(-20, 81);
+#endif	
 	
 	return CGPointMake(-20, 90);
 }
