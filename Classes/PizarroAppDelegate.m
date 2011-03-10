@@ -16,6 +16,7 @@
 #import "SimpleAudioEngine.h"
 #import "ScoreManager.h"
 #import "GParams.h"
+#import <iAd/iAd.h>
 
 @implementation PizarroAppDelegate
 
@@ -28,19 +29,19 @@
 //
 // Uncomment the following code if you Application only supports landscape mode
 //
-//#if GAME_AUTOROTATION == kGameAutorotationUIViewController
-//	
-//	CC_ENABLE_DEFAULT_GL_STATES();
-//	CCDirector *director = [CCDirector sharedDirector];
-//	CGSize size = [director winSize];
-//	CCSprite *sprite = [CCSprite spriteWithFile:@"Default.png"];
-//	sprite.position = ccp(size.width/2, size.height/2);
-//	sprite.rotation = -90;
-//	[sprite visit];
-//	[[director openGLView] swapBuffers];
-//	CC_ENABLE_DEFAULT_GL_STATES();
-//	
-//#endif // GAME_AUTOROTATION == kGameAutorotationUIViewController	
+#if GAME_AUTOROTATION == kGameAutorotationUIViewController
+	
+	CC_ENABLE_DEFAULT_GL_STATES();
+	CCDirector *director = [CCDirector sharedDirector];
+	CGSize size = [director winSize];
+	CCSprite *sprite = [CCSprite spriteWithFile:@"Default.png"];
+	sprite.position = ccp(size.width/2, size.height/2);
+	sprite.rotation = -90;
+	[sprite visit];
+	[[director openGLView] swapBuffers];
+	CC_ENABLE_DEFAULT_GL_STATES();
+	
+#endif // GAME_AUTOROTATION == kGameAutorotationUIViewController	
 }
 
 - (void) applicationDidFinishLaunching:(UIApplication*)application
@@ -109,10 +110,17 @@
 	// Edit the RootViewController.m file to edit the supported orientations.
 	//
 
-	if (IPAD)
-		[director setDeviceOrientation:kCCDeviceOrientationPortrait];
-	else
-		[director setDeviceOrientation:kCCDeviceOrientationLandscapeLeft];
+//	if (IPAD)
+//		[director setDeviceOrientation:kCCDeviceOrientationPortrait];
+//	else
+//		[director setDeviceOrientation:kCCDeviceOrientationLandscapeLeft];
+	
+#if GAME_AUTOROTATION == kGameAutorotationUIViewController
+	[director setDeviceOrientation:kCCDeviceOrientationPortrait];
+#else
+	[director setDeviceOrientation:kCCDeviceOrientationLandscapeLeft];
+#endif
+	
 	
 	[director setAnimationInterval:1.0/60];
 	
@@ -127,6 +135,16 @@
 	
 	// make the View Controller a child of the main window
 	[window addSubview: viewController.view];
+	
+	id bannerView = [[ADBannerView alloc] initWithFrame:CGRectZero];
+	[bannerView setRequiredContentSizeIdentifiers:[NSSet setWithObjects:
+												   ADBannerContentSizeIdentifier320x50,
+												   ADBannerContentSizeIdentifier480x32, nil]];
+	
+	[bannerView setCurrentContentSizeIdentifier: ADBannerContentSizeIdentifierLandscape];
+	
+	[bannerView setDelegate:self];
+	[viewController.view addSubview: bannerView];  
 	
 	[window makeKeyAndVisible];
 	
