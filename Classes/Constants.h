@@ -10,7 +10,7 @@
 
 // Game Info
 #define kGameName				@"PIZARRO"
-#define	kGameVersion			1.0
+#define	kGameVersion			1.1
 #define kGameReleaseYear		2011
 #define kGameDeveloper			@"Corrino Software"
 #define kGameProgramming		@"Sveinbjorn Thordarson"

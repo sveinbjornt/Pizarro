@@ -1314,10 +1314,10 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	if (numBalls > kMaxBounceBalls)
 		numBalls = kMaxBounceBalls;
-	
+		
 	// Decide how much energy is in the physical system
 	
-	float energy = 13500 + (level * 2900);
+	float energy = 14000 + (level * 2900);
 
 	float energyPerBall = energy / (numBalls - (numBalls * 0.10));
 	
