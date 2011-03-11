@@ -31,7 +31,7 @@
 		<string>Icon-48px.png</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
-	<false/>
+	<true/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>RedStateBlueStateBB.ttf</string>
