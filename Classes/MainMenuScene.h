@@ -33,6 +33,11 @@
 	
 	int				state;
 	
+	// Free version ad for full version
+#if IAD_ENABLED == 1
+	CCMenu			*getFullVersionMenu;
+#endif
+	
 	// Settings
 	CCLabelTTF		*musicLabel, *soundLabel, *gameCenterLabel;
 	CCMenu			*tutorialMenu;

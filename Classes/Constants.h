@@ -16,6 +16,7 @@
 #define kGameProgramming		@"Sveinbjorn Thordarson"
 #define kGameGraphics			@"Magnus David Magnusson"
 #define kGameDeveloperWebsite	@"http://www.corrinosoftware.com"
+#define kGameFullVersionURL		@"http://itunes.apple.com/app/pizarro/id421359392?mt=8"
 
 // High scores
 #define kSavedHighscoreFilename		@"PizzaroLocalHighscore"
@@ -26,11 +27,18 @@
 // GAME CENTER
 
 // leaderboards
+
 #define kGameCenterScoreCategory		@"Pizarro_Phone_Score"
 #define kGameCenterLevelCategory		@"Pizarro_Phone_Level"
+
 #define kGameCenter_IPAD_ScoreCategory	@"Pizarro_Pad_Score"
 #define kGameCenter_IPAD_LevelCategory	@"Pizarro_Pad_Level"
 
+#define kGameCenterScoreCategoryFree	@"PizarroFreePhoneScore"
+#define kGameCenterLevelCategoryFree	@"PizarroFreePhoneLevel"
+
+#define kGameCenter_IPAD_ScoreCategoryFree	@"PizarroFreePhoneScore"
+#define kGameCenter_IPAD_LevelCategoryFree	@"PizarroFreePhoneLevel"
 
 
 // achievements
@@ -55,16 +63,14 @@
 // Mana
 
 #if IAD_ENABLED == 1
-	#define kFullMana				8.5
-	#define kStartingMana			8.5
-	#define kSurfaceReqPerLevel		75.0f
-	#define kManaPerLevel			(kFullMana/3) + (level * (kFullMana/72))
+	#define kFullMana				9.2
+	#define kSurfaceReqPerLevel		80.0f
 #else
 	#define kFullMana				10.0
-	#define kStartingMana			10.0
 	#define kSurfaceReqPerLevel		80.0f
-	#define kManaPerLevel			(kFullMana/3) + (level * (kFullMana/60))
 #endif
+
+#define kManaPerLevel			(kFullMana/3) + (level * (kFullMana/60))
 
 #define kStartingTime			60.0f
 #define kTimePerLevel			15.0f

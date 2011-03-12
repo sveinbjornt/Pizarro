@@ -225,7 +225,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	percentageFilled = 0.0f;
 	
 	mana = 0;
-	newMana = kStartingMana;
+	newMana = kFullMana;
 	oldMana = 0;
 	
 	flawless = YES;

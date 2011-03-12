@@ -44,8 +44,13 @@
 {
 	[self reportArchivedScoresAndAchievements]; // every time a score is submitted, we try to submit our archived scores as well
 	
+#if IAD_ENABLED == 1
+	NSString *scoreCategory = IPAD ? kGameCenter_IPAD_ScoreCategoryFree : kGameCenterScoreCategoryFree;
+	NSString *levelCategory = IPAD ? kGameCenter_IPAD_LevelCategoryFree : kGameCenterScoreCategoryFree;
+#else
 	NSString *scoreCategory = IPAD ? kGameCenter_IPAD_ScoreCategory : kGameCenterScoreCategory;
 	NSString *levelCategory = IPAD ? kGameCenter_IPAD_LevelCategory : kGameCenterScoreCategory;
+#endif
 	
 	[self reportNewGKScore: score forCategory: scoreCategory];
 	[self reportNewGKScore: level forCategory: levelCategory];

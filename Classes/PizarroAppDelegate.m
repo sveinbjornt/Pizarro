@@ -143,15 +143,13 @@
 	
 #if IAD_ENABLED == 1
 	id bannerView = [[ADBannerView alloc] initWithFrame:CGRectMake(0,-10,0,0)];
-	[bannerView setRequiredContentSizeIdentifiers:[NSSet setWithObjects:
-												   ADBannerContentSizeIdentifier320x50,
-												   ADBannerContentSizeIdentifier480x32, nil]];
 	
 	[bannerView setCurrentContentSizeIdentifier: ADBannerContentSizeIdentifierLandscape];
 	[bannerView setDelegate:self];
+	[viewController.view addSubview: bannerView];  
+
 #endif
 	
-	[viewController.view addSubview: bannerView];  
 	
 	[window makeKeyAndVisible];
 	
@@ -438,7 +436,12 @@
 	if (leaderboardController != NULL) 
 	{
 		// These defaults can be set in iTunes Connect as opposed to code
+		
+#if IAD_ENABLED == 1
+		leaderboardController.category = IPAD ? kGameCenter_IPAD_ScoreCategoryFree : kGameCenterScoreCategoryFree;
+#else
 		leaderboardController.category = IPAD ? kGameCenter_IPAD_ScoreCategory : kGameCenterScoreCategory;
+#endif
 		leaderboardController.timeScope = GKLeaderboardTimeScopeAllTime;
 		leaderboardController.leaderboardDelegate = self; 
 		//[leaderboardController setModalTransitionStyle: UIModalTransitionStyleFlipHorizontal];

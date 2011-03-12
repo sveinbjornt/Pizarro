@@ -8,6 +8,7 @@
 #import <GameKit/GameKit.h>
 #import "GameCenterManager.h"
 #import "ScoreManager.h"
+#import "cocos2d.h"
 
 static GameCenterManager *sharedManager = nil;
 
@@ -107,7 +108,7 @@ static GameCenterManager *sharedManager = nil;
 		 {
 			 if (error)
 			 {
-//				  NSLog((NSString *)[error localizedDescription]);
+				CCLOG((NSString *)[error localizedDescription]);
 				if ([error code] != GKErrorCancelled)
 					[self callDelegateOnMainThread: @selector(alert:) withArg: @"Unable to connect to Game Center" error: nil];
 			 }
@@ -127,9 +128,11 @@ static GameCenterManager *sharedManager = nil;
 		 {
 			 if (error)
 			 {
+				 CCLOG((NSString *)[error localizedDescription]);
+				 
 				 if ([error code] != GKErrorCancelled)
 					 [self callDelegateOnMainThread: @selector(alert:) withArg: @"Unable to connect to Game Center" error: nil];
-				// NSLog((NSString *)[error localizedDescription]);
+				 
 				 [self callDelegateOnMainThread: @selector(endLeaderboard) withArg: NULL error: nil];
 
 			 }
@@ -152,6 +155,8 @@ static GameCenterManager *sharedManager = nil;
 		 {
 			 if (error)
 			 {
+				 CCLOG((NSString *)[error localizedDescription]);
+				 
 				 if ([error code] != GKErrorCancelled)
 					 [self callDelegateOnMainThread: @selector(alert:) withArg: @"Unable to connect to Game Center" error: nil];
 				 // if player isn't authenticated, we can't post the score since we don't know
@@ -174,6 +179,7 @@ static GameCenterManager *sharedManager = nil;
 		 {
 			 if (error)
 			 {
+				 CCLOG((NSString *)[error localizedDescription]);
 //				  NSLog([error localizedDescription]);
 				 // [self callDelegateOnMainThread: @selector(alert:) withArg: @"Unable to connect to Game Center" error: nil];
 				 // if player isn't authenticated, we can't post the achievement since we don't know

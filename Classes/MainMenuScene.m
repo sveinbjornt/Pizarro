@@ -185,6 +185,15 @@
 	[self addChild: icon];
 	[letters addObject: icon];
 	
+#if IAD_ENABLED == 1
+	[CCMenuItemFont setFontName: kMainMenuFont];
+	[CCMenuItemFont setFontSize: 32];
+	CCMenuItem *fullVersionItem = [CCMenuItemFont itemFromString: @"Get full version" target:self selector:@selector(onGetFullVersion:)];
+	getFullVersionMenu = [CCMenu menuWithItems:fullVersionItem, nil];
+	getFullVersionMenu.position = ccp(180,265);
+	getFullVersionMenu.opacity = 0.0f;
+	[self addChild:getFullVersionMenu z: 1001];
+#endif
 }
 
 #pragma mark -
@@ -341,6 +350,11 @@
 	[self onSinglePlayer: sender];
 }
 
+-(void)onGetFullVersion:(id)sender
+{
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString: kGameFullVersionURL]];
+}
+
 #pragma mark -
 #pragma mark Shift In/Out transitions
 
@@ -365,17 +379,24 @@
 			//[letter runAction: [CCRepeatForever actionWithAction: [CCDelayTime actionWithDuration: 1.0]]];
 		}
 		[scoresMenu runAction: [CCMoveTo actionWithDuration: duration position: [GParams scoresMenuShiftOutPosition]]];
+		
+#if IAD_ENABLED == 1
+		[getFullVersionMenu runAction: [CCFadeOut actionWithDuration: duration]];
+#endif
+		
 	}
 	else
 	{
 		[resumeMenu runAction: [CCFadeOut actionWithDuration: 0.25]];
 		[resumeMenu setIsTouchEnabled: NO];
+		
 	}
 
 	
 	[bg1 runAction: [CCMoveBy actionWithDuration: duration position: [GParams mainMenuShiftOutVector]]];
 	[bg2 runAction: [CCMoveBy actionWithDuration: duration position: [GParams mainMenuShiftOutVector]]];
 	[menu runAction: [CCMoveBy actionWithDuration: duration position: [GParams mainMenuShiftOutVector]]];
+	
 	[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(endTransition)] withDelay: duration + 0.2]];
 }
 
@@ -408,6 +429,12 @@
 			
 		}
 		[scoresMenu runAction: [CCMoveTo actionWithDuration: duration position: [GParams scoresMenuPosition]]];
+		
+		
+#if IAD_ENABLED == 1
+		[getFullVersionMenu runAction: [CCFadeIn actionWithDuration: duration]];
+#endif
+		
 	}
 	else
 	{
@@ -417,6 +444,7 @@
 	[bg1 runAction: [CCMoveBy actionWithDuration: duration position: [GParams mainMenuShiftInVector]]];
 	[bg2 runAction: [CCMoveBy actionWithDuration: duration position: [GParams mainMenuShiftInVector]]];
 	[menu runAction: [CCMoveBy actionWithDuration: duration position: [GParams mainMenuShiftInVector]]];
+
 	
 	piano.tempo = 0.07;
 	[piano playSequence: @"7,6,5,4,3,2,1"];
@@ -651,7 +679,7 @@
 	createdByLabel = [MMLetterLabel labelWithString: createdByStr dimensions: [GParams createdByLabelSize] alignment: UITextAlignmentCenter fontName: kMainMenuFont fontSize: [GParams creditsFontSize]];
 	createdByLabel.position = [GParams createdByLabelStartingPoint];
 	[self addChild: createdByLabel];
-	 [createdByLabel runAction: [CCEaseIn actionWithAction: [CCMoveTo actionWithDuration: 0.3 position: [GParams createdByLabelPoint]] rate:4.0f]];
+	[createdByLabel runAction: [CCEaseIn actionWithAction: [CCMoveTo actionWithDuration: 0.3 position: [GParams createdByLabelPoint]] rate:4.0f]];
 }
 
 -(void)hideCredits
