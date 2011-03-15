@@ -1445,11 +1445,18 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 			[ScoreManager reportAchievementWithIdentifier: kGameCenterLevel25Achievement];
 		}
 		break;
+			
+		case 30:
+		{
+			CCLOG(@"Got to level 30");
+			[ScoreManager reportAchievementWithIdentifier: kGameCenterLevel30Achievement];
+		}
+			break;
 	}
 	
 	if (percentageFilled >= 95.0f)
 	{
-		CCLOG(@"Got to level 25");
+		CCLOG(@"95% filled");
 		[ScoreManager reportAchievementWithIdentifier: kGameCenterOverkillAchievement];
 	}
 

@@ -42,6 +42,26 @@
 
 
 // achievements
+#if IAD_ENABLED == 1
+
+#define kGameCenterLevelInOneAchievement	@"PizarroFree_Achievement_LevelInOne"
+#define kGameCenterLevelInTwoAchievement	@"PizarroFree_Achievement_LevelInTwo"
+#define kGameCenterLevelInThreeAchievement	@"PizarroFree_Achievement_LevelInThree"
+
+#define kGameCenterLevel5Achievement	@"PizarroFree_Achievement_Level5"
+#define kGameCenterLevel10Achievement	@"PizarroFree_Achievement_Level10"
+#define kGameCenterLevel15Achievement	@"PizarroFree_Achievement_Level15"
+#define kGameCenterLevel20Achievement	@"PizarroFree_Achievement_Level20"
+#define kGameCenterLevel25Achievement	@"PizarroFree_Achievement_Level25"
+#define kGameCenterLevel30Achievement	@"PizarroFree_Achievement_Level30"
+
+#define kGameCenterMinorPentatonicAchievement	@"PizarroFree_Achievement_MinorPentatonic"
+#define kGameCenterOverkillAchievement			@"PizarroFree_Achievement_Overkill"
+#define kGameCenterTouchmasterAchievement		@"PizarroFree_Achievement_Touchmaster"
+#define kGameCenterFlawlessAchievement			@"PizarroFree_Achievement_Flawless"
+
+#else
+
 #define kGameCenterLevelInOneAchievement	@"Pizarro_Achievement_LevelInOne"
 #define kGameCenterLevelInTwoAchievement	@"Pizarro_Achievement_LevelInTwo"
 #define kGameCenterLevelInThreeAchievement	@"Pizarro_Achievement_LevelInThree"
@@ -51,12 +71,14 @@
 #define kGameCenterLevel15Achievement	@"Pizarro_Achievement_Level15"
 #define kGameCenterLevel20Achievement	@"Pizarro_Achievement_Level20"
 #define kGameCenterLevel25Achievement	@"Pizarro_Achievement_Level25"
+#define kGameCenterLevel30Achievement	@"Pizarro_Achievement_Level30"
 
 #define kGameCenterMinorPentatonicAchievement	@"Pizarro_Achievement_MinorPentatonic"
 #define kGameCenterOverkillAchievement			@"Pizarro_Achievement_Overkill"
 #define kGameCenterTouchmasterAchievement		@"Pizarro_Achievement_Touchmaster"
 #define kGameCenterFlawlessAchievement			@"Pizarro_Achievement_Flawless"
 
+#endif
 
 ///// GAMEPLAY ///////
 
