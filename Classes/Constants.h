@@ -85,11 +85,11 @@
 // Mana
 
 #if IAD_ENABLED == 1
-	#define kFullMana				9.6
+	#define kFullMana				10.0f
 	#define kSurfaceReqPerLevel		80.0f
 	#define kStartingTime			50.0f
 #else
-	#define kFullMana				10.0
+	#define kFullMana				10.0f
 	#define kSurfaceReqPerLevel		80.0f
 	#define kStartingTime			60.0f
 #endif
