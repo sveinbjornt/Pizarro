@@ -195,7 +195,7 @@
 	[self addChild:getFullVersionMenu z: 1001];
 	
 	freeLabel = [CCLabelTTF labelWithString: @"FREE" fontName: kMainMenuFont fontSize: 32];
-	freeLabel.position = ccp(280, 220);
+	freeLabel.position = ccp(270, 220);
 	freeLabel.color = ccc3(200,200,0);
 	freeLabel.opacity = 0.0f;
 	[self addChild: freeLabel];

@@ -2510,6 +2510,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sveinbjorn Thordarson (Z648TA835W)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2533,6 +2534,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Pizarro Free";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "29BCE544-033C-4E11-95E2-C02882D7EC97";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
@@ -2541,6 +2543,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sveinbjorn Thordarson (Z648TA835W)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -2557,6 +2560,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = Pizarro;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "29BCE544-033C-4E11-95E2-C02882D7EC97";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
