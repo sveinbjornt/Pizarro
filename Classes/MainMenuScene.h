@@ -36,6 +36,7 @@
 	// Free version ad for full version
 #if IAD_ENABLED == 1
 	CCMenu			*getFullVersionMenu;
+	CCLabelTTF		*freeLabel;
 #endif
 	
 	// Settings

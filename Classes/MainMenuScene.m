@@ -193,6 +193,12 @@
 	getFullVersionMenu.position = ccp(180,265);
 	getFullVersionMenu.opacity = 0.0f;
 	[self addChild:getFullVersionMenu z: 1001];
+	
+	freeLabel = [CCLabelTTF labelWithString: @"FREE" fontName: kMainMenuFont fontSize: 32];
+	freeLabel.position = ccp(280, 220);
+	freeLabel.color = ccc3(200,200,0);
+	freeLabel.opacity = 0.0f;
+	[self addChild: freeLabel];
 #endif
 }
 
@@ -381,7 +387,8 @@
 		[scoresMenu runAction: [CCMoveTo actionWithDuration: duration position: [GParams scoresMenuShiftOutPosition]]];
 		
 #if IAD_ENABLED == 1
-		[getFullVersionMenu runAction: [CCFadeOut actionWithDuration: duration]];
+		[getFullVersionMenu runAction: [CCFadeOut actionWithDuration: duration/2]];
+		[freeLabel runAction: [CCFadeOut actionWithDuration: duration/2]];
 #endif
 		
 	}
@@ -432,7 +439,8 @@
 		
 		
 #if IAD_ENABLED == 1
-		[getFullVersionMenu runAction: [CCFadeIn actionWithDuration: duration]];
+		[getFullVersionMenu runAction: [CCFadeIn actionWithDuration: duration * 2]];
+		[freeLabel runAction: [CCFadeIn actionWithDuration: duration * 2]];
 #endif
 		
 	}
@@ -766,8 +774,8 @@
 	// Check if press on Corrino Software
 	if (!playedNote && state == kCreditsState && CGRectContainsPoint([creditsLabel rect], location))
 	{
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString: kGameDeveloperWebsite]];
-		return;
+		//[[UIApplication sharedApplication] openURL:[NSURL URLWithString: kGameDeveloperWebsite]];
+		//return;
 	}
 	
 	if (!playedNote)

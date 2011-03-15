@@ -176,7 +176,7 @@
 	if (SHOW_FULLVERSION_AD)
 	{
 		UIAlertView* alert= [[[UIAlertView alloc] initWithTitle: @"Ad-supported Version"
-														message: @"This is the ad-supported version of Pizarro.  If you like the game, get the full version for a richer gaming experience."
+														message: @"This is the free, ad-supported version of Pizarro.  If you like the game, get the full version for a richer gaming experience."
 													   delegate: nil
 											  cancelButtonTitle: @"OK" 
 											  otherButtonTitles: NULL] autorelease];
