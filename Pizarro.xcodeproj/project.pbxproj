@@ -393,6 +393,30 @@
 		F441F1CF132F039C005B4C52 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F441F1C9132F039C005B4C52 /* Icon.png */; };
 		F441F1D0132F039C005B4C52 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F441F1CA132F039C005B4C52 /* Icon@2x.png */; };
 		F441F1D1132F039C005B4C52 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = F441F1CB132F039C005B4C52 /* iTunesArtwork */; };
+		F44841B0133816DF0024B5D6 /* corrino_logo-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F444574E13198E2900296D2A /* corrino_logo-ipad.png */; };
+		F44841B1133816E90024B5D6 /* bg-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F444577113198F9B00296D2A /* bg-ipad.png */; };
+		F44841B2133816E90024B5D6 /* bg-twoplayer-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F41A9FEE131BE1FB0079853C /* bg-twoplayer-ipad.png */; };
+		F44841B3133816E90024B5D6 /* mode_silhouette-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F41AA014131BE45D0079853C /* mode_silhouette-ipad.png */; };
+		F44841B4133816E90024B5D6 /* bouncingball_hilight-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F444577213198F9B00296D2A /* bouncingball_hilight-ipad.png */; };
+		F44841B5133816E90024B5D6 /* bouncingball-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F444577313198F9B00296D2A /* bouncingball-ipad.png */; };
+		F44841B6133816E90024B5D6 /* manabar_green_top-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F444577413198F9B00296D2A /* manabar_green_top-ipad.png */; };
+		F44841B7133816E90024B5D6 /* manabar_green-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F444577513198F9B00296D2A /* manabar_green-ipad.png */; };
+		F44841B8133816E90024B5D6 /* manabar_red_top-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F444577613198F9B00296D2A /* manabar_red_top-ipad.png */; };
+		F44841B9133816E90024B5D6 /* manabar_red-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F444577713198F9B00296D2A /* manabar_red-ipad.png */; };
+		F44841BA133816E90024B5D6 /* menu_button_black-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F444577813198F9B00296D2A /* menu_button_black-ipad.png */; };
+		F44841BB133816E90024B5D6 /* menu_button_white-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F444577913198F9B00296D2A /* menu_button_white-ipad.png */; };
+		F44841BC133816EE0024B5D6 /* mainscreen_bg-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F4D12A4213197513001DCDD6 /* mainscreen_bg-ipad.png */; };
+		F44841BD133816EE0024B5D6 /* scores_button_off-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F4D12A4813197513001DCDD6 /* scores_button_off-ipad.png */; };
+		F44841BE133816EE0024B5D6 /* mainscreen_icon-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F4D12A4513197513001DCDD6 /* mainscreen_icon-ipad.png */; };
+		F44841BF133816EE0024B5D6 /* scores_button_on-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F4D12A4B13197513001DCDD6 /* scores_button_on-ipad.png */; };
+		F44841C0133816F50024B5D6 /* checkbox-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F44456E81319868F00296D2A /* checkbox-ipad.png */; };
+		F44841C1133816F50024B5D6 /* checkbox-nocheck-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F44456E91319868F00296D2A /* checkbox-nocheck-ipad.png */; };
+		F44841C2133816F50024B5D6 /* tutorial_button_black-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F44456EA1319868F00296D2A /* tutorial_button_black-ipad.png */; };
+		F44841C3133816F50024B5D6 /* tutorial_button_white-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F44456EB1319868F00296D2A /* tutorial_button_white-ipad.png */; };
+		F44841C4133816FA0024B5D6 /* tutorial_circle-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F444576F13198F3F00296D2A /* tutorial_circle-ipad.png */; };
+		F44841C7133817120024B5D6 /* Default-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = F44FC74B131ADF3C00FE01AB /* Default-ipad.png */; };
+		F44841C8133817B30024B5D6 /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F3A130E96B7006C0F2C /* fps_images.png */; };
+		F44841C9133817B40024B5D6 /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F3A130E96B7006C0F2C /* fps_images.png */; };
 		F4A00253130BAD18000FCEDE /* Circle.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0024F130BAD18000FCEDE /* Circle.m */; };
 		F4A00254130BAD18000FCEDE /* PizarroGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A00252130BAD18000FCEDE /* PizarroGameScene.m */; };
 		F4A462A0130BFE6600A20694 /* CCNode+Cleanup.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A4629F130BFE6600A20694 /* CCNode+Cleanup.m */; };
@@ -2025,6 +2049,29 @@
 				F441F1B2132F018E005B4C52 /* Icon.png in Resources */,
 				F441F1B3132F018E005B4C52 /* Icon@2x.png in Resources */,
 				F441F1B4132F018E005B4C52 /* iTunesArtwork in Resources */,
+				F44841B0133816DF0024B5D6 /* corrino_logo-ipad.png in Resources */,
+				F44841B1133816E90024B5D6 /* bg-ipad.png in Resources */,
+				F44841B2133816E90024B5D6 /* bg-twoplayer-ipad.png in Resources */,
+				F44841B3133816E90024B5D6 /* mode_silhouette-ipad.png in Resources */,
+				F44841B4133816E90024B5D6 /* bouncingball_hilight-ipad.png in Resources */,
+				F44841B5133816E90024B5D6 /* bouncingball-ipad.png in Resources */,
+				F44841B6133816E90024B5D6 /* manabar_green_top-ipad.png in Resources */,
+				F44841B7133816E90024B5D6 /* manabar_green-ipad.png in Resources */,
+				F44841B8133816E90024B5D6 /* manabar_red_top-ipad.png in Resources */,
+				F44841B9133816E90024B5D6 /* manabar_red-ipad.png in Resources */,
+				F44841BA133816E90024B5D6 /* menu_button_black-ipad.png in Resources */,
+				F44841BB133816E90024B5D6 /* menu_button_white-ipad.png in Resources */,
+				F44841BC133816EE0024B5D6 /* mainscreen_bg-ipad.png in Resources */,
+				F44841BD133816EE0024B5D6 /* scores_button_off-ipad.png in Resources */,
+				F44841BE133816EE0024B5D6 /* mainscreen_icon-ipad.png in Resources */,
+				F44841BF133816EE0024B5D6 /* scores_button_on-ipad.png in Resources */,
+				F44841C0133816F50024B5D6 /* checkbox-ipad.png in Resources */,
+				F44841C1133816F50024B5D6 /* checkbox-nocheck-ipad.png in Resources */,
+				F44841C2133816F50024B5D6 /* tutorial_button_black-ipad.png in Resources */,
+				F44841C3133816F50024B5D6 /* tutorial_button_white-ipad.png in Resources */,
+				F44841C4133816FA0024B5D6 /* tutorial_circle-ipad.png in Resources */,
+				F44841C7133817120024B5D6 /* Default-ipad.png in Resources */,
+				F44841C8133817B30024B5D6 /* fps_images.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2093,6 +2140,7 @@
 				F441F1CF132F039C005B4C52 /* Icon.png in Resources */,
 				F441F1D0132F039C005B4C52 /* Icon@2x.png in Resources */,
 				F441F1D1132F039C005B4C52 /* iTunesArtwork in Resources */,
+				F44841C9133817B40024B5D6 /* fps_images.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2320,13 +2368,14 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = libs;
 				INFOPLIST_FILE = Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = Pizarro;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;

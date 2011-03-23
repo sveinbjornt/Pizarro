@@ -1563,14 +1563,14 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 				Shape *s = [self createShapeAtPoint: location forTouch: touch];
 				s.owner = kPlayer1;
 				s.color = ccc3(0,100,0);
-				s.opacity = 200;
+				s.opacity = 255;
 			}
 			else if (ccpDistance(location, [GParams multiPlayerSrcBallPoint2]) <  [GParams multiPlayerSrcBallRadius])
 			{
 				Shape *s = [self createShapeAtPoint: location forTouch: touch];
 				s.owner = kPlayer2;
 				s.color = ccc3(0,0,100);
-				s.opacity = 200;
+				s.opacity = 255;
 			}
 		}
 		else
