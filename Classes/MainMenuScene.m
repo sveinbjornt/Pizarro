@@ -38,7 +38,6 @@
 	CCScene *scene = [CCScene node];	
 	
 	MainMenuScene *layer = [[[MainMenuScene alloc] initWithPause: NO] autorelease];
-	layer.color = kBlackColor;
 
 	[scene addChild: layer];
 	
@@ -51,7 +50,6 @@
 	CCScene *scene = [CCScene node];	
 
 	MainMenuScene *layer = [[[MainMenuScene alloc] initWithPause: YES] autorelease];
-	layer.color = kBlackColor;
 	layer.pausedScene = gameScene;
 	
 	[scene addChild: layer];

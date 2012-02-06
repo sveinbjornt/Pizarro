@@ -108,7 +108,7 @@ static GameCenterManager *sharedManager = nil;
 		 {
 			 if (error)
 			 {
-				CCLOG((NSString *)[error localizedDescription]);
+                 CCLOG(@"%@", [error localizedDescription]);
 				if ([error code] != GKErrorCancelled)
 					[self callDelegateOnMainThread: @selector(alert:) withArg: @"Unable to connect to Game Center" error: nil];
 			 }
@@ -128,7 +128,7 @@ static GameCenterManager *sharedManager = nil;
 		 {
 			 if (error)
 			 {
-				 CCLOG((NSString *)[error localizedDescription]);
+				 CCLOG(@"%@", [error localizedDescription]);
 				 
 				 if ([error code] != GKErrorCancelled)
 					 [self callDelegateOnMainThread: @selector(alert:) withArg: @"Unable to connect to Game Center" error: nil];
@@ -155,7 +155,7 @@ static GameCenterManager *sharedManager = nil;
 		 {
 			 if (error)
 			 {
-				 CCLOG((NSString *)[error localizedDescription]);
+				 CCLOG(@"%@", [error localizedDescription]);
 				 
 				 if ([error code] != GKErrorCancelled)
 					 [self callDelegateOnMainThread: @selector(alert:) withArg: @"Unable to connect to Game Center" error: nil];
@@ -179,7 +179,7 @@ static GameCenterManager *sharedManager = nil;
 		 {
 			 if (error)
 			 {
-				 CCLOG((NSString *)[error localizedDescription]);
+				 CCLOG(@"%@", [error localizedDescription]);
 //				  NSLog([error localizedDescription]);
 				 // [self callDelegateOnMainThread: @selector(alert:) withArg: @"Unable to connect to Game Center" error: nil];
 				 // if player isn't authenticated, we can't post the achievement since we don't know
@@ -360,11 +360,6 @@ static GameCenterManager *sharedManager = nil;
 -(id)retain
 {
     return self;
-}
-
-- (void)release
-{
-
 }
 
 - (id)autorelease

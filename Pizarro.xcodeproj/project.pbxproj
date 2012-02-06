@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -490,6 +490,8 @@
 		F4D12A8413197513001DCDD6 /* tutorial_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = F4D12A5813197513001DCDD6 /* tutorial_circle.png */; };
 		F4DA7384130C8C2D000045FB /* MainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DA7383130C8C2D000045FB /* MainMenuScene.m */; };
 		F4DA73BC130C8EF8000045FB /* Common.c in Sources */ = {isa = PBXBuildFile; fileRef = F4DA73BB130C8EF8000045FB /* Common.c */; };
+		F4F05AD014DB48B4008A664C /* Reward.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F05ACF14DB48B3008A664C /* Reward.m */; };
+		F4F05AD114DB48B4008A664C /* Reward.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F05ACF14DB48B3008A664C /* Reward.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -924,6 +926,8 @@
 		F4DA73BB130C8EF8000045FB /* Common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Common.c; sourceTree = "<group>"; };
 		F4DA74A0130C9EE5000045FB /* MMLetterSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLetterSprite.h; sourceTree = "<group>"; };
 		F4DA74A1130C9EE5000045FB /* MMLetterSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLetterSprite.m; sourceTree = "<group>"; };
+		F4F05ACE14DB48B3008A664C /* Reward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reward.h; sourceTree = "<group>"; };
+		F4F05ACF14DB48B3008A664C /* Reward.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reward.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1000,7 +1004,6 @@
 				F4CE1F38130E96B7006C0F2C /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				F428F50413292EB700101CBC /* iAd.framework */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -1017,6 +1020,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F428F50413292EB700101CBC /* iAd.framework */,
 				F4A46448130C1D6A00A20694 /* GameKit.framework */,
 				DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */,
 				DCCBF1B80F6022AE0040855A /* Foundation.framework */,
@@ -1486,6 +1490,8 @@
 		F4A4640A130C1C5A00A20694 /* Game Objects */ = {
 			isa = PBXGroup;
 			children = (
+				F4F05ACE14DB48B3008A664C /* Reward.h */,
+				F4F05ACF14DB48B3008A664C /* Reward.m */,
 				F4361310130BE361004A41CA /* BouncingBall.h */,
 				F4361311130BE361004A41CA /* BouncingBall.m */,
 				F4A4631D130C0E1700A20694 /* Shape.h */,
@@ -1960,10 +1966,11 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0410;
 				ORGANIZATIONNAME = "Corrino Software";
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Pizarro" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -2176,6 +2183,7 @@
 				F40580B0131300CA0021CCDF /* GameOverCircle.m in Sources */,
 				F4291C0E1316E3CD00EBD8D8 /* MenuButtonSprite.m in Sources */,
 				F4D1297913196B35001DCDD6 /* GParams.m in Sources */,
+				F4F05AD014DB48B4008A664C /* Reward.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2335,6 +2343,7 @@
 				F428F4D013292A2A00101CBC /* GameOverCircle.m in Sources */,
 				F428F4D113292A2A00101CBC /* MenuButtonSprite.m in Sources */,
 				F428F4D213292A2A00101CBC /* GParams.m in Sources */,
+				F4F05AD114DB48B4008A664C /* Reward.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2361,7 +2370,6 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Pizarro_Prefix.pch;
@@ -2373,7 +2381,6 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = Pizarro;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = "-Wall";
@@ -2386,7 +2393,6 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Pizarro_Prefix.pch;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
@@ -2397,7 +2403,6 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = Pizarro;
 				WARNING_CFLAGS = "-Wall";
 			};
@@ -2415,7 +2420,6 @@
 					libs/Chipmunk/include/chipmunk,
 					libs,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "cocos2d libraries";
 			};
 			name = Debug;
@@ -2426,7 +2430,6 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = (
@@ -2434,7 +2437,6 @@
 					libs,
 				);
 				OTHER_CFLAGS = "";
-				PREBINDING = NO;
 				PRODUCT_NAME = "cocos2d libraries";
 				ZERO_LINK = NO;
 			};
@@ -2459,7 +2461,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "087E7930-C3B9-4F7F-95F9-D11260724FED";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2480,7 +2481,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
-				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "80A5B6EA-FB34-4743-A875-1BFF96E1CF5E";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2495,7 +2495,6 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Pizarro_Prefix.pch;
@@ -2513,7 +2512,6 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Pizarro Free";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "29BCE544-033C-4E11-95E2-C02882D7EC97";
 				WARNING_CFLAGS = "-Wall";
@@ -2527,7 +2525,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sveinbjorn Thordarson";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Pizarro_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "IAD_ENABLED=1";
@@ -2539,7 +2536,6 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Pizarro Free";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "74A8E354-2EC7-42FF-AE42-221D0AEA1E8A";
 				WARNING_CFLAGS = "-Wall";

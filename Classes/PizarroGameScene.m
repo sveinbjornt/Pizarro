@@ -170,8 +170,6 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		CCLOG(@"Creating Pizarro Game Scene");
 		// White, touch-sensitive layer
 		self.isTouchEnabled = YES;
-		self.color = kWhiteColor;
-		self.opacity = 255;
 		
 		multiPlayer = mp;
 		
@@ -910,8 +908,8 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 		int bonus = extraPerc * 10 + level;
 		score += bonus;
 		
-		//Shape *lastShape = [shapes lastObject];
-		//[self noteBlastAtPoint: lastShape.position afterDelay: 0.1];
+		Shape *lastShape = [shapes lastObject];
+		[self noteBlastAtPoint: lastShape.position afterDelay: 0.1];
 		
 		[self runAction: [CCSequence actions:
 						  [CCDelayTime actionWithDuration: 0.15],
