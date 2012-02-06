@@ -29,7 +29,7 @@
 }
 @property (readwrite, assign) ccColor3B color;
 @property (readwrite, assign) GLubyte opacity;
-@property (readwrite, assign) BOOL expanding, destroyed;
+@property (readwrite, assign) BOOL expanding;
 @property (readwrite, assign) float size, fullSize;
 @property (readwrite, assign) NSTimeInterval created, ended;
 @property (readwrite, assign) cpShape *cpShape;

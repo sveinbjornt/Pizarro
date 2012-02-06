@@ -10,7 +10,6 @@
 #import "GParams.h"
 
 @implementation ManaBar
-@synthesize percentage;
 
 -(id)init
 {
@@ -46,6 +45,11 @@
 {
 	float perc = (float)(level/kFullMana);
 	[self setPercentage: perc];
+}
+
+-(float)percentage
+{
+    return percentage;
 }
 
 -(void)setPercentage:(float)p
@@ -102,8 +106,6 @@
 		barSprite.position = ccp(10, -14 + (height/2));
 	
 	barTopSprite.position = ccp(barTopSprite.contentSize.width/2, (height + barTopSprite.contentSize.height/2)-15);
-	
-	
 }
 
 -(void)draw

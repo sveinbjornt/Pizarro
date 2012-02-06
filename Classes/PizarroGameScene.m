@@ -1454,7 +1454,7 @@ static void CollisionBallAndBall (cpArbiter *arb, cpSpace *space, void *data)
 	
 	if (percentageFilled >= 95.0f)
 	{
-		CCLOG(@"95% filled");
+		CCLOG(@"95 percent filled");
 		[ScoreManager reportAchievementWithIdentifier: kGameCenterOverkillAchievement];
 	}
 

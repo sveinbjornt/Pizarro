@@ -9,7 +9,7 @@
 #import "Shape.h"
 
 @implementation Shape
-@synthesize color, opacity, expanding, destroyed, size, fullSize, created, ended, cpShape, cpBody, touch, owner;
+@synthesize color, opacity, expanding, size, fullSize, created, ended, cpShape, cpBody, touch, owner;
 
 -(id)init
 {
@@ -47,6 +47,11 @@
 	
 	if (b)
 		color = ccc3(120,0,0);
+}
+
+-(BOOL)destroyed
+{
+    return destroyed;
 }
 
 -(void)addToSpace: (cpSpace *)space
