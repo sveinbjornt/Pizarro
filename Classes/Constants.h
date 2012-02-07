@@ -214,7 +214,7 @@
 #define kTrumpetSoundEffect		@"trumpet.wav"
 #define kBassSoundEffect		@"bass.wav"
 
-#define kNumBassLines			3
+#define kNumBassLines			4
 #define	kStartingBassLine		kNumBassLines
 
 // Multiplayer

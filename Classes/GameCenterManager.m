@@ -180,7 +180,6 @@ static GameCenterManager *sharedManager = nil;
 			 if (error)
 			 {
 				 CCLOG(@"%@", [error localizedDescription]);
-//				  NSLog([error localizedDescription]);
 				 // [self callDelegateOnMainThread: @selector(alert:) withArg: @"Unable to connect to Game Center" error: nil];
 				 // if player isn't authenticated, we can't post the achievement since we don't know
 				 // whose achievement it in fact is.

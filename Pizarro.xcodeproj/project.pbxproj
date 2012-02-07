@@ -285,6 +285,8 @@
 		E0D2C48B12AEDE5C008D5DBB /* prime.h in Headers */ = {isa = PBXBuildFile; fileRef = E0D2C45412AEDE5C008D5DBB /* prime.h */; };
 		E0F81038120A173C005866B8 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0F81037120A173C005866B8 /* RootViewController.m */; };
 		F40580B0131300CA0021CCDF /* GameOverCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = F40580AF131300CA0021CCDF /* GameOverCircle.m */; };
+		F428616314E09FC90072CBE1 /* bassline4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F428616214E09FC90072CBE1 /* bassline4.mp3 */; };
+		F428616414E09FC90072CBE1 /* bassline4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F428616214E09FC90072CBE1 /* bassline4.mp3 */; };
 		F428F46513292A2A00101CBC /* RedStateBlueStateBB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F3C130E96B7006C0F2C /* RedStateBlueStateBB.ttf */; };
 		F428F46613292A2A00101CBC /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F57130E96B7006C0F2C /* Default.png */; };
 		F428F46713292A2A00101CBC /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F59130E96B7006C0F2C /* Default@2x.png */; };
@@ -791,6 +793,7 @@
 		F40580AF131300CA0021CCDF /* GameOverCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverCircle.m; sourceTree = "<group>"; };
 		F41A9FEE131BE1FB0079853C /* bg-twoplayer-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-twoplayer-ipad.png"; sourceTree = "<group>"; };
 		F41AA014131BE45D0079853C /* mode_silhouette-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mode_silhouette-ipad.png"; sourceTree = "<group>"; };
+		F428616214E09FC90072CBE1 /* bassline4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bassline4.mp3; sourceTree = "<group>"; };
 		F428F4E213292A2A00101CBC /* Pizarro Free.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pizarro Free.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F428F4E413292A2A00101CBC /* Info-Free.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Free.plist"; sourceTree = "<group>"; };
 		F428F50413292EB700101CBC /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
@@ -1604,6 +1607,7 @@
 				F4B3F0321313F81D006C443B /* bassline1.mp3 */,
 				F4B3F0401313FB19006C443B /* bassline2.mp3 */,
 				F4B3F047131401D8006C443B /* bassline3.mp3 */,
+				F428616214E09FC90072CBE1 /* bassline4.mp3 */,
 				F4CE1F64130E96B7006C0F2C /* mainmenu_music.mp3 */,
 				F4CE1F65130E96B7006C0F2C /* piano1.wav */,
 				F4CE1F66130E96B7006C0F2C /* piano2.wav */,
@@ -2079,6 +2083,7 @@
 				F44841C4133816FA0024B5D6 /* tutorial_circle-ipad.png in Resources */,
 				F44841C7133817120024B5D6 /* Default-ipad.png in Resources */,
 				F44841C8133817B30024B5D6 /* fps_images.png in Resources */,
+				F428616314E09FC90072CBE1 /* bassline4.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2148,6 +2153,7 @@
 				F441F1D0132F039C005B4C52 /* Icon@2x.png in Resources */,
 				F441F1D1132F039C005B4C52 /* iTunesArtwork in Resources */,
 				F44841C9133817B40024B5D6 /* fps_images.png in Resources */,
+				F428616414E09FC90072CBE1 /* bassline4.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
