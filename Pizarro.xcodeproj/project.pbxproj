@@ -348,52 +348,6 @@
 		F4BE87901795DE2C00E0402E /* CocosDenshion.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE860B1795DE2C00E0402E /* CocosDenshion.m */; };
 		F4BE87911795DE2C00E0402E /* SimpleAudioEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE860C1795DE2C00E0402E /* SimpleAudioEngine.h */; };
 		F4BE87921795DE2C00E0402E /* SimpleAudioEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE860D1795DE2C00E0402E /* SimpleAudioEngine.m */; };
-		F4BE87931795DE2C00E0402E /* CDXMacOSXSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE860F1795DE2C00E0402E /* CDXMacOSXSupport.h */; };
-		F4BE87941795DE2C00E0402E /* CDXMacOSXSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE86101795DE2C00E0402E /* CDXMacOSXSupport.m */; };
-		F4BE87951795DE2C00E0402E /* CDXPropertyModifierAction.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE86111795DE2C00E0402E /* CDXPropertyModifierAction.h */; };
-		F4BE87961795DE2C00E0402E /* CDXPropertyModifierAction.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE86121795DE2C00E0402E /* CDXPropertyModifierAction.m */; };
-		F4BE87971795DE2C00E0402E /* DenshionDemo.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE86161795DE2C00E0402E /* DenshionDemo.h */; };
-		F4BE87981795DE2C00E0402E /* DenshionDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE86171795DE2C00E0402E /* DenshionDemo.m */; };
-		F4BE87991795DE2C00E0402E /* DrumPad_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = F4BE86181795DE2C00E0402E /* DrumPad_Prefix.pch */; };
-		F4BE879A1795DE2C00E0402E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE861E1795DE2C00E0402E /* main.m */; };
-		F4BE879B1795DE2C00E0402E /* FadeToGreyAppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE86361795DE2C00E0402E /* FadeToGreyAppDelegate.h */; };
-		F4BE879C1795DE2C00E0402E /* FadeToGreyAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE86371795DE2C00E0402E /* FadeToGreyAppDelegate.m */; };
-		F4BE879D1795DE2C00E0402E /* HelloWorldScene.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE86381795DE2C00E0402E /* HelloWorldScene.h */; };
-		F4BE879E1795DE2C00E0402E /* HelloWorldScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE86391795DE2C00E0402E /* HelloWorldScene.m */; };
-		F4BE879F1795DE2C00E0402E /* TheAudioCode.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE863A1795DE2C00E0402E /* TheAudioCode.h */; };
-		F4BE87A01795DE2C00E0402E /* TheAudioCode.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE863B1795DE2C00E0402E /* TheAudioCode.m */; };
-		F4BE87A11795DE2C00E0402E /* FadeToGrey_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = F4BE863C1795DE2C00E0402E /* FadeToGrey_Prefix.pch */; };
-		F4BE87A21795DE2C00E0402E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE863D1795DE2C00E0402E /* main.m */; };
-		F4BE87A31795DE2C00E0402E /* AudioVisualization.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE864A1795DE2C00E0402E /* AudioVisualization.h */; };
-		F4BE87A41795DE2C00E0402E /* AudioVisualization.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE864B1795DE2C00E0402E /* AudioVisualization.m */; };
-		F4BE87A51795DE2C00E0402E /* DebugAudioVis.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE864C1795DE2C00E0402E /* DebugAudioVis.h */; };
-		F4BE87A61795DE2C00E0402E /* DebugAudioVis.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE864D1795DE2C00E0402E /* DebugAudioVis.m */; };
-		F4BE87A71795DE2C00E0402E /* FancyRatMeteringDemoAppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE864E1795DE2C00E0402E /* FancyRatMeteringDemoAppDelegate.h */; };
-		F4BE87A81795DE2C00E0402E /* FancyRatMeteringDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE864F1795DE2C00E0402E /* FancyRatMeteringDemoAppDelegate.m */; };
-		F4BE87A91795DE2C00E0402E /* HelloWorldScene.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE86501795DE2C00E0402E /* HelloWorldScene.h */; };
-		F4BE87AA1795DE2C00E0402E /* HelloWorldScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE86511795DE2C00E0402E /* HelloWorldScene.m */; };
-		F4BE87AB1795DE2C00E0402E /* FancyRatMeteringDemo_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = F4BE86521795DE2C00E0402E /* FancyRatMeteringDemo_Prefix.pch */; };
-		F4BE87AC1795DE2C00E0402E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE86531795DE2C00E0402E /* main.m */; };
-		F4BE87AD1795DE2C00E0402E /* ActionScene.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE865C1795DE2C00E0402E /* ActionScene.h */; };
-		F4BE87AE1795DE2C00E0402E /* ActionScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE865D1795DE2C00E0402E /* ActionScene.m */; };
-		F4BE87AF1795DE2C00E0402E /* GameSoundManager.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE865E1795DE2C00E0402E /* GameSoundManager.h */; };
-		F4BE87B01795DE2C00E0402E /* GameSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE865F1795DE2C00E0402E /* GameSoundManager.m */; };
-		F4BE87B11795DE2C00E0402E /* LoadingScene.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE86601795DE2C00E0402E /* LoadingScene.h */; };
-		F4BE87B21795DE2C00E0402E /* LoadingScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE86611795DE2C00E0402E /* LoadingScene.m */; };
-		F4BE87B31795DE2C00E0402E /* MainMenuScene.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE86621795DE2C00E0402E /* MainMenuScene.h */; };
-		F4BE87B41795DE2C00E0402E /* MainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE86631795DE2C00E0402E /* MainMenuScene.m */; };
-		F4BE87B51795DE2C00E0402E /* StoryScene.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE86641795DE2C00E0402E /* StoryScene.h */; };
-		F4BE87B61795DE2C00E0402E /* StoryScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE86651795DE2C00E0402E /* StoryScene.m */; };
-		F4BE87B71795DE2C00E0402E /* TomTheTurretAppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE86661795DE2C00E0402E /* TomTheTurretAppDelegate.h */; };
-		F4BE87B81795DE2C00E0402E /* TomTheTurretAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE86671795DE2C00E0402E /* TomTheTurretAppDelegate.m */; };
-		F4BE87B91795DE2C00E0402E /* GameState.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE86681795DE2C00E0402E /* GameState.h */; };
-		F4BE87BA1795DE2C00E0402E /* GameState.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE86691795DE2C00E0402E /* GameState.m */; };
-		F4BE87BB1795DE2C00E0402E /* Level.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE866A1795DE2C00E0402E /* Level.h */; };
-		F4BE87BC1795DE2C00E0402E /* Level.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE866B1795DE2C00E0402E /* Level.m */; };
-		F4BE87BD1795DE2C00E0402E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE866C1795DE2C00E0402E /* main.m */; };
-		F4BE87BE1795DE2C00E0402E /* Monster.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE866D1795DE2C00E0402E /* Monster.h */; };
-		F4BE87BF1795DE2C00E0402E /* Monster.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE866E1795DE2C00E0402E /* Monster.m */; };
-		F4BE87C01795DE2C00E0402E /* TomTheTurret_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = F4BE867A1795DE2C00E0402E /* TomTheTurret_Prefix.pch */; };
 		F4BE87C11795DE2C00E0402E /* FontLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE867C1795DE2C00E0402E /* FontLabel.h */; };
 		F4BE87C21795DE2C00E0402E /* FontLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BE867D1795DE2C00E0402E /* FontLabel.m */; };
 		F4BE87C31795DE2C00E0402E /* FontLabelStringDrawing.h in Headers */ = {isa = PBXBuildFile; fileRef = F4BE867E1795DE2C00E0402E /* FontLabelStringDrawing.h */; };
@@ -810,99 +764,6 @@
 		F4BE860B1795DE2C00E0402E /* CocosDenshion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CocosDenshion.m; sourceTree = "<group>"; };
 		F4BE860C1795DE2C00E0402E /* SimpleAudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleAudioEngine.h; sourceTree = "<group>"; };
 		F4BE860D1795DE2C00E0402E /* SimpleAudioEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleAudioEngine.m; sourceTree = "<group>"; };
-		F4BE860F1795DE2C00E0402E /* CDXMacOSXSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDXMacOSXSupport.h; sourceTree = "<group>"; };
-		F4BE86101795DE2C00E0402E /* CDXMacOSXSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDXMacOSXSupport.m; sourceTree = "<group>"; };
-		F4BE86111795DE2C00E0402E /* CDXPropertyModifierAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDXPropertyModifierAction.h; sourceTree = "<group>"; };
-		F4BE86121795DE2C00E0402E /* CDXPropertyModifierAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDXPropertyModifierAction.m; sourceTree = "<group>"; };
-		F4BE86131795DE2C00E0402E /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.mdown; sourceTree = "<group>"; };
-		F4BE86161795DE2C00E0402E /* DenshionDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DenshionDemo.h; sourceTree = "<group>"; };
-		F4BE86171795DE2C00E0402E /* DenshionDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DenshionDemo.m; sourceTree = "<group>"; };
-		F4BE86181795DE2C00E0402E /* DrumPad_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrumPad_Prefix.pch; sourceTree = "<group>"; };
-		F4BE861A1795DE2C00E0402E /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
-		F4BE861B1795DE2C00E0402E /* flash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flash.png; sourceTree = "<group>"; };
-		F4BE861C1795DE2C00E0402E /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		F4BE861D1795DE2C00E0402E /* slider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slider.png; sourceTree = "<group>"; };
-		F4BE861E1795DE2C00E0402E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F4BE86201795DE2C00E0402E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		F4BE86211795DE2C00E0402E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F4BE86231795DE2C00E0402E /* 808_120bpm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 808_120bpm.caf; sourceTree = "<group>"; };
-		F4BE86241795DE2C00E0402E /* 808_120bpm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808_120bpm.wav; sourceTree = "<group>"; };
-		F4BE86251795DE2C00E0402E /* ATTRIBUTION.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ATTRIBUTION.txt; sourceTree = "<group>"; };
-		F4BE86261795DE2C00E0402E /* ballbounce.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ballbounce.wav; sourceTree = "<group>"; };
-		F4BE86271795DE2C00E0402E /* cowbell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cowbell.wav; sourceTree = "<group>"; };
-		F4BE86281795DE2C00E0402E /* explodelow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explodelow.wav; sourceTree = "<group>"; };
-		F4BE86291795DE2C00E0402E /* karate.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = karate.wav; sourceTree = "<group>"; };
-		F4BE862A1795DE2C00E0402E /* machinegun.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = machinegun.caf; sourceTree = "<group>"; };
-		F4BE862B1795DE2C00E0402E /* machinegun.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = machinegun.wav; sourceTree = "<group>"; };
-		F4BE862C1795DE2C00E0402E /* mula_tito_on_timbales.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mula_tito_on_timbales.mp3; sourceTree = "<group>"; };
-		F4BE862D1795DE2C00E0402E /* onesample.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = onesample.wav; sourceTree = "<group>"; };
-		F4BE862E1795DE2C00E0402E /* rustylow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rustylow.wav; sourceTree = "<group>"; };
-		F4BE862F1795DE2C00E0402E /* silencio.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = silencio.wav; sourceTree = "<group>"; };
-		F4BE86301795DE2C00E0402E /* sine256samples.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sine256samples.wav; sourceTree = "<group>"; };
-		F4BE86311795DE2C00E0402E /* sine440.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sine440.caf; sourceTree = "<group>"; };
-		F4BE86321795DE2C00E0402E /* sine440.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sine440.wav; sourceTree = "<group>"; };
-		F4BE86331795DE2C00E0402E /* sixteensamples.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sixteensamples.wav; sourceTree = "<group>"; };
-		F4BE86361795DE2C00E0402E /* FadeToGreyAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FadeToGreyAppDelegate.h; sourceTree = "<group>"; };
-		F4BE86371795DE2C00E0402E /* FadeToGreyAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FadeToGreyAppDelegate.m; sourceTree = "<group>"; };
-		F4BE86381795DE2C00E0402E /* HelloWorldScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloWorldScene.h; sourceTree = "<group>"; };
-		F4BE86391795DE2C00E0402E /* HelloWorldScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelloWorldScene.m; sourceTree = "<group>"; };
-		F4BE863A1795DE2C00E0402E /* TheAudioCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheAudioCode.h; sourceTree = "<group>"; };
-		F4BE863B1795DE2C00E0402E /* TheAudioCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TheAudioCode.m; sourceTree = "<group>"; };
-		F4BE863C1795DE2C00E0402E /* FadeToGrey_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FadeToGrey_Prefix.pch; sourceTree = "<group>"; };
-		F4BE863D1795DE2C00E0402E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F4BE863F1795DE2C00E0402E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		F4BE86401795DE2C00E0402E /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		F4BE86411795DE2C00E0402E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F4BE86431795DE2C00E0402E /* bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm.mp3; sourceTree = "<group>"; };
-		F4BE86441795DE2C00E0402E /* dp1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dp1.caf; sourceTree = "<group>"; };
-		F4BE86451795DE2C00E0402E /* dp2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dp2.caf; sourceTree = "<group>"; };
-		F4BE86461795DE2C00E0402E /* dp3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dp3.caf; sourceTree = "<group>"; };
-		F4BE86471795DE2C00E0402E /* dp4.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dp4.caf; sourceTree = "<group>"; };
-		F4BE864A1795DE2C00E0402E /* AudioVisualization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioVisualization.h; sourceTree = "<group>"; };
-		F4BE864B1795DE2C00E0402E /* AudioVisualization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioVisualization.m; sourceTree = "<group>"; };
-		F4BE864C1795DE2C00E0402E /* DebugAudioVis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugAudioVis.h; sourceTree = "<group>"; };
-		F4BE864D1795DE2C00E0402E /* DebugAudioVis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugAudioVis.m; sourceTree = "<group>"; };
-		F4BE864E1795DE2C00E0402E /* FancyRatMeteringDemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FancyRatMeteringDemoAppDelegate.h; sourceTree = "<group>"; };
-		F4BE864F1795DE2C00E0402E /* FancyRatMeteringDemoAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FancyRatMeteringDemoAppDelegate.m; sourceTree = "<group>"; };
-		F4BE86501795DE2C00E0402E /* HelloWorldScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloWorldScene.h; sourceTree = "<group>"; };
-		F4BE86511795DE2C00E0402E /* HelloWorldScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelloWorldScene.m; sourceTree = "<group>"; };
-		F4BE86521795DE2C00E0402E /* FancyRatMeteringDemo_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FancyRatMeteringDemo_Prefix.pch; sourceTree = "<group>"; };
-		F4BE86531795DE2C00E0402E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F4BE86551795DE2C00E0402E /* Cyber Advance!.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Cyber Advance!.mp3"; sourceTree = "<group>"; };
-		F4BE86561795DE2C00E0402E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		F4BE86571795DE2C00E0402E /* head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head.png; sourceTree = "<group>"; };
-		F4BE86581795DE2C00E0402E /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		F4BE86591795DE2C00E0402E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F4BE865C1795DE2C00E0402E /* ActionScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionScene.h; sourceTree = "<group>"; };
-		F4BE865D1795DE2C00E0402E /* ActionScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionScene.m; sourceTree = "<group>"; };
-		F4BE865E1795DE2C00E0402E /* GameSoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSoundManager.h; sourceTree = "<group>"; };
-		F4BE865F1795DE2C00E0402E /* GameSoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSoundManager.m; sourceTree = "<group>"; };
-		F4BE86601795DE2C00E0402E /* LoadingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingScene.h; sourceTree = "<group>"; };
-		F4BE86611795DE2C00E0402E /* LoadingScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingScene.m; sourceTree = "<group>"; };
-		F4BE86621795DE2C00E0402E /* MainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuScene.h; sourceTree = "<group>"; };
-		F4BE86631795DE2C00E0402E /* MainMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuScene.m; sourceTree = "<group>"; };
-		F4BE86641795DE2C00E0402E /* StoryScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryScene.h; sourceTree = "<group>"; };
-		F4BE86651795DE2C00E0402E /* StoryScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoryScene.m; sourceTree = "<group>"; };
-		F4BE86661795DE2C00E0402E /* TomTheTurretAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TomTheTurretAppDelegate.h; sourceTree = "<group>"; };
-		F4BE86671795DE2C00E0402E /* TomTheTurretAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TomTheTurretAppDelegate.m; sourceTree = "<group>"; };
-		F4BE86681795DE2C00E0402E /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameState.h; sourceTree = "<group>"; };
-		F4BE86691795DE2C00E0402E /* GameState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameState.m; sourceTree = "<group>"; };
-		F4BE866A1795DE2C00E0402E /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Level.h; sourceTree = "<group>"; };
-		F4BE866B1795DE2C00E0402E /* Level.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Level.m; sourceTree = "<group>"; };
-		F4BE866C1795DE2C00E0402E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F4BE866D1795DE2C00E0402E /* Monster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Monster.h; sourceTree = "<group>"; };
-		F4BE866E1795DE2C00E0402E /* Monster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Monster.m; sourceTree = "<group>"; };
-		F4BE86701795DE2C00E0402E /* background.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = background.caf; sourceTree = "<group>"; };
-		F4BE86711795DE2C00E0402E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		F4BE86721795DE2C00E0402E /* DefaultLandscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultLandscape.png; sourceTree = "<group>"; };
-		F4BE86731795DE2C00E0402E /* femaleHit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = femaleHit.wav; sourceTree = "<group>"; };
-		F4BE86741795DE2C00E0402E /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		F4BE86751795DE2C00E0402E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F4BE86761795DE2C00E0402E /* maleHit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = maleHit.wav; sourceTree = "<group>"; };
-		F4BE86771795DE2C00E0402E /* shoot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shoot.wav; sourceTree = "<group>"; };
-		F4BE86781795DE2C00E0402E /* sprites.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sprites.plist; sourceTree = "<group>"; };
-		F4BE86791795DE2C00E0402E /* sprites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sprites.png; sourceTree = "<group>"; };
-		F4BE867A1795DE2C00E0402E /* TomTheTurret_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TomTheTurret_Prefix.pch; sourceTree = "<group>"; };
 		F4BE867C1795DE2C00E0402E /* FontLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontLabel.h; sourceTree = "<group>"; };
 		F4BE867D1795DE2C00E0402E /* FontLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontLabel.m; sourceTree = "<group>"; };
 		F4BE867E1795DE2C00E0402E /* FontLabelStringDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontLabelStringDrawing.h; sourceTree = "<group>"; };
@@ -1192,7 +1053,7 @@
 				F4BE87D91795E08F00E0402E /* include */,
 				F4BE87F81795E08F00E0402E /* src */,
 				F4BE855A1795DE2C00E0402E /* cocos2d */,
-				F4BE86031795DE2C00E0402E /* CocosDenshion */,
+				F4BE86041795DE2C00E0402E /* CocosDenshion */,
 				F4BE867B1795DE2C00E0402E /* FontLabel */,
 				F4BE86871795DE2C00E0402E /* TouchJSON */,
 			);
@@ -1481,18 +1342,6 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
-		F4BE86031795DE2C00E0402E /* CocosDenshion */ = {
-			isa = PBXGroup;
-			children = (
-				F4BE86041795DE2C00E0402E /* CocosDenshion */,
-				F4BE860E1795DE2C00E0402E /* CocosDenshionExtras */,
-				F4BE86131795DE2C00E0402E /* README.mdown */,
-				F4BE86141795DE2C00E0402E /* TestsAndDemos */,
-			);
-			name = CocosDenshion;
-			path = libs/CocosDenshion;
-			sourceTree = "<group>";
-		};
 		F4BE86041795DE2C00E0402E /* CocosDenshion */ = {
 			isa = PBXGroup;
 			children = (
@@ -1506,225 +1355,8 @@
 				F4BE860C1795DE2C00E0402E /* SimpleAudioEngine.h */,
 				F4BE860D1795DE2C00E0402E /* SimpleAudioEngine.m */,
 			);
-			path = CocosDenshion;
-			sourceTree = "<group>";
-		};
-		F4BE860E1795DE2C00E0402E /* CocosDenshionExtras */ = {
-			isa = PBXGroup;
-			children = (
-				F4BE860F1795DE2C00E0402E /* CDXMacOSXSupport.h */,
-				F4BE86101795DE2C00E0402E /* CDXMacOSXSupport.m */,
-				F4BE86111795DE2C00E0402E /* CDXPropertyModifierAction.h */,
-				F4BE86121795DE2C00E0402E /* CDXPropertyModifierAction.m */,
-			);
-			path = CocosDenshionExtras;
-			sourceTree = "<group>";
-		};
-		F4BE86141795DE2C00E0402E /* TestsAndDemos */ = {
-			isa = PBXGroup;
-			children = (
-				F4BE86151795DE2C00E0402E /* DrumPad */,
-				F4BE86341795DE2C00E0402E /* FadeToGrey */,
-				F4BE86481795DE2C00E0402E /* FancyRatMeteringDemo */,
-				F4BE865A1795DE2C00E0402E /* TomTheTurret */,
-			);
-			path = TestsAndDemos;
-			sourceTree = "<group>";
-		};
-		F4BE86151795DE2C00E0402E /* DrumPad */ = {
-			isa = PBXGroup;
-			children = (
-				F4BE86161795DE2C00E0402E /* DenshionDemo.h */,
-				F4BE86171795DE2C00E0402E /* DenshionDemo.m */,
-				F4BE86181795DE2C00E0402E /* DrumPad_Prefix.pch */,
-				F4BE86191795DE2C00E0402E /* Images */,
-				F4BE861E1795DE2C00E0402E /* main.m */,
-				F4BE861F1795DE2C00E0402E /* Resources */,
-				F4BE86221795DE2C00E0402E /* Sounds */,
-			);
-			path = DrumPad;
-			sourceTree = "<group>";
-		};
-		F4BE86191795DE2C00E0402E /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				F4BE861A1795DE2C00E0402E /* bg.png */,
-				F4BE861B1795DE2C00E0402E /* flash.png */,
-				F4BE861C1795DE2C00E0402E /* Icon.png */,
-				F4BE861D1795DE2C00E0402E /* slider.png */,
-			);
-			path = Images;
-			sourceTree = "<group>";
-		};
-		F4BE861F1795DE2C00E0402E /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				F4BE86201795DE2C00E0402E /* Default.png */,
-				F4BE86211795DE2C00E0402E /* Info.plist */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		F4BE86221795DE2C00E0402E /* Sounds */ = {
-			isa = PBXGroup;
-			children = (
-				F4BE86231795DE2C00E0402E /* 808_120bpm.caf */,
-				F4BE86241795DE2C00E0402E /* 808_120bpm.wav */,
-				F4BE86251795DE2C00E0402E /* ATTRIBUTION.txt */,
-				F4BE86261795DE2C00E0402E /* ballbounce.wav */,
-				F4BE86271795DE2C00E0402E /* cowbell.wav */,
-				F4BE86281795DE2C00E0402E /* explodelow.wav */,
-				F4BE86291795DE2C00E0402E /* karate.wav */,
-				F4BE862A1795DE2C00E0402E /* machinegun.caf */,
-				F4BE862B1795DE2C00E0402E /* machinegun.wav */,
-				F4BE862C1795DE2C00E0402E /* mula_tito_on_timbales.mp3 */,
-				F4BE862D1795DE2C00E0402E /* onesample.wav */,
-				F4BE862E1795DE2C00E0402E /* rustylow.wav */,
-				F4BE862F1795DE2C00E0402E /* silencio.wav */,
-				F4BE86301795DE2C00E0402E /* sine256samples.wav */,
-				F4BE86311795DE2C00E0402E /* sine440.caf */,
-				F4BE86321795DE2C00E0402E /* sine440.wav */,
-				F4BE86331795DE2C00E0402E /* sixteensamples.wav */,
-			);
-			path = Sounds;
-			sourceTree = "<group>";
-		};
-		F4BE86341795DE2C00E0402E /* FadeToGrey */ = {
-			isa = PBXGroup;
-			children = (
-				F4BE86351795DE2C00E0402E /* Classes */,
-				F4BE863C1795DE2C00E0402E /* FadeToGrey_Prefix.pch */,
-				F4BE863D1795DE2C00E0402E /* main.m */,
-				F4BE863E1795DE2C00E0402E /* Resources */,
-				F4BE86421795DE2C00E0402E /* Sounds */,
-			);
-			path = FadeToGrey;
-			sourceTree = "<group>";
-		};
-		F4BE86351795DE2C00E0402E /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				F4BE86361795DE2C00E0402E /* FadeToGreyAppDelegate.h */,
-				F4BE86371795DE2C00E0402E /* FadeToGreyAppDelegate.m */,
-				F4BE86381795DE2C00E0402E /* HelloWorldScene.h */,
-				F4BE86391795DE2C00E0402E /* HelloWorldScene.m */,
-				F4BE863A1795DE2C00E0402E /* TheAudioCode.h */,
-				F4BE863B1795DE2C00E0402E /* TheAudioCode.m */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		F4BE863E1795DE2C00E0402E /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				F4BE863F1795DE2C00E0402E /* Default.png */,
-				F4BE86401795DE2C00E0402E /* Icon.png */,
-				F4BE86411795DE2C00E0402E /* Info.plist */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		F4BE86421795DE2C00E0402E /* Sounds */ = {
-			isa = PBXGroup;
-			children = (
-				F4BE86431795DE2C00E0402E /* bgm.mp3 */,
-				F4BE86441795DE2C00E0402E /* dp1.caf */,
-				F4BE86451795DE2C00E0402E /* dp2.caf */,
-				F4BE86461795DE2C00E0402E /* dp3.caf */,
-				F4BE86471795DE2C00E0402E /* dp4.caf */,
-			);
-			path = Sounds;
-			sourceTree = "<group>";
-		};
-		F4BE86481795DE2C00E0402E /* FancyRatMeteringDemo */ = {
-			isa = PBXGroup;
-			children = (
-				F4BE86491795DE2C00E0402E /* Classes */,
-				F4BE86521795DE2C00E0402E /* FancyRatMeteringDemo_Prefix.pch */,
-				F4BE86531795DE2C00E0402E /* main.m */,
-				F4BE86541795DE2C00E0402E /* Resources */,
-			);
-			path = FancyRatMeteringDemo;
-			sourceTree = "<group>";
-		};
-		F4BE86491795DE2C00E0402E /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				F4BE864A1795DE2C00E0402E /* AudioVisualization.h */,
-				F4BE864B1795DE2C00E0402E /* AudioVisualization.m */,
-				F4BE864C1795DE2C00E0402E /* DebugAudioVis.h */,
-				F4BE864D1795DE2C00E0402E /* DebugAudioVis.m */,
-				F4BE864E1795DE2C00E0402E /* FancyRatMeteringDemoAppDelegate.h */,
-				F4BE864F1795DE2C00E0402E /* FancyRatMeteringDemoAppDelegate.m */,
-				F4BE86501795DE2C00E0402E /* HelloWorldScene.h */,
-				F4BE86511795DE2C00E0402E /* HelloWorldScene.m */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		F4BE86541795DE2C00E0402E /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				F4BE86551795DE2C00E0402E /* Cyber Advance!.mp3 */,
-				F4BE86561795DE2C00E0402E /* Default.png */,
-				F4BE86571795DE2C00E0402E /* head.png */,
-				F4BE86581795DE2C00E0402E /* Icon.png */,
-				F4BE86591795DE2C00E0402E /* Info.plist */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		F4BE865A1795DE2C00E0402E /* TomTheTurret */ = {
-			isa = PBXGroup;
-			children = (
-				F4BE865B1795DE2C00E0402E /* Classes */,
-				F4BE86681795DE2C00E0402E /* GameState.h */,
-				F4BE86691795DE2C00E0402E /* GameState.m */,
-				F4BE866A1795DE2C00E0402E /* Level.h */,
-				F4BE866B1795DE2C00E0402E /* Level.m */,
-				F4BE866C1795DE2C00E0402E /* main.m */,
-				F4BE866D1795DE2C00E0402E /* Monster.h */,
-				F4BE866E1795DE2C00E0402E /* Monster.m */,
-				F4BE866F1795DE2C00E0402E /* Resources */,
-				F4BE867A1795DE2C00E0402E /* TomTheTurret_Prefix.pch */,
-			);
-			path = TomTheTurret;
-			sourceTree = "<group>";
-		};
-		F4BE865B1795DE2C00E0402E /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				F4BE865C1795DE2C00E0402E /* ActionScene.h */,
-				F4BE865D1795DE2C00E0402E /* ActionScene.m */,
-				F4BE865E1795DE2C00E0402E /* GameSoundManager.h */,
-				F4BE865F1795DE2C00E0402E /* GameSoundManager.m */,
-				F4BE86601795DE2C00E0402E /* LoadingScene.h */,
-				F4BE86611795DE2C00E0402E /* LoadingScene.m */,
-				F4BE86621795DE2C00E0402E /* MainMenuScene.h */,
-				F4BE86631795DE2C00E0402E /* MainMenuScene.m */,
-				F4BE86641795DE2C00E0402E /* StoryScene.h */,
-				F4BE86651795DE2C00E0402E /* StoryScene.m */,
-				F4BE86661795DE2C00E0402E /* TomTheTurretAppDelegate.h */,
-				F4BE86671795DE2C00E0402E /* TomTheTurretAppDelegate.m */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		F4BE866F1795DE2C00E0402E /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				F4BE86701795DE2C00E0402E /* background.caf */,
-				F4BE86711795DE2C00E0402E /* Default.png */,
-				F4BE86721795DE2C00E0402E /* DefaultLandscape.png */,
-				F4BE86731795DE2C00E0402E /* femaleHit.wav */,
-				F4BE86741795DE2C00E0402E /* Icon.png */,
-				F4BE86751795DE2C00E0402E /* Info.plist */,
-				F4BE86761795DE2C00E0402E /* maleHit.wav */,
-				F4BE86771795DE2C00E0402E /* shoot.wav */,
-				F4BE86781795DE2C00E0402E /* sprites.plist */,
-				F4BE86791795DE2C00E0402E /* sprites.png */,
-			);
-			path = Resources;
+			name = CocosDenshion;
+			path = libs/CocosDenshion/CocosDenshion;
 			sourceTree = "<group>";
 		};
 		F4BE867B1795DE2C00E0402E /* FontLabel */ = {
@@ -2209,29 +1841,6 @@
 				F4BE878D1795DE2C00E0402E /* CDOpenALSupport.h in Headers */,
 				F4BE878F1795DE2C00E0402E /* CocosDenshion.h in Headers */,
 				F4BE87911795DE2C00E0402E /* SimpleAudioEngine.h in Headers */,
-				F4BE87931795DE2C00E0402E /* CDXMacOSXSupport.h in Headers */,
-				F4BE87951795DE2C00E0402E /* CDXPropertyModifierAction.h in Headers */,
-				F4BE87971795DE2C00E0402E /* DenshionDemo.h in Headers */,
-				F4BE87991795DE2C00E0402E /* DrumPad_Prefix.pch in Headers */,
-				F4BE879B1795DE2C00E0402E /* FadeToGreyAppDelegate.h in Headers */,
-				F4BE879D1795DE2C00E0402E /* HelloWorldScene.h in Headers */,
-				F4BE879F1795DE2C00E0402E /* TheAudioCode.h in Headers */,
-				F4BE87A11795DE2C00E0402E /* FadeToGrey_Prefix.pch in Headers */,
-				F4BE87A31795DE2C00E0402E /* AudioVisualization.h in Headers */,
-				F4BE87A51795DE2C00E0402E /* DebugAudioVis.h in Headers */,
-				F4BE87A71795DE2C00E0402E /* FancyRatMeteringDemoAppDelegate.h in Headers */,
-				F4BE87A91795DE2C00E0402E /* HelloWorldScene.h in Headers */,
-				F4BE87AB1795DE2C00E0402E /* FancyRatMeteringDemo_Prefix.pch in Headers */,
-				F4BE87AD1795DE2C00E0402E /* ActionScene.h in Headers */,
-				F4BE87AF1795DE2C00E0402E /* GameSoundManager.h in Headers */,
-				F4BE87B11795DE2C00E0402E /* LoadingScene.h in Headers */,
-				F4BE87B31795DE2C00E0402E /* MainMenuScene.h in Headers */,
-				F4BE87B51795DE2C00E0402E /* StoryScene.h in Headers */,
-				F4BE87B71795DE2C00E0402E /* TomTheTurretAppDelegate.h in Headers */,
-				F4BE87B91795DE2C00E0402E /* GameState.h in Headers */,
-				F4BE87BB1795DE2C00E0402E /* Level.h in Headers */,
-				F4BE87BE1795DE2C00E0402E /* Monster.h in Headers */,
-				F4BE87C01795DE2C00E0402E /* TomTheTurret_Prefix.pch in Headers */,
 				F4BE87C11795DE2C00E0402E /* FontLabel.h in Headers */,
 				F4BE87C31795DE2C00E0402E /* FontLabelStringDrawing.h in Headers */,
 				F4BE87C51795DE2C00E0402E /* FontManager.h in Headers */,
@@ -2646,29 +2255,6 @@
 				F4BE878E1795DE2C00E0402E /* CDOpenALSupport.m in Sources */,
 				F4BE87901795DE2C00E0402E /* CocosDenshion.m in Sources */,
 				F4BE87921795DE2C00E0402E /* SimpleAudioEngine.m in Sources */,
-				F4BE87941795DE2C00E0402E /* CDXMacOSXSupport.m in Sources */,
-				F4BE87961795DE2C00E0402E /* CDXPropertyModifierAction.m in Sources */,
-				F4BE87981795DE2C00E0402E /* DenshionDemo.m in Sources */,
-				F4BE879A1795DE2C00E0402E /* main.m in Sources */,
-				F4BE879C1795DE2C00E0402E /* FadeToGreyAppDelegate.m in Sources */,
-				F4BE879E1795DE2C00E0402E /* HelloWorldScene.m in Sources */,
-				F4BE87A01795DE2C00E0402E /* TheAudioCode.m in Sources */,
-				F4BE87A21795DE2C00E0402E /* main.m in Sources */,
-				F4BE87A41795DE2C00E0402E /* AudioVisualization.m in Sources */,
-				F4BE87A61795DE2C00E0402E /* DebugAudioVis.m in Sources */,
-				F4BE87A81795DE2C00E0402E /* FancyRatMeteringDemoAppDelegate.m in Sources */,
-				F4BE87AA1795DE2C00E0402E /* HelloWorldScene.m in Sources */,
-				F4BE87AC1795DE2C00E0402E /* main.m in Sources */,
-				F4BE87AE1795DE2C00E0402E /* ActionScene.m in Sources */,
-				F4BE87B01795DE2C00E0402E /* GameSoundManager.m in Sources */,
-				F4BE87B21795DE2C00E0402E /* LoadingScene.m in Sources */,
-				F4BE87B41795DE2C00E0402E /* MainMenuScene.m in Sources */,
-				F4BE87B61795DE2C00E0402E /* StoryScene.m in Sources */,
-				F4BE87B81795DE2C00E0402E /* TomTheTurretAppDelegate.m in Sources */,
-				F4BE87BA1795DE2C00E0402E /* GameState.m in Sources */,
-				F4BE87BC1795DE2C00E0402E /* Level.m in Sources */,
-				F4BE87BD1795DE2C00E0402E /* main.m in Sources */,
-				F4BE87BF1795DE2C00E0402E /* Monster.m in Sources */,
 				F4BE87C21795DE2C00E0402E /* FontLabel.m in Sources */,
 				F4BE87C41795DE2C00E0402E /* FontLabelStringDrawing.m in Sources */,
 				F4BE87C61795DE2C00E0402E /* FontManager.m in Sources */,
@@ -2771,7 +2357,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = libs;
 				INFOPLIST_FILE = Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -2793,7 +2379,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = libs;
 				INFOPLIST_FILE = Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
