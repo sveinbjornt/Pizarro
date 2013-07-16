@@ -63,6 +63,7 @@ enum {
 
 /** Allocates and initializes the action */
 +(id) action;
++(id) action: (CCAction *)action withDelay: (NSTimeInterval)delay;
 
 /** Initializes the action */
 -(id) init;
