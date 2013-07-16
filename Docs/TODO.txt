@@ -1,5 +1,4 @@
 
 
 For 1.2
-* Project building in latest XCode
 * Fix broken resume game by migrating over the added methods from the old version of Cocos2D.
