@@ -110,18 +110,6 @@
 	return seq;
 }
 
-+ (id)actionMutableArray:(NSMutableArray *)_actionList {
-	CCFiniteTimeAction *now;
-	CCFiniteTimeAction *prev = [_actionList objectAtIndex:0];
-    
-	for (int i = 1; i < [_actionList count]; i++) {
-		now = [_actionList objectAtIndex:i];
-		prev = [CCSequence actionOne:prev two:now];
-	}
-    
-	return prev;
-}
-
 + (float)bluesPitchForIndex:(int)index {
 	float pitches[] = { 1.0, 0.891, 0.75, 0.707, 0.665, 0.595, 0.5 };
 	return pitches[index];
