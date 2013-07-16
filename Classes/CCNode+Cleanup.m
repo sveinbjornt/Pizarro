@@ -6,17 +6,11 @@
 //  Copyright 2010 Corrino Software. All rights reserved.
 //
 
-#import "cocos2d.h"
-
-
-@interface CCNode (Cleanup)
-
-@end
-
+#import "CCNode+Cleanup.h"
 
 @implementation CCNode (Cleanup)
 
-- (void)dispose {
+- (void)disposeOfIt {
 	CCLOG(@"Disposing of %@", [self description]);
 	[self.parent removeChild:self cleanup:YES];
 }

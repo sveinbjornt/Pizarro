@@ -327,8 +327,10 @@
     
 	CCLOG(@"Game Center: %d", GAMECENTER_ENABLED);
     
-	if (!enabled)
+	if (!enabled) {
+        CCLOG(@"Authenticating with GC");
 		[[GameCenterManager sharedManager] authenticateLocalUser];
+    }
 }
 
 #pragma mark -

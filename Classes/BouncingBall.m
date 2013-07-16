@@ -36,7 +36,7 @@
 	[self addChild:hilightBall];
 	[hilightBall runAction:[CCSequence actions:
 	                        [CCFadeOut actionWithDuration:0.33],
-	                        [CCCallFunc actionWithTarget:hilightBall selector:@selector(dispose)],
+	                        [CCCallFunc actionWithTarget:hilightBall selector:@selector(disposeOfIt)],
 	                        nil]];
 }
 

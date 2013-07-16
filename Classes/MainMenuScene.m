@@ -503,10 +503,10 @@
 
 - (void)hideGameModeSelection {
 	[singlePlayerMenu runAction:[CCSequence actions:[CCMoveTo actionWithDuration:0.25 position:[GParams singlePlayerLabelStartingPoint]],
-	                             [CCCallFunc actionWithTarget:singlePlayerMenu selector:@selector(dispose)], nil]];
+	                             [CCCallFunc actionWithTarget:singlePlayerMenu selector:@selector(disposeOfIt)], nil]];
     
 	[multiPlayerMenu runAction:[CCSequence actions:[CCMoveTo actionWithDuration:0.25 position:[GParams multiPlayerLabelStartingPoint]],
-	                            [CCCallFunc actionWithTarget:multiPlayerMenu selector:@selector(dispose)], nil]];
+	                            [CCCallFunc actionWithTarget:multiPlayerMenu selector:@selector(disposeOfIt)], nil]];
 }
 
 #pragma mark -
@@ -601,15 +601,15 @@
 
 - (void)hideSettings {
 	[musicLabel runAction:[CCSequence actions:[CCMoveTo actionWithDuration:0.25 position:[GParams firstSettingsStartingPoint]],
-	                       [CCCallFunc actionWithTarget:musicLabel selector:@selector(dispose)], nil]];
+	                       [CCCallFunc actionWithTarget:musicLabel selector:@selector(disposeOfIt)], nil]];
 	[soundLabel runAction:[CCSequence actions:[CCMoveTo actionWithDuration:0.35 position:[GParams firstSettingsStartingPoint]],
-	                       [CCCallFunc actionWithTarget:soundLabel selector:@selector(dispose)], nil]];
+	                       [CCCallFunc actionWithTarget:soundLabel selector:@selector(disposeOfIt)], nil]];
 	[gameCenterLabel runAction:[CCSequence actions:[CCMoveTo actionWithDuration:0.45 position:[GParams firstSettingsStartingPoint]],
-	                            [CCCallFunc actionWithTarget:gameCenterLabel selector:@selector(dispose)], nil]];
+	                            [CCCallFunc actionWithTarget:gameCenterLabel selector:@selector(disposeOfIt)], nil]];
 	[settingsMenu runAction:[CCSequence actions:[CCMoveTo actionWithDuration:0.5 position:[GParams settingsMenuStartingPoint]],
-	                         [CCCallFunc actionWithTarget:settingsMenu selector:@selector(dispose)], nil]];
+	                         [CCCallFunc actionWithTarget:settingsMenu selector:@selector(disposeOfIt)], nil]];
 	[tutorialMenu runAction:[CCSequence actions:[CCMoveTo actionWithDuration:0.5 position:ccp(kGameScreenWidth + 45, -35)],
-	                         [CCCallFunc actionWithTarget:tutorialMenu selector:@selector(dispose)], nil]];
+	                         [CCCallFunc actionWithTarget:tutorialMenu selector:@selector(disposeOfIt)], nil]];
 }
 
 #pragma mark -
@@ -638,11 +638,11 @@
 
 - (void)hideCredits {
 	[creditsLogo runAction:[CCSequence actions:[CCEaseIn actionWithAction:[CCMoveTo actionWithDuration:0.3 position:[GParams creditsLogoStartingPoint]] rate:4.0f],
-	                        [CCCallFunc actionWithTarget:creditsLogo selector:@selector(dispose)], nil]];
+	                        [CCCallFunc actionWithTarget:creditsLogo selector:@selector(disposeOfIt)], nil]];
 	[creditsLabel runAction:[CCSequence actions:[CCEaseIn actionWithAction:[CCMoveTo actionWithDuration:0.3 position:[GParams creditsLabelStartingPoint]] rate:4.0f],
-	                         [CCCallFunc actionWithTarget:creditsLabel selector:@selector(dispose)], nil]];
+	                         [CCCallFunc actionWithTarget:creditsLabel selector:@selector(disposeOfIt)], nil]];
 	[createdByLabel runAction:[CCSequence actions:[CCEaseIn actionWithAction:[CCMoveTo actionWithDuration:0.45 position:[GParams createdByLabelStartingPoint]] rate:4.0f],
-	                           [CCCallFunc actionWithTarget:createdByLabel selector:@selector(dispose)], nil]];
+	                           [CCCallFunc actionWithTarget:createdByLabel selector:@selector(disposeOfIt)], nil]];
 }
 
 #pragma mark -

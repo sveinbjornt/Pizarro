@@ -10,13 +10,21 @@
 #import "ScoreManager.h"
 #import "cocos2d.h"
 
-static GameCenterManager *sharedManager = nil;
-
 @implementation GameCenterManager
-
 
 //@synthesize earnedAchievementCache;
 @synthesize delegate;
+
++ (GameCenterManager *)sharedManager {
+    static GameCenterManager *sharedLocalizedStore = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedLocalizedStore = [[self alloc] init];
+    });
+    return sharedLocalizedStore;
+}
+
+
 
 //- (id) init
 //{
@@ -95,6 +103,7 @@ static GameCenterManager *sharedManager = nil;
 //  First, when the application is launched/becomes active
 
 - (void)authenticateLocalUser {
+    CCLOG(@"Authenticating local user in GC");
 	if ([GKLocalPlayer localPlayer].authenticated == NO) {
 		[[GKLocalPlayer localPlayer] authenticateWithCompletionHandler: ^(NSError *error)
          {
@@ -295,46 +304,5 @@ static GameCenterManager *sharedManager = nil;
  }];
  
  }*/
-
-#pragma mark -
-#pragma mark Singleton methods
-
-+ (id)allocWithZone:(NSZone *)zone {
-	@synchronized(self)
-	{
-		if (sharedManager == nil) {
-			sharedManager = [super allocWithZone:zone];
-			return sharedManager;  // assignment and return on first allocation
-		}
-	}
-    
-	return nil; //on subsequent allocation attempts return nil
-}
-
-+ (GameCenterManager *)sharedManager {
-	@synchronized(self)
-	{
-		if (sharedManager == nil)
-			[[self alloc] init]; // assignment not done here
-	}
-    
-	return sharedManager;
-}
-
-- (id)copyWithZone:(NSZone *)zone {
-	return self;
-}
-
-- (unsigned)retainCount {
-	return UINT_MAX;
-}
-
-- (id)retain {
-	return self;
-}
-
-- (id)autorelease {
-	return self;
-}
 
 @end

@@ -13,7 +13,7 @@
 #import "Triangle.h"
 #import "FontManager.h"
 #import "BouncingBall.h"
-#import "CCNode+Cleanup.m"
+#import "CCNode+Cleanup.h"
 #import "chipmunk.h"
 #import "SimpleAudioEngine.h"
 #import "Common.c"
@@ -507,7 +507,7 @@ static void CollisionBallAndBall(cpArbiter *arb, cpSpace *space, void *data) {
         
 		[lastTutorialNode runAction:[CCSequence actions:
 		                             [CCMoveBy actionWithDuration:0.33 position:ccp(-420, 0)],
-		                             [CCCallFunc actionWithTarget:lastTutorialNode selector:@selector(dispose)],
+		                             [CCCallFunc actionWithTarget:lastTutorialNode selector:@selector(disposeOfIt)],
 		                             nil]];
 	}
     
@@ -967,7 +967,7 @@ static void CollisionBallAndBall(cpArbiter *arb, cpSpace *space, void *data) {
 	                       [CCScaleTo actionWithDuration:0.33 scale:1.0],
 	                       [CCDelayTime actionWithDuration:1.33],
 	                       [CCScaleTo actionWithDuration:0.33 scale:0.0],
-	                       [CCCallFunc actionWithTarget:levelBlast selector:@selector(dispose)],
+	                       [CCCallFunc actionWithTarget:levelBlast selector:@selector(disposeOfIt)],
 	                       nil]];
 }
 
@@ -993,7 +993,7 @@ static void CollisionBallAndBall(cpArbiter *arb, cpSpace *space, void *data) {
 	[scoreBlast runAction:[CCSequence actions:
                            
 	                       [CCScaleTo actionWithDuration:0.4 scale:endScale],
-	                       [CCCallFunc actionWithTarget:scoreBlast selector:@selector(dispose)],
+	                       [CCCallFunc actionWithTarget:scoreBlast selector:@selector(disposeOfIt)],
 	                       nil]];
     
 	//	[scoreBlast runAction: [CCSequence actions:
@@ -1012,7 +1012,7 @@ static void CollisionBallAndBall(cpArbiter *arb, cpSpace *space, void *data) {
 	//	[scoreBlast2 runAction: [CCSequence actions:
 	//
 	//							 [CCScaleTo actionWithDuration: 0.4 scale: 1.0],
-	//							 [CCCallFunc actionWithTarget: scoreBlast2 selector: @selector(dispose)],
+	//							 [CCCallFunc actionWithTarget: scoreBlast2 selector: @selector(disposeOfIt)],
 	//							 nil]];
     
 	//	[scoreBlast2 runAction: [CCSequence actions:
@@ -1038,7 +1038,7 @@ static void CollisionBallAndBall(cpArbiter *arb, cpSpace *space, void *data) {
 	                          [CCScaleTo actionWithDuration:0.33 scale:1.0],
 	                          //[CCDelayTime actionWithDuration: 1.66],
 	                          //[CCScaleTo actionWithDuration: 0.33 scale: 0.0],
-	                          //[CCCallFunc actionWithTarget: gameOverBlast selector: @selector(dispose)],
+	                          //[CCCallFunc actionWithTarget: gameOverBlast selector: @selector(disposeOfIt)],
 	                          nil]];
     
 	NSString *scoreStr = [NSString stringWithFormat:@"SCORE: %d", score];
@@ -1058,7 +1058,7 @@ static void CollisionBallAndBall(cpArbiter *arb, cpSpace *space, void *data) {
 	                            [CCFadeIn actionWithDuration:0.33],
 	                            //[CCDelayTime actionWithDuration: 1.66],
 	                            //[CCScaleTo actionWithDuration: 0.33 scale: 0.0],
-	                            //[CCCallFunc actionWithTarget: gameOverBlast selector: @selector(dispose)],
+	                            //[CCCallFunc actionWithTarget: gameOverBlast selector: @selector(disposeOfIt)],
 	                            nil]];
 }
 
@@ -1077,7 +1077,7 @@ static void CollisionBallAndBall(cpArbiter *arb, cpSpace *space, void *data) {
 	                      [CCMoveBy actionWithDuration:1.0 position:ccp(0, 200)],
 	                      [CCDelayTime actionWithDuration:1.33],
 	                      //[CCScaleTo actionWithDuration: 0.33 scale: 0.0],
-	                      [CCCallFunc actionWithTarget:noteBlast selector:@selector(dispose)],
+	                      [CCCallFunc actionWithTarget:noteBlast selector:@selector(disposeOfIt)],
 	                      nil]];
 }
 

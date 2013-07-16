@@ -846,6 +846,7 @@
 		F4BE88141795E08F00E0402E /* cpVect.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpVect.c; sourceTree = "<group>"; };
 		F4BE88151795E08F00E0402E /* prime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prime.h; sourceTree = "<group>"; };
 		F4BE884D1795F2C000E0402E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../../Default-568h@2x.png"; sourceTree = "<group>"; };
+		F4BE884F1795F8D500E0402E /* CCNode+Cleanup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCNode+Cleanup.h"; sourceTree = "<group>"; };
 		F4CE1B05130D6D47006C0F2C /* Instrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Instrument.h; sourceTree = "<group>"; };
 		F4CE1B06130D6D47006C0F2C /* Instrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Instrument.m; sourceTree = "<group>"; };
 		F4CE1CCC130D88B3006C0F2C /* BGRenderTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGRenderTexture.h; sourceTree = "<group>"; };
@@ -1135,6 +1136,7 @@
 			isa = PBXGroup;
 			children = (
 				F4CE2291130F08BA006C0F2C /* NSFileManager+DocumentFolder.m */,
+				F4BE884F1795F8D500E0402E /* CCNode+Cleanup.h */,
 				F4A4629F130BFE6600A20694 /* CCNode+Cleanup.m */,
 			);
 			name = Util;
