@@ -138,6 +138,7 @@
     
 	// make the View Controller a child of the main window
 	[window addSubview:viewController.view];
+    window.rootViewController = viewController;
     
 #if IAD_ENABLED == 1
 	id bannerView = [[ADBannerView alloc] initWithFrame:CGRectMake(0, -10, 0, 0)];

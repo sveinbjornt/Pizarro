@@ -818,7 +818,6 @@
 		F4BE87F61795E08F00E0402E /* cpSpaceHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpSpaceHash.h; sourceTree = "<group>"; };
 		F4BE87F71795E08F00E0402E /* cpVect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpVect.h; sourceTree = "<group>"; };
 		F4BE87F91795E08F00E0402E /* chipmunk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = chipmunk.c; sourceTree = "<group>"; };
-		F4BE87FA1795E08F00E0402E /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F4BE87FC1795E08F00E0402E /* cpConstraint.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpConstraint.c; sourceTree = "<group>"; };
 		F4BE87FD1795E08F00E0402E /* cpDampedRotarySpring.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpDampedRotarySpring.c; sourceTree = "<group>"; };
 		F4BE87FE1795E08F00E0402E /* cpDampedSpring.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpDampedSpring.c; sourceTree = "<group>"; };
@@ -1053,8 +1052,7 @@
 		506EDAA3102F461B00A389B3 /* cocos2d Sources */ = {
 			isa = PBXGroup;
 			children = (
-				F4BE87D91795E08F00E0402E /* include */,
-				F4BE87F81795E08F00E0402E /* src */,
+				F4BE88501795FB4000E0402E /* Chipmunk */,
 				F4BE855A1795DE2C00E0402E /* cocos2d */,
 				F4BE86041795DE2C00E0402E /* CocosDenshion */,
 				F4BE867B1795DE2C00E0402E /* FontLabel */,
@@ -1425,7 +1423,6 @@
 				F4BE87DA1795E08F00E0402E /* chipmunk */,
 			);
 			name = include;
-			path = libs/Chipmunk/include;
 			sourceTree = "<group>";
 		};
 		F4BE87DA1795E08F00E0402E /* chipmunk */ = {
@@ -1475,7 +1472,6 @@
 			isa = PBXGroup;
 			children = (
 				F4BE87F91795E08F00E0402E /* chipmunk.c */,
-				F4BE87FA1795E08F00E0402E /* CMakeLists.txt */,
 				F4BE87FB1795E08F00E0402E /* constraints */,
 				F4BE88071795E08F00E0402E /* cpArbiter.c */,
 				F4BE88081795E08F00E0402E /* cpArray.c */,
@@ -1494,7 +1490,7 @@
 				F4BE88151795E08F00E0402E /* prime.h */,
 			);
 			name = src;
-			path = libs/Chipmunk/src;
+			path = ../src;
 			sourceTree = "<group>";
 		};
 		F4BE87FB1795E08F00E0402E /* constraints */ = {
@@ -1513,6 +1509,16 @@
 				F4BE88061795E08F00E0402E /* cpSlideJoint.c */,
 			);
 			path = constraints;
+			sourceTree = "<group>";
+		};
+		F4BE88501795FB4000E0402E /* Chipmunk */ = {
+			isa = PBXGroup;
+			children = (
+				F4BE87D91795E08F00E0402E /* include */,
+				F4BE87F81795E08F00E0402E /* src */,
+			);
+			name = Chipmunk;
+			path = libs/Chipmunk/include;
 			sourceTree = "<group>";
 		};
 		F4CE1D62130DA21D006C0F2C /* Menu */ = {
@@ -2442,7 +2448,7 @@
 				);
 				"GCC_THUMB_SUPPORT[arch=armv6]" = NO;
 				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2462,7 +2468,7 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = NO;
 				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
 				GCC_UNROLL_LOOPS = YES;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "80A5B6EA-FB34-4743-A875-1BFF96E1CF5E";
