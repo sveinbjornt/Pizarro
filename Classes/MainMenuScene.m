@@ -402,7 +402,7 @@
 	[bg2 runAction: [CCMoveBy actionWithDuration: duration position: [GParams mainMenuShiftOutVector]]];
 	[menu runAction: [CCMoveBy actionWithDuration: duration position: [GParams mainMenuShiftOutVector]]];
 	
-	[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(endTransition)]] withDelay: duration + 0.2];
+	[self runAction: [CCAction action: [CCCallFunc actionWithTarget: self selector: @selector(endTransition)] withDelay: duration + 0.2]];
 }
 
 -(void)shiftOut
