@@ -14,34 +14,31 @@
 
 @implementation ExpandingMenuItemToggle
 
--(void)setSelectedIndex:(NSUInteger)index
-{
-	[super setSelectedIndex: index];
-
+- (void)setSelectedIndex:(NSUInteger)index {
+	[super setSelectedIndex:index];
+    
 	int dir = RandomBetween(0, 1) ? -1 : 1;
-	
-	for (CCNode *n in self.children)
-	{
-		[n runAction: [CCSequence actions: 
-						  [CCScaleTo actionWithDuration: 0.2 scale: 1.3],
-						  [CCScaleTo actionWithDuration: 0.2 scale: 1.0],
-						  nil]];
-		
-		[n runAction: [CCSequence actions: 
-					   [CCRotateTo actionWithDuration: 0.2 angle: RandomBetween(7, 20) * dir],
-					   [CCRotateTo actionWithDuration: 0.2 angle: 0],
-					   nil]];
+    
+	for (CCNode *n in self.children) {
+		[n runAction:[CCSequence actions:
+		              [CCScaleTo actionWithDuration:0.2 scale:1.3],
+		              [CCScaleTo actionWithDuration:0.2 scale:1.0],
+		              nil]];
+        
+		[n runAction:[CCSequence actions:
+		              [CCRotateTo actionWithDuration:0.2 angle:RandomBetween(7, 20) * dir],
+		              [CCRotateTo actionWithDuration:0.2 angle:0],
+		              nil]];
 	}
-	
-	if ([self.parent isKindOfClass: [CCMenu class]])
-	{
+    
+	if ([self.parent isKindOfClass:[CCMenu class]]) {
 		CCArray *mItems = self.parent.children;
-		int i = [mItems indexOfObject: self];
-		
-		
-		float pitch = [Instrument bluesPitchForIndex: i + 2 + index + dir];
+		int i = [mItems indexOfObject:self];
+        
+        
+		float pitch = [Instrument bluesPitchForIndex:i + 2 + index + dir];
 		if (SOUND_ENABLED)
-			[[SimpleAudioEngine sharedEngine] playEffect: kTrumpetSoundEffect pitch: pitch pan:0.0f gain:0.3f];
+			[[SimpleAudioEngine sharedEngine] playEffect:kTrumpetSoundEffect pitch:pitch pan:0.0f gain:0.3f];
 	}
 }
 

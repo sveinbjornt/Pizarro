@@ -10,11 +10,10 @@
 #import "cocos2d.h"
 #import "Shape.h"
 
-@interface BGRenderTexture : CCRenderTexture 
+@interface BGRenderTexture : CCRenderTexture
 {
-
 }
--(void)clear;
--(void)goBlack;
--(void)drawShape: (Shape *)circle;
+- (void)clear;
+- (void)goBlack;
+- (void)drawShape:(Shape *)circle;
 @end

@@ -18,20 +18,16 @@
 //	return CGRectMake(0,kGameScreenHeight-h, w, h);
 //}
 
--(CGRect) rect
-{
-	if (IPAD)
-	{
-		return CGRectMake( position_.x,
-						  position_.y + 100,
-						  60, 120);	
+- (CGRect)rect {
+	if (IPAD) {
+		return CGRectMake(position_.x,
+		                  position_.y + 100,
+		                  60, 120);
 	}
-	
-	return CGRectMake( position_.x,
-					  position_.y + 100,
-					  30, 60);	
+    
+	return CGRectMake(position_.x,
+	                  position_.y + 100,
+	                  30, 60);
 }
-
-
 
 @end

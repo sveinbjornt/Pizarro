@@ -15,17 +15,16 @@
 {
 	GLubyte opacity;
 	ccColor3B color;
-	
-	float			size, fullSize;
-	BOOL			expanding, destroyed;
-	NSTimeInterval	created, ended;
-	
-	int				owner;
-	
-	cpShape			*cpShape;
-	cpBody			*cpBody;
-	UITouch			*touch;
-	
+    
+	float size, fullSize;
+	BOOL expanding, destroyed;
+	NSTimeInterval created, ended;
+    
+	int owner;
+    
+	cpShape *cpShape;
+	cpBody *cpBody;
+	UITouch *touch;
 }
 @property (readwrite, assign) ccColor3B color;
 @property (readwrite, assign) GLubyte opacity;
@@ -38,8 +37,8 @@
 @property (readwrite, assign) int owner;
 
 
--(void)addToSpace: (cpSpace *)space;
--(float)area;
-+(NSString *)textSymbol;
-+(float)textSymbolSizeForHUD;
+- (void)addToSpace:(cpSpace *)space;
+- (float)area;
++ (NSString *)textSymbol;
++ (float)textSymbolSizeForHUD;
 @end

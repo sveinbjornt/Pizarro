@@ -10,11 +10,10 @@
 #import "cocos2d.h"
 #import "Shape.h"
 
-@interface Square : Shape 
+@interface Square : Shape
 {
-
 }
--(void)drawExpandingSquare;
--(void)drawSquare;
+- (void)drawExpandingSquare;
+- (void)drawSquare;
 
 @end

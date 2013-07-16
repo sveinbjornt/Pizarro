@@ -11,23 +11,23 @@
 #import "Constants.h"
 #import "Circle.h"
 
-#define kNotCoveredPoint	0
-#define kCoveredPoint		1
+#define kNotCoveredPoint    0
+#define kCoveredPoint       1
 
-@interface SurfaceMatrix : NSObject 
+@interface SurfaceMatrix : NSObject
 {
 	int totalFilled;
 	int height, width;
 	int matrix[100][100];
 }
-@property (readonly,assign) int totalFilled;
-@property (readonly,assign) int height, width;
+@property (readonly, assign) int totalFilled;
+@property (readonly, assign) int height, width;
 
--(id)initWithWidth: (int)w height: (int)h;
--(int)valueAtPointX: (int)x Y: (int)y;
--(void)clear;
--(int)numPoints;
--(float)percentageFilled;
--(int)updateWithShape: (Shape *)shape;
--(NSString *)description;
+- (id)initWithWidth:(int)w height:(int)h;
+- (int)valueAtPointX:(int)x Y:(int)y;
+- (void)clear;
+- (int)numPoints;
+- (float)percentageFilled;
+- (int)updateWithShape:(Shape *)shape;
+- (NSString *)description;
 @end

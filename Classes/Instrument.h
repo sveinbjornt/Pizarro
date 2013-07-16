@@ -9,15 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface Instrument : NSObject 
+@interface Instrument : NSObject
 {
-	NSString			*name;
-	NSTimeInterval		tempo;
-	float				pitch, gain;
-	int					numberOfNotes;
-	
-	id					delegate;
-	SEL					selector;
+	NSString *name;
+	NSTimeInterval tempo;
+	float pitch, gain;
+	int numberOfNotes;
+    
+	id delegate;
+	SEL selector;
 }
 @property (assign, readwrite) NSTimeInterval tempo;
 @property (assign, readwrite) float pitch, gain;
@@ -25,12 +25,12 @@
 @property (assign, readwrite) id delegate;
 @property (assign, readwrite) SEL selector;
 
--(id)initWithName: (NSString *)n numberOfNotes: (int)numNotes tempo: (NSTimeInterval)tmpo;
-+(id)instrumentWithName: (NSString *)n numberOfNotes: (int)numNotes tempo: (NSTimeInterval)tmpo;
--(void)playSequence: (NSString *)seq;
--(void)playNote:(int)note;
--(void)playNoteNumber: (NSNumber *)num;
--(void)playChord:(NSString *)chordStr;
--(void)playWithInterval: (NSTimeInterval)interval afterDelay: (NSTimeInterval)delay chords: (NSString*) chord1, ...;
-+(float)bluesPitchForIndex: (int)index;
+- (id)initWithName:(NSString *)n numberOfNotes:(int)numNotes tempo:(NSTimeInterval)tmpo;
++ (id)instrumentWithName:(NSString *)n numberOfNotes:(int)numNotes tempo:(NSTimeInterval)tmpo;
+- (void)playSequence:(NSString *)seq;
+- (void)playNote:(int)note;
+- (void)playNoteNumber:(NSNumber *)num;
+- (void)playChord:(NSString *)chordStr;
+- (void)playWithInterval:(NSTimeInterval)interval afterDelay:(NSTimeInterval)delay chords:(NSString *)chord1, ...;
++ (float)bluesPitchForIndex:(int)index;
 @end

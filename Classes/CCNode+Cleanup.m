@@ -9,16 +9,16 @@
 #import "cocos2d.h"
 
 
-@interface CCNode (Cleanup) 
+@interface CCNode (Cleanup)
 
 @end
 
 
 @implementation CCNode (Cleanup)
 
--(void)dispose
-{
+- (void)dispose {
 	CCLOG(@"Disposing of %@", [self description]);
-	[self.parent removeChild: self cleanup: YES];
+	[self.parent removeChild:self cleanup:YES];
 }
+
 @end

@@ -10,9 +10,9 @@
 #import "cocos2d.h"
 #import "Circle.h"
 
-@interface GameOverCircle : Circle 
+@interface GameOverCircle : Circle
 {
 	NSTimeInterval animationDuration;
 }
--(void)startExpanding;
+- (void)startExpanding;
 @end

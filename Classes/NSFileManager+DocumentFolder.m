@@ -8,27 +8,25 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSFileManager (DocumentFolder) 
-+(NSString *)documentFolder;
--(NSString *)pathOfFileInDocumentFolder: (NSString *)filename;
+@interface NSFileManager (DocumentFolder)
++ (NSString *)documentFolder;
+- (NSString *)pathOfFileInDocumentFolder:(NSString *)filename;
 @end
 
 
 @implementation NSFileManager (DocumentFolder)
 
-+(NSString*)documentFolder
-{
++ (NSString *)documentFolder {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	
-	if([paths count])
+    
+	if ([paths count])
 		return [paths objectAtIndex:0];
-	
+    
 	return nil;
 }
 
--(NSString *)pathOfFileInDocumentFolder: (NSString *)filename
-{
-	return [[NSFileManager documentFolder] stringByAppendingPathComponent: filename];
+- (NSString *)pathOfFileInDocumentFolder:(NSString *)filename {
+	return [[NSFileManager documentFolder] stringByAppendingPathComponent:filename];
 }
 
 @end

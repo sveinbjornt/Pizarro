@@ -11,11 +11,9 @@
 
 @implementation GameOverCircle
 
--(id)init
-{
-	if ((self = [super init]))
-	{
-		color = ccc3(0,0,0);
+- (id)init {
+	if ((self = [super init])) {
+		color = ccc3(0, 0, 0);
 		size = 1;
 		created = NOW;
 		expanding = NO;
@@ -29,43 +27,33 @@
 	return self;
 }
 
--(void)startExpanding
-{
-	[self schedule: @selector(updateSize)];
+- (void)startExpanding {
+	[self schedule:@selector(updateSize)];
 }
 
--(void)updateSize
-{
+- (void)updateSize {
 	NSTimeInterval elapsed = NOW - created;
 	float fraction = elapsed / animationDuration;
 	if (fraction > 1.0f)
 		fraction = 1.0f;
-	
+    
 	size = fraction * fullSize;
-	
 }
 
-
--(void)draw
-{
+- (void)draw {
 	// We draw square to fill screen if fullsize
-	if (size == fullSize && ![self.children count])
-	{
-		glColor4ub(0,0,0,255);
-		CGPoint vertices[] = 
-		{
-			{ -kGameScreenWidth/2, -kGameScreenHeight/2 },
-			{  kGameScreenWidth/2, -kGameScreenHeight/2 },
-			{  kGameScreenWidth/2,  kGameScreenHeight/2 },
-			{ -kGameScreenWidth/2,  kGameScreenHeight/2 }
+	if (size == fullSize && ![self.children count]) {
+		glColor4ub(0, 0, 0, 255);
+		CGPoint vertices[] = {
+			{ -kGameScreenWidth / 2, -kGameScreenHeight / 2 },
+			{  kGameScreenWidth / 2, -kGameScreenHeight / 2 },
+			{  kGameScreenWidth / 2,  kGameScreenHeight / 2 },
+			{ -kGameScreenWidth / 2,  kGameScreenHeight / 2 }
 		};
 		ccFillPoly(vertices,  4, YES);
 	}
 	else
 		[self drawFilledShape];
 }
-
-
-
 
 @end

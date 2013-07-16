@@ -15,8 +15,8 @@
 
 @interface GameCenterManager : NSObject
 {
-//  NSMutableDictionary* earnedAchievementCache;
-    id		delegate;
+    //  NSMutableDictionary* earnedAchievementCache;
+	id delegate;
 }
 
 //This property must be atomic to ensure that the cache is always in a viable state...
@@ -24,12 +24,12 @@
 
 @property (nonatomic, assign) id delegate;
 
-+(BOOL)isGameCenterAvailable;
--(void)authenticateLocalUser;
--(void)authenticateLocalUserForLeaderboard;
--(void)authenticateLocalUserAndReportScore: (NSUInteger)score level: (NSUInteger)level;
--(void)authenticateLocalUserAndReportAchievement: (NSString *)achievementIdentifier;
--(void)getTopScoresForAuthenticatedLocalUser;
++ (BOOL)isGameCenterAvailable;
+- (void)authenticateLocalUser;
+- (void)authenticateLocalUserForLeaderboard;
+- (void)authenticateLocalUserAndReportScore:(NSUInteger)score level:(NSUInteger)level;
+- (void)authenticateLocalUserAndReportAchievement:(NSString *)achievementIdentifier;
+- (void)getTopScoresForAuthenticatedLocalUser;
 
 //- (void) reloadHighScoresForCategory: (NSString*) category;
 //- (void) submitAchievement: (NSString*) identifier percentComplete: (double) percentComplete;

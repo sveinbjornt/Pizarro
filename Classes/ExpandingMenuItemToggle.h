@@ -9,9 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface ExpandingMenuItemToggle : CCMenuItemToggle 
+@interface ExpandingMenuItemToggle : CCMenuItemToggle
 {
-
 }
 
 @end

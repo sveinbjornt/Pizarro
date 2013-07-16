@@ -12,16 +12,14 @@
 @implementation MMLetterLabel
 @synthesize originalPosition;
 
-- (CGRect) rect 
-{
+- (CGRect)rect {
 	float h = [self contentSize].height;
 	float w = [self contentSize].width;
-	float x = [self position].x - w/2;
-	float y = [self position].y - h/2;
-	
-	CGRect aRect = CGRectMake(x,y,w,h);
+	float x = [self position].x - w / 2;
+	float y = [self position].y - h / 2;
+    
+	CGRect aRect = CGRectMake(x, y, w, h);
 	return aRect;
 }
-
 
 @end

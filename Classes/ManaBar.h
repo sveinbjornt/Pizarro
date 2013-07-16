@@ -10,14 +10,14 @@
 #import "cocos2d.h"
 #import "Constants.h"
 
-@interface ManaBar : CCNode 
+@interface ManaBar : CCNode
 {
 	float percentage;
 	//CCTexture2D *manaBarRed, *manaBarGreen, *manaBarRedTop, *manaBarGreenTop;
-	
+    
 	CCSprite *manaBarRed, *manaBarGreen, *manaBarRedTop, *manaBarGreenTop;
 }
 @property (readwrite, assign) float percentage;
--(void)setManaLevel:(float)level;
+- (void)setManaLevel:(float)level;
 
 @end

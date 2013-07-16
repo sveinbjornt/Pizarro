@@ -12,21 +12,21 @@
 
 @class RootViewController;
 
-@interface PizarroAppDelegate : NSObject <UIApplicationDelegate, GKLeaderboardViewControllerDelegate> 
+@interface PizarroAppDelegate : NSObject <UIApplicationDelegate, GKLeaderboardViewControllerDelegate>
 {
-	UIWindow			*window;
-	RootViewController	*viewController;
+	UIWindow *window;
+	RootViewController *viewController;
 	GKLeaderboardViewController *leaderboardController;
 }
 
 @property (nonatomic, retain) UIWindow *window;
 
--(void)loadResources;
+- (void)loadResources;
 
--(void)alert: (NSString *)str;
--(void)initGameCenter;
--(void)loadLeaderboard;
--(void)endLeaderboard;
--(void)showLeaderboard;
+- (void)alert:(NSString *)str;
+- (void)initGameCenter;
+- (void)loadLeaderboard;
+- (void)endLeaderboard;
+- (void)showLeaderboard;
 
 @end

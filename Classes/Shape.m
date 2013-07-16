@@ -11,12 +11,10 @@
 @implementation Shape
 @synthesize color, opacity, expanding, size, fullSize, created, ended, cpShape, cpBody, touch, owner;
 
--(id)init
-{
-	if ((self = [super init]))
-	{
+- (id)init {
+	if ((self = [super init])) {
 		opacity = 255;
-		color = ccc3(0,0,0);
+		color = ccc3(0, 0, 0);
 		size = 8;
 		created = NOW;
 		expanding = YES;
@@ -27,7 +25,7 @@
 }
 
 //-(void)setExpanding:(BOOL)b
-//{	
+//{
 //	expanding = b;
 //	if (!b)
 //		fullSize = size;
@@ -35,45 +33,40 @@
 
 //-(void)setPosition:(CGPoint)p
 //{
-//	
+//
 //}
 
--(void)setDestroyed:(BOOL)b
-{
+- (void)setDestroyed:(BOOL)b {
 	destroyed = b;
 	fullSize = size;
-//	expanding = NO;
+    //	expanding = NO;
 	ended = NOW;
-	
+    
 	if (b)
-		color = ccc3(120,0,0);
+		color = ccc3(120, 0, 0);
 }
 
--(BOOL)destroyed
-{
-    return destroyed;
+- (BOOL)destroyed {
+	return destroyed;
 }
 
--(void)addToSpace: (cpSpace *)space
-{
+- (void)addToSpace:(cpSpace *)space {
 	// override in subclass
 }
 
--(float)area
-{
+- (float)area {
 	// override in subclass
 	return 0;
 }
 
-+(NSString *)textSymbol
-{
++ (NSString *)textSymbol {
 	// override in subclass
 	return @"S";
 }
 
-+(float)textSymbolSizeForHUD
-{
++ (float)textSymbolSizeForHUD {
 	// override in subclass
 	return kHUDFontSize;
 }
+
 @end

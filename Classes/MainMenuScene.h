@@ -14,77 +14,76 @@
 #import "Instrument.h"
 
 
-#define kMainState		0
-#define kCreditsState	1
-#define kSettingsState	2
-#define kGameModeState	3
+#define kMainState      0
+#define kCreditsState   1
+#define kSettingsState  2
+#define kGameModeState  3
 
 @interface MainMenuScene : CCLayerColor
 {
-	UITouch			*currTouch;
-	NSMutableArray	*letters;
-	NSMutableArray	*scoreLetters;
-	
-	CCSprite *bg1,	*bg2;
-	
-	MMLetterSprite	*icon;
-	
-	CCMenu			*menu, *scoresMenu, *settingsMenu, *resumeMenu;
-	
-	int				state;
-	
+	UITouch *currTouch;
+	NSMutableArray *letters;
+	NSMutableArray *scoreLetters;
+    
+	CCSprite *bg1,  *bg2;
+    
+	MMLetterSprite *icon;
+    
+	CCMenu *menu, *scoresMenu, *settingsMenu, *resumeMenu;
+    
+	int state;
+    
 	// Free version ad for full version
 #if IAD_ENABLED == 1
-	CCMenu			*getFullVersionMenu;
-	CCLabelTTF		*freeLabel;
+	CCMenu *getFullVersionMenu;
+	CCLabelTTF *freeLabel;
 #endif
-	
+    
 	// Settings
-	CCLabelTTF		*musicLabel, *soundLabel, *gameCenterLabel;
-	CCMenu			*tutorialMenu;
-	
+	CCLabelTTF *musicLabel, *soundLabel, *gameCenterLabel;
+	CCMenu *tutorialMenu;
+    
 	// Credits
-	MMLetterLabel	*creditsLabel, *createdByLabel;
-	CCSprite		*creditsLogo;
-	
+	MMLetterLabel *creditsLabel, *createdByLabel;
+	CCSprite *creditsLogo;
+    
 	// Game mode
-	CCLabelTTF		*singlePlayerMenu, *multiPlayerMenu;
-	
-	Instrument		*piano;
-	
-	BOOL			inTransition, paused;
-	
-	CCScene			*pausedScene;
-	
+	CCLabelTTF *singlePlayerMenu, *multiPlayerMenu;
+    
+	Instrument *piano;
+    
+	BOOL inTransition, paused;
+    
+	CCScene *pausedScene;
 }
-@property (readwrite,assign) BOOL paused;
-@property (readwrite,assign) CCScene *pausedScene;
+@property (readwrite, assign) BOOL paused;
+@property (readwrite, assign) CCScene *pausedScene;
 
-+(id)scene;
-+(id)scenePausedForScene: (CCScene *)gameScene;
--(id)initWithPause: (BOOL)p;
++ (id)scene;
++ (id)scenePausedForScene:(CCScene *)gameScene;
+- (id)initWithPause:(BOOL)p;
 
--(void)createMainMenu;
--(void)createBackground;
--(void)createLetterAndLogo;
+- (void)createMainMenu;
+- (void)createBackground;
+- (void)createLetterAndLogo;
 
--(void)startGame:(BOOL)multiPlayer;
+- (void)startGame:(BOOL)multiPlayer;
 
--(void)showGameModeSelection;
--(void)hideGameModeSelection;
+- (void)showGameModeSelection;
+- (void)hideGameModeSelection;
 
--(void)showSettings;
--(void)hideSettings;
+- (void)showSettings;
+- (void)hideSettings;
 
--(void)showCredits;
--(void)hideCredits;
+- (void)showCredits;
+- (void)hideCredits;
 
--(void)showPausedMenu;
+- (void)showPausedMenu;
 
--(void)shiftOutWithDuration: (NSTimeInterval)duration;
--(void)shiftOut;
--(void)shiftInWithDuration: (NSTimeInterval)duration;
--(void)shiftIn;
+- (void)shiftOutWithDuration:(NSTimeInterval)duration;
+- (void)shiftOut;
+- (void)shiftInWithDuration:(NSTimeInterval)duration;
+- (void)shiftIn;
 
 
 

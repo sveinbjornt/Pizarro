@@ -21,6 +21,6 @@
 
 #define GAME_AUTOROTATION kGameAutorotationNone
 
-#define CC_FONT_LABEL_SUPPORT	1
+#define CC_FONT_LABEL_SUPPORT   1
 
 #endif // __GAME_CONFIG_H

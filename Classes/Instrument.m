@@ -14,16 +14,13 @@
 @implementation Instrument
 @synthesize tempo, pitch, gain, numberOfNotes, delegate, selector;
 
--(void)dealloc
-{
+- (void)dealloc {
 	[name release];
 	[super dealloc];
 }
 
--(id)initWithName: (NSString *)n numberOfNotes: (int)numNotes tempo: (NSTimeInterval)tmpo
-{
-	if ((self = [super init]))
-	{
+- (id)initWithName:(NSString *)n numberOfNotes:(int)numNotes tempo:(NSTimeInterval)tmpo {
+	if ((self = [super init])) {
 		name = [n retain];
 		numberOfNotes = numNotes;
 		tempo = tmpo;
@@ -35,68 +32,58 @@
 	return self;
 }
 
-+(id)instrumentWithName: (NSString *)n numberOfNotes: (int)numNotes tempo: (NSTimeInterval)tmpo
-{
-	return [[[self alloc] initWithName: n numberOfNotes: numNotes tempo: tmpo] autorelease];
++ (id)instrumentWithName:(NSString *)n numberOfNotes:(int)numNotes tempo:(NSTimeInterval)tmpo {
+	return [[[self alloc] initWithName:n numberOfNotes:numNotes tempo:tmpo] autorelease];
 }
 
--(void)playSequence: (NSString *)seq
-{
+- (void)playSequence:(NSString *)seq {
 	int iterator = 0;
-	for (NSString *str in [seq componentsSeparatedByString: @","])
-	{
-		if (![str isEqualToString: @" "])
-		{
+	for (NSString *str in[seq componentsSeparatedByString : @","]) {
+		if (![str isEqualToString:@" "]) {
 			int note = [str intValue];
-			[self performSelector: @selector(playNoteNumber:) withObject: [NSNumber numberWithInteger: note] afterDelay: iterator * tempo];
+			[self performSelector:@selector(playNoteNumber:) withObject:[NSNumber numberWithInteger:note] afterDelay:iterator * tempo];
 		}
 		iterator++;
 	}
 }
 
--(void)playNote:(int)note
-{	
+- (void)playNote:(int)note {
 	if (note > numberOfNotes)
 		CCLOG(@"Warning, note index %d out of bounds", note);
-	
+    
 	if (SOUND_ENABLED)
-		[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithFormat: @"%@%d.wav", name, note] pitch: pitch pan:0.0f gain: gain];
-	
-	if (delegate)
-	{
-		if ([delegate respondsToSelector: selector])
-			[delegate performSelector: selector withObject: [NSNumber numberWithInt: note]];
+		[[SimpleAudioEngine sharedEngine] playEffect:[NSString stringWithFormat:@"%@%d.wav", name, note] pitch:pitch pan:0.0f gain:gain];
+    
+	if (delegate) {
+		if ([delegate respondsToSelector:selector])
+			[delegate performSelector:selector withObject:[NSNumber numberWithInt:note]];
 		else
 			CCLOG(@"Delegate %@ does not respond to selector", [delegate description]);
 	}
 }
 
--(void)playChord:(NSString *)chordStr
-{
-	for (NSString *str in [chordStr componentsSeparatedByString:@","])
-	{
+- (void)playChord:(NSString *)chordStr {
+	for (NSString *str in[chordStr componentsSeparatedByString : @","]) {
 		int note = [str intValue];
 		if (note > numberOfNotes || note < 0)
 			CCLOG(@"Warning: Instrument note out of bounds");
 		else
-			[self playNote: note];
+			[self playNote:note];
 	}
 }
 
--(void)playWithInterval: (NSTimeInterval)interval afterDelay: (NSTimeInterval)delay chords: (NSString*) chord1, ... 
+- (void)playWithInterval:(NSTimeInterval)interval afterDelay:(NSTimeInterval)delay chords:(NSString *)chord1, ...
 {
 	NSString *currChord;
 	int iterator = 0;
-	
+    
 	va_list params;
-	va_start(params,chord1);
-	
-	while (chord1)
-	{
-		currChord = va_arg(params,NSString *);
-		if (currChord)
-		{
-			[self performSelector: @selector(playChord:) withObject: currChord afterDelay: delay + (interval * iterator)];
+	va_start(params, chord1);
+    
+	while (chord1) {
+		currChord = va_arg(params, NSString *);
+		if (currChord) {
+			[self performSelector:@selector(playChord:) withObject:currChord afterDelay:delay + (interval * iterator)];
 			iterator++;
 		}
 		else
@@ -105,46 +92,39 @@
 	va_end(params);
 }
 
-		 
--(void)playNoteNumber: (NSNumber *)num
-{
-	[self playNote: [num integerValue]];
+
+- (void)playNoteNumber:(NSNumber *)num {
+	[self playNote:[num integerValue]];
 }
 
-+(CCFiniteTimeAction *)getActionSequence: (NSArray *) actions
-{
++ (CCFiniteTimeAction *)getActionSequence:(NSArray *)actions {
 	CCFiniteTimeAction *seq = nil;
-	for (CCFiniteTimeAction *anAction in actions)
-	{
-		if (!seq)
-		{
+	for (CCFiniteTimeAction *anAction in actions) {
+		if (!seq) {
 			seq = anAction;
 		}
-		else
-		{
+		else {
 			seq = [CCSequence actionOne:seq two:anAction];
 		}
 	}
 	return seq;
 }
 
-+(id) actionMutableArray: (NSMutableArray*) _actionList {
++ (id)actionMutableArray:(NSMutableArray *)_actionList {
 	CCFiniteTimeAction *now;
 	CCFiniteTimeAction *prev = [_actionList objectAtIndex:0];
-	
-	for (int i = 1 ; i < [_actionList count] ; i++) {
+    
+	for (int i = 1; i < [_actionList count]; i++) {
 		now = [_actionList objectAtIndex:i];
-		prev = [CCSequence actionOne: prev two: now];
+		prev = [CCSequence actionOne:prev two:now];
 	}
-	
+    
 	return prev;
 }
 
-+(float)bluesPitchForIndex: (int)index
-{
++ (float)bluesPitchForIndex:(int)index {
 	float pitches[] = { 1.0, 0.891, 0.75, 0.707, 0.665, 0.595, 0.5 };
 	return pitches[index];
 }
-
 
 @end

@@ -12,9 +12,9 @@
 
 @interface Reward : CCSprite
 {
-    cpShape			*cpShape;
-	cpBody			*cpBody;
-    int             size;
+	cpShape *cpShape;
+	cpBody *cpBody;
+	int size;
 }
 @property (readwrite, assign) cpShape *cpShape;
 @property (readwrite, assign) cpBody *cpBody;
