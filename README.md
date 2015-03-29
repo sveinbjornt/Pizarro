@@ -3,6 +3,8 @@ Quirky music-oriented iPhone game implemented using Cocos2D and the Chipmunk phy
 
 Released in the App Store in March 2011.
 
+See also [Drawing Anti-Aliased Circles in OpenGL on the iPhone/iPad](http://sveinbjorn.org/drawing_antialiased_circles_opengl_iphone)
+
 ## Screenshots
 
 ![Screenshot 1](https://github.com/sveinbjornt/Pizarro/blob/master/screenshots/ss1.png)
