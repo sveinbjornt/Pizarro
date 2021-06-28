@@ -18,10 +18,11 @@
 #import "SimpleAudioEngine.h"
 #import "Common.c"
 #import "MainMenuScene.h"
-#import "GameCenterManager.h"
 #import "ScoreManager.h"
 #import "MenuButtonSprite.h"
 #import "GParams.h"
+#import "CCNode+Cleanup.h"
+
 
 #pragma mark Chipmunk Callbacks
 
@@ -60,7 +61,6 @@ static void PlayBallCollisionSound(int level) {
 	else {
 		pentatonicCount++;
 		if (pentatonicCount >= 6) {
-			[ScoreManager reportAchievementWithIdentifier:kGameCenterMinorPentatonicAchievement];
 			pentatonicCount = 0;
 		}
 	}
@@ -168,12 +168,12 @@ static void CollisionBallAndBall(cpArbiter *arb, cpSpace *space, void *data) {
 		//[self updateCurrentShape];
         
 		// Music and sound
-		int bassLineNum = [[NSUserDefaults standardUserDefaults] integerForKey:kLastBassLine] + 1;
+		long bassLineNum = [[NSUserDefaults standardUserDefaults] integerForKey:kLastBassLine] + 1;
 		if (bassLineNum > kNumBassLines)
 			bassLineNum = 1;
 		[[NSUserDefaults standardUserDefaults] setInteger:bassLineNum forKey:kLastBassLine];
-		CCLOG(@"Bass line is %d", bassLineNum);
-		NSString *musicFile = [NSString stringWithFormat:@"bassline%d.mp3", bassLineNum];
+		CCLOG(@"Bass line is %d", (int)bassLineNum);
+		NSString *musicFile = [NSString stringWithFormat:@"bassline%d.mp3", (int)bassLineNum];
         
 		[[SimpleAudioEngine sharedEngine] playBackgroundMusic:musicFile loop:YES];
         
@@ -889,7 +889,6 @@ static void CollisionBallAndBall(cpArbiter *arb, cpSpace *space, void *data) {
 		if (!addedShapes)
 			[self gameOver];
 		else if (addedShapes >= 4) {
-			[ScoreManager reportAchievementWithIdentifier:kGameCenterTouchmasterAchievement];
 		}
         
 		return;
@@ -952,7 +951,7 @@ static void CollisionBallAndBall(cpArbiter *arb, cpSpace *space, void *data) {
 #pragma mark Blast
 
 - (void)levelBlast:(NSUInteger)lvl atPoint:(CGPoint)p afterDelay:(NSTimeInterval)delay {
-	NSString *levelStr = [NSString stringWithFormat:@"Level %d", lvl];
+	NSString *levelStr = [NSString stringWithFormat:@"Level %d", (int)lvl];
 	CCLabelTTF *levelBlast = [CCLabelTTF labelWithString:levelStr fontName:kLevelBlastFont fontSize:[GParams levelBlastFontSize]];
 	levelBlast.position = p;
 	levelBlast.scale = 0.0;
@@ -1296,21 +1295,18 @@ static void CollisionBallAndBall(cpArbiter *arb, cpSpace *space, void *data) {
 			case 1:
 			{
 				CCLOG(@"Finished w. one shape");
-				[ScoreManager reportAchievementWithIdentifier:kGameCenterLevelInOneAchievement];
 			}
                 break;
                 
 			case 2:
 			{
 				CCLOG(@"Finished w. two shapes");
-				[ScoreManager reportAchievementWithIdentifier:kGameCenterLevelInTwoAchievement];
 			}
                 break;
                 
 			case 3:
 			{
 				CCLOG(@"Finished w. three shapes");
-				[ScoreManager reportAchievementWithIdentifier:kGameCenterLevelInThreeAchievement];
 			}
                 break;
 		}
@@ -1331,55 +1327,48 @@ static void CollisionBallAndBall(cpArbiter *arb, cpSpace *space, void *data) {
 		case 5:
 		{
 			CCLOG(@"Got to level 5");
-			[ScoreManager reportAchievementWithIdentifier:kGameCenterLevel5Achievement];
 		}
             break;
             
 		case 10:
 		{
 			CCLOG(@"Got to level 10");
-			[ScoreManager reportAchievementWithIdentifier:kGameCenterLevel10Achievement];
 		}
             break;
             
 		case 15:
 		{
 			CCLOG(@"Got to level 15");
-			[ScoreManager reportAchievementWithIdentifier:kGameCenterLevel15Achievement];
 		}
             break;
             
 		case 20:
 		{
 			CCLOG(@"Got to level 20");
-			[ScoreManager reportAchievementWithIdentifier:kGameCenterLevel20Achievement];
 		}
             break;
             
 		case 25:
 		{
 			CCLOG(@"Got to level 25");
-			[ScoreManager reportAchievementWithIdentifier:kGameCenterLevel25Achievement];
 		}
             break;
             
 		case 30:
 		{
 			CCLOG(@"Got to level 30");
-			[ScoreManager reportAchievementWithIdentifier:kGameCenterLevel30Achievement];
 		}
             break;
 	}
     
 	if (percentageFilled >= 95.0f) {
 		CCLOG(@"95 percent filled");
-		[ScoreManager reportAchievementWithIdentifier:kGameCenterOverkillAchievement];
 	}
     
 	percentageFilled = 0.0f;
     
-	if (flawless)
-		[ScoreManager reportAchievementWithIdentifier:kGameCenterFlawlessAchievement];
+    if (flawless) {
+    }
     
 	// Add to time
 	timeRemaining += kTimePerLevel;
@@ -1425,11 +1414,6 @@ static void CollisionBallAndBall(cpArbiter *arb, cpSpace *space, void *data) {
     
 	[piano playWithInterval:0.4 afterDelay:0 chords:@"1,2,5", @"1,2,5", @"1,2,5", @"1,2,4", @"1,2,4", @"1,2,3", @"1,2,3", nil];
 	[self gameOverBlastAfterDelay:0.2];
-    
-	// Submit score to Game Center
-	if ([GameCenterManager isGameCenterAvailable] && GAMECENTER_ENABLED)
-		[[GameCenterManager sharedManager] authenticateLocalUserAndReportScore:score level:level];
-    
     
 	[self runAction:[CCSequence actions:
                      

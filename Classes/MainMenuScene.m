@@ -13,7 +13,8 @@
 #import "SimpleAudioEngine.h"
 #import "Instrument.h"
 #import "GParams.h"
-#import "GameCenterManager.h"
+#import "CCNode+Cleanup.h"
+
 
 #define kAnimationInterval                  1.0f / 2.0f
 #define kBackgroundMovementInterval         1.0f / 20.0f
@@ -68,8 +69,8 @@
 		[self createLetterAndLogo];
         
 		// Tickers
-		[self schedule:@selector(tick:) interval:kAnimationInterval];
-		[self schedule:@selector(bgMovetick:) interval:kBackgroundMovementInterval];
+//		[self schedule:@selector(tick:) interval:kAnimationInterval];
+//		[self schedule:@selector(bgMovetick:) interval:kBackgroundMovementInterval];
         
 		// Background music
 		if (!paused)
@@ -121,7 +122,7 @@
 	CCMenuItemSprite *scoresMenuItem = [CCMenuItemSprite itemFromNormalSprite:[CCSprite spriteWithFile:[GParams spriteFileName:kScoresButtonOffSprite]]
 	                                                           selectedSprite:[CCSprite spriteWithFile:[GParams spriteFileName:kScoresButtonOnSprite]]
 	                                                                   target:[[UIApplication sharedApplication] delegate]
-	                                                                 selector:@selector(loadLeaderboard)];
+                                                                     selector:nil];
 	if (!paused) {
 		scoresMenu = [CCMenu menuWithItems:scoresMenuItem, nil];
 		scoresMenu.position = [GParams scoresMenuStartPosition];
@@ -236,20 +237,7 @@
 	if (inTransition)
 		return;
     
-	if (!IPAD) {
-		[self startGame:NO];
-	}
-	else {
-		inTransition = YES;
-		state = kGameModeState;
-        
-		[piano playSequence:@"1,7,2,6,3,5,7"];
-        
-		[self performSelector:@selector(trumpetPressed) withObject:nil afterDelay:0.5];
-		[self shiftOut];
-        
-		[self showGameModeSelection];
-	}
+    [self startGame:NO];
 }
 
 - (void)onSinglePlayer:(id)sender {
@@ -298,7 +286,8 @@
 	inTransition = YES;
 	[self performSelector:@selector(trumpetPressed) withObject:nil afterDelay:0.3];
 	[self shiftOut];
-	[[CCDirector sharedDirector] popSceneWithTransition:[CCTransitionSlideInR class] duration:0.35f];
+	//[[CCDirector sharedDirector] popSceneWithTransition:[CCTransitionSlideInR class] duration:0.35f];
+    [[CCDirector sharedDirector] popScene];
 }
 
 - (void)onTutorial:(id)sender {
@@ -308,7 +297,7 @@
 }
 
 - (void)onGetFullVersion:(id)sender {
-	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:kGameFullVersionURL]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kGameFullVersionURL] options:@{} completionHandler:nil];
 }
 
 #pragma mark -
@@ -549,9 +538,6 @@
 	                                             gameCenterOnItem,
 	                                             nil];
 	toggleGameCenter.selectedIndex = GAMECENTER_ENABLED;
-    
-	[toggleGameCenter setIsEnabled:[GameCenterManager isGameCenterAvailable]];
-    
     
 	settingsMenu = [CCMenu menuWithItems:toggleMusic, toggleSound, toggleGameCenter, nil];
 	[settingsMenu alignItemsVerticallyWithPadding:[GParams settingsMenuSpacing]];

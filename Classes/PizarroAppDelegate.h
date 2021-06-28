@@ -7,16 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <GameKit/GameKit.h>
-#import "GameCenterManager.h"
 
 @class RootViewController;
 
-@interface PizarroAppDelegate : NSObject <UIApplicationDelegate, GKLeaderboardViewControllerDelegate>
+@interface PizarroAppDelegate : NSObject <UIApplicationDelegate>
 {
 	UIWindow *window;
 	RootViewController *viewController;
-	GKLeaderboardViewController *leaderboardController;
 }
 
 @property (nonatomic, retain) UIWindow *window;

@@ -66,7 +66,6 @@
 		F4A462C2130C021200A20694 /* ManaBar.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A462C1130C021200A20694 /* ManaBar.m */; };
 		F4A46311130C0D7800A20694 /* SurfaceMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A46310130C0D7800A20694 /* SurfaceMatrix.m */; };
 		F4A4631F130C0E1700A20694 /* Shape.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A4631E130C0E1700A20694 /* Shape.m */; };
-		F4A46449130C1D6A00A20694 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A46448130C1D6A00A20694 /* GameKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F4A46479130C225300A20694 /* Square.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A46478130C225300A20694 /* Square.m */; };
 		F4A4648A130C23C600A20694 /* Triangle.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A46489130C23C600A20694 /* Triangle.m */; };
 		F4B3F0331313F81D006C443B /* bassline1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F4B3F0321313F81D006C443B /* bassline1.mp3 */; };
@@ -343,7 +342,6 @@
 		F4CE1F9C130E96B7006C0F2C /* piano7.wav in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F6B130E96B7006C0F2C /* piano7.wav */; };
 		F4CE1F9E130E96B7006C0F2C /* trumpet.wav in Resources */ = {isa = PBXBuildFile; fileRef = F4CE1F6D130E96B7006C0F2C /* trumpet.wav */; };
 		F4CE228E130F0870006C0F2C /* ScoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CE228B130F0870006C0F2C /* ScoreManager.m */; };
-		F4CE228F130F0870006C0F2C /* GameCenterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CE228C130F0870006C0F2C /* GameCenterManager.m */; };
 		F4CE2292130F08BA006C0F2C /* NSFileManager+DocumentFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CE2291130F08BA006C0F2C /* NSFileManager+DocumentFolder.m */; };
 		F4D1297913196B35001DCDD6 /* GParams.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D1297813196B35001DCDD6 /* GParams.m */; };
 		F4D12A5913197513001DCDD6 /* corrino_logo-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = F4D12A2913197512001DCDD6 /* corrino_logo-hd.png */; };
@@ -423,7 +421,6 @@
 		F41AA014131BE45D0079853C /* mode_silhouette-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mode_silhouette-ipad.png"; sourceTree = "<group>"; };
 		F428616214E09FC90072CBE1 /* bassline4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bassline4.mp3; sourceTree = "<group>"; };
 		F428F4E413292A2A00101CBC /* Info-Free.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Free.plist"; sourceTree = "<group>"; };
-		F428F50413292EB700101CBC /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		F428F57813293AC000101CBC /* bg_ad-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_ad-hd.png"; sourceTree = "<group>"; };
 		F428F57913293AC000101CBC /* bg_ad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_ad.png; sourceTree = "<group>"; };
 		F4291C0C1316E3CD00EBD8D8 /* MenuButtonSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuButtonSprite.h; sourceTree = "<group>"; };
@@ -472,7 +469,6 @@
 		F4A46310130C0D7800A20694 /* SurfaceMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurfaceMatrix.m; sourceTree = "<group>"; };
 		F4A4631D130C0E1700A20694 /* Shape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shape.h; sourceTree = "<group>"; };
 		F4A4631E130C0E1700A20694 /* Shape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shape.m; sourceTree = "<group>"; };
-		F4A46448130C1D6A00A20694 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		F4A46477130C225300A20694 /* Square.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Square.h; sourceTree = "<group>"; };
 		F4A46478130C225300A20694 /* Square.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Square.m; sourceTree = "<group>"; };
 		F4A46488130C23C600A20694 /* Triangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Triangle.h; sourceTree = "<group>"; };
@@ -759,8 +755,6 @@
 		F4CE1F6D130E96B7006C0F2C /* trumpet.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = trumpet.wav; sourceTree = "<group>"; };
 		F4CE228A130F0870006C0F2C /* ScoreManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreManager.h; sourceTree = "<group>"; };
 		F4CE228B130F0870006C0F2C /* ScoreManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreManager.m; sourceTree = "<group>"; };
-		F4CE228C130F0870006C0F2C /* GameCenterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterManager.m; sourceTree = "<group>"; };
-		F4CE228D130F0870006C0F2C /* GameCenterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterManager.h; sourceTree = "<group>"; };
 		F4CE2291130F08BA006C0F2C /* NSFileManager+DocumentFolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DocumentFolder.m"; sourceTree = "<group>"; };
 		F4D1297713196B35001DCDD6 /* GParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GParams.h; sourceTree = "<group>"; };
 		F4D1297813196B35001DCDD6 /* GParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GParams.m; sourceTree = "<group>"; };
@@ -829,7 +823,6 @@
 				DC6640050F83B3EA000B3E49 /* OpenAL.framework in Frameworks */,
 				506EDBA5102F4C9F00A389B3 /* AVFoundation.framework in Frameworks */,
 				506EE1A91030508200A389B3 /* libcocos2d libraries.a in Frameworks */,
-				F4A46449130C1D6A00A20694 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -884,8 +877,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F428F50413292EB700101CBC /* iAd.framework */,
-				F4A46448130C1D6A00A20694 /* GameKit.framework */,
 				DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */,
 				DCCBF1B80F6022AE0040855A /* Foundation.framework */,
 				DCCBF1BA0F6022AE0040855A /* OpenGLES.framework */,
@@ -1514,8 +1505,6 @@
 			children = (
 				F4CE228A130F0870006C0F2C /* ScoreManager.h */,
 				F4CE228B130F0870006C0F2C /* ScoreManager.m */,
-				F4CE228D130F0870006C0F2C /* GameCenterManager.h */,
-				F4CE228C130F0870006C0F2C /* GameCenterManager.m */,
 			);
 			name = "Game Center";
 			sourceTree = "<group>";
@@ -1817,7 +1806,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Corrino Software";
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
@@ -1967,7 +1956,6 @@
 				F4CE1DA7130DB740006C0F2C /* ExpandingMenuItemToggle.m in Sources */,
 				F4CE1EB9130E7A25006C0F2C /* MMLetterLabel.m in Sources */,
 				F4CE228E130F0870006C0F2C /* ScoreManager.m in Sources */,
-				F4CE228F130F0870006C0F2C /* GameCenterManager.m in Sources */,
 				F4CE2292130F08BA006C0F2C /* NSFileManager+DocumentFolder.m in Sources */,
 				F4BD2D3B1311D252002284C3 /* MMLetterSprite.m in Sources */,
 				F40580B0131300CA0021CCDF /* GameOverCircle.m in Sources */,
@@ -2115,7 +2103,7 @@
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -2147,7 +2135,7 @@
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -2176,7 +2164,7 @@
 		506EE05F10304ED500A389B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2194,7 +2182,7 @@
 		506EE06010304ED500A389B3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2213,7 +2201,7 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
@@ -2258,13 +2246,14 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE_SKIPPED_SDK_FRAMEWORKS = OpenGL;
 			};
 			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
@@ -2303,6 +2292,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE_SKIPPED_SDK_FRAMEWORKS = OpenGL;
 			};
 			name = Release;
 		};

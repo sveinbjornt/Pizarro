@@ -15,8 +15,6 @@
 #import "MainMenuScene.h"
 #import "SimpleAudioEngine.h"
 #import "ScoreManager.h"
-#import "GParams.h"
-#import <iAd/iAd.h>
 
 @implementation PizarroAppDelegate
 
@@ -48,7 +46,7 @@
     
 	[[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjects:
                                                              
-	                                                         [NSArray arrayWithObjects:[NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithInt:kStartingBassLine], [NSNumber numberWithBool:[GameCenterManager isGameCenterAvailable]], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:showAdForFullVersion], nil]
+	                                                         [NSArray arrayWithObjects:[NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithInt:kStartingBassLine], [NSNumber numberWithBool:NO], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:showAdForFullVersion], nil]
 	                                                                                    forKeys:[NSArray arrayWithObjects:kMusicEnabled, kSoundEnabled, kLastBassLine, kGameCenterEnabled, kShowTutorial, kShowAdForFullVersion, nil]]];
     
 	CCLOG(@"User defaults: Music: %d Sound: %d GameCenter: %d", MUSIC_ENABLED, SOUND_ENABLED, GAMECENTER_ENABLED);
@@ -65,7 +63,9 @@
 	application.statusBarOrientation = UIInterfaceOrientationLandscapeRight;
     
 	// Init the window
-	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    bounds = CGRectMake(0, 0, 480, 320);
+	window = [[UIWindow alloc] initWithFrame:bounds];
     
 	// Try to use CADisplayLink director
 	// if it fails (SDK < 3.1) use the default director
@@ -288,10 +288,6 @@
 }
 
 - (void)toggleGameCenter {
-	if (![GameCenterManager isGameCenterAvailable]) {
-		[self alert:@"Game Center is not supported by your device software"];
-		return;
-	}
     
 	CCLOG(@"Toggling game center");
 	BOOL enabled = GAMECENTER_ENABLED;
@@ -303,7 +299,6 @@
     
 	if (!enabled) {
         CCLOG(@"Authenticating with GC");
-		[[GameCenterManager sharedManager] authenticateLocalUser];
     }
 }
 
@@ -312,21 +307,11 @@
 
 - (void)initGameCenter {
 	CCLOG(@"Initing Game Center");
-	if ([GameCenterManager isGameCenterAvailable]) {
-		CCLOG(@"GameCenterManager up and running");
-		[[GameCenterManager sharedManager] setDelegate:self];
-		//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationChanged) name:GKPlayerAuthenticationDidChangeNotificationName object:nil];
-	}
-	else {
-		CCLOG(@"Game Center not available, turning it off in defaults");
-		[[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:NO] forKey:kGameCenterEnabled];
-	}
 }
 
 - (void)processGameCenterAuth:(NSError *)error {
 	if (error == NULL) {
 		CCLOG(@"Authenticated with Game Center");
-		[ScoreManager reportArchivedScoresAndAchievements];
 	}
 	else {
 		CCLOG(@"Error w. Game Center: %@", [error localizedDescription]);
@@ -338,60 +323,15 @@
 
 - (void)loadLeaderboard {
 	CCLOG(@"Loading leaderboard");
-    
-	if (![GameCenterManager isGameCenterAvailable]) {
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Game Center not available"
-		                                                 message:@"Game Center is required to view Pizarro scores.  Unfortunately, it is not available on your device software."
-		                                                delegate:nil
-		                                       cancelButtonTitle:@"OK"
-		                                       otherButtonTitles:NULL] autorelease];
-		[alert show];
-	}
-	else if (!GAMECENTER_ENABLED) {
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Game Center is disabled"
-		                                                 message:@"Game Center is required to view Pizarro scores, but it has been disabled in Settings."
-		                                                delegate:nil
-		                                       cancelButtonTitle:@"OK"
-		                                       otherButtonTitles:NULL] autorelease];
-		[alert show];
-	}
-	else {
-		[[GameCenterManager sharedManager] authenticateLocalUserForLeaderboard];
-	}
 }
 
 - (void)alert:(NSString *)str {
-	UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:str
-	                                                 message:str
-	                                                delegate:nil
-	                                       cancelButtonTitle:@"OK"
-	                                       otherButtonTitles:NULL] autorelease];
-	[alert show];
 }
 
 - (void)endLeaderboard {
-	if (leaderboardController)
-		[leaderboardController release];
 }
 
 - (void)showLeaderboard {
-	CCLOG(@"Showing leaderboard");
-	leaderboardController = [[GKLeaderboardViewController alloc] init];
-	if (leaderboardController != NULL) {
-		// These defaults can be set in iTunes Connect as opposed to code
-        
-		leaderboardController.category = IPAD ? kGameCenter_IPAD_ScoreCategory : kGameCenterScoreCategory;
-		leaderboardController.timeScope = GKLeaderboardTimeScopeAllTime;
-		leaderboardController.leaderboardDelegate = self;
-		//[leaderboardController setModalTransitionStyle: UIModalTransitionStyleFlipHorizontal];
-		[viewController presentModalViewController:leaderboardController animated:YES];
-	}
-}
-
-- (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)gkLeaderboardViewController {
-	//[gkLeaderboardViewController setModalTransitionStyle: UIModalTransitionStyleFlipHorizontal];
-	[gkLeaderboardViewController dismissModalViewControllerAnimated:YES];
-	[self endLeaderboard];
 }
 
 @end

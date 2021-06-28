@@ -9,6 +9,8 @@
 #import "BouncingBall.h"
 #import "Constants.h"
 #import "GParams.h"
+#import "CCNode+Cleanup.h"
+
 
 @implementation BouncingBall
 @synthesize size, cpShape, cpBody;
