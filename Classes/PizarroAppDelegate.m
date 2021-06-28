@@ -168,8 +168,8 @@
 	// Init and log in to game center
 	[self initGameCenter];
     
-	if (GAMECENTER_ENABLED)
-		[[GameCenterManager sharedManager] authenticateLocalUser];
+//	if (GAMECENTER_ENABLED)
+//		[[GameCenterManager sharedManager] authenticateLocalUser];
     
 #if IAD_ENABLED == 1
 	if (SHOW_FULLVERSION_AD) {

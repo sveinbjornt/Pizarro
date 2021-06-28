@@ -440,7 +440,7 @@
 		[pausedScene cleanup];
         
 		// tell CCDirector to remove the GameScene from the stack
-		[[CCDirector sharedDirector] removeSceneFromStack:pausedScene];
+		[[CCDirector sharedDirector] popScene];
 	}
     
 	[self shiftOut];

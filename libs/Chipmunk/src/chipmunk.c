@@ -41,7 +41,7 @@ cpMessage(const char *message, const char *condition, const char *file, int line
 	fprintf(stderr, "\tFailed condition: %s\n", condition);
 	fprintf(stderr, "\tSource:%s:%d\n", file, line);
 	
-	if(isError) abort();
+	//if(isError) abort();
 }
 
 
