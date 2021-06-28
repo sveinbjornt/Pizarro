@@ -15,7 +15,7 @@
 #define kGameDeveloper          @ "Corrino Software"
 #define kGameProgramming        @ "Sveinbjorn Thordarson"
 #define kGameGraphics           @ "Magnus David Magnusson"
-#define kGameDeveloperWebsite   @ "http://www.corrinosoftware.com"
+#define kGameDeveloperWebsite   @ "http://www.corrino-software.com"
 #define kGameFullVersionURL     @ "http://itunes.apple.com/app/pizarro/id421359392?mt=8"
 
 // High scores
