@@ -36,10 +36,6 @@
 	if (IPAD)
 		return 664;
     
-#if IAD_ENABLED == 1
-	return 248;
-#endif
-    
 	return 280;
 }
 
@@ -79,9 +75,6 @@
 }
 
 + (int)matrixHeight {
-#if IAD_ENABLED == 1
-	return 25;
-#endif
     
 	return 28;
 }
@@ -108,31 +101,19 @@
 	if (IPAD)
 		return ccp(410, 725);
     
-#if IAD_ENABLED == 1
-	return ccp(200, 270);
-#endif
-    
 	return ccp(200, 302);
 }
 
 + (CGPoint)scoreLPoint {
 	if (IPAD)
 		return ccp(280, 725);
-    
-#if IAD_ENABLED == 1
-	return ccp(135, 270);
-#endif
-    
+        
 	return ccp(135, 302);
 }
 
 + (CGPoint)timeLabelPoint {
 	if (IPAD)
 		return ccp(910, 725);
-    
-#if IAD_ENABLED == 1
-	return ccp(417, 269);
-#endif
     
 	return ccp(417, 301);
 }
@@ -175,10 +156,6 @@
 + (float)manaBarHeight {
 	if (IPAD)
 		return 632;
-    
-#if IAD_ENABLED == 1
-	return 236;
-#endif
     
 	return 268;
 }
@@ -246,11 +223,7 @@
 + (CGPoint)scoresMenuPosition {
 	if (IPAD)
 		return ccp(74, 768 - 60);
-    
-#if IAD_ENABLED == 1
-	return ccp(37, 260);
-#endif
-    
+        
 	return ccp(37, 290);
 }
 
@@ -264,11 +237,7 @@
 + (CGPoint)mainMenuIconPoint {
 	if (IPAD)
 		return CGPointMake(780, 460);
-    
-#if IAD_ENABLED == 1
-	return CGPointMake(387, 197);
-#endif
-    
+        
 	return CGPointMake(385, 220);
 }
 
@@ -276,20 +245,12 @@
 	if (IPAD)
 		return CGPointMake(72, 708);
     
-#if IAD_ENABLED == 1
-	return ccp(36, 258);
-#endif
-    
 	return CGPointMake(36, 290);
 }
 
 + (CGPoint)mainMenuFirstLetterPoint {
 	if (IPAD)
 		return CGPointMake(115, 410);
-    
-#if IAD_ENABLED == 1
-	return CGPointMake(54, 172);
-#endif
     
 	return CGPointMake(54, 190);
 }
@@ -304,10 +265,6 @@
 + (CGPoint)mainMenuLetterShiftVector {
 	if (IPAD)
 		return CGPointMake(-50, 220);
-    
-#if IAD_ENABLED == 1
-	return CGPointMake(-20, 81);
-#endif
     
 	return CGPointMake(-20, 90);
 }

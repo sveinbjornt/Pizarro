@@ -167,28 +167,8 @@
 	icon.position = [GParams mainMenuIconPoint];
 	icon.originalPosition = [GParams mainMenuIconPoint];
     
-#if IAD_ENABLED == 1
-	icon.scale = 0.8;
-#endif
-    
 	[self addChild:icon];
 	[letters addObject:icon];
-    
-#if IAD_ENABLED == 1
-	[CCMenuItemFont setFontName:kMainMenuFont];
-	[CCMenuItemFont setFontSize:32];
-	CCMenuItem *fullVersionItem = [CCMenuItemFont itemFromString:@"Get full version" target:self selector:@selector(onGetFullVersion:)];
-	getFullVersionMenu = [CCMenu menuWithItems:fullVersionItem, nil];
-	getFullVersionMenu.position = ccp(180, 265);
-	getFullVersionMenu.opacity = 0.0f;
-	[self addChild:getFullVersionMenu z:1001];
-    
-	freeLabel = [CCLabelTTF labelWithString:@"FREE" fontName:kMainMenuFont fontSize:32];
-	freeLabel.position = ccp(270, 220);
-	freeLabel.color = ccc3(200, 200, 0);
-	freeLabel.opacity = 0.0f;
-	[self addChild:freeLabel];
-#endif
 }
 
 #pragma mark -
@@ -352,11 +332,7 @@
 			//[letter runAction: [CCRepeatForever actionWithAction: [CCDelayTime actionWithDuration: 1.0]]];
 		}
 		[scoresMenu runAction:[CCMoveTo actionWithDuration:duration position:[GParams scoresMenuShiftOutPosition]]];
-        
-#if IAD_ENABLED == 1
-		[getFullVersionMenu runAction:[CCFadeOut actionWithDuration:duration / 2]];
-		[freeLabel runAction:[CCFadeOut actionWithDuration:duration / 2]];
-#endif
+
 	}
 	else {
 		[resumeMenu runAction:[CCFadeOut actionWithDuration:0.25]];
@@ -394,12 +370,6 @@
 			//[letter runAction: [CCRepeatForever actionWithAction: [CCDelayTime actionWithDuration: 1.0]]];
 		}
 		[scoresMenu runAction:[CCMoveTo actionWithDuration:duration position:[GParams scoresMenuPosition]]];
-        
-        
-#if IAD_ENABLED == 1
-		[getFullVersionMenu runAction:[CCFadeIn actionWithDuration:duration * 2]];
-		[freeLabel runAction:[CCFadeIn actionWithDuration:duration * 2]];
-#endif
 	}
 	else {
 		[resumeMenu runAction:[CCFadeIn actionWithDuration:0.25]];
@@ -654,14 +624,8 @@
 	if (SOUND_ENABLED)
 		[[SimpleAudioEngine sharedEngine] playEffect:kTrumpetSoundEffect pitch:pitch pan:0.0f gain:0.3f];
     
-#if IAD_ENABLED == 1
-	float big_scale = 0.9;
-	float normal_scale = 0.8;
-#else
 	float big_scale = 1.2;
 	float normal_scale = 1.0;
-#endif
-    
     
 	[icon runAction:[CCSequence actions:
 	                 [CCScaleTo actionWithDuration:0.1 scale:big_scale],

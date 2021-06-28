@@ -45,9 +45,6 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	BOOL showAdForFullVersion = NO;
-#if IAD_ENABLED == 1
-	showAdForFullVersion = YES;
-#endif
     
 	[[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjects:
                                                              
@@ -140,16 +137,6 @@
 	[window addSubview:viewController.view];
     window.rootViewController = viewController;
     
-#if IAD_ENABLED == 1
-	id bannerView = [[ADBannerView alloc] initWithFrame:CGRectMake(0, -10, 0, 0)];
-    
-	[bannerView setCurrentContentSizeIdentifier:ADBannerContentSizeIdentifierLandscape];
-	[bannerView setDelegate:self];
-	[viewController.view addSubview:bannerView];
-    
-#endif
-    
-    
 	[window makeKeyAndVisible];
     
 	// Default texture format for PNG/BMP/TIFF/JPEG/GIF images
@@ -166,24 +153,10 @@
 	[[CCDirector sharedDirector] runWithScene:[MainMenuScene scene]];
     
 	// Init and log in to game center
-	[self initGameCenter];
+//	[self initGameCenter];
     
 //	if (GAMECENTER_ENABLED)
 //		[[GameCenterManager sharedManager] authenticateLocalUser];
-    
-#if IAD_ENABLED == 1
-	if (SHOW_FULLVERSION_AD) {
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Ad-supported Version"
-		                                                 message:@"This is the free, ad-supported version of Pizarro.  If you like the game, get the full version for a richer gaming experience."
-		                                                delegate:nil
-		                                       cancelButtonTitle:@"OK"
-		                                       otherButtonTitles:NULL] autorelease];
-		[alert show];
-        
-		[[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:NO] forKey:kShowAdForFullVersion];
-		[[NSUserDefaults standardUserDefaults] synchronize];
-	}
-#endif
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -407,11 +380,7 @@
 	if (leaderboardController != NULL) {
 		// These defaults can be set in iTunes Connect as opposed to code
         
-#if IAD_ENABLED == 1
-		leaderboardController.category = IPAD ? kGameCenter_IPAD_ScoreCategoryFree : kGameCenterScoreCategoryFree;
-#else
 		leaderboardController.category = IPAD ? kGameCenter_IPAD_ScoreCategory : kGameCenterScoreCategory;
-#endif
 		leaderboardController.timeScope = GKLeaderboardTimeScopeAllTime;
 		leaderboardController.leaderboardDelegate = self;
 		//[leaderboardController setModalTransitionStyle: UIModalTransitionStyleFlipHorizontal];

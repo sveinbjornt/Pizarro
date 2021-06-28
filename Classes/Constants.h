@@ -42,25 +42,6 @@
 
 
 // achievements
-#if IAD_ENABLED == 1
-
-#define kGameCenterLevelInOneAchievement    @ "PizarroFree_Achievement_LevelInOne"
-#define kGameCenterLevelInTwoAchievement    @ "PizarroFree_Achievement_LevelInTwo"
-#define kGameCenterLevelInThreeAchievement  @ "PizarroFree_Achievement_LevelInThree"
-
-#define kGameCenterLevel5Achievement    @ "PizarroFree_Achievement_Level5"
-#define kGameCenterLevel10Achievement   @ "PizarroFree_Achievement_Level10"
-#define kGameCenterLevel15Achievement   @ "PizarroFree_Achievement_Level15"
-#define kGameCenterLevel20Achievement   @ "PizarroFree_Achievement_Level20"
-#define kGameCenterLevel25Achievement   @ "PizarroFree_Achievement_Level25"
-#define kGameCenterLevel30Achievement   @ "PizarroFree_Achievement_Level30"
-
-#define kGameCenterMinorPentatonicAchievement   @ "PizarroFree_Achievement_MinorPentatonic"
-#define kGameCenterOverkillAchievement          @ "PizarroFree_Achievement_Overkill"
-#define kGameCenterTouchmasterAchievement       @ "PizarroFree_Achievement_Touchmaster"
-#define kGameCenterFlawlessAchievement          @ "PizarroFree_Achievement_Flawless"
-
-#else
 
 #define kGameCenterLevelInOneAchievement    @ "Pizarro_Achievement_LevelInOne"
 #define kGameCenterLevelInTwoAchievement    @ "Pizarro_Achievement_LevelInTwo"
@@ -78,21 +59,13 @@
 #define kGameCenterTouchmasterAchievement       @ "Pizarro_Achievement_Touchmaster"
 #define kGameCenterFlawlessAchievement          @ "Pizarro_Achievement_Flawless"
 
-#endif
-
 ///// GAMEPLAY ///////
 
 // Mana
 
-#if IAD_ENABLED == 1
-#define kFullMana               10.0f
-#define kSurfaceReqPerLevel     80.0f
-#define kStartingTime           50.0f
-#else
 #define kFullMana               10.0f
 #define kSurfaceReqPerLevel     80.0f
 #define kStartingTime           60.0f
-#endif
 
 #define kManaPerLevel           (kFullMana / 3) + (level * (kFullMana / 60))
 
@@ -173,11 +146,7 @@
 #define kBouncingBallSprite         @ "bouncingball"
 #define kBouncingBallHilightSprite  @ "bouncingball_hilight"
 
-#if IAD_ENABLED == 1
-#define kGameScreenBackgroundSprite @ "bg_ad"
-#else
 #define kGameScreenBackgroundSprite @ "bg"
-#endif
 
 #define kMainMenuBackgroundSprite   @ "mainscreen_bg"
 
