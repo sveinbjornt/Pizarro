@@ -70,7 +70,7 @@
         
 		// Tickers
 //		[self schedule:@selector(tick:) interval:kAnimationInterval];
-//		[self schedule:@selector(bgMovetick:) interval:kBackgroundMovementInterval];
+		[self schedule:@selector(bgMovetick:) interval:kBackgroundMovementInterval];
         
 		// Background music
 		if (!paused)
@@ -119,15 +119,15 @@
     
 	menu.position = [GParams mainMenuStartingPoint];
     
-	CCMenuItemSprite *scoresMenuItem = [CCMenuItemSprite itemFromNormalSprite:[CCSprite spriteWithFile:[GParams spriteFileName:kScoresButtonOffSprite]]
-	                                                           selectedSprite:[CCSprite spriteWithFile:[GParams spriteFileName:kScoresButtonOnSprite]]
-	                                                                   target:[[UIApplication sharedApplication] delegate]
-                                                                     selector:nil];
-	if (!paused) {
-		scoresMenu = [CCMenu menuWithItems:scoresMenuItem, nil];
-		scoresMenu.position = [GParams scoresMenuStartPosition];
-		[self addChild:scoresMenu];
-	}
+//	CCMenuItemSprite *scoresMenuItem = [CCMenuItemSprite itemFromNormalSprite:[CCSprite spriteWithFile:[GParams spriteFileName:kScoresButtonOffSprite]]
+//	                                                           selectedSprite:[CCSprite spriteWithFile:[GParams spriteFileName:kScoresButtonOnSprite]]
+//	                                                                   target:[[UIApplication sharedApplication] delegate]
+//                                                                     selector:nil];
+//	if (!paused) {
+//		scoresMenu = [CCMenu menuWithItems:scoresMenuItem, nil];
+//		scoresMenu.position = [GParams scoresMenuStartPosition];
+//		[self addChild:scoresMenu];
+//	}
 }
 
 - (void)createBackground {
@@ -189,7 +189,7 @@
 		if (letter.rotation < -15)
 			angle = 1;
         
-		if (ccpDistance(letter.originalPosition, letter.position) > 7) {
+		if (ccpDistance(letter.originalPosition, letter.position) > 10) {
 			CGPoint mVec = ccpSub(letter.originalPosition, letter.position);
 			mVec.x /= 4;
 			mVec.y /= 4;
@@ -197,7 +197,7 @@
 		}
         
 		[letter runAction:[CCMoveBy actionWithDuration:kAnimationInterval position:moveVector]];
-		[letter runAction:[CCRotateBy actionWithDuration:kAnimationInterval angle:angle]];
+//		[letter runAction:[CCRotateBy actionWithDuration:kAnimationInterval angle:angle]];
 	}
 }
 

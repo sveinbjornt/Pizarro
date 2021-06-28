@@ -79,7 +79,7 @@
     
 	// Init the View Controller
 	viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
-	viewController.wantsFullScreenLayout = YES;
+	//viewController.wantsFullScreenLayout = YES;
     
 	//
 	// Create the EAGLView manually
@@ -88,7 +88,7 @@
 	//
 	//
 	EAGLView *glView = [EAGLView viewWithFrame:[window bounds]
-	                               pixelFormat:kEAGLColorFormatRGB565   // kEAGLColorFormatRGBA8
+	                               pixelFormat:kEAGLColorFormatRGBA8   // kEAGLColorFormatRGBA8
 	                               depthFormat:0                        // GL_DEPTH_COMPONENT16_OES
                         ];
     

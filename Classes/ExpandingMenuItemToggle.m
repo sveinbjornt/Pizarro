@@ -25,10 +25,10 @@
 		              [CCScaleTo actionWithDuration:0.2 scale:1.0],
 		              nil]];
         
-		[n runAction:[CCSequence actions:
-		              [CCRotateTo actionWithDuration:0.2 angle:RandomBetween(7, 20) * dir],
-		              [CCRotateTo actionWithDuration:0.2 angle:0],
-		              nil]];
+//		[n runAction:[CCSequence actions:
+//		              [CCRotateTo actionWithDuration:0.2 angle:RandomBetween(7, 20) * dir],
+//		              [CCRotateTo actionWithDuration:0.2 angle:0],
+//		              nil]];
 	}
     
 	if ([self.parent isKindOfClass:[CCMenu class]]) {
