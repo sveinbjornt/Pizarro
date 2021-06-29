@@ -901,7 +901,7 @@
 				F4CE215F130EBADB006C0F2C /* Game Scene */,
 				F4CE1D62130DA21D006C0F2C /* Menu */,
 				F4CE2160130EBB0D006C0F2C /* Music */,
-				F4CE2290130F0873006C0F2C /* Game Center */,
+				F4CE2290130F0873006C0F2C /* Score Manager */,
 				F4A4640C130C1C8F00A20694 /* Util */,
 			);
 			path = Classes;
@@ -1500,13 +1500,13 @@
 			name = Music;
 			sourceTree = "<group>";
 		};
-		F4CE2290130F0873006C0F2C /* Game Center */ = {
+		F4CE2290130F0873006C0F2C /* Score Manager */ = {
 			isa = PBXGroup;
 			children = (
 				F4CE228A130F0870006C0F2C /* ScoreManager.h */,
 				F4CE228B130F0870006C0F2C /* ScoreManager.m */,
 			);
-			name = "Game Center";
+			name = "Score Manager";
 			sourceTree = "<group>";
 		};
 		F4D12A2713197512001DCDD6 /* images */ = {
@@ -2118,7 +2118,7 @@
 				GLES_SILENCE_DEPRECATION = YES;
 				HEADER_SEARCH_PATHS = libs;
 				INFOPLIST_FILE = Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -2127,7 +2127,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.corrinosoftware.Pizarro;
 				PRODUCT_NAME = Pizarro;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
@@ -2148,7 +2148,7 @@
 				GLES_SILENCE_DEPRECATION = YES;
 				HEADER_SEARCH_PATHS = libs;
 				INFOPLIST_FILE = Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -2234,7 +2234,7 @@
 				);
 				"GCC_THUMB_SUPPORT[arch=armv6]" = NO;
 				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -2242,10 +2242,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GLES_SILENCE_DEPRECATION = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				ONLY_ACTIVE_ARCH = YES;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_WORKSPACE = YES;
 				VALIDATE_WORKSPACE_SKIPPED_SDK_FRAMEWORKS = OpenGL;
 			};
 			name = Debug;
@@ -2281,7 +2283,7 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = NO;
 				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;
 				GCC_UNROLL_LOOPS = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -2289,9 +2291,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GLES_SILENCE_DEPRECATION = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_WORKSPACE = YES;
 				VALIDATE_WORKSPACE_SKIPPED_SDK_FRAMEWORKS = OpenGL;
 			};
 			name = Release;

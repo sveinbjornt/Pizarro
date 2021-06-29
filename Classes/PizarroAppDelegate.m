@@ -49,7 +49,7 @@
 	                                                         [NSArray arrayWithObjects:[NSNumber numberWithBool:YES], [NSNumber numberWithBool:YES], [NSNumber numberWithInt:kStartingBassLine], [NSNumber numberWithBool:NO], [NSNumber numberWithBool:YES], [NSNumber numberWithBool:showAdForFullVersion], nil]
 	                                                                                    forKeys:[NSArray arrayWithObjects:kMusicEnabled, kSoundEnabled, kLastBassLine, kGameCenterEnabled, kShowTutorial, kShowAdForFullVersion, nil]]];
     
-	CCLOG(@"User defaults: Music: %d Sound: %d GameCenter: %d", MUSIC_ENABLED, SOUND_ENABLED, GAMECENTER_ENABLED);
+	CCLOG(@"User defaults: Music: %d Sound: %d", MUSIC_ENABLED, SOUND_ENABLED);
     
 	[[CDAudioManager sharedManager] setResignBehavior:kAMRBStopPlay autoHandle:YES];
     
@@ -151,12 +151,6 @@
 	//[[CCDirector sharedDirector] runWithScene: [PizarroGameScene scene]];
     
 	[[CCDirector sharedDirector] runWithScene:[MainMenuScene scene]];
-    
-	// Init and log in to game center
-//	[self initGameCenter];
-    
-//	if (GAMECENTER_ENABLED)
-//		[[GameCenterManager sharedManager] authenticateLocalUser];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -287,19 +281,7 @@
 	[[SimpleAudioEngine sharedEngine] setEffectsVolume:SOUND_ENABLED];
 }
 
-- (void)toggleGameCenter {
-    
-	CCLOG(@"Toggling game center");
-	BOOL enabled = GAMECENTER_ENABLED;
-    
-	[[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:!enabled] forKey:kGameCenterEnabled];
-	[[NSUserDefaults standardUserDefaults] synchronize];
-    
-	CCLOG(@"Game Center: %d", GAMECENTER_ENABLED);
-    
-	if (!enabled) {
-        CCLOG(@"Authenticating with GC");
-    }
+- (void)toggleGameCenter {    
 }
 
 #pragma mark -

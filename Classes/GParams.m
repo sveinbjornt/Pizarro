@@ -233,15 +233,15 @@
 }
 
 + (CGPoint)firstSettingsStartingPoint {
-	return ccp(-185, 200);
+	return ccp(-185, 210);
 }
 
 + (CGPoint)firstSettingsPoint {
-	return ccp(170, 200);
+	return ccp(170, 175);
 }
 
 + (CGPoint)secondSettingsPoint {
-	return ccp(165, 150);
+	return ccp(165, 125);
 }
 
 + (CGPoint)thirdSettingsPoint {

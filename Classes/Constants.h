@@ -220,11 +220,8 @@
 // Convenience
 
 #define NOW                 [NSDate timeIntervalSinceReferenceDate]
-#define RETINA_DISPLAY      (CC_CONTENT_SCALE_FACTOR() == 2.0)
 #define MUSIC_ENABLED       [[[NSUserDefaults standardUserDefaults] valueForKey : kMusicEnabled] boolValue]
 #define SOUND_ENABLED       [[[NSUserDefaults standardUserDefaults] valueForKey : kSoundEnabled] boolValue]
-#define GAMECENTER_ENABLED  [[[NSUserDefaults standardUserDefaults] valueForKey : kGameCenterEnabled] boolValue]
 #define SHOW_TUTORIAL       [[[NSUserDefaults standardUserDefaults] valueForKey : kShowTutorial] boolValue]
-#define SHOW_FULLVERSION_AD [[[NSUserDefaults standardUserDefaults] valueForKey : kShowAdForFullVersion] boolValue]
 
 #define IPAD                UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad

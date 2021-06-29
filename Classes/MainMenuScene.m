@@ -483,14 +483,7 @@
 	soundLabel.position = p;
 	[self addChild:soundLabel z:1001];
 	[soundLabel runAction:[CCMoveTo actionWithDuration:0.4 position:[GParams secondSettingsPoint]]];
-    
-	gameCenterLabel = [CCLabelTTF labelWithString:@"Game Center" fontName:kMainMenuFont fontSize:[GParams settingsFontSize]];
-	p = [GParams firstSettingsStartingPoint];
-	p.y -= [GParams settingsSpacing] * 2;
-	gameCenterLabel.position = p;
-	[self addChild:gameCenterLabel z:1001];
-	[gameCenterLabel runAction:[CCMoveTo actionWithDuration:0.3 position:[GParams thirdSettingsPoint]]];
-    
+        
 	CCMenuItem *musicOnItem = [CCMenuItemImage itemFromNormalImage:[GParams spriteFileName:kCheckBoxOnSprite]
 	                                                 selectedImage:[GParams spriteFileName:kCheckBoxOnSprite]
 	                                                        target:nil
@@ -510,17 +503,7 @@
 	                                                  selectedImage:[GParams spriteFileName:kCheckBoxOffSprite]
 	                                                         target:nil
 	                                                       selector:nil];
-    
-	CCMenuItem *gameCenterOnItem = [CCMenuItemImage itemFromNormalImage:[GParams spriteFileName:kCheckBoxOnSprite]
-	                                                      selectedImage:[GParams spriteFileName:kCheckBoxOnSprite]
-	                                                             target:nil
-	                                                           selector:nil];
-    
-	CCMenuItem *gameCenterOffItem = [CCMenuItemImage itemFromNormalImage:[GParams spriteFileName:kCheckBoxOffSprite]
-	                                                       selectedImage:[GParams spriteFileName:kCheckBoxOffSprite]
-	                                                              target:nil
-	                                                            selector:nil];
-    
+        
 	ExpandingMenuItemToggle *toggleSound = [ExpandingMenuItemToggle itemWithTarget:[[UIApplication sharedApplication] delegate] selector:@selector(toggleSound) items:
 	                                        soundOffItem,
 	                                        soundOnItem,
@@ -532,14 +515,8 @@
 	                                        musicOnItem,
 	                                        nil];
 	toggleMusic.selectedIndex = MUSIC_ENABLED;
-    
-	ExpandingMenuItemToggle *toggleGameCenter = [ExpandingMenuItemToggle itemWithTarget:[[UIApplication sharedApplication] delegate] selector:@selector(toggleGameCenter) items:
-	                                             gameCenterOffItem,
-	                                             gameCenterOnItem,
-	                                             nil];
-	toggleGameCenter.selectedIndex = GAMECENTER_ENABLED;
-    
-	settingsMenu = [CCMenu menuWithItems:toggleMusic, toggleSound, toggleGameCenter, nil];
+        
+	settingsMenu = [CCMenu menuWithItems:toggleMusic, toggleSound, nil];
 	[settingsMenu alignItemsVerticallyWithPadding:[GParams settingsMenuSpacing]];
 	settingsMenu.position = [GParams settingsMenuStartingPoint];
 	[self addChild:settingsMenu];

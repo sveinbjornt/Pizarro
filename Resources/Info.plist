@@ -22,6 +22,8 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1.2</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1</string>
 	<key>Icon files</key>
 	<array>
 		<string>Icon.png</string>
@@ -46,8 +48,6 @@
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<dict>
-		<key>accelerometer</key>
-		<true/>
 		<key>opengles-1</key>
 		<true/>
 	</dict>
@@ -58,7 +58,5 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 	</array>
-	<key>CFBundleShortVersionString</key>
-	<string>1</string>
 </dict>
 </plist>
